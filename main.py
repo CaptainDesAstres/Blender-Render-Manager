@@ -38,6 +38,7 @@ log.write('création du log\n')
 
 os.system('clear')
 continu =True
+
 while continu:
 	log.write('Menu principal\n')
 	print('''	Main Menu
@@ -51,28 +52,25 @@ while continu:
 hit corresponding number or first letter :
 
 ''')
+	
 	choice = input()
 	if choice in ['0','q','Q']: 
 		log.write('fermeture de Blender Render Manager\n')
 		continu=False
 	elif choice in ['1','A','a']:
-		log.write('accès à une fonction refusé\n')
-		print('action indisponible pour le moment')
+		log.write('accès à une fonction indisponible pour le moment\n')
 	elif choice in ['2','L','l']:
-		log.write('accès à une fonction refusé\n')
-		print('action indisponible pour le moment')
+		log.write('accès à une fonction indisponible pour le moment\n')
 	elif choice in ['3','R','r']:
-		log.write('accès à une fonction refusé\n')
-		print('action indisponible pour le moment')
+		log.write('accès à une fonction indisponible pour le moment\n')
 	elif choice in ['4','P','p']:
-		log.write('accès à une fonction refusé\n')
-		print('action indisponible pour le moment')
+		log.write('accès à une fonction indisponible pour le moment\n')
 	elif choice in ['5','L','l']:
-		log.write('accès à une fonction refusé\n')
-		print('action indisponible pour le moment')
+		log.write('accès à une fonction indisponible pour le moment\n')
 	else:
-		log.write('choix inconnue: '+choice+'\n')
-		print('demande non comprise')
+		log.write('choix inconnue: "'+choice+'"\n')
+	
+	os.system('clear')
 
 
 
