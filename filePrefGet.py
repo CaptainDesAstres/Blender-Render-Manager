@@ -1,18 +1,20 @@
 #!/usr/bin/python3.4
 # -*-coding:Utf-8 -*
+'''Script executed by Blender Python API for recoverring a blender file settings in XML format'''
 
 import bpy
 
 print('<?xml version="1.0" encoding="UTF-8"?>')
 print('<preferences>')
+
 for name in bpy.data.scenes.keys():
 	scene = bpy.data.scenes[name]
+	
 	print('\t<scene name="'+name+'">')
+	
 	print('\t\t<resolution x="'+str(scene.render.resolution_x)+'" y="'+str(scene.render.resolution_y)+'" percent="'+str(scene.render.resolution_percentage)+'" />')
+	
 	print('\t\t<animation start="'+str(scene.frame_start)+'" end="'+str(scene.frame_end)+'" fps="'+str(scene.render.fps)+'" />')
-	
-	
-	
 	
 	if scene.render.engine == 'CYCLES':
 		print('\t\t<engine engine="'+scene.render.engine+'" device="'+scene.cycles.device+'" sample="'+str(scene.cycles.samples)+'" />')
@@ -33,7 +35,7 @@ for name in bpy.data.scenes.keys():
 	print('\t\t<renderLayerList>')
 	for renderLayerName in scene.render.layers.keys():
 		layer = scene.render.layers[renderLayerName]
-		print('\t\t\t<layer Z="'+str(layer.use_pass_z)+'" objIndex="'+str(layer.use_pass_object_index)+'" />')
+		print('\t\t\t<layer z="'+str(layer.use_pass_z)+'" objIndex="'+str(layer.use_pass_object_index)+'" />')
 	print('\t\t</renderLayerList>')
 	
 	print('\t</scene>')
