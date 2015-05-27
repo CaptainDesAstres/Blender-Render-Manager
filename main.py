@@ -3,8 +3,13 @@
 import time
 import os
 
-start = time.strftime('%d/%m/%Y-%H:%M:%S')
-log = 'ouverture de Blender Render Manager\nSession du '+start+'\n'
+def now(short = True):
+	if short == True:
+		return time.strftime('%H:%M:%S')
+	else:
+		return time.strftime('%d/%m/%Y-%H:%M:%S')
+
+log = 'ouverture de Blender Render Manager\nSession du '+now(False)+'\n'
 
 #aller dans le dossier de configuration de Blender Render Manager
 if not os.path.exists('/home/'+os.getlogin()+'/.BlenderRenderManager'):
