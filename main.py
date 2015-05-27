@@ -31,43 +31,64 @@ if not os.path.exists(os.getcwd()+'/log/'):
 #création du fichier de log
 log = Log(start,log)
 
-
-#affichage du menu
-os.system('clear')
-continu =True
-
-while continu:
-	log.write('Menu principal\n')
-	print('''	Main Menu
-		1- Add
-		2- List
-		3- Run
-		4- Preferences
-		5- Log
-		0- Quit
-
-hit corresponding number or first letter :
-
-''')
-	
-	choice = input()
-	if choice in ['0','q','Q']: 
-		log.write('fermeture de Blender Render Manager\n')
-		continu=False
-	elif choice in ['1','A','a']:
-		log.write('accès à une fonction indisponible pour le moment\n')
-	elif choice in ['2','L','l']:
-		log.write('accès à une fonction indisponible pour le moment\n')
-	elif choice in ['3','R','r']:
-		log.write('accès à une fonction indisponible pour le moment\n')
-	elif choice in ['4','P','p']:
-		log.write('accès à une fonction indisponible pour le moment\n')
-	elif choice in ['5','L','l']:
-		log.write('accès à une fonction indisponible pour le moment\n')
-	else:
-		log.write('choix inconnue: "'+choice+'"\n')
-	
+def main(log):
+	#affichage du menu
 	os.system('clear')
-	log.print()
+	continu =True
 
+	while continu:
+		log.write('Menu principal\n')
+		print('''	Main Menu
+			1- Add
+			2- List
+			3- Run
+			4- Preferences
+			5- Log
+			0- Quit
+
+	hit corresponding number or first letter :
+
+	''')
+	
+		choice = input()
+		if choice in ['0','q','Q']: 
+			log.write('fermeture de Blender Render Manager\n')
+			continu=False
+		elif choice in ['1','A','a']:
+			log.write('choix: ajout de fichier\n')
+			addFile();
+		elif choice in ['2','L','l']:
+			log.write('accès à une fonction indisponible pour le moment\n')
+		elif choice in ['3','R','r']:
+			log.write('accès à une fonction indisponible pour le moment\n')
+		elif choice in ['4','P','p']:
+			log.write('accès à une fonction indisponible pour le moment\n')
+		elif choice in ['5','L','l']:
+			log.write('accès à une fonction indisponible pour le moment\n')
+		else:
+			log.write('choix inconnue: "'+choice+'"\n')
+	
+		os.system('clear')
+		log.print()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+main(log)
 
