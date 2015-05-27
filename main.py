@@ -2,7 +2,13 @@
 # -*-coding:Utf-8 -*
 import time
 import os
+import sys
+import xml.etree.ElementTree as xmlMod
+import re
 from log import Log
+from setting import setting
+
+mainPath = os.path.abspath(sys.argv[0]+'/..')
 
 def now(short = True):
 	if short == True:
@@ -56,7 +62,7 @@ def main(log):
 			continu=False
 		elif choice in ['1','A','a']:
 			log.write('choix: ajout de fichier\n')
-			addFile();
+			addFile(log);
 		elif choice in ['2','L','l']:
 			log.write('accès à une fonction indisponible pour le moment\n')
 		elif choice in ['3','R','r']:
@@ -71,7 +77,31 @@ def main(log):
 		os.system('clear')
 		log.print()
 
-
+def addFile(log):
+	path = ''
+	while path == '':
+		path = input("chemin absolue du fichier (ou 'cancel')")
+		
+		if path != 'cancel':
+			if path[0] != '/':
+				print('ceci n\'est pas un chemin absolue!')
+				log.write('chemin non absolue refuser:'+path+'\n')
+				path = ''
+			elif len(path) < 7 or path[len(path)-6:] !='.blend':
+				print('le chemin ne semble pas correspondre à un fichier blender!')
+				log.write('le chemin ne correspond pas à un fichier blender:'+path+'\n')
+				path = ''
+			elif os.path.exists(path):
+				prefXml = os.popen('blender -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
+				prefXml = re.search(r'<\?xml(.|\n)*</preferences>',prefXml).group(0)
+				prefXml = xmlMod.fromstring(prefXml).find('scene')
+				pref = setting(prefXml)
+			else:
+				print('ce fichier n\'existe pas!')
+				log.write('le fichier n\'existe pas:'+path+'\n')
+				path = ''	
+		else:
+			log.write('action annulée\n')
 
 
 
@@ -91,4 +121,3 @@ def main(log):
 
 
 main(log)
-
