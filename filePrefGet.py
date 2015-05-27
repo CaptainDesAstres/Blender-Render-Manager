@@ -1,3 +1,6 @@
+#!/usr/bin/python3.4
+# -*-coding:Utf-8 -*
+
 import bpy
 
 print('<?xml version="1.0" encoding="UTF-8"?>')
