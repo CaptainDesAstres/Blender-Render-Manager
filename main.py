@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 import time
 import os
+from log import Log
 
 def now(short = True):
 	if short == True:
@@ -27,15 +28,11 @@ if not os.path.exists(os.getcwd()+'/log/'):
 	os.mkdir(os.getcwd()+'/log')
 	log = log[:len(log)-4]+'done\n'
 
-if not os.path.exists(os.getcwd()+'/log/session '+start+'.log'):
-	logFile = open(os.getcwd()+'/log/session '+start+'.log','w')
-else:
-	logFile = open(os.getcwd()+'/log/session '+start+'.log','a')
+#création du fichier de log
+log = Log(start,log)
 
-logFile.write(log)
-log = logFile
-log.write('création du log\n')
 
+#affichage du menu
 os.system('clear')
 continu =True
 
@@ -71,12 +68,6 @@ hit corresponding number or first letter :
 		log.write('choix inconnue: "'+choice+'"\n')
 	
 	os.system('clear')
+	log.print()
 
 
-
-
-
-
-
-
-log.close()
