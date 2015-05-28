@@ -52,7 +52,8 @@ else:
 	log.write('done\n')
 
 
-def main(log):
+def main():
+	global log
 	#affichage du menu
 	os.system('clear')
 	continu =True
@@ -77,14 +78,14 @@ def main(log):
 			continu=False
 		elif choice in ['1','A','a']:
 			log.write('choix: ajout de fichier\n')
-			addFile(log);
+			addFile();
 		elif choice in ['2','L','l']:
 			log.write('accès à une fonction indisponible pour le moment\n')
 		elif choice in ['3','R','r']:
 			log.write('accès à une fonction indisponible pour le moment\n')
 		elif choice in ['4','P','p']:
 			log.write('voir les préférences\n')
-			preference(log)
+			preference()
 		elif choice in ['5','L','l']:
 			log.write('accès à une fonction indisponible pour le moment\n')
 		else:
@@ -93,7 +94,8 @@ def main(log):
 		os.system('clear')
 		log.print()
 
-def addFile(log):
+def addFile():
+	global log
 	os.system('clear')
 	path = ''
 	while path == '':
@@ -120,8 +122,9 @@ def addFile(log):
 		else:
 			log.write('action annulée\n')
 
-def preference(log):
+def preference():
 	global scriptSettings
+	global log
 	prefStay = True
 	while prefStay:
 		os.system('clear')
@@ -131,6 +134,7 @@ def preference(log):
 		choice= input('(e)dit, (r)eset ou (q)uit: ')
 		if choice in ['e','E']:
 			log.write('éditer des préférences\n')
+			
 		elif choice in ['Q','q']:
 			log.write('quitter les préférences\n')
 			prefStay = False
@@ -162,4 +166,4 @@ def preference(log):
 
 
 
-main(log)
+main()
