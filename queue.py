@@ -10,7 +10,7 @@ class queue:
 	
 	def fromXml(self,xml):
 		if xml.tag == 'queue':
-			for r in xml.findall('render')
+			for r in xml.findall('render'):
 				self.add(render(r))
 		
 	def toXmlStr(self,head=False):
@@ -18,7 +18,7 @@ class queue:
 		if head:
 			txt+= '<?xml version="1.0" encoding="UTF-8"?>\n'
 		txt += '<queue>\n'
-		for r in self.renders
+		for r in self.renders:
 			txt += r.toXmlStr()
 		txt += '</queue>\n'
 		return txt
