@@ -40,10 +40,8 @@ log = Log(start,log)
 #vérification de l'existence d'une liste
 if not os.path.exists(os.getcwd()+'/settings'):
 	log.write('aucun fichier de configuration, création d\'un fichier par défaut:')
-	setFile = open(os.getcwd()+'/settings','w')
 	scriptSettings = setting()
-	setFile.write(scriptSettings.toXmlStr(True))
-	setFile.close()
+	saveSettings()
 	log.write('done\n')
 else:
 	log.write('récupération des préférences:')
@@ -134,26 +132,60 @@ def preference():
 		choice= input('(e)dit, (r)eset ou (q)uit: ')
 		if choice in ['e','E']:
 			log.write('éditer des préférences\n')
-			
+			prefEdit()
 		elif choice in ['Q','q']:
 			log.write('quitter les préférences\n')
 			prefStay = False
 		elif choice in ['R','r']:
 			confirm = input('cet action rétablira les réglages par défaut. confirmer (y/n):')
 			if confirm in ['y','Y']:
-				setFile = open(os.getcwd()+'/settings','w')
 				scriptSettings = setting()
-				setFile.write(scriptSettings.toXmlStr(True))
-				setFile.close()
+				saveSettings()
 				log.write('rétablissement des préférences par défaut\n')
 			else:
 				log.write('rétablissement des préférences aborté\n')
 		else:
 			log.write('demande incomprise\n')
 
+def prefEdit():
+	global log
+	global scriptSettings
+	stay = True
+	while stay:
+		os.system('clear')
+		log.print()
+		print('''		Edition des Préférences
+	1- Résolution
+	''')
+		
+		choice = input('quel réglage voulais vous éditer?(\'cancel\' pour annuler)')
+		if choice in ['cancel','CANCEL','QUIT','quit']:
+			stay=False
+		elif choice in ['1','r','R']:
+			os.system('clear')
+			log.write('modification de la résolution: ')
+			log.print()
+			print('résolution actuel:'+str(scriptSettings.x)+'x'+str(scriptSettings.y)+'@'+str(int(scriptSettings.percent*100))+'\n\n')
+			choice = input('nouvelle résolution? (1920x1080@100 par exemple ou \'cancel\' pour annuler)')
+			match = re.search(r'^(\d{3,5})x(\d{3,5})@(\d{2,3})$',choice)
+			if match is not None:
+				scriptSettings.x = int(match.group(1))
+				scriptSettings.y = int(match.group(2))
+				scriptSettings.percent = int(match.group(3))/100
+				saveSettings()
+				log.write(choice+'\n')
+			elif choice == 'cancel':
+				log.write('annulé\n')
+			else:
+				log.write('erreur, changement annulé\n')
+		else:
+			log.write('choix non compris!\n')
 
-
-
+def saveSettings():
+	global scriptSettings
+	setFile = open(os.getcwd()+'/settings','w')
+	setFile.write(scriptSettings.toXmlStr(True))
+	setFile.close()
 
 
 

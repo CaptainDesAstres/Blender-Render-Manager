@@ -23,7 +23,7 @@ class setting:
 			txt += '<?xml version="1.0" encoding="UTF-8"?>\n'
 		
 		txt+='<settings>\n'
-		txt+='<resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(self.percent*100)+'"/>\n'
+		txt+='<resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(int(self.percent*100))+'"/>\n'
 		txt+='</settings>\n'
 		return txt
 
