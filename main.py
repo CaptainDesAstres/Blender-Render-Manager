@@ -46,9 +46,10 @@ if not os.path.exists(os.getcwd()+'/settings'):
 	setFile.close()
 	log.write('done\n')
 else:
+	log.write('récupération des préférences:')
 	with open(os.getcwd()+'/settings','r') as setFile:
 		scriptSettings = setting( xmlMod.fromstring( (setFile.read( ) ) ) )
-
+	log.write('done\n')
 
 
 def main(log):
@@ -82,7 +83,8 @@ def main(log):
 		elif choice in ['3','R','r']:
 			log.write('accès à une fonction indisponible pour le moment\n')
 		elif choice in ['4','P','p']:
-			log.write('accès à une fonction indisponible pour le moment\n')
+			log.write('voir les préférences\n')
+			preference(log)
 		elif choice in ['5','L','l']:
 			log.write('accès à une fonction indisponible pour le moment\n')
 		else:
@@ -92,9 +94,10 @@ def main(log):
 		log.print()
 
 def addFile(log):
+	os.system('clear')
 	path = ''
 	while path == '':
-		path = input("chemin absolue du fichier (ou 'cancel')")
+		path = input("Add File\n\tchemin absolue du fichier (ou 'cancel')")
 		
 		if path != 'cancel':
 			if path[0] != '/':
@@ -117,7 +120,11 @@ def addFile(log):
 		else:
 			log.write('action annulée\n')
 
-
+def preference(log):
+	os.system('clear')
+	print('\t\tPréférences\n')
+	print('résolution : '+str(scriptSettings.x)+'x'+str(scriptSettings.y)+' (@'+str(int(scriptSettings.percent*100))+'%)\n')
+	time.sleep(2)
 
 
 
