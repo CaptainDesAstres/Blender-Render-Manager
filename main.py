@@ -37,6 +37,20 @@ if not os.path.exists(os.getcwd()+'/log/'):
 #création du fichier de log
 log = Log(start,log)
 
+#vérification de l'existence d'une liste
+if not os.path.exists(os.getcwd()+'/settings'):
+	log.write('aucun fichier de configuration, création d\'un fichier par défaut:')
+	setFile = open(os.getcwd()+'/settings','w')
+	scriptSettings = setting()
+	setFile.write(scriptSettings.toXmlStr(True))
+	setFile.close()
+	log.write('done\n')
+else:
+	with open(os.getcwd()+'/settings','r') as setFile:
+		scriptSettings = setting( xmlMod.fromstring( (setFile.read( ) ) ) )
+
+
+
 def main(log):
 	#affichage du menu
 	os.system('clear')
