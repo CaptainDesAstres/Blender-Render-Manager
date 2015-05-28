@@ -7,6 +7,8 @@ import xml.etree.ElementTree as xmlMod
 import re
 from log import Log
 from setting import setting
+from queue import queue
+from save import *
 
 mainPath = os.path.abspath(sys.argv[0]+'/..')
 
@@ -41,7 +43,7 @@ log = Log(start,log)
 if not os.path.exists(os.getcwd()+'/settings'):
 	log.write('aucun fichier de configuration, création d\'un fichier par défaut:')
 	scriptSettings = setting()
-	saveSettings()
+	saveSettings(scriptSettings)
 	log.write('done\n')
 else:
 	log.write('récupération des préférences:')
@@ -50,6 +52,16 @@ else:
 	log.write('done\n')
 
 #vérification de l'existence d'une liste de rendu
+if not os.path.exists(os.getcwd()+'/queue'):
+	log.write('aucune liste existante, création d\'une queue vide:')
+	renderQueue = queue()
+	saveQueue(renderQueue)
+	log.write('done\n')
+else:
+	log.write('lecture de la queue:')
+	with open(os.getcwd()+'/queue','r') as queueFile:
+		renderQueue = queue( xmlMod.fromstring( (queueFile.read( ) ) ) )
+	log.write('done\n')
 
 
 
@@ -144,7 +156,7 @@ def preference():
 			confirm = input('cet action rétablira les réglages par défaut. confirmer (y/n):')
 			if confirm in ['y','Y']:
 				scriptSettings = setting()
-				saveSettings()
+				saveSettings(scriptSettings)
 				log.write('rétablissement des préférences par défaut\n')
 			else:
 				log.write('rétablissement des préférences aborté\n')
@@ -176,7 +188,7 @@ def prefEdit():
 				scriptSettings.x = int(match.group(1))
 				scriptSettings.y = int(match.group(2))
 				scriptSettings.percent = int(match.group(3))/100
-				saveSettings()
+				saveSettings(scriptSettings)
 				log.write(choice+'\n')
 			elif choice == 'cancel':
 				log.write('annulé\n')
@@ -184,13 +196,6 @@ def prefEdit():
 				log.write('erreur, changement annulé\n')
 		else:
 			log.write('choix non compris!\n')
-
-def saveSettings():
-	global scriptSettings
-	setFile = open(os.getcwd()+'/settings','w')
-	setFile.write(scriptSettings.toXmlStr(True))
-	setFile.close()
-
 
 
 
