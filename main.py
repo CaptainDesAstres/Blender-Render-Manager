@@ -121,10 +121,31 @@ def addFile(log):
 			log.write('action annulée\n')
 
 def preference(log):
-	os.system('clear')
-	print('\t\tPréférences\n')
-	print('résolution : '+str(scriptSettings.x)+'x'+str(scriptSettings.y)+' (@'+str(int(scriptSettings.percent*100))+'%)\n')
-	time.sleep(2)
+	global scriptSettings
+	prefStay = True
+	while prefStay:
+		os.system('clear')
+		log.print()
+		print('\t\tPréférences\n')
+		print('résolution : '+str(scriptSettings.x)+'x'+str(scriptSettings.y)+' (@'+str(int(scriptSettings.percent*100))+'%)\n')
+		choice= input('(e)dit, (r)eset ou (q)uit: ')
+		if choice in ['e','E']:
+			log.write('éditer des préférences\n')
+		elif choice in ['Q','q']:
+			log.write('quitter les préférences\n')
+			prefStay = False
+		elif choice in ['R','r']:
+			confirm = input('cet action rétablira les réglages par défaut. confirmer (y/n):')
+			if confirm in ['y','Y']:
+				setFile = open(os.getcwd()+'/settings','w')
+				scriptSettings = setting()
+				setFile.write(scriptSettings.toXmlStr(True))
+				setFile.close()
+				log.write('rétablissement des préférences par défaut\n')
+			else:
+				log.write('rétablissement des préférences aborté\n')
+		else:
+			log.write('demande incomprise\n')
 
 
 
