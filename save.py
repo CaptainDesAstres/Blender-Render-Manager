@@ -4,12 +4,11 @@ import os
 
 def saveSettings(s):
 	global scriptSettings
-	setFile = open(os.getcwd()+'/settings','w')
-	setFile.write(s.toXmlStr(True))
-	setFile.close()
+	with open(os.getcwd()+'/settings','w') as setFile:
+		setFile.write(s.toXmlStr(True))
 
 def saveQueue(q):
 	global renderQueue
-	queueFile = open(os.getcwd()+'/queue','w')
-	queueFile.write(q.toXmlStr(True))
-	queueFile.close()
+	with open(os.getcwd()+'/queue','w') as queueFile:
+		queueFile.write(q.toXmlStr(True))
+
