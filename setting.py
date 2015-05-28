@@ -20,11 +20,12 @@ class setting:
 		txt= ''
 		
 		if head:
-			txt += '<?xml version="1.0" encoding="UTF-8"?>'
+			txt += '<?xml version="1.0" encoding="UTF-8"?>\n'
 		
-		txt+='<settings>'
-		txt+='<resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(self.pourcent)+'"/>'
-		txt+='</settings>'
+		txt+='<settings>\n'
+		txt+='<resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(self.percent*100)+'"/>\n'
+		txt+='</settings>\n'
+		return txt
 
 
 
