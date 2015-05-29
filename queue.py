@@ -23,9 +23,9 @@ class queue:
 		txt += '</queue>\n'
 		return txt
 	
-	def add(self,render):
-		if type(render) == 'render':
-			self.renders.append(render)
+	def add(self,added):
+		if type(added) == render:
+			self.renders.append(added)
 
 
 
