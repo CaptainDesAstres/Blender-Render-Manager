@@ -33,7 +33,12 @@ class setting:
 		
 		txt+='<settings>\n'
 		txt+='<resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(int(self.percent*100))+'" />\n'
-		txt+= '<animation start="'+str(self.start)+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" />\n'
+		
+		if self.start == 0 and self.end == 0:
+			txt+= '<animation fps="'+str(self.fps)+'" />\n'
+		else:
+			txt+= '<animation start="'+str(self.start)+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" />\n'
+		
 		txt+='</settings>\n'
 		return txt
 
