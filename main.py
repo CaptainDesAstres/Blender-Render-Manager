@@ -170,6 +170,7 @@ def preference():
 		log.print()
 		print('\t\tPréférences\n')
 		print('résolution : '+str(scriptSettings.x)+'x'+str(scriptSettings.y)+' (@'+str(int(scriptSettings.percent*100))+'%)\n')
+		print('animation : '+str(scriptSettings.fps)+'fps\n')
 		choice= input('(e)dit, (r)eset ou (q)uit: ')
 		if choice in ['e','E']:
 			log.write('éditer des préférences\n')
@@ -197,6 +198,7 @@ def prefEdit():
 		log.print()
 		print('''		Edition des Préférences
 	1- Résolution
+	2- Animation rate
 	''')
 		
 		choice = input('quel réglage voulais vous éditer?(\'cancel\' pour annuler)')
@@ -215,6 +217,21 @@ def prefEdit():
 				scriptSettings.percent = int(match.group(3))/100
 				saveSettings(scriptSettings)
 				log.write(choice+'\n')
+			elif choice == 'cancel':
+				log.write('annulé\n')
+			else:
+				log.write('erreur, changement annulé\n')
+		elif choice in ['2','a','A']:
+			os.system('clear')
+			log.write('modification de la vitesse d\'animation : ')
+			log.print()
+			print('animation actuel : '+str(scriptSettings.fps)+'fps\n\n')
+			choice = input('vitesse? ( 30 par exemple ou \'cancel\' pour annuler)')
+			match = re.search(r'^(\d{1,})(fps)?$',choice)
+			if match is not None:
+				scriptSettings.fps = int(match.group(1))
+				saveSettings(scriptSettings)
+				log.write(match.group(1)+'fps\n')
 			elif choice == 'cancel':
 				log.write('annulé\n')
 			else:
