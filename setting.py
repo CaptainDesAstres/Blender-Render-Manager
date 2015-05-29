@@ -41,6 +41,10 @@ class setting:
 		
 		txt+='</settings>\n'
 		return txt
+	
+	def printSettings(self):
+		print('résolution : '+str(self.x)+'x'+str(self.y)+' (@'+str(int(self.percent*100))+'%)\n')
+		print('animation : '+str(self.fps)+'fps\n')
 
 
 

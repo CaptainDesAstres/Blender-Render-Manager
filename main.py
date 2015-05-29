@@ -169,8 +169,7 @@ def preference():
 		os.system('clear')
 		log.print()
 		print('\t\tPréférences\n')
-		print('résolution : '+str(scriptSettings.x)+'x'+str(scriptSettings.y)+' (@'+str(int(scriptSettings.percent*100))+'%)\n')
-		print('animation : '+str(scriptSettings.fps)+'fps\n')
+		scriptSettings.printSettings()
 		choice= input('(e)dit, (r)eset ou (q)uit: ')
 		if choice in ['e','E']:
 			log.write('éditer des préférences\n')
