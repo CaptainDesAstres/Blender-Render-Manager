@@ -1,5 +1,6 @@
 #!/usr/bin/python3.4
 # -*-coding:Utf-8 -*
+import xml.etree.ElementTree as xmlMod
 
 class setting:
 	def __init__(self, xml= None):
@@ -78,7 +79,14 @@ class setting:
 			txt+= str(self.fps)+'fps)\n'
 		
 		print(txt)
-		
+	
+	def getClone(self,start = None, end = None):
+		clone = setting( xmlMod.fromstring( self.toXmlStr( True ) ) )
+		if start is not None:
+			clone.start = start
+		if end is not None:
+			clone.end = end
+			return clone
 		
 
 
