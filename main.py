@@ -5,10 +5,11 @@ import os
 import sys
 import xml.etree.ElementTree as xmlMod
 import re
-from log import Log
-from setting import setting
-from queue import queue
+from log import *
+from setting import *
+from queue import *
 from save import *
+from render import *
 
 mainPath = os.path.abspath(sys.argv[0]+'/..')
 
@@ -109,13 +110,18 @@ def main():
 		log.print()
 
 def addFile():
-	global log
+	global log, renderQueue
 	os.system('clear')
 	path = ''
 	while path == '':
-		path = input("Add File\n\tchemin absolue du fichier (ou 'cancel')")
+		path = input("Add File\n\tchemin absolue du fichier (ou 'cancel')").strip()
+		
 		
 		if path != 'cancel':
+			if path[0] in ['\'', '"'] and path[-1] in ['\'', '"']:
+				path = path[1:len(path)-1]
+				print(path)
+			
 			if path[0] != '/':
 				print('ceci n\'est pas un chemin absolue!')
 				log.write('chemin non absolue refuser:'+path+'\n')
@@ -130,6 +136,7 @@ def addFile():
 				prefXml = re.search(r'<\?xml(.|\n)*</preferences>',prefXml).group(0)
 				
 				prefXml = xmlMod.fromstring(prefXml).findall('scene')
+				
 				if len(prefXml)>1:
 					os.system('clear')
 					log.print()
@@ -164,6 +171,19 @@ def addFile():
 	éditer depuis les réglages par défaut (ed)''')
 				choice = input('choix (ou q):')
 				
+				if choice in ['d', 'D', 'ED', 'ed']:
+					pref = scriptSettings.getClone(pref.start, pref.end)
+				
+				if choice != 'q':
+					if choice in ['ef', 'ed', 'EF', 'ED']:
+						print()
+					add = render()
+					add.path = path
+					add.scene = scene.get('name')
+					add.settings = pref
+					add.status = 'ready'
+					renderQueue.add(add)
+					saveQueue(renderQueue)
 			else:
 				print('ce fichier n\'existe pas!')
 				log.write('le fichier n\'existe pas:'+path+'\n')
