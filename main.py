@@ -125,10 +125,35 @@ def addFile():
 				log.write('le chemin ne correspond pas à un fichier blender:'+path+'\n')
 				path = ''
 			elif os.path.exists(path):
+				log.write('préparation de l\'ajout du fichier dans la liste :'+path+'\n')
 				prefXml = os.popen('blender -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
 				prefXml = re.search(r'<\?xml(.|\n)*</preferences>',prefXml).group(0)
-				prefXml = xmlMod.fromstring(prefXml).find('scene')
-				pref = setting(prefXml)
+				
+				prefXml = xmlMod.fromstring(prefXml).findall('scene')
+				if len(prefXml)>1:
+					os.system('clear')
+					log.print()
+					print('\til y a plusieurs scenes dans le fichier :\n\n')
+					i=0
+					
+					for s in prefXml:
+						print(str(i)+'- '+s.get('name'))
+						i+=1
+					
+					sceneChoiceRecquired = True
+					while sceneChoiceRecquired:
+						choice = input('scene à utiliser:')
+						if(re.search(r'^\d+$',choice) and int(choice)<i):
+							scene = prefXml[int(choice)]
+							log.write('utilisation de la scene «'+scene.get('name')+'»\n')
+							sceneChoiceRecquired=False
+						else:
+							print('choix de scene invalide\n')
+				else:
+					scene = prefXml[0]
+					log.write('utilisation de la seule scene du fichier:'+scene.get('name')+'\n')
+				
+				pref = setting(scene)
 			else:
 				print('ce fichier n\'existe pas!')
 				log.write('le fichier n\'existe pas:'+path+'\n')
