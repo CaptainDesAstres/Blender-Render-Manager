@@ -45,6 +45,41 @@ class setting:
 	def printSettings(self):
 		print('résolution : '+str(self.x)+'x'+str(self.y)+' (@'+str(int(self.percent*100))+'%)\n')
 		print('animation : '+str(self.fps)+'fps\n')
+	
+	def printSceneSettings(self,default=None):
+		if default is None:
+			default = self
+		txt ='résolution : '
+		
+		if self.x != default.x :
+			txt += '\033[31m'+str(self.x)+'\033[0mx'
+		else:
+			txt += str(self.x)+'x'
+		
+		if self.y != default.y :
+			txt+= '\033[31m'+str(self.y)+'\033[0m (@'
+		else:
+			txt+= str(self.y)+' (@'
+		
+		if self.percent != default.percent :
+			txt+= '\033[31m'+str(int(self.percent*100))+'\033[0m%)\n'
+		else:
+			txt+= str(int(self.percent*100))+'%)\n'
+		
+		
+		txt += 'animation : '
+		if self.start != 0 or self.end != 0 :
+			txt+= 'frame '+str(self.start)+' à '+str(self.end)+' '
+		txt+='(@'
+		
+		if self.fps != default.fps :
+			txt+= '\033[31m'+str(self.fps)+'\033[0mfps)\n'
+		else:
+			txt+= str(self.fps)+'fps)\n'
+		
+		print(txt)
+		
+		
 
 
 
