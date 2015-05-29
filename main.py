@@ -154,6 +154,16 @@ def addFile():
 					log.write('utilisation de la seule scene du fichier:'+scene.get('name')+'\n')
 				
 				pref = setting(scene)
+				print('''		choix des réglages à utiliser pour ce fichier
+	réglage du fichier (f) :
+	''')
+				pref.printSceneSettings(scriptSettings)
+				print('\tréglage par défaut (d) :\n')
+				scriptSettings.printSceneSettings()
+				print('''	éditer depuis les réglages du fichier (ef)
+	éditer depuis les réglages par défaut (ed)''')
+				choice = input('choix (ou q):')
+				
 			else:
 				print('ce fichier n\'existe pas!')
 				log.write('le fichier n\'existe pas:'+path+'\n')
