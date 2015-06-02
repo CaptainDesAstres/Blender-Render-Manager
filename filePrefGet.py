@@ -12,12 +12,10 @@ for name in bpy.data.scenes.keys():
 	print('\t\t<animation start="'+str(scene.frame_start)+'" end="'+str(scene.frame_end)+'" fps="'+str(scene.render.fps)+'" />')
 	
 	
-	print('\t\t<engine engine="'+scene.render.engine+'" device="'+scene.cycles.device+'" ')
-	if scene.render.engine == 'CYCLES':
-		print('sample="'+str(scene.cycles.samples)+'" ')
-	print('/>')
+	
 	
 	if scene.render.engine == 'CYCLES':
+		print('\t\t<engine engine="'+scene.render.engine+'" device="'+scene.cycles.device+'" sample="'+str(scene.cycles.samples)+'" />')
 		print('\t\t<film exposure="'+str(scene.cycles.film_exposure)+'" transparent="'+str(scene.cycles.film_transparent)+'" />')
 		print('\t\t<bouncesSet>')
 		print('\t\t\t<transparency min="'+str(scene.cycles.transparent_min_bounces)+'" max="'+str(scene.cycles.transparent_max_bounces)+'" />')
@@ -27,6 +25,8 @@ for name in bpy.data.scenes.keys():
 		print('\t\t\t<transmission bounces="'+str(scene.cycles.transmission_bounces)+'" />')
 		print('\t\t\t<volume bounces="'+str(scene.cycles.volume_bounces)+'" />')
 		print('\t\t</bouncesSet>')
+	else:
+		print('\t\t<engine engine="'+scene.render.engine+'" device="'+scene.cycles.device+'" />')
 	
 	print('\t\t<output format="'+scene.render.image_settings.file_format+'" />')
 	
