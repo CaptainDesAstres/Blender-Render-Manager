@@ -123,80 +123,102 @@ def addFile():
 	while path == '':
 		path = input("Add File\n\tABSOLUTE path of the blender file (or 'cancel')").strip()
 		
-		
-		if path != 'cancel':
-			if path[0] in ['\'', '"'] and path[-1] in ['\'', '"']:
-				path = path[1:len(path)-1]
-				print(path)
-			
-			if path[0] != '/':
-				print('it\'s not an absolute path!')
-				log.write('unabsolute path reject :'+path+'\n')
-				path = ''
-			elif len(path) < 7 or path[len(path)-6:] !='.blend':
-				print('the path don\'t seemed to be a blender file (need .blend extension)!')
-				log.write('it\'s not a blender file path :'+path+'\n')
-				path = ''
-			elif os.path.exists(path):
-				log.write('prepare the adding of : '+path+'\n')
-				prefXml = os.popen('blender -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
-				prefXml = re.search(r'<\?xml(.|\n)*</preferences>',prefXml).group(0)
-				
-				prefXml = xmlMod.fromstring(prefXml).findall('scene')
-				
-				if len(prefXml)>1:
-					os.system('clear')
-					log.print()
-					print('\tthere is more than one scene in the file :\n\n')
-					i=0
-					
-					for s in prefXml:
-						print(str(i)+'- '+s.get('name'))
-						i+=1
-					
-					sceneChoiceRecquired = True
-					while sceneChoiceRecquired:
-						choice = input('scene to use :')
-						if(re.search(r'^\d+$',choice) and int(choice)<i):
-							scene = prefXml[int(choice)]
-							log.write('use «'+scene.get('name')+'» scene\n')
-							sceneChoiceRecquired=False
-						else:
-							print('incorrect scene choice\n')
-				else:
-					scene = prefXml[0]
-					log.write('only one scene in file, automatically use it : '+scene.get('name')+'\n')
-				
-				pref = setting(scene)
-				print('''		rendering task base settings choice
-	use file settings (f) :
-	''')
-				pref.printSceneSettings(scriptSettings)
-				print('\tuse preferences settings (d) :\n')
-				scriptSettings.printSceneSettings()
-				print('''	edit from file settings (ef)
-	edit from preferences settings (ed)''')
-				choice = input('choice (or «q»):')
-				
-				if choice in ['d', 'D', 'ED', 'ed']:
-					pref = scriptSettings.getClone(pref.start, pref.end)
-				
-				if choice != 'q':
-					if choice in ['ef', 'ed', 'EF', 'ED']:
-						print()
-					add = render()
-					add.path = path
-					add.scene = scene.get('name')
-					add.settings = pref
-					add.status = 'ready'
-					renderQueue.add(add)
-					saveQueue(renderQueue)
-			else:
-				print('this file didn\'t exist!')
-				log.write('no corresponding file to this path :'+path+'\n')
-				path = ''	
-		else:
+		if path in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
+			#cancel action
 			log.write('canceled action\n')
+			return
+		
+		
+		if path[0] in ['\'', '"'] and path[-1] in ['\'', '"']:
+			#remove quote mark and apostrophe in first and last character
+			path = path[1:len(path)-1]
+			print(path)
+			
+		if path[0] != '/':
+			#check if path is absolute (begin by '/')
+			print('it\'s not an absolute path!')
+			log.write('unabsolute path reject :'+path+'\n')
+			path = ''
+			continue
+		
+		elif len(path) < 7 or path[len(path)-6:] !='.blend':
+			#check if path point to a .blend file
+			print('the path don\'t seemed to be a blender file (need .blend extension)!')
+			log.write('it\'s not a blender file path :'+path+'\n')
+			path = ''
+			continue
+		
+		elif not os.path.exists(path):
+			#check if the file exist
+			print('this file didn\'t exist!')
+			log.write('no corresponding file to this path :'+path+'\n')
+			path = ''
+			continue 
+		
+		#open the file and get settings
+		log.write('prepare the adding of : '+path+'\n')
+		prefXml = os.popen('blender -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
+		prefXml = re.search(r'<\?xml(.|\n)*</preferences>',prefXml).group(0)
+		prefXml = xmlMod.fromstring(prefXml).findall('scene')
+		os.system('clear')
+		log.print()
+		
+		#select scene to use 
+		if len(prefXml)==1:
+			scene = prefXml[0]
+			log.write('only one scene in file, automatically use it : '+scene.get('name')+'\n')
+		else:
+			print('\tthere is more than one scene in the file :\n\n')
+			i=0
+			for s in prefXml:
+				print(str(i)+'- '+s.get('name'))
+				i+=1
+			
+			sceneChoiceRecquired = True
+			while sceneChoiceRecquired:
+				choice = input('scene to use (or \'cancel\'):')
+				if(re.search(r'^\d+$',choice) and int(choice)<i):
+					scene = prefXml[int(choice)]
+					log.write('use «'+scene.get('name')+'» scene\n')
+					sceneChoiceRecquired=False
+				elif choice in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
+					return
+				else:
+					print('incorrect scene choice\n')
+			
+		#give choice between file settings or preferences setting or custom settings
+		pref = setting(scene)
+		print('''		rendering task base settings choice
+use file settings (f) :
+''')
+		pref.printSceneSettings(scriptSettings)
+		print('\tuse preferences settings (p) :\n')
+		scriptSettings.printSceneSettings()
+		print('\tedit from file settings (ef)\n\tedit from preferences settings (ep)')
+		choice = input('choice (or «q»):')
+		
+		if choice in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
+			#cancel action
+			log.write('canceled action\n')
+			return
+			
+		if choice in ['p', 'P', 'EP', 'ep']:
+			pref = scriptSettings.getClone(pref.start, pref.end)
+			
+		if choice in ['ef', 'ed', 'EF', 'ED']:
+			#edit of the settings, not yet coded
+			print()
+		
+		#add the task and save the queue
+		add = render()
+		add.path = path
+		add.scene = scene.get('name')
+		add.settings = pref
+		add.status = 'ready'
+		renderQueue.add(add)
+		saveQueue(renderQueue)
+		
+		
 
 def preference():
 	global scriptSettings
