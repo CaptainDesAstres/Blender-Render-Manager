@@ -221,22 +221,27 @@ use file settings (f) :
 		
 
 def preference():
+	'''print script preferences and let edit or reset it'''
 	global scriptSettings
 	global log
-	prefStay = True
-	while prefStay:
+	
+	while True:
+		#print log and preferences
 		os.system('clear')
 		log.print()
 		print('\t\tPreferences\n')
 		scriptSettings.printSettings()
+		
+		#treat available actions
 		choice= input('(e)dit, (r)eset or (q)uit: ')
-		if choice in ['e','E']:
+		if choice in ['Q','q']:
+			log.write('quit preferences\n')
+			return
+		elif choice in ['e','E']:
 			log.write('edit preferences\n')
 			prefEdit()
-		elif choice in ['Q','q']:
-			log.write('quit preferences\n')
-			prefStay = False
 		elif choice in ['R','r']:
+			#reset default settings
 			confirm = input('this action will reset to factory settings. confirm (y):')
 			if confirm in ['y','Y']:
 				scriptSettings = setting()
@@ -248,10 +253,12 @@ def preference():
 			log.write('unknow request\n')
 
 def prefEdit():
+	'''edit script preferences'''
 	global log
 	global scriptSettings
-	stay = True
-	while stay:
+	
+	while True:
+		#print log and edit preferences menu
 		os.system('clear')
 		log.print()
 		print('''		preferences editing:
@@ -259,41 +266,59 @@ def prefEdit():
 	2- Animation rate
 	''')
 		
+		#treat available actions
 		choice = input('what\'s the parameter to edit ?(or \'cancel\')')
 		if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
-			stay=False
+			return
 		elif choice in ['1','r','R']:
+			#edit resolution setting
+			#print current resolution settings and ask new settings
 			os.system('clear')
 			log.write('resolution editing: ')
 			log.print()
 			print('current resolution :'+str(scriptSettings.x)+'x'+str(scriptSettings.y)+'@'+str(int(scriptSettings.percent*100))+'\n\n')
 			choice = input('new resolution ? (1920x1080@100 for example or \'cancel\')')
+			
+			
+			#parse new settings and check it
 			match = re.search(r'^(\d{3,5})x(\d{3,5})@(\d{2,3})$',choice)
-			if match is not None:
-				scriptSettings.x = int(match.group(1))
-				scriptSettings.y = int(match.group(2))
-				scriptSettings.percent = int(match.group(3))/100
-				saveSettings(scriptSettings)
-				log.write(choice+'\n')
-			elif choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
-				log.write('cancel\n')
-			else:
-				log.write('error, change canceled, retry\n')
+			if match is None:
+				if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
+					log.write('resolution change canceled\n')
+				else:
+					log.write('error, resolution change canceled, retry\n')
+				continue
+			
+			#apply new settings and save it
+			scriptSettings.x = int(match.group(1))
+			scriptSettings.y = int(match.group(2))
+			scriptSettings.percent = int(match.group(3))/100
+			saveSettings(scriptSettings)
+			log.write(choice+'\n')
+			
 		elif choice in ['2','a','A']:
+			#edit animation frame rate
+			#print log and current animation settings and ask new settings
 			os.system('clear')
 			log.write('edit animation rate : ')
 			log.print()
 			print('current animation rate: '+str(scriptSettings.fps)+'fps\n\n')
 			choice = input('new animation rate? ( 30 for example or \'cancel\')')
+			
+			#parse new settings and check it
 			match = re.search(r'^(\d{1,})(fps)?$',choice)
-			if match is not None:
-				scriptSettings.fps = int(match.group(1))
-				saveSettings(scriptSettings)
-				log.write(match.group(1)+'fps\n')
-			elif choice == 'cancel':
-				log.write('cancel\n')
-			else:
-				log.write('error, change canceled, retry\n')
+			if match is None:
+				if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
+					log.write('animation frame rate change canceled\n')
+				else:
+					log.write('error, animation frame rate change canceled, retry\n')
+				continue
+			
+			#apply new settings and save it
+			scriptSettings.fps = int(match.group(1))
+			saveSettings(scriptSettings)
+			log.write(match.group(1)+'fps\n')
+			
 		else:
 			log.write('unknow request!\n')
 
