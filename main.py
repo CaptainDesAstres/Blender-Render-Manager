@@ -23,7 +23,7 @@ def now(short = True):
 		return time.strftime('%d.%m.%Y-%H:%M:%S')
 start = now(False)
 
-log = 'ouverture de Blender Render Manager\nSession du '+start+'\n'
+log = 'openning of Blender Render Manager\n'+start+' session\n'
 
 #check if configuration directorie exist, otherwise create it 
 if not os.path.exists('/home/'+os.getlogin()+'/.BlenderRenderManager/'):
@@ -44,24 +44,24 @@ log = Log(start,log)
 
 #check configuration file exist: create it if necessary and open it
 if not os.path.exists(os.getcwd()+'/settings'):
-	log.write('aucun fichier de configuration, création d\'un fichier par défaut:')
+	log.write('no configuration file, create default file:')
 	scriptSettings = setting()
 	saveSettings(scriptSettings)
 	log.write('done\n')
 else:
-	log.write('récupération des préférences:')
+	log.write('get saved preferences:')
 	with open(os.getcwd()+'/settings','r') as setFile:
 		scriptSettings = setting( xmlMod.fromstring( (setFile.read( ) ) ) )
 	log.write('done\n')
 
 #check if a queue file exist and create or load it
 if not os.path.exists(os.getcwd()+'/queue'):
-	log.write('aucune liste existante, création d\'une queue vide:')
+	log.write('no saved queue, create empty queue file:')
 	renderQueue = queue()
 	saveQueue(renderQueue)
 	log.write('done\n')
 else:
-	log.write('lecture de la queue:')
+	log.write('saved queue loading:')
 	with open(os.getcwd()+'/queue','r') as queueFile:
 		renderQueue = queue( xmlMod.fromstring( (queueFile.read( ) ) ) )
 	log.write('done\n')
@@ -79,7 +79,7 @@ def main():
 	while continu:
 		#print log and main menu
 		log.print()
-		log.write('Menu principal\n')
+		log.write('Main menu\n')
 		print('''	Main Menu
 			1- Add
 			2- List
@@ -88,29 +88,29 @@ def main():
 			5- Log
 			0- Quit
 
-	hit corresponding number or first letter :
+	choice (hit corresponding number or first letter) :
 
 	''')
 		
 		#treat menu choice
 		choice = input()
 		if choice in ['0','q','Q']: 
-			log.write('choix: fermeture de Blender Render Manager\n')
+			log.write('choice : close Blender Render Manager\n')
 			continu=False
 		elif choice in ['1','A','a']:
-			log.write('choix: ajout de fichier\n')
+			log.write('choice : add rendering task\n')
 			addFile();
 		elif choice in ['2','L','l']:
-			log.write('choix: accès à une fonction indisponible pour le moment\n')
+			log.write('choice : actualy unavailable function,not yet coded\n')
 		elif choice in ['3','R','r']:
-			log.write('choix: accès à une fonction indisponible pour le moment\n')
+			log.write('choice : actualy unavailable function,not yet coded\n')
 		elif choice in ['4','P','p']:
-			log.write('choix: voir les préférences\n')
+			log.write('choice : watch / edit preferences\n')
 			preference()
 		elif choice in ['5','L','l']:
-			log.write('choix: accès à une fonction indisponible pour le moment\n')
+			log.write('choice : actualy unavailable function,not yet coded\n')
 		else:
-			log.write('choix inconnue: "'+choice+'"\n')
+			log.write('unknow choice: "'+choice+'"\n')
 		
 		os.system('clear')
 
@@ -121,7 +121,7 @@ def addFile():
 	path = ''
 	
 	while path == '':
-		path = input("Add File\n\tchemin absolue du fichier (ou 'cancel')").strip()
+		path = input("Add File\n\tABSOLUTE path of the blender file (or 'cancel')").strip()
 		
 		
 		if path != 'cancel':
@@ -130,15 +130,15 @@ def addFile():
 				print(path)
 			
 			if path[0] != '/':
-				print('ceci n\'est pas un chemin absolue!')
-				log.write('chemin non absolue refuser:'+path+'\n')
+				print('it\'s not an absolute path!')
+				log.write('unabsolute path reject :'+path+'\n')
 				path = ''
 			elif len(path) < 7 or path[len(path)-6:] !='.blend':
-				print('le chemin ne semble pas correspondre à un fichier blender!')
-				log.write('le chemin ne correspond pas à un fichier blender:'+path+'\n')
+				print('the path don\'t seemed to be a blender file (need .blend extension)!')
+				log.write('it\'s not a blender file path :'+path+'\n')
 				path = ''
 			elif os.path.exists(path):
-				log.write('préparation de l\'ajout du fichier dans la liste :'+path+'\n')
+				log.write('prepare the adding of : '+path+'\n')
 				prefXml = os.popen('blender -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
 				prefXml = re.search(r'<\?xml(.|\n)*</preferences>',prefXml).group(0)
 				
@@ -147,7 +147,7 @@ def addFile():
 				if len(prefXml)>1:
 					os.system('clear')
 					log.print()
-					print('\til y a plusieurs scenes dans le fichier :\n\n')
+					print('\tthere is more than one scene in the file :\n\n')
 					i=0
 					
 					for s in prefXml:
@@ -156,27 +156,27 @@ def addFile():
 					
 					sceneChoiceRecquired = True
 					while sceneChoiceRecquired:
-						choice = input('scene à utiliser:')
+						choice = input('scene to use :')
 						if(re.search(r'^\d+$',choice) and int(choice)<i):
 							scene = prefXml[int(choice)]
-							log.write('utilisation de la scene «'+scene.get('name')+'»\n')
+							log.write('use «'+scene.get('name')+'» scene\n')
 							sceneChoiceRecquired=False
 						else:
-							print('choix de scene invalide\n')
+							print('incorrect scene choice\n')
 				else:
 					scene = prefXml[0]
-					log.write('utilisation de la seule scene du fichier:'+scene.get('name')+'\n')
+					log.write('only one scene in file, automatically use it : '+scene.get('name')+'\n')
 				
 				pref = setting(scene)
-				print('''		choix des réglages à utiliser pour ce fichier
-	réglage du fichier (f) :
+				print('''		rendering task base settings choice
+	use file settings (f) :
 	''')
 				pref.printSceneSettings(scriptSettings)
-				print('\tréglage par défaut (d) :\n')
+				print('\tuse preferences settings (d) :\n')
 				scriptSettings.printSceneSettings()
-				print('''	éditer depuis les réglages du fichier (ef)
-	éditer depuis les réglages par défaut (ed)''')
-				choice = input('choix (ou q):')
+				print('''	edit from file settings (ef)
+	edit from preferences settings (ed)''')
+				choice = input('choice (or «q»):')
 				
 				if choice in ['d', 'D', 'ED', 'ed']:
 					pref = scriptSettings.getClone(pref.start, pref.end)
@@ -192,11 +192,11 @@ def addFile():
 					renderQueue.add(add)
 					saveQueue(renderQueue)
 			else:
-				print('ce fichier n\'existe pas!')
-				log.write('le fichier n\'existe pas:'+path+'\n')
+				print('this file didn\'t exist!')
+				log.write('no corresponding file to this path :'+path+'\n')
 				path = ''	
 		else:
-			log.write('action annulée\n')
+			log.write('canceled action\n')
 
 def preference():
 	global scriptSettings
@@ -205,25 +205,25 @@ def preference():
 	while prefStay:
 		os.system('clear')
 		log.print()
-		print('\t\tPréférences\n')
+		print('\t\tPreferences\n')
 		scriptSettings.printSettings()
-		choice= input('(e)dit, (r)eset ou (q)uit: ')
+		choice= input('(e)dit, (r)eset or (q)uit: ')
 		if choice in ['e','E']:
-			log.write('éditer des préférences\n')
+			log.write('edit preferences\n')
 			prefEdit()
 		elif choice in ['Q','q']:
-			log.write('quitter les préférences\n')
+			log.write('quit preferences\n')
 			prefStay = False
 		elif choice in ['R','r']:
-			confirm = input('cet action rétablira les réglages par défaut. confirmer (y/n):')
+			confirm = input('this action will reset to factory settings. confirm (y):')
 			if confirm in ['y','Y']:
 				scriptSettings = setting()
 				saveSettings(scriptSettings)
-				log.write('rétablissement des préférences par défaut\n')
+				log.write('reset factory settings\n')
 			else:
-				log.write('rétablissement des préférences aborté\n')
+				log.write('abort settings reset\n')
 		else:
-			log.write('demande incomprise\n')
+			log.write('unknow request\n')
 
 def prefEdit():
 	global log
@@ -232,20 +232,20 @@ def prefEdit():
 	while stay:
 		os.system('clear')
 		log.print()
-		print('''		Edition des Préférences
-	1- Résolution
+		print('''		preferences editing:
+	1- Resolution
 	2- Animation rate
 	''')
 		
-		choice = input('quel réglage voulais vous éditer?(\'cancel\' pour annuler)')
-		if choice in ['cancel','CANCEL','QUIT','quit']:
+		choice = input('what\'s the parameter to edit ?(or \'cancel\')')
+		if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
 			stay=False
 		elif choice in ['1','r','R']:
 			os.system('clear')
-			log.write('modification de la résolution: ')
+			log.write('resolution editing: ')
 			log.print()
-			print('résolution actuel:'+str(scriptSettings.x)+'x'+str(scriptSettings.y)+'@'+str(int(scriptSettings.percent*100))+'\n\n')
-			choice = input('nouvelle résolution? (1920x1080@100 par exemple ou \'cancel\' pour annuler)')
+			print('current resolution :'+str(scriptSettings.x)+'x'+str(scriptSettings.y)+'@'+str(int(scriptSettings.percent*100))+'\n\n')
+			choice = input('new resolution ? (1920x1080@100 for example or \'cancel\')')
 			match = re.search(r'^(\d{3,5})x(\d{3,5})@(\d{2,3})$',choice)
 			if match is not None:
 				scriptSettings.x = int(match.group(1))
@@ -253,27 +253,27 @@ def prefEdit():
 				scriptSettings.percent = int(match.group(3))/100
 				saveSettings(scriptSettings)
 				log.write(choice+'\n')
-			elif choice == 'cancel':
-				log.write('annulé\n')
+			elif choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
+				log.write('cancel\n')
 			else:
-				log.write('erreur, changement annulé\n')
+				log.write('error, change canceled, retry\n')
 		elif choice in ['2','a','A']:
 			os.system('clear')
-			log.write('modification de la vitesse d\'animation : ')
+			log.write('edit animation rate : ')
 			log.print()
-			print('animation actuel : '+str(scriptSettings.fps)+'fps\n\n')
-			choice = input('vitesse? ( 30 par exemple ou \'cancel\' pour annuler)')
+			print('current animation rate: '+str(scriptSettings.fps)+'fps\n\n')
+			choice = input('new animation rate? ( 30 for example or \'cancel\')')
 			match = re.search(r'^(\d{1,})(fps)?$',choice)
 			if match is not None:
 				scriptSettings.fps = int(match.group(1))
 				saveSettings(scriptSettings)
 				log.write(match.group(1)+'fps\n')
 			elif choice == 'cancel':
-				log.write('annulé\n')
+				log.write('cancel\n')
 			else:
-				log.write('erreur, changement annulé\n')
+				log.write('error, change canceled, retry\n')
 		else:
-			log.write('choix non compris!\n')
+			log.write('unknow request!\n')
 
 
 
