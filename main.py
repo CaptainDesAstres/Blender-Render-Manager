@@ -1,5 +1,6 @@
 #!/usr/bin/python3.4
 # -*-coding:Utf-8 -*
+'''program for manage blender rendering task'''
 import time
 import os
 import sys
@@ -11,18 +12,20 @@ from queue import *
 from save import *
 from render import *
 
+#get path to the script directories
 mainPath = os.path.abspath(sys.argv[0]+'/..')
 
 def now(short = True):
+	'''return short (HH:MM:SS) or long (DD.MM.AAAA-HH:MM:SS) formated current date strings'''
 	if short == True:
 		return time.strftime('%H:%M:%S')
 	else:
 		return time.strftime('%d.%m.%Y-%H:%M:%S')
-		
 start = now(False)
+
 log = 'ouverture de Blender Render Manager\nSession du '+start+'\n'
 
-#aller dans le dossier de configuration de Blender Render Manager
+#check if configuration directorie exist, otherwise create it 
 if not os.path.exists('/home/'+os.getlogin()+'/.BlenderRenderManager/'):
 	log += 'No configuration directorie, create it: fail'
 	os.mkdir('/home/'+os.getlogin()+'/.BlenderRenderManager')
@@ -31,16 +34,15 @@ else:
 	log += 'Find configuration directorie\n'
 os.chdir('/home/'+os.getlogin()+'/.BlenderRenderManager')
 
-#vérifier l'existance du dossier des logs et création si necessaire:
+
+#check if log directorie exist, otherwise create it and create a log file anyway
 if not os.path.exists(os.getcwd()+'/log/'):
 	log += 'No log directorie, create it: fail'
 	os.mkdir(os.getcwd()+'/log')
 	log = log[:len(log)-4]+'done\n'
-
-#création du fichier de log
 log = Log(start,log)
 
-#vérification de l'existence d'un fichier de configuration
+#check configuration file exist: create it if necessary and open it
 if not os.path.exists(os.getcwd()+'/settings'):
 	log.write('aucun fichier de configuration, création d\'un fichier par défaut:')
 	scriptSettings = setting()
@@ -52,7 +54,7 @@ else:
 		scriptSettings = setting( xmlMod.fromstring( (setFile.read( ) ) ) )
 	log.write('done\n')
 
-#vérification de l'existence d'une liste de rendu
+#check if a queue file exist and create or load it
 if not os.path.exists(os.getcwd()+'/queue'):
 	log.write('aucune liste existante, création d\'une queue vide:')
 	renderQueue = queue()
@@ -68,12 +70,15 @@ else:
 
 
 def main():
+	'''main function to execute'''
 	global log
-	#affichage du menu
+	#clear standart output
 	os.system('clear')
+	
 	continu =True
-
 	while continu:
+		#print log and main menu
+		log.print()
 		log.write('Menu principal\n')
 		print('''	Main Menu
 			1- Add
@@ -86,33 +91,35 @@ def main():
 	hit corresponding number or first letter :
 
 	''')
-	
+		
+		#treat menu choice
 		choice = input()
 		if choice in ['0','q','Q']: 
-			log.write('fermeture de Blender Render Manager\n')
+			log.write('choix: fermeture de Blender Render Manager\n')
 			continu=False
 		elif choice in ['1','A','a']:
 			log.write('choix: ajout de fichier\n')
 			addFile();
 		elif choice in ['2','L','l']:
-			log.write('accès à une fonction indisponible pour le moment\n')
+			log.write('choix: accès à une fonction indisponible pour le moment\n')
 		elif choice in ['3','R','r']:
-			log.write('accès à une fonction indisponible pour le moment\n')
+			log.write('choix: accès à une fonction indisponible pour le moment\n')
 		elif choice in ['4','P','p']:
-			log.write('voir les préférences\n')
+			log.write('choix: voir les préférences\n')
 			preference()
 		elif choice in ['5','L','l']:
-			log.write('accès à une fonction indisponible pour le moment\n')
+			log.write('choix: accès à une fonction indisponible pour le moment\n')
 		else:
 			log.write('choix inconnue: "'+choice+'"\n')
-	
+		
 		os.system('clear')
-		log.print()
 
 def addFile():
+	'''function to manage manual rendering task adding'''
 	global log, renderQueue
 	os.system('clear')
 	path = ''
+	
 	while path == '':
 		path = input("Add File\n\tchemin absolue du fichier (ou 'cancel')").strip()
 		
