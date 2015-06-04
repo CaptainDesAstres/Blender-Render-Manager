@@ -102,7 +102,7 @@ class setting:
 			clone.start = start
 		if end is not None:
 			clone.end = end
-			return clone
+		return clone
 		
 
 
