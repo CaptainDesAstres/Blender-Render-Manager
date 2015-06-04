@@ -22,7 +22,7 @@ class render:
 		if xml.tag == 'render':
 			self.path = xml.get('path')
 			self.scene = xml.get('scene')
-			self.settings.parseXml(xml.find('settings'))
+			self.settings.fromXml(xml.find('settings'))
 			self.status = 'ready'
 		
 	def toXmlStr(self,head=False):

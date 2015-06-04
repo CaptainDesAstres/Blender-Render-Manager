@@ -15,9 +15,9 @@ class setting:
 		self.fps = 30
 		
 		if xml is not None:
-			self.parseXml(xml)
+			self.fromXml(xml)
 
-	def parseXml(self,xml):
+	def fromXml(self,xml):
 		'''extract settings from an xml object'''
 		#get rendering resolution parameters 
 		node = xml.find('resolution')
