@@ -7,12 +7,48 @@ class setting:
 	'''class that contain the script preferences or a rendering task preferences'''
 	def __init__(self, xml= None):
 		'''initialize settings object with default value or values extracted from an xml object'''
+		#default values of all the attributes
 		self.x = 1920
 		self.y = 1080
 		self.percent = 1
 		self.start = None
 		self.end = None
 		self.fps = 30
+		
+		self.tilesCyclesCPUX = 32
+		self.tilesCyclesCPUY = 32
+		self.tilesCyclesGPUX = 256
+		self.tilesCyclesGPUY = 256
+		self.tilesBIX = 256
+		self.tilesBIY = 256
+		self.renderingDevice = 'GPU'
+		self.renderingEngine = 'CYCLES'
+		self.outputFormat = 'EXR'
+		self.zPass = True
+		self.objectIndexPass = True
+		self.backgroundLayersKeywords = ['bck', 'background']
+		self.foregroundLayersKeywords = ['fgd', 'foreground']
+		self.backgroundCyclesSamples = 1500
+		self.foregroundCyclesSamples = 1500
+		self.mainAnimationCyclesSamples = 1500
+		self.backgroundAnimation = 0
+		self.foregroundAnimation = 0
+		self.compositingEnable = True
+		self.filmExposure = 1
+		self.filmTransparentEnable = True
+		self.blenderPath = 'blender'
+		self.outputPath = None
+		self.outputSubPath = '%N-%S'
+		self.outputName = '%L-%F'
+		self.transparentMaxBounces = 6
+		self.transparentMinBounces = 4
+		self.bouncesMax = 8
+		self.bouncesMin = 3
+		self.diffuseBounces = 4
+		self.glossyBounces = 4
+		self.transparentBounces = 12
+		self.volumeBounces = 0
+		self.simplify = None
 		
 		if xml is not None:
 			self.fromXml(xml)
