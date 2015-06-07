@@ -122,14 +122,14 @@ class setting:
 		txt += '<film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
 		
 		
-		txt += '<bouncesSet>'
-		txt += '<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(self.transparencyMinBounces)+'" />'
-		txt += '<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />'
-		txt += '<diffuse bounces="'+str(self.diffuseBounces)+'" />'
-		txt += '<glossy bounces="'+str(self.glossyBounces)+'" />'
-		txt += '<transmission bounces="'+str(self.transmissionBounces)+'" />'
-		txt += '<volume bounces="'+str(self.volumeBounces)+'" />'
-		txt += '</bouncesSet>'
+		txt += '<bouncesSet>\n'
+		txt += '<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(self.transparencyMinBounces)+'" />\n'
+		txt += '<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />\n'
+		txt += '<diffuse bounces="'+str(self.diffuseBounces)+'" />\n'
+		txt += '<glossy bounces="'+str(self.glossyBounces)+'" />\n'
+		txt += '<transmission bounces="'+str(self.transmissionBounces)+'" />\n'
+		txt += '<volume bounces="'+str(self.volumeBounces)+'" />\n'
+		txt += '</bouncesSet>\n'
 		
 		
 		
