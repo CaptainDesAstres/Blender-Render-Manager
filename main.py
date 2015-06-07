@@ -187,7 +187,7 @@ def addFile():
 					print('incorrect scene choice\n')
 			
 		#give choice between file settings or preferences setting or custom settings
-		pref = setting(scene)
+		pref = setting(scene.find('settings'))
 		print('''		rendering task base settings choice
 use file settings (f) :
 ''')
