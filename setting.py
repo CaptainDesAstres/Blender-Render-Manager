@@ -103,81 +103,81 @@ class setting:
 		
 		txt += '<settings>\n'
 		#export resolution parameters
-		txt += '<resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(int(self.percent*100))+'" />\n'
+		txt += '\t<resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(int(self.percent*100))+'" />\n'
 		
 		#export animation parameters depending of settings type
 		if self.start is None or self.end is None:
-			txt+= '<animation fps="'+str(self.fps)+'" />\n'
+			txt+= '\t<animation fps="'+str(self.fps)+'" />\n'
 		else:
-			txt+= '<animation start="'+str(self.start)+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" />\n'
+			txt+= '\t<animation start="'+str(self.start)+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" />\n'
 		
 		
-		txt += '<engine value="'+self.renderingEngine+'"/>\n'
+		txt += '\t<engine value="'+self.renderingEngine+'"/>\n'
 		
 		
-		txt += '<cycles>\n'
-		txt += '<cpu x="'+str(self.tilesCyclesCPUX)+'" y="'+str(self.tilesCyclesCPUY)+'"/>\n'
-		txt += '<cpu x="'+str(self.tilesCyclesGPUX)+'" y="'+str(self.tilesCyclesGPUY)+'"/>\n'
-		txt += '<device value="'+self.renderingDevice+'"/>\n'
-		txt += '<film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
+		txt += '\t<cycles>\n'
+		txt += '\t\t<cpu x="'+str(self.tilesCyclesCPUX)+'" y="'+str(self.tilesCyclesCPUY)+'"/>\n'
+		txt += '\t\t<cpu x="'+str(self.tilesCyclesGPUX)+'" y="'+str(self.tilesCyclesGPUY)+'"/>\n'
+		txt += '\t\t<device value="'+self.renderingDevice+'"/>\n'
+		txt += '\t\t<film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
 		
 		
-		txt += '<bouncesSet>\n'
-		txt += '<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(self.transparencyMinBounces)+'" />\n'
-		txt += '<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />\n'
-		txt += '<diffuse bounces="'+str(self.diffuseBounces)+'" />\n'
-		txt += '<glossy bounces="'+str(self.glossyBounces)+'" />\n'
-		txt += '<transmission bounces="'+str(self.transmissionBounces)+'" />\n'
-		txt += '<volume bounces="'+str(self.volumeBounces)+'" />\n'
-		txt += '</bouncesSet>\n'
+		txt += '\t\t<bouncesSet>\n'
+		txt += '\t\t\t<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(self.transparencyMinBounces)+'" />\n'
+		txt += '\t\t\t<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />\n'
+		txt += '\t\t\t<diffuse bounces="'+str(self.diffuseBounces)+'" />\n'
+		txt += '\t\t\t<glossy bounces="'+str(self.glossyBounces)+'" />\n'
+		txt += '\t\t\t<transmission bounces="'+str(self.transmissionBounces)+'" />\n'
+		txt += '\t\t\t<volume bounces="'+str(self.volumeBounces)+'" />\n'
+		txt += '\t\t</bouncesSet>\n'
 		
 		
 		
-		txt += '</cycles>\n'
+		txt += '\t</cycles>\n'
 		
 		
-		txt += '<blenderInternal x="'+str(self.tilesBIX)+'" y="'+str(self.tilesBIY)+'" />\n'
+		txt += '\t<blenderInternal x="'+str(self.tilesBIX)+'" y="'+str(self.tilesBIY)+'" />\n'
 
-		txt += '<compositing enable="'+str(self.compositingEnable)+'" />\n'
+		txt += '\t<compositing enable="'+str(self.compositingEnable)+'" />\n'
 		if self.simplify is None:
-			txt += '<simplify subdiv="0" />\n'
+			txt += '\t<simplify subdiv="0" />\n'
 		else:
-			txt += '<simplify subdiv="'+str(self.simplify)+'" />\n'
+			txt += '\t<simplify subdiv="'+str(self.simplify)+'" />\n'
 		
 		
 		
 		if len(self.renderLayerList)>0:
-			txt += '<renderLayerList>\n'
+			txt += '\t<renderLayerList>\n'
 			for layer in self.renderLayerList:
-				txt += '<layer name="'+layer['name']+'" z="'+str(layer['z'])+'" objIndex="'+str(layer['object index'])+'" render="'+str(layer['use'])+'"/>\n'
-			txt += '</renderLayerList>\n'
+				txt += '\t\t<layer name="'+layer['name']+'" z="'+str(layer['z'])+'" objIndex="'+str(layer['object index'])+'" render="'+str(layer['use'])+'"/>\n'
+			txt += '\t</renderLayerList>\n'
 		
-		txt += '<renderLayerPreferences>\n'
+		txt += '\t<renderLayerPreferences>\n'
 		
-		txt += '<background sample="'+str(self.backgroundCyclesSamples)+'" frame="'+str(self.backgroundAnimation)+'" >\n'
+		txt += '\t\t<background sample="'+str(self.backgroundCyclesSamples)+'" frame="'+str(self.backgroundAnimation)+'" >\n'
 		for key in self.backgroundLayersKeywords:
-			txt += '<keywords value="'+key+'" />\n'
-		txt += '</background>\n'
+			txt += '\t\t\t<keywords value="'+key+'" />\n'
+		txt += '\t\t</background>\n'
 		
-		txt += '<foreground sample="'+str(self.foregroundCyclesSamples)+'" frame="'+str(self.foregroundAnimation)+'" >\n'
+		txt += '\t\t<foreground sample="'+str(self.foregroundCyclesSamples)+'" frame="'+str(self.foregroundAnimation)+'" >\n'
 		for key in self.foregroundLayersKeywords:
-			txt += '<keywords value="'+key+'" />\n'
-		txt += '</foreground>\n'
+			txt += '\t\t\t<keywords value="'+key+'" />\n'
+		txt += '\t\t</foreground>\n'
 		
-		txt += '<main sample="'+str(self.mainAnimationCyclesSamples)+'" zPass="'+str(self.zPass)+'" objectIndexPass="'+str(self.objectIndexPass)+'" />\n'
+		txt += '\t\t<main sample="'+str(self.mainAnimationCyclesSamples)+'" zPass="'+str(self.zPass)+'" objectIndexPass="'+str(self.objectIndexPass)+'" />\n'
 		
-		txt += '</renderLayerPreferences>\n'
+		txt += '\t</renderLayerPreferences>\n'
 		
 		
 		
-		txt += '<output format="'+self.outputFormat+'" '
+		txt += '\t<output format="'+self.outputFormat+'" '
 		if self.outputPath is not None:
 			txt += 'mainpath="'+self.outputPath+'" '
 		txt += 'subpath="'+self.outputSubPath+'" name="'+self.outputName+'" />\n'
 		
-		txt += '<blender path="'+self.blenderPath+'" />\n'
+		txt += '\t<blender path="'+self.blenderPath+'" />\n'
 		
-		txt += '</settings>\n'
+		txt += '</settings>'
 		return txt
 	
 	
