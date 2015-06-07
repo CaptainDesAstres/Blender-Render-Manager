@@ -63,19 +63,105 @@ class setting:
 	
 	def fromXml(self,xml):
 		'''extract settings from an xml object'''
-		#get rendering resolution parameters 
+		# get rendering resolution parameters 
 		node = xml.find('resolution')
 		self.x = int(node.get('x'))
 		self.y = int(node.get('y'))
 		self.percent = int(node.get('percent'))/100
 		
-		#get animation parameters
+		# get animation parameters
 		node = xml.find('animation')
-		if node is not None:
-			self.start = int(node.get('start',None))
-			self.end = int(node.get('end',None))
-			self.fps = int(node.get('fps',30))
+		self.start = int(node.get('start', self.start))
+		self.end = int(node.get('end', self.end))
+		self.fps = int(node.get('fps'))
 		self.startEndCheck()
+		
+		# get engine value
+		node = xml.find('engine')
+		self.renderingEngine = node.get('value')
+		
+		# get cycles parameters
+		node = xml.find('cycles').find('cpu')
+		self.tilesCyclesCPUX = int(node.get('x'))
+		self.tilesCyclesCPUY = int(node.get('y'))
+		node = xml.find('cycles').find('gpu')
+		self.tilesCyclesGPUX = int(node.get('x'))
+		self.tilesCyclesGPUY = int(node.get('y'))
+		self.renderingDevice = xml.find('cycles').find('device').get('value')
+		node = xml.find('cycles').find('film')
+		self.filmExposure = node.get('exposure') in ['true', 'True']
+		self.filmTransparentEnable = node.get('transparent') in ['true', 'True']
+		
+		# get cycles Ligth Path parameters
+		node = xml.find('cycles').find('bouncesSet')
+		self.transparencyMaxBounces = int(node.find('transparency').get('max'))
+		self.transparencyMinBounces = int(node.find('transparency').get('min'))
+		self.bouncesMax = int(node.find('bounces').get('max'))
+		self.bouncesMin = int(node.find('bounces').get('min'))
+		self.diffuseBounces = int(node.find('diffuse').get('bounces'))
+		self.glossyBounces = int(node.find('glossy').get('bounces'))
+		self.transmissionBounces = int(node.find('transmission').get('bounces'))
+		self.volumeBounces = int(node.find('volume').get('bounces'))
+		
+		# get Blender Internal parameters
+		node = xml.find('blenderInternal')
+		self.tilesBIX = int(node.get('x'))
+		self.tilesBIY = int(node.get('y'))
+		
+		# get others parameters
+		self.compositingEnable = xml.find('compositing').get('enable') in ['true', 'True']
+		node = xml.find('simplify')
+		if node is None:
+			self.simplify = None
+		else:
+			self.simplify = int(node.get('subdiv'))
+		
+		# get renderlayers liste and parameters if there is some
+		node = xml.find('renderLayerList')
+		self.renderLayerList = []
+		if node is not None
+			for layer in node.findall('layer')
+				self.renderLayerList.append({
+						'name' : layer.get('name'),
+						'z' : layer.get('z') in ['true', 'True'],
+						'object index' : layer.get('objIndex') in ['true', 'True'],
+						'use' : layer.get('render') in ['true', 'True']
+						})
+		
+		# get background parameters
+		node = xml.find('renderLayerPreferences').find('background')
+		self.backgroundCyclesSamples = int(node.get('sample'))
+		self.backgroundAnimation = int(node.get('frame'))
+		self.backgroundLayersKeywords = []
+		for key in node.findall('keywords'):
+			self.backgroundLayersKeywords.append(key.get('value'))
+		
+		
+		# get foreground parameters
+		node = xml.find('renderLayerPreferences').find('foreground')
+		self.foregroundCyclesSamples = int(node.get('sample'))
+		self.foregroundAnimation = int(node.get('frame'))
+		self.foregroundLayersKeywords = []
+		for key in node.findall('keywords'):
+			self.foregroundLayersKeywords.append(key.get('value'))
+		
+		# get main animation parameters
+		node = xml.find('renderLayerPreferences').find('main')
+		self.mainAnimationCyclesSamples = int(node.get('sample'))
+		self.zPass = node.get('zPass') in ['true', 'True']
+		self.objectIndexPass = node.get('objectIndexPass') in ['true', 'True']
+		
+		
+		# output parameters
+		node = xml.find('output')
+		self.outputFormat = node.get('format')
+		self.outputPath = node.get('mainpath', self.outputPath)
+		self.outputSubPath = node.get('subpath')
+		self.outputName = node.get('name')
+		
+		# blender absolute path
+		self.blenderPath = xml.find('blender').get('path')
+		
 	
 	
 	
