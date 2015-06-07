@@ -139,9 +139,8 @@ class setting:
 		txt += '\t<blenderInternal x="'+str(self.tilesBIX)+'" y="'+str(self.tilesBIY)+'" />\n'
 
 		txt += '\t<compositing enable="'+str(self.compositingEnable)+'" />\n'
-		if self.simplify is None:
-			txt += '\t<simplify subdiv="0" />\n'
-		else:
+		
+		if self.simplify is not None:
 			txt += '\t<simplify subdiv="'+str(self.simplify)+'" />\n'
 		
 		
