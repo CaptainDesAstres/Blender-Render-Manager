@@ -123,7 +123,7 @@ class setting:
 		
 		
 		txt += '<bouncesSet>'
-		txt += '<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(transparencyMinBounces)+'" />'
+		txt += '<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(self.transparencyMinBounces)+'" />'
 		txt += '<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />'
 		txt += '<diffuse bounces="'+str(self.diffuseBounces)+'" />'
 		txt += '<glossy bounces="'+str(self.glossyBounces)+'" />'
