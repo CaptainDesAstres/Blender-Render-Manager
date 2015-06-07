@@ -116,23 +116,23 @@ class setting:
 		
 		
 		txt += '<cycles>\n'
-			txt += '<cpu x="'+str(self.tilesCyclesCPUX)+'" y="'+str(self.tilesCyclesCPUY)+'"/>\n'
-			txt += '<cpu x="'+str(self.tilesCyclesGPUX)+'" y="'+str(self.tilesCyclesGPUY)+'"/>\n'
-			txt += '<device value="'+self.renderingDevice+'"/>\n'
-			txt += '<film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
-			
-			
-			txt += '<bouncesSet>'
-			txt += '<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(transparencyMinBounces)+'" />'
-			txt += '<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />'
-			txt += '<diffuse bounces="'+str(self.diffuseBounces)+'" />'
-			txt += '<glossy bounces="'+str(self.glossyBounces)+'" />'
-			txt += '<transmission bounces="'+str(self.transmissionBounces)+'" />'
-			txt += '<volume bounces="'+str(self.volumeBounces)+'" />'
-			txt += '</bouncesSet>'
-			
-			
-			
+		txt += '<cpu x="'+str(self.tilesCyclesCPUX)+'" y="'+str(self.tilesCyclesCPUY)+'"/>\n'
+		txt += '<cpu x="'+str(self.tilesCyclesGPUX)+'" y="'+str(self.tilesCyclesGPUY)+'"/>\n'
+		txt += '<device value="'+self.renderingDevice+'"/>\n'
+		txt += '<film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
+		
+		
+		txt += '<bouncesSet>'
+		txt += '<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(transparencyMinBounces)+'" />'
+		txt += '<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />'
+		txt += '<diffuse bounces="'+str(self.diffuseBounces)+'" />'
+		txt += '<glossy bounces="'+str(self.glossyBounces)+'" />'
+		txt += '<transmission bounces="'+str(self.transmissionBounces)+'" />'
+		txt += '<volume bounces="'+str(self.volumeBounces)+'" />'
+		txt += '</bouncesSet>'
+		
+		
+		
 		txt += '</cycles>\n'
 		
 		
