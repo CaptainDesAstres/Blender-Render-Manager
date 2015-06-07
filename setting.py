@@ -123,12 +123,12 @@ class setting:
 			
 			
 			txt += '<bouncesSet>'
-				txt += '<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(transparencyMinBounces)+'" />'
-				txt += '<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />'
-				txt += '<diffuse bounces="'+str(self.diffuseBounces)+'" />'
-				txt += '<glossy bounces="'+str(self.glossyBounces)+'" />'
-				txt += '<transmission bounces="'+str(self.transmissionBounces)+'" />'
-				txt += '<volume bounces="'+str(self.volumeBounces)+'" />'
+			txt += '<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(transparencyMinBounces)+'" />'
+			txt += '<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />'
+			txt += '<diffuse bounces="'+str(self.diffuseBounces)+'" />'
+			txt += '<glossy bounces="'+str(self.glossyBounces)+'" />'
+			txt += '<transmission bounces="'+str(self.transmissionBounces)+'" />'
+			txt += '<volume bounces="'+str(self.volumeBounces)+'" />'
 			txt += '</bouncesSet>'
 			
 			
@@ -153,19 +153,19 @@ class setting:
 			txt += '</renderLayerList>\n'
 		
 		txt += '<renderLayerPreferences>\n'
-			
-			txt += '<background sample="'+str(self.backgroundCyclesSamples)+'" frame="'+str(self.backgroundAnimation)+'" >\n'
-			for key in self.backgroundLayersKeywords:
-				txt += '<keywords value="'+key+'" />\n'
-			txt += '</background>\n'
-			
-			txt += '<foreground sample="'+str(self.foregroundCyclesSamples)+'" frame="'+str(self.foregroundAnimation)+'" >\n'
-			for key in self.foregroundLayersKeywords:
-				txt += '<keywords value="'+key+'" />\n'
-			txt += '</foreground>\n'
-			
-			txt += '<main sample="'+str(self.mainAnimationCyclesSamples)+'" zPass="'+str(self.zPass)+'" objectIndexPass="'+str(self.objectIndexPass)+'" />\n'
-			
+		
+		txt += '<background sample="'+str(self.backgroundCyclesSamples)+'" frame="'+str(self.backgroundAnimation)+'" >\n'
+		for key in self.backgroundLayersKeywords:
+			txt += '<keywords value="'+key+'" />\n'
+		txt += '</background>\n'
+		
+		txt += '<foreground sample="'+str(self.foregroundCyclesSamples)+'" frame="'+str(self.foregroundAnimation)+'" >\n'
+		for key in self.foregroundLayersKeywords:
+			txt += '<keywords value="'+key+'" />\n'
+		txt += '</foreground>\n'
+		
+		txt += '<main sample="'+str(self.mainAnimationCyclesSamples)+'" zPass="'+str(self.zPass)+'" objectIndexPass="'+str(self.objectIndexPass)+'" />\n'
+		
 		txt += '</renderLayerPreferences>\n'
 		
 		
