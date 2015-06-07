@@ -164,7 +164,7 @@ class setting:
 				txt += '<keywords value="'+key+'" />\n'
 			txt += '</foreground>\n'
 			
-			txt += '<main sample="'+str(self.mainAnimationgroundCyclesSamples)+'" zPass="'+str(self.zPass)+'" objectIndexPass="'+str(self.objectIndexPass)+'" />\n'
+			txt += '<main sample="'+str(self.mainAnimationCyclesSamples)+'" zPass="'+str(self.zPass)+'" objectIndexPass="'+str(self.objectIndexPass)+'" />\n'
 			
 		txt += '</renderLayerPreferences>\n'
 		
