@@ -45,13 +45,13 @@ log = Log(start,log)
 #check configuration file exist: create it if necessary and open it
 if not os.path.exists(os.getcwd()+'/settings'):
 	log.write('no configuration file, create default file:')
-	scriptSettings = setting()
-	saveSettings(scriptSettings)
+	scriptSetting = setting()
+	saveSettings(scriptSetting)
 	log.write('done\n')
 else:
 	log.write('get saved preferences:')
 	with open(os.getcwd()+'/settings','r') as setFile:
-		scriptSettings = setting( xmlMod.fromstring( (setFile.read( ) ) ) )
+		scriptSetting = setting( xmlMod.fromstring( (setFile.read( ) ) ) )
 	log.write('done\n')
 
 #check if a queue file exist and create or load it
@@ -191,9 +191,9 @@ def addFile():
 		print('''		rendering task base settings choice
 use file settings (f) :
 ''')
-		pref.printSceneSettings(scriptSettings)
+		pref.printTaskSettings(scriptSetting)
 		print('\tuse preferences settings (p) :\n')
-		scriptSettings.printSceneSettings()
+		scriptSetting.printTaskSettings()
 		print('\tedit from file settings (ef)\n\tedit from preferences settings (ep)')
 		choice = input('choice (or «q»):')
 		
@@ -203,7 +203,7 @@ use file settings (f) :
 			return
 			
 		if choice in ['p', 'P', 'EP', 'ep']:
-			pref = scriptSettings.getClone(pref.start, pref.end)
+			pref = scriptSetting.getClone(pref.start, pref.end)
 			
 		if choice in ['ef', 'ed', 'EF', 'ED']:
 			#edit of the settings, not yet coded
@@ -222,7 +222,7 @@ use file settings (f) :
 
 def preference():
 	'''print script preferences and let edit or reset it'''
-	global scriptSettings
+	global scriptSetting
 	global log
 	
 	while True:
@@ -230,7 +230,7 @@ def preference():
 		os.system('clear')
 		log.print()
 		print('\t\tPreferences\n')
-		scriptSettings.printSettings()
+		scriptSetting.printPreferences()
 		
 		#treat available actions
 		choice= input('(e)dit, (r)eset or (q)uit: ')
@@ -244,8 +244,8 @@ def preference():
 			#reset default settings
 			confirm = input('this action will reset to factory settings. confirm (y):')
 			if confirm in ['y','Y']:
-				scriptSettings = setting()
-				saveSettings(scriptSettings)
+				scriptSetting = setting()
+				saveSettings(scriptSetting)
 				log.write('reset factory settings\n')
 			else:
 				log.write('abort settings reset\n')
@@ -255,7 +255,7 @@ def preference():
 def prefEdit():
 	'''edit script preferences'''
 	global log
-	global scriptSettings
+	global scriptSetting
 	
 	while True:
 		#print log and edit preferences menu
@@ -276,7 +276,7 @@ def prefEdit():
 			os.system('clear')
 			log.write('resolution editing: ')
 			log.print()
-			print('current resolution :'+str(scriptSettings.x)+'x'+str(scriptSettings.y)+'@'+str(int(scriptSettings.percent*100))+'\n\n')
+			print('current resolution :'+str(scriptSetting.x)+'x'+str(scriptSetting.y)+'@'+str(int(scriptSetting.percent*100))+'\n\n')
 			choice = input('new resolution ? (1920x1080@100 for example or \'cancel\')')
 			
 			
@@ -290,10 +290,10 @@ def prefEdit():
 				continue
 			
 			#apply new settings and save it
-			scriptSettings.x = int(match.group(1))
-			scriptSettings.y = int(match.group(2))
-			scriptSettings.percent = int(match.group(3))/100
-			saveSettings(scriptSettings)
+			scriptSetting.x = int(match.group(1))
+			scriptSetting.y = int(match.group(2))
+			scriptSetting.percent = int(match.group(3))/100
+			saveSettings(scriptSetting)
 			log.write(choice+'\n')
 			
 		elif choice in ['2','a','A']:
@@ -302,7 +302,7 @@ def prefEdit():
 			os.system('clear')
 			log.write('edit animation rate : ')
 			log.print()
-			print('current animation rate: '+str(scriptSettings.fps)+'fps\n\n')
+			print('current animation rate: '+str(scriptSetting.fps)+'fps\n\n')
 			choice = input('new animation rate? ( 30 for example or \'cancel\')')
 			
 			#parse new settings and check it
@@ -315,8 +315,8 @@ def prefEdit():
 				continue
 			
 			#apply new settings and save it
-			scriptSettings.fps = int(match.group(1))
-			saveSettings(scriptSettings)
+			scriptSetting.fps = int(match.group(1))
+			saveSettings(scriptSetting)
 			log.write(match.group(1)+'fps\n')
 			
 		else:

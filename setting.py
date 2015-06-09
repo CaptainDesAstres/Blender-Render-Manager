@@ -269,16 +269,17 @@ class setting:
 	
 	
 	
-	def printSettings(self):
+	def printPreferences(self):
 		'''print settings like preferences settings'''
 		print('résolution : '+str(self.x)+'x'+str(self.y)+' (@'+str(int(self.percent*100))+'%)\n')
 		print('animation : '+str(self.fps)+'fps\n')
+		
 	
 	
 	
 	
 	
-	def printSceneSettings(self,default=None):
+	def printTaskSettings(self,default=None):
 		'''print settings like render file settings, coloring in red settings who don't match the default settings'''
 		if default is None:
 			default = self

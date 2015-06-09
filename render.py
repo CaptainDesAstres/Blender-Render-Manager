@@ -11,7 +11,7 @@ class render:
 		if there is no xml argument paste to the function, the status of the object is set to 'unset', path and scene is an empty strings and settings is a setting object with default value'''
 		self.path = ''
 		self.scene = ''
-		self.settings = setting()
+		self.setting = setting()
 		self.status='unset'
 		
 		if xml != False:
@@ -22,7 +22,7 @@ class render:
 		if xml.tag == 'render':
 			self.path = xml.get('path')
 			self.scene = xml.get('scene')
-			self.settings.fromXml(xml.find('settings'))
+			self.setting.fromXml(xml.find('settings'))
 			self.status = 'ready'
 		
 	def toXmlStr(self,head=False):
@@ -31,7 +31,7 @@ class render:
 		if head:
 			txt+= '<?xml version="1.0" encoding="UTF-8"?>\n'
 		txt += '<render path="'+self.path+'" scene="'+self.scene+'">\n'
-		txt += self.settings.toXmlStr()
+		txt += self.setting.toXmlStr()
 		txt += '</render>\n'
 		return txt
 
