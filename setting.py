@@ -271,8 +271,63 @@ class setting:
 	
 	def printPreferences(self):
 		'''print settings like preferences settings'''
-		print('résolution : '+str(self.x)+'x'+str(self.y)+' (@'+str(int(self.percent*100))+'%)\n')
-		print('animation : '+str(self.fps)+'fps\n')
+		enable = {True:'enabled';False:'Disabled'}
+		
+		print('Blender path : '+self.blenderPath+'\n')
+		
+		
+		print('Résolution : '+str(self.x)+'x'+str(self.y)+' (@'+str(int(self.percent*100))+'%)\n')
+		
+		# print Cycles sampling parameters
+		print('Cycles samples :')
+		print('\tmain : '+str(self.mainAnimationCyclesSamples))
+		print('\tbackground : '+str(self.backgroundCyclesSamples))
+		print('\tforeground : '+str(self.foregroundCyclesSamples)+'\n')
+		
+		
+		print('Animation : '+str(self.fps)+'fps')
+		print('Engine : '+self.renderingEngine.lower()+'('+self.renderingDevice+')\n')
+		
+		# print output parameters
+		print('Output : ')
+		print('\toutput path (absolute) : '+str(self.outputPath))
+		print('\tautomatique subpath (for each task) : '+self.outputSubPath)
+		print('\tname : '+self.outputName)
+		print('\tformat : '+self.outputFormat+'\n')
+		
+		
+		# print Tiles parameters
+		print('Tiles : ')
+		print('\tcycles GPU : '+str(self.tilesCyclesGPUX)+'x'+str(self.tilesCyclesGPUY))
+		print('\tcycles CPU : '+str(self.tilesCyclesCPUX)+'x'+str(self.tilesCyclesCPUY))
+		print('\tblender internal : '+str(self.tilesBIX)+'x'+str(self.tilesBIY)+'\n')
+		
+		
+		# print Ligth path parameters
+		print('Ligth path : ')
+		print('\tbounces : '+str(self.bouncesMin)+'to'+str(self.bouncesMax))
+		print('\ttransparency : '+str(self.transparencyMinBounces)+'to'+str(self.transparencyMaxBounces))
+		print('\tdiffuse : '+str(self.diffuseBounces))
+		print('\tglossy : '+str(self.glossyBounces))
+		print('\ttransmission : '+str(self.transmissionBounces))
+		print('\tvolume : '+str(self.volumeBounces)+'\n')
+		
+		
+		# print others parameters
+		print('OPtions :')
+		print('\tz pass : '+enable[self.zPass])
+		print('\tobject index pass : '+enable[self.objectIndexPass])
+		print('\tcompositing : '+enable[self.compositingEnable])
+		print('\texposure (cycles) : '+str(self.filmExposure))
+		print('\ttransparent background : '+enable[self.filmTransparentEnable])
+		if self.simplify is None:
+			print('\tsimplify : Disabled\n')
+		else:
+			print('\tsimplify : '+str(self.simplify)+'\n')
+		
+		print('Keywords :')
+		print('\tbackground : '+' | '.join(self.backgroundLayersKeywords))
+		print('\tforeground : '+' | '.join(self.foregroundLayersKeywords)+'\n')
 		
 	
 	
