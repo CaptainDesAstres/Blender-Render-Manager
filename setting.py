@@ -338,34 +338,24 @@ class setting:
 		'''print settings like render file settings, coloring in red settings who don't match the default settings'''
 		if default is None:
 			default = self
+			same = {False:'\033[31m';True:'\033[30m'}
+		else:
+			same = {False:'\033[31m';True:'\033[32m'}
+		r = '\033[0m'
 		
 		#write resolution parameters
-		txt ='résolution : '
-		if self.x != default.x :
-			txt += '\033[31m'+str(self.x)+'\033[0mx'
-		else:
-			txt += str(self.x)+'x'
+		txt ='résolution : '+same[self.x == default.x]+str(self.x)+r\
+		+'x'+same[self.y == default.y]+str(self.y)+r\
+		+' (@'+same[self.percent == default.percent]+str(int(self.percent*100))+r+'%)\n'
 		
-		if self.y != default.y :
-			txt+= '\033[31m'+str(self.y)+'\033[0m (@'
-		else:
-			txt+= str(self.y)+' (@'
-		
-		if self.percent != default.percent :
-			txt+= '\033[31m'+str(int(self.percent*100))+'\033[0m%)\n'
-		else:
-			txt+= str(int(self.percent*100))+'%)\n'
 		
 		#write animation parameters
 		txt += 'animation : '
 		if self.start is not None and self.end is not None :
 			txt+= 'frame '+str(self.start)+' à '+str(self.end)+' '
-		txt += '(@'
+		txt += '(@'+same[self.fps == default.fps]+str(self.fps)+r+'fps)\n'
 		
-		if self.fps != default.fps :
-			txt+= '\033[31m'+str(self.fps)+'\033[0mfps)\n'
-		else:
-			txt+= str(self.fps)+'fps)\n'
+		
 		
 		print(txt)
 	
