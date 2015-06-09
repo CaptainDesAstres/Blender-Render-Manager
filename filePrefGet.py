@@ -34,7 +34,10 @@ for name in bpy.data.scenes.keys():
 	pref.renderingEngine = scene.render.engine
 	pref.renderingDevice = scene.cycles.device
 	pref.filmExposure = scene.cycles.film_exposure
-	pref.filmTransparentEnable = scene.cycles.film_transparent
+	if pref.renderingEngine == 'CYCLES':
+		pref.filmTransparentEnable = scene.cycles.film_transparent
+	else:
+		pref.filmTransparentEnable = (scene.render.alpha_mode == 'TRANSPARENT')
 	pref.backgroundCyclesSamples = pref.foregroundCyclesSamples = pref.mainAnimationCyclesSamples = scene.cycles.samples
 	
 	
