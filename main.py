@@ -191,9 +191,9 @@ def addFile():
 		print('''		rendering task base settings choice
 use file settings (f) :
 ''')
-		pref.printTaskSettings(scriptSetting)
+		pref.printTaskPrimarySettings(scriptSetting)
 		print('\tuse preferences settings (p) :\n')
-		scriptSetting.printTaskSettings()
+		scriptSetting.printTaskPrimarySettings()
 		print('\tedit from file settings (ef)\n\tedit from preferences settings (ep)')
 		choice = input('choice (or «q»):')
 		
