@@ -2,20 +2,37 @@
 # -*-coding:Utf-8 -*
 '''module containing class 'renderingTask' '''
 from setting import setting
+from copy import deepcopy
 
 class renderingTask:
 	'''class that contain the parameter for a rendering task'''
 	
 	def __init__(self,
-					path = None, 
-					scene = None, 
-					fileXmlSetting = None,
-					preferences = None,
+					path = '', 
+					scene = '', 
+					fileXmlSetting = setting(),
+					preferences = setting(),
 					xml = None):
 		'''renderingTask object initialisation
-		if there is no xml argument paste to the function, the status of the object is set to 'unset', path and scene is an empty strings and settings is a setting object with default value'''
+		if there is an xml argument paste to the function, the others are ignore'''
 		if xml is None:
-			print('renderingTask initialisation whithout xml done not yet implement')
+			self.path = path
+			self.scene = scene
+			self.fileSetting = setting(fileXmlSetting)
+			self.customSetting = preferences.getClone()
+			
+			
+			self.customSetting.start = self.fileSetting.start
+			self.customSetting.end = self.fileSetting.end
+			self.customSetting.renderLayerList = deepcopy(self.customSetting.renderLayerList)
+			#overwrite renderlayer pass settings
+			for layer in self.customSetting.renderLayerList:
+				layer['z'] = self.customSetting.zPass
+				layer['object index'] = self.customSetting.objectIndexPass 
+			
+			
+			self.status = 'ready'
+			
 		else:
 			self.path = ''
 			self.scene = ''
