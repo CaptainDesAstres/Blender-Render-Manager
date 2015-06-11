@@ -10,7 +10,7 @@ from log import *
 from setting import *
 from queue import *
 from save import *
-from render import *
+from renderingTask import *
 
 #get path to the script directories
 mainPath = os.path.abspath(sys.argv[0]+'/..')
@@ -187,11 +187,10 @@ def addTask():
 					return
 				else:
 					print('incorrect scene choice\n')
-			
 		
 		
 		#add the task and save the queue
-		task = render()
+		task = renderingTask()
 		task.path = path
 		task.scene = scene.get('name')
 		renderQueue.add(task)
