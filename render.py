@@ -6,15 +6,23 @@ from setting import setting
 class render:
 	'''class that contain the parameter for a rendering task'''
 	
-	def __init__(self,xml=False):
+	def __init__(self,
+					path = None, 
+					scene = None, 
+					fileXmlSetting = None,
+					preferences = None,
+					xml = None):
 		'''reder object initialisation
 		if there is no xml argument paste to the function, the status of the object is set to 'unset', path and scene is an empty strings and settings is a setting object with default value'''
-		self.path = ''
-		self.scene = ''
-		self.setting = setting()
-		self.status='unset'
-		
-		if xml != False:
+		if xml is None:
+			print('renderTask initialisation whithout xml done not yet implement')
+		else:
+			self.path = ''
+			self.scene = ''
+			self.fileSetting = setting()
+			self.customSetting = setting()
+			self.status='unset'
+			
 			self.fromXml(xml)
 	
 	def fromXml(self,xml):
