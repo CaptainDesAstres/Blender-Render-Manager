@@ -30,7 +30,8 @@ class renderingTask:
 		if xml.tag == 'task':
 			self.path = xml.get('path')
 			self.scene = xml.get('scene')
-			self.setting.fromXml(xml.find('settings'))
+			self.fileSetting.fromXml(xml.find('fileSet'))
+			self.customSetting.fromXml(xml.find('taskSet'))
 			self.status = 'ready'
 		
 	def toXmlStr(self,head=False):
@@ -39,7 +40,8 @@ class renderingTask:
 		if head:
 			txt+= '<?xml version="1.0" encoding="UTF-8"?>\n'
 		txt += '<task path="'+self.path+'" scene="'+self.scene+'">\n'
-		txt += self.setting.toXmlStr()
+		txt += '<taskSet>\n'+self.customSetting.toXmlStr()+'</taskSet>\n'
+		txt += '<fileSet>\n'+self.fileSetting.toXmlStr()+'</fileSet>\n'
 		txt += '</task>\n'
 		return txt
 
