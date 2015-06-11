@@ -334,17 +334,12 @@ class setting:
 	
 	
 	
-	def getClone(self,start = None, end = None):
+	def getClone(self):
 		'''create another settings object with the same attribut values
 		restart/end attributes value with start/end argument values if set'''
 		
-		clone = setting( xmlMod.fromstring( self.toXmlStr( True ) ) )
-		if start is not None:
-			clone.start = start
-		if end is not None:
-			clone.end = end
-		clone.startEndCheck()
-		return clone
+		return setting( xmlMod.fromstring( self.toXmlStr( True ) ) )
+		
 		
 
 
