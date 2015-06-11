@@ -14,8 +14,8 @@ class queue:
 	def fromXml(self,xml):
 		'''extract rendering task parameters from an xml object and add them to the queue'''
 		if xml.tag == 'queue':
-			for r in xml.findall('task'):
-				self.add(renderingTask(r))
+			for t in xml.findall('task'):
+				self.add(renderingTask(xml = t))
 		
 	def toXmlStr(self,head=False):
 		'''export rendering task queue to an xml syntax string '''

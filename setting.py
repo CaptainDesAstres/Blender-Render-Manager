@@ -345,7 +345,7 @@ class setting:
 		'''create another settings object with the same attribut values
 		restart/end attributes value with start/end argument values if set'''
 		
-		return setting( xmlMod.fromstring( self.toXmlStr( True ) ) )
+		return setting( xmlMod.fromstring( self.toXmlStr( head = True, root = True) ) )
 		
 		
 
