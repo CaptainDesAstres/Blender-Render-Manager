@@ -16,15 +16,17 @@ class renderingTask:
 		'''renderingTask object initialisation
 		if there is an xml argument paste to the function, the others are ignore'''
 		if xml is None:
+			# create new task with path, scene, fileXmlSetting and preferences arguments
 			self.path = path
 			self.scene = scene
 			self.fileSetting = setting(fileXmlSetting)
 			self.customSetting = preferences.getClone()
 			
-			
+			# get parameters values that only original file settings have
 			self.customSetting.start = self.fileSetting.start
 			self.customSetting.end = self.fileSetting.end
 			self.customSetting.renderLayerList = deepcopy(self.customSetting.renderLayerList)
+			
 			#overwrite renderlayer pass settings
 			for layer in self.customSetting.renderLayerList:
 				layer['z'] = self.customSetting.zPass
@@ -34,6 +36,7 @@ class renderingTask:
 			self.status = 'ready'
 			
 		else:
+			# load task from xml argument
 			self.path = ''
 			self.scene = ''
 			self.fileSetting = setting()
@@ -41,6 +44,9 @@ class renderingTask:
 			self.status='unset'
 			
 			self.fromXml(xml)
+	
+	
+	
 	
 	def fromXml(self,xml):
 		'''method that set the object attributes with the value extracted from an xml object with 'task' tag name '''
@@ -50,7 +56,10 @@ class renderingTask:
 			self.fileSetting.fromXml(xml.find('fileSet'))
 			self.customSetting.fromXml(xml.find('taskSet'))
 			self.status = 'ready'
-		
+	
+	
+	
+	
 	def toXmlStr(self,head=False):
 		'''export the object values into an xml formated strings'''
 		txt =''

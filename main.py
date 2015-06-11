@@ -15,6 +15,9 @@ from renderingTask import *
 #get path to the script directories
 mainPath = os.path.abspath(sys.argv[0]+'/..')
 
+
+
+
 def now(short = True):
 	'''return short (HH:MM:SS) or long (DD.MM.AAAA-HH:MM:SS) formated current date strings'''
 	if short == True:
@@ -23,9 +26,13 @@ def now(short = True):
 		return time.strftime('%d.%m.%Y-%H:%M:%S')
 start = now(False)
 
+
+
+
 log = 'openning of Blender Render Manager\n'+start+' session\n'
 
-#check if configuration directorie exist, otherwise create it 
+
+# check if configuration directorie exist, otherwise create it 
 if not os.path.exists('/home/'+os.getlogin()+'/.BlenderRenderManager/'):
 	log += 'No configuration directorie, create it: fail'
 	os.mkdir('/home/'+os.getlogin()+'/.BlenderRenderManager')
@@ -35,14 +42,16 @@ else:
 os.chdir('/home/'+os.getlogin()+'/.BlenderRenderManager')
 settingPath = os.getcwd()
 
-#check if log directorie exist, otherwise create it and create a log file anyway
+
+# check if log directorie exist, otherwise create it and create a log file anyway
 if not os.path.exists(os.getcwd()+'/log/'):
 	log += 'No log directorie, create it: fail'
 	os.mkdir(os.getcwd()+'/log')
 	log = log[:len(log)-4]+'done\n'
 log = Log(start,log)
 
-#check configuration file exist: create it if necessary and open it
+
+# check configuration file exist: create it if necessary and open it
 if not os.path.exists(os.getcwd()+'/settings'):
 	log.write('no configuration file, create default file:')
 	scriptSetting = setting()
@@ -54,7 +63,8 @@ else:
 		scriptSetting = setting( xmlMod.fromstring( (setFile.read( ) ) ) )
 	log.write('done\n')
 
-#check if a queue file exist and create or load it
+
+# check if a queue file exist and create or load it
 if not os.path.exists(os.getcwd()+'/queue'):
 	log.write('no saved queue, create empty queue file:')
 	renderQueue = queue()
@@ -92,7 +102,7 @@ def main():
 
 	''')
 		
-		#treat menu choice
+		# menu choice
 		choice = input()
 		if choice in ['0','q','Q']: 
 			log.write('choice : close Blender Render Manager\n')
@@ -142,20 +152,21 @@ def addTask():
 			log.write('unabsolute path reject :'+path+'\n')
 			path = ''
 			continue
-		
+			
 		elif len(path) < 7 or path[len(path)-6:] !='.blend':
 			#check if path point to a .blend file
 			print('the path don\'t seemed to be a blender file (need .blend extension)!')
 			log.write('it\'s not a blender file path :'+path+'\n')
 			path = ''
 			continue
-		
+			
 		elif not os.path.exists(path):
 			#check if the file exist
 			print('this file didn\'t exist!')
 			log.write('no corresponding file to this path :'+path+'\n')
 			path = ''
 			continue 
+		
 		
 		#open the file and get settings
 		log.write('prepare the adding of : '+path+'\n')
@@ -175,13 +186,14 @@ def addTask():
 			scene = prefXml[0]
 			log.write('only one scene in file, automatically use it : '+scene.get('name')+'\n')
 		else:
+			# print scene list
 			print('\tthere is more than one scene in the file :\n\n')
 			i=0
 			for s in prefXml:
 				print(str(i)+'- '+s.get('name'))
 				i+=1
 			
-			
+			# scene choice
 			while True:
 				choice = input('scene to use (or \'cancel\'):')
 				if(re.search(r'^\d+$',choice) and int(choice)<i):
@@ -203,8 +215,10 @@ def addTask():
 		
 		renderQueue.add(task)
 		saveQueue(renderQueue)
-		
-		
+
+
+
+
 
 def preference():
 	'''print script preferences and let edit or reset it'''
@@ -237,6 +251,11 @@ def preference():
 				log.write('abort settings reset\n')
 		else:
 			log.write('unknow request\n')
+
+
+
+
+
 
 def prefEdit():
 	'''edit script preferences'''
@@ -274,6 +293,7 @@ def prefEdit():
 				else:
 					log.write('error, resolution change canceled, retry\n')
 				continue
+			
 			
 			#apply new settings and save it
 			scriptSetting.x = int(match.group(1))

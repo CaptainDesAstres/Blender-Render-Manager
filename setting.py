@@ -9,7 +9,8 @@ class setting:
 	
 	def __init__(self, xml= None):
 		'''initialize settings object with default value or values extracted from an xml object'''
-		#default values of all the attributes
+		# default values of all the attributes
+		# animation and resolution attributes
 		self.x = 1920
 		self.y = 1080
 		self.percent = 1
@@ -17,17 +18,32 @@ class setting:
 		self.end = None
 		self.fps = 30
 		
+		# tiles size attributes
 		self.tilesCyclesCPUX = 32
 		self.tilesCyclesCPUY = 32
 		self.tilesCyclesGPUX = 256
 		self.tilesCyclesGPUY = 256
 		self.tilesBIX = 256
 		self.tilesBIY = 256
+		
+		# rendering engine and output attributes
+		self.blenderPath = 'blender'
 		self.renderingDevice = 'GPU'
 		self.renderingEngine = 'CYCLES'
 		self.outputFormat = 'EXR'
+		self.outputPath = None
+		self.outputSubPath = '%N-%S'
+		self.outputName = '%L-%F'
+		
+		# rendering options attributes
 		self.zPass = True
 		self.objectIndexPass = True
+		self.compositingEnable = True
+		self.filmExposure = 1
+		self.filmTransparentEnable = True
+		self.simplify = None
+		
+		# renderlayer parameters attributes
 		self.renderLayerList = []
 		self.backgroundLayersKeywords = ['bck', 'background']
 		self.foregroundLayersKeywords = ['fgd', 'foreground']
@@ -36,13 +52,8 @@ class setting:
 		self.mainAnimationCyclesSamples = 1500
 		self.backgroundAnimation = 0
 		self.foregroundAnimation = 0
-		self.compositingEnable = True
-		self.filmExposure = 1
-		self.filmTransparentEnable = True
-		self.blenderPath = 'blender'
-		self.outputPath = None
-		self.outputSubPath = '%N-%S'
-		self.outputName = '%L-%F'
+		
+		# Light Path attributes
 		self.transparencyMaxBounces = 6
 		self.transparencyMinBounces = 4
 		self.bouncesMax = 8
@@ -51,7 +62,6 @@ class setting:
 		self.glossyBounces = 4
 		self.transmissionBounces = 12
 		self.volumeBounces = 0
-		self.simplify = None
 		
 		if xml is not None:
 			self.fromXml(xml)
@@ -63,6 +73,7 @@ class setting:
 	
 	def fromXml(self,xml):
 		'''extract settings from an xml object'''
+		
 		# get rendering resolution parameters 
 		node = xml.find('resolution')
 		self.x = int(node.get('x'))
@@ -120,7 +131,7 @@ class setting:
 		else:
 			self.simplify = int(node.get('subdiv'))
 		
-		# get renderlayers liste and parameters if there is some
+		# get renderlayers list and parameters if there is some
 		node = xml.find('renderLayerList')
 		self.renderLayerList = []
 		if node is not None:
@@ -178,7 +189,7 @@ class setting:
 			self.start = self.end
 		elif self.start is not None and self.end is None:
 			self.end = self.start
-			
+		
 	
 	
 	
@@ -194,26 +205,26 @@ class setting:
 		if root:
 			txt += '<settings>\n'
 			
-		#export resolution parameters
+		# export resolution parameters
 		txt += '\t<resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(int(self.percent*100))+'" />\n'
 		
-		#export animation parameters depending of settings type
+		# export animation parameters depending of settings type
 		if self.start is None or self.end is None:
 			txt+= '\t<animation fps="'+str(self.fps)+'" />\n'
 		else:
 			txt+= '\t<animation start="'+str(self.start)+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" />\n'
 		
-		
+		# export engine parameter
 		txt += '\t<engine value="'+self.renderingEngine+'"/>\n'
 		
-		
+		# export Cycles specific  parameters
 		txt += '\t<cycles>\n'
 		txt += '\t\t<cpu x="'+str(self.tilesCyclesCPUX)+'" y="'+str(self.tilesCyclesCPUY)+'"/>\n'
 		txt += '\t\t<gpu x="'+str(self.tilesCyclesGPUX)+'" y="'+str(self.tilesCyclesGPUY)+'"/>\n'
 		txt += '\t\t<device value="'+self.renderingDevice+'"/>\n'
 		txt += '\t\t<film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
 		
-		
+		# export light path Cycles specific  parameters
 		txt += '\t\t<bouncesSet>\n'
 		txt += '\t\t\t<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(self.transparencyMinBounces)+'" />\n'
 		txt += '\t\t\t<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />\n'
@@ -227,40 +238,44 @@ class setting:
 		
 		txt += '\t</cycles>\n'
 		
-		
+		# export Blender Internal engine specific  parameters
 		txt += '\t<blenderInternal x="'+str(self.tilesBIX)+'" y="'+str(self.tilesBIY)+'" />\n'
 
+		# export rendering options
 		txt += '\t<compositing enable="'+str(self.compositingEnable)+'" />\n'
-		
 		if self.simplify is not None:
 			txt += '\t<simplify subdiv="'+str(self.simplify)+'" />\n'
 		
 		
-		
+		# export renderlayer list and parameters
 		if len(self.renderLayerList)>0:
 			txt += '\t<renderLayerList>\n'
 			for layer in self.renderLayerList:
 				txt += '\t\t<layer name="'+layer['name']+'" z="'+str(layer['z'])+'" objIndex="'+str(layer['object index'])+'" render="'+str(layer['use'])+'"/>\n'
 			txt += '\t</renderLayerList>\n'
 		
+		
 		txt += '\t<renderLayerPreferences>\n'
 		
+		# export background render layers specific parameters
 		txt += '\t\t<background sample="'+str(self.backgroundCyclesSamples)+'" frame="'+str(self.backgroundAnimation)+'" >\n'
 		for key in self.backgroundLayersKeywords:
 			txt += '\t\t\t<keywords value="'+key+'" />\n'
 		txt += '\t\t</background>\n'
 		
+		# export foreground render layers specific parameters
 		txt += '\t\t<foreground sample="'+str(self.foregroundCyclesSamples)+'" frame="'+str(self.foregroundAnimation)+'" >\n'
 		for key in self.foregroundLayersKeywords:
 			txt += '\t\t\t<keywords value="'+key+'" />\n'
 		txt += '\t\t</foreground>\n'
 		
+		# export animation render layers specific parameters
 		txt += '\t\t<main sample="'+str(self.mainAnimationCyclesSamples)+'" zPass="'+str(self.zPass)+'" objectIndexPass="'+str(self.objectIndexPass)+'" />\n'
 		
 		txt += '\t</renderLayerPreferences>\n'
 		
 		
-		
+		# export rendering output parameters
 		txt += '\t<output format="'+self.outputFormat+'" '
 		if self.outputPath is not None:
 			txt += 'mainpath="'+self.outputPath+'" '
@@ -282,7 +297,7 @@ class setting:
 		
 		print('Blender path : '+self.blenderPath+'\n')
 		
-		
+		# print resolution parameters
 		print('Résolution : '+str(self.x)+'x'+str(self.y)+' (@'+str(int(self.percent*100))+'%)\n')
 		
 		# print Cycles sampling parameters
@@ -291,7 +306,7 @@ class setting:
 		print('\tbackground : '+str(self.backgroundCyclesSamples))
 		print('\tforeground : '+str(self.foregroundCyclesSamples)+'\n')
 		
-		
+		# print animation and engine parameters
 		print('Animation : '+str(self.fps)+'fps')
 		print('Engine : '+self.renderingEngine.lower()+'('+self.renderingDevice+')\n')
 		
@@ -312,8 +327,8 @@ class setting:
 		
 		# print Ligth path parameters
 		print('Ligth path : ')
-		print('\tbounces : '+str(self.bouncesMin)+'to'+str(self.bouncesMax))
-		print('\ttransparency : '+str(self.transparencyMinBounces)+'to'+str(self.transparencyMaxBounces))
+		print('\tbounces : '+str(self.bouncesMin)+' to '+str(self.bouncesMax))
+		print('\ttransparency : '+str(self.transparencyMinBounces)+' to '+str(self.transparencyMaxBounces))
 		print('\tdiffuse : '+str(self.diffuseBounces))
 		print('\tglossy : '+str(self.glossyBounces))
 		print('\ttransmission : '+str(self.transmissionBounces))

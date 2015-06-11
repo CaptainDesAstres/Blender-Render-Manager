@@ -20,24 +20,39 @@ there is to log:
 		self.logFile.write(self.log)
 		self.write('création du log\n')	
 	
+	
+	
+	
 	def __del__(self):
 		'''close the log file when the object is deleted'''
 		self.logFile.close()
 		del(self.log)
 		del(self.logFile)
 	
+	
+	
+	
 	def __str__(self):
 		'''return string log'''
 		return self.log
+	
+	
+	
 	
 	def print(self):
 		'''print the log'''
 		return print(self.log)
 	
+	
+	
+	
 	def write(self, txt):
 		'''add lines to the log'''
 		self.logFile.write(txt)
 		self.log += txt
+	
+	
+	
 	
 	def iadd(self,txt):
 		'''redirect '+=' operator to the write()method'''
