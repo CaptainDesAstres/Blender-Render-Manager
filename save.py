@@ -6,7 +6,7 @@ import os
 def saveSettings(s):
 	'''function that save preferences 's' in a configuration file'''
 	with open(os.getcwd()+'/settings','w') as setFile:
-		setFile.write(s.toXmlStr(True))
+		setFile.write(s.toXmlStr(True, True))
 
 def saveQueue(q):
 	'''function that save queue 'q' in queue xml file'''

@@ -180,14 +180,16 @@ class setting:
 	
 	
 	
-	def toXmlStr(self, head=False):
+	def toXmlStr(self, head=False, root=False):
 		'''export settings to an xml syntaxe string'''
 		txt= ''
 		
 		if head:
 			txt += '<?xml version="1.0" encoding="UTF-8"?>\n'
 		
-		txt += '<settings>\n'
+		if root:
+			txt += '<settings>\n'
+			
 		#export resolution parameters
 		txt += '\t<resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(int(self.percent*100))+'" />\n'
 		
@@ -262,7 +264,8 @@ class setting:
 		
 		txt += '\t<blender path="'+self.blenderPath+'" />\n'
 		
-		txt += '</settings>'
+		if root:
+			txt += '</settings>'
 		return txt
 	
 	
