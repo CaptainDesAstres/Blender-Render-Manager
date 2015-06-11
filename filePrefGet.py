@@ -75,9 +75,9 @@ for name in bpy.data.scenes.keys():
 	#output parameters
 	pref.outputFormat = scene.render.image_settings.file_format
 	pref.outputPath = bpy.path.abspath(scene.render.filepath)
-	if pref.outputPath[len(pref.outputPath)-1] == '/'
+	if pref.outputPath[len(pref.outputPath)-1] == '/':
 		pref.outputName = '%N - %S - %L - %F'+scene.render.file_extension
-	else
+	else:
 		parsePath = pref.outputPath.split('/')
 		pref.outputName = re.replace(r'#+','%F',parsePath.pop())
 		pref.outputPath = '/'.join(parsePath)+'/'
