@@ -75,8 +75,8 @@ def main():
 	#clear standart output
 	os.system('clear')
 	
-	continu =True
-	while continu:
+	
+	while True:
 		#print log and main menu
 		log.print()
 		log.write('Main menu\n')
@@ -96,7 +96,7 @@ def main():
 		choice = input()
 		if choice in ['0','q','Q']: 
 			log.write('choice : close Blender Render Manager\n')
-			continu=False
+			return
 		elif choice in ['1','A','a']:
 			log.write('choice : add rendering task\n')
 			addTask();
@@ -176,13 +176,13 @@ def addTask():
 				print(str(i)+'- '+s.get('name'))
 				i+=1
 			
-			sceneChoiceRecquired = True
-			while sceneChoiceRecquired:
+			
+			while True:
 				choice = input('scene to use (or \'cancel\'):')
 				if(re.search(r'^\d+$',choice) and int(choice)<i):
 					scene = prefXml[int(choice)]
 					log.write('use «'+scene.get('name')+'» scene\n')
-					sceneChoiceRecquired=False
+					break
 				elif choice in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
 					return
 				else:
