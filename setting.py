@@ -71,8 +71,12 @@ class setting:
 		
 		# get animation parameters
 		node = xml.find('animation')
-		self.start = int(node.get('start', self.start))
-		self.end = int(node.get('end', self.end))
+		self.start = node.get('start', self.start)
+		if self.start is not None:
+			self.start = int(self.start)
+		self.end = node.get('end', self.end)
+		if self.end is not None:
+			self.end = int(self.end)
 		self.fps = int(node.get('fps'))
 		self.startEndCheck()
 		
