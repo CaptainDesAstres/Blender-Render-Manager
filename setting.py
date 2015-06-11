@@ -209,7 +209,7 @@ class setting:
 		
 		txt += '\t<cycles>\n'
 		txt += '\t\t<cpu x="'+str(self.tilesCyclesCPUX)+'" y="'+str(self.tilesCyclesCPUY)+'"/>\n'
-		txt += '\t\t<cpu x="'+str(self.tilesCyclesGPUX)+'" y="'+str(self.tilesCyclesGPUY)+'"/>\n'
+		txt += '\t\t<gpu x="'+str(self.tilesCyclesGPUX)+'" y="'+str(self.tilesCyclesGPUY)+'"/>\n'
 		txt += '\t\t<device value="'+self.renderingDevice+'"/>\n'
 		txt += '\t\t<film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
 		
