@@ -33,7 +33,7 @@ if not os.path.exists('/home/'+os.getlogin()+'/.BlenderRenderManager/'):
 else:
 	log += 'Find configuration directorie\n'
 os.chdir('/home/'+os.getlogin()+'/.BlenderRenderManager')
-
+settingPath = os.getcwd()
 
 #check if log directorie exist, otherwise create it and create a log file anyway
 if not os.path.exists(os.getcwd()+'/log/'):
@@ -159,7 +159,12 @@ def addTask():
 		
 		#open the file and get settings
 		log.write('prepare the adding of : '+path+'\n')
+		
+		os.chdir(mainPath)
 		prefXml = os.popen('blender -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
+		os.chdir(settingPath)
+		
+		
 		prefXml = re.search(r'<\?xml(.|\n)*</preferences>',prefXml).group(0)
 		prefXml = xmlMod.fromstring(prefXml).findall('scene')
 		os.system('clear')
