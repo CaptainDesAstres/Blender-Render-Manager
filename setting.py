@@ -119,8 +119,8 @@ class setting:
 		# get renderlayers liste and parameters if there is some
 		node = xml.find('renderLayerList')
 		self.renderLayerList = []
-		if node is not None
-			for layer in node.findall('layer')
+		if node is not None:
+			for layer in node.findall('layer'):
 				self.renderLayerList.append({
 						'name' : layer.get('name'),
 						'z' : layer.get('z') in ['true', 'True'],
@@ -274,7 +274,7 @@ class setting:
 	
 	def printPreferences(self):
 		'''print settings like preferences settings'''
-		enable = {True:'enabled';False:'Disabled'}
+		enable = {True:'enabled', False:'Disabled'}
 		
 		print('Blender path : '+self.blenderPath+'\n')
 		
