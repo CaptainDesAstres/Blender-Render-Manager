@@ -165,7 +165,7 @@ def addTask():
 		os.system('clear')
 		log.print()
 		
-		#select scene to use 
+		# select scene to use 
 		if len(prefXml)==1:
 			scene = prefXml[0]
 			log.write('only one scene in file, automatically use it : '+scene.get('name')+'\n')
@@ -188,36 +188,13 @@ def addTask():
 				else:
 					print('incorrect scene choice\n')
 			
-		#give choice between file settings or preferences setting or custom settings
-		pref = setting(scene.find('settings'))
-		print('''		rendering task base settings choice
-use file settings (f) :
-''')
-		pref.printTaskPrimarySettings(scriptSetting)
-		print('\tuse preferences settings (p) :\n')
-		scriptSetting.printTaskPrimarySettings()
-		print('\tedit from file settings (ef)\n\tedit from preferences settings (ep)')
-		choice = input('choice (or «q»):')
 		
-		if choice in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
-			#cancel action
-			log.write('canceled action\n')
-			return
-			
-		if choice in ['p', 'P', 'EP', 'ep']:
-			pref = scriptSetting.getClone(pref.start, pref.end)
-			
-		if choice in ['ef', 'ed', 'EF', 'ED']:
-			#edit of the settings, not yet coded
-			print()
 		
 		#add the task and save the queue
-		add = render()
-		add.path = path
-		add.scene = scene.get('name')
-		add.settings = pref
-		add.status = 'ready'
-		renderQueue.add(add)
+		task = render()
+		task.path = path
+		task.scene = scene.get('name')
+		renderQueue.add(task)
 		saveQueue(renderQueue)
 		
 		
