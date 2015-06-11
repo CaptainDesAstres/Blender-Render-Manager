@@ -190,9 +190,12 @@ def addTask():
 		
 		
 		#add the task and save the queue
-		task = renderingTask()
-		task.path = path
-		task.scene = scene.get('name')
+		task = renderingTask(
+								path = path, 
+								scene = scene.get('name'), 
+								fileXmlSetting = scene,
+								preferences = scriptSetting)
+		
 		renderQueue.add(task)
 		saveQueue(renderQueue)
 		
