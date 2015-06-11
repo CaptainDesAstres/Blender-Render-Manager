@@ -99,7 +99,7 @@ def main():
 			continu=False
 		elif choice in ['1','A','a']:
 			log.write('choice : add rendering task\n')
-			addFile();
+			addTask();
 		elif choice in ['2','L','l']:
 			log.write('choice : actualy unavailable function,not yet coded\n')
 		elif choice in ['3','R','r']:
@@ -114,7 +114,9 @@ def main():
 		
 		os.system('clear')
 
-def addFile():
+
+
+def addTask():
 	'''function to manage manual rendering task adding'''
 	global log, renderQueue
 	os.system('clear')
