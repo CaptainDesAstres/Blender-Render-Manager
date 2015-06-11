@@ -334,44 +334,6 @@ class setting:
 	
 	
 	
-	def printTaskPrimarySettings(self,default=None):
-		'''print settings like render file settings, coloring in red settings who don't match the default settings'''
-		if default is None:
-			default = self
-			same = {False:'\033[31m';True:'\033[30m'}
-		else:
-			same = {False:'\033[31m';True:'\033[32m'}
-		r = '\033[0m'
-		
-		# get resolution parameters
-		txt ='résolution : '+same[self.x == default.x]+str(self.x)+r\
-		+'x'+same[self.y == default.y]+str(self.y)+r\
-		+' (@'+same[self.percent == default.percent]+str(int(self.percent*100))+r+'%)\n'
-		
-		if(self.simplify is not None):
-			txt += 'simplify subdiv : '+same[self.simplify == default.simplify]+self.simplify+r+'\n'
-		
-		#get engine parameters
-		txt += 'engine : '+same[self.renderingEngine == default.renderingEngine]+self.renderingEngine.lower()+r\
-		+'('+same[self.renderingDevice == default.renderingDevice]+self.renderingDevice+r+')\n')
-		
-		
-		# get animation parameters
-		txt += 'animation : '
-		if self.start is not None and self.end is not None :
-			txt+= 'frame '+str(self.start)+' à '+str(self.end)+' '
-		txt += '(@'+same[self.fps == default.fps]+str(self.fps)+r+'fps)\n'
-		
-		# print output parameters
-		txt += 'format : '+same[self.outputFormat == default.outputFormat]+self.outputFormat+r+'\n'
-		
-		
-		print(txt)
-	
-	
-	
-	
-	
 	def getClone(self,start = None, end = None):
 		'''create another settings object with the same attribut values
 		restart/end attributes value with start/end argument values if set'''
