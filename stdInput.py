@@ -14,6 +14,15 @@ class stdInput:
 		self.charReading = False
 	
 	
+	def __del__(self):
+		'''restore input method before object deletion'''
+		self.setLineReading()
+		del(self.stdinFileDescriptor)
+		del(self.stdinOriginalSet)
+		del(self.lineReading)
+		del(self.charReading)
+	
+	
 	def switch(self):
 		'''switch between 2 input method : line by line or char by char'''
 		if self.lineReading:
