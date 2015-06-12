@@ -30,5 +30,11 @@ class stdInput:
 		self.charReading = True
 	
 	def readChar(self):
-		return sys.stdin.read(1)
+		if self.charReading:
+			return sys.stdin.read(1)
+		else:
+			std.switch()
+			ch = sys.stdin.read(1)
+			std.switch()
+			return ch
 
