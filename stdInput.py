@@ -13,7 +13,7 @@ class stdInput:
 	
 	def switch(self):
 		if self.lineReading:
-			self.setCharReading
+			self.setCharReading()
 		else:
 			self.setLineReading()
 	
