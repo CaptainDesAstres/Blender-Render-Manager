@@ -53,7 +53,7 @@ class stdInput:
 		ch=''
 		while nb > 0:
 			ch += sys.stdin.read(1)
-			print(ch[len(ch)-1])
+			print(ch[len(ch)-1], end = '',flush=True)
 			nb -= 1
 		
 		if switch:
