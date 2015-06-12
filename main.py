@@ -11,6 +11,10 @@ from setting import *
 from queue import *
 from save import *
 from renderingTask import *
+import stdInput
+
+inputMode = stdInput.stdInput()
+
 
 #get path to the script directories
 mainPath = os.path.abspath(sys.argv[0]+'/..')
