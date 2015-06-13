@@ -128,7 +128,7 @@ def main():
 
 def addTask():
 	'''function to manage manual rendering task adding'''
-	global log, renderQueue
+	global log, renderQueue, scriptSetting
 	os.system('clear')
 	path = ''
 	
@@ -160,9 +160,9 @@ def addTask():
 			path = ''
 			continue
 			
-		elif not os.path.exists(path):
+		elif not os.path.exists(path) or not os.path.isfile(path) :
 			#check if the file exist
-			print('this file didn\'t exist!')
+			print('this path didn\'t exist or is not a file!')
 			log.write('no corresponding file to this path :'+path+'\n')
 			path = ''
 			continue 
@@ -172,7 +172,7 @@ def addTask():
 		log.write('prepare the adding of : '+path+'\n')
 		
 		os.chdir(mainPath)
-		prefXml = os.popen('blender -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
+		prefXml = os.popen('"'+scriptSetting.blenderPath+'" -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
 		os.chdir(settingPath)
 		
 		
@@ -284,7 +284,40 @@ def prefEdit():
 			return
 		elif choice in ['0','b','B']:
 			#edit blender path
-			print('not yet implement')
+			#print current blender path and ask a new one
+			os.system('clear')
+			log.write('blender path editing: ')
+			log.print()
+			print('current path :'+scriptSetting.blenderPath+'\n\n')
+			choice = input('''new absolute path ? ( 'blender' '/home/user/Download/blender' for example or 'cancel')''').strip()
+			
+			if choice[0] in ['\'', '"'] and choice[-1] == choice[0]:
+				#remove quote mark and apostrophe in first and last character
+				choice  = choice[1:len(choice)-1]
+			
+			#parse new settings and check it
+			match = re.search(r'(^blender$)|(^/(.+/)blender$)',choice)
+			if match is None:
+				if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
+					log.write('blender path change canceled\n')
+				else:
+					log.write("error, the path must be an absolute path(beginng by '/' and ending by 'blender') or the 'blender' command\n blender path change canceled, retry\n")
+				continue
+			elif choice == 'blender':
+				#apply new settings and save it
+				scriptSetting.blenderPath = choice
+				saveSettings(scriptSetting)
+				log.write(choice+'\nnew path saved\n')
+			else:
+				if os.path.exists(choice) and os.path.isfile(choice) and os.access(choice, os.X_OK):
+					scriptSetting.blenderPath = choice
+					saveSettings(scriptSetting)
+					log.write(choice+'\nnew path saved\n')
+				else:
+					log.write("error: the file didn't exist or is not a file or is not executable\n blender path change canceled, retry\n")
+				continue
+			
+			
 		elif choice in ['1','r','R']:
 			#edit resolution setting
 			#print current resolution settings and ask new settings
