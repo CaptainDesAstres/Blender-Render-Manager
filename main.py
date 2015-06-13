@@ -267,14 +267,24 @@ def prefEdit():
 		os.system('clear')
 		log.print()
 		print('''		preferences editing:
+	0- Blender path
 	1- Resolution
 	2- Animation rate
-	''')
+	3- Cycles samples
+	4- Engine
+	5- Output
+	6- Tiles
+	7- Ligth path
+	8- OPtions
+	9- Keywords''')
 		
 		#treat available actions
-		choice = input('what\'s the parameter to edit ?(or \'cancel\')')
+		choice = input('what\'s the parameter to edit ?(or \'q\' or \'cancel\')')
 		if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
 			return
+		elif choice in ['0','b','B']:
+			#edit blender path
+			print('not yet implement')
 		elif choice in ['1','r','R']:
 			#edit resolution setting
 			#print current resolution settings and ask new settings
@@ -325,6 +335,27 @@ def prefEdit():
 			saveSettings(scriptSetting)
 			log.write(match.group(1)+'fps\n')
 			
+		elif choice in ['3','c','C']:
+			#edit Cycles samples settings
+			print('not yet implement')
+		elif choice in ['4','e','E']:
+			#edit Engine settings
+			print('not yet implement')
+		elif choice in ['5','o','O']:
+			#edit Output settings
+			print('not yet implement')
+		elif choice in ['6','t','T']:
+			#edit Tiles settings
+			print('not yet implement')
+		elif choice in ['7','l','L']:
+			#edit Ligth path settings
+			print('not yet implement')
+		elif choice in ['8','op','OP']:
+			#edit OPtions settings
+			print('not yet implement')
+		elif choice in ['9','k','K']:
+			#edit Keywords settings
+			print('not yet implement')
 		else:
 			log.write('unknow request!\n')
 
