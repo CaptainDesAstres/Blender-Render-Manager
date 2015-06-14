@@ -436,22 +436,22 @@ class setting:
 				self.editSample(log)
 			elif choice in ['4','e','E']:
 				#edit Engine settings
-				print('not yet implement')
+				self.editEgine(log)
 			elif choice in ['5','o','O']:
 				#edit Output settings
-				print('not yet implement')
+				self.editOutput(log)
 			elif choice in ['6','t','T']:
 				#edit Tiles settings
-				print('not yet implement')
+				self.editTiles(log)
 			elif choice in ['7','l','L']:
 				#edit Ligth path settings
-				print('not yet implement')
+				self.editLight(log)
 			elif choice in ['8','op','OP']:
 				#edit OPtions settings
-				print('not yet implement')
+				self.editOption(log)
 			elif choice in ['9','k','K']:
 				#edit Keywords settings
-				print('not yet implement')
+				self.editKeyword(log)
 			else:
 				log.write('unknow request!\n')
 	
@@ -615,5 +615,81 @@ class setting:
 					elif choice == 3:
 						self.foregroundCyclesSamples = new
 				return
+	
+	
+	
+	
+	
+	def editEgine(self, log):
+		#edit Engine settings
+		log.write('not yet implement\n')
+		
+		# print old settings
+		# get user choice
+		# get and check new setting
+	
+	
+	
+	
+	
+	def editOutput(self, log):
+		#edit Output settings
+		log.write('not yet implement\n')
+		
+		# print old settings
+		# get user choice
+		# get and check new setting
+	
+	
+	
+	
+	
+	def editTiles(self, log):
+		#edit Tiles settings
+		log.write('not yet implement\n')
+		
+		# print old settings
+		# get user choice
+		# get and check new setting
+	
+	
+	
+	
+	
+	def editLight(self, log):
+		#edit Ligth path settings
+		log.write('not yet implement\n')
+		
+		# print old settings
+		# get user choice
+		# get and check new setting
+	
+	
+	
+	
+	
+	def editOption(self, log):
+		#edit OPtions settings
+		log.write('not yet implement\n')
+		
+		# print old settings
+		# get user choice
+		# get and check new setting
+	
+	
+	
+	
+	
+	def editKeyword(self, log):
+		#edit Keywords settings
+		log.write('not yet implement\n')
+		
+		# print old settings
+		# get user choice
+		# get and check new setting
+	
+	
+	
+	
 	
 	
