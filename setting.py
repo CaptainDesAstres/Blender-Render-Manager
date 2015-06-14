@@ -369,6 +369,7 @@ class setting:
 	
 	def see(self, log):
 		'''print settings and let edit or reset it'''
+		change = False
 		while True:
 			#print log and preferences
 			os.system('clear')
@@ -380,15 +381,16 @@ class setting:
 			choice= input('(e)dit, (r)eset or (q)uit (and save): ')
 			if choice in ['Q','q']:
 				log.write('quit settings\n')
-				return
+				return change
 			elif choice in ['e','E']:
 				log.write('edit settings\n')
-				self.edit(log)
+				change = (self.edit(log) or change)
 			elif choice in ['R','r']:
 				#reset default settings
 				confirm = input('this action will reset to factory settings. confirm (y):')
 				if confirm in ['y','Y']:
 					self.__init__()
+					change = True
 					log.write('reset factory settings\n')
 				else:
 					log.write('abort settings reset\n')
@@ -400,7 +402,8 @@ class setting:
 	
 	def edit(self, log):
 		'''edit script preferences'''
-	
+		change = False
+		
 		while True:
 			#print log and edit preferences menu
 			os.system('clear')
@@ -421,37 +424,37 @@ class setting:
 			choice = input('what\'s the parameter to edit ?(or \'q\' or \'cancel\')')
 			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
 				log.write('quit\n')
-				return
+				return change
 			elif choice in ['0','b','B']:
 				#edit blender path
-				self.editBlenderPath(log)
+				change = (self.editBlenderPath(log) or change)
 			elif choice in ['1','r','R']:
 				#edit resolution setting
-				self.editResolution(log)
+				change = (self.editResolution(log) or change)
 			elif choice in ['2','a','A']:
 				#edit animation frame rate
-				self.editAnimationRate(log)
+				change = (self.editAnimationRate(log) or change)
 			elif choice in ['3','c','C']:
 				# edit Cycles samples settings
-				self.editSample(log)
+				change = (self.editSample(log) or change)
 			elif choice in ['4','e','E']:
 				#edit Engine settings
-				self.editEgine(log)
+				change = (self.editEgine(log) or change)
 			elif choice in ['5','o','O']:
 				#edit Output settings
-				self.editOutput(log)
+				change = (self.editOutput(log) or change)
 			elif choice in ['6','t','T']:
 				#edit Tiles settings
-				self.editTiles(log)
+				change = (self.editTiles(log) or change)
 			elif choice in ['7','l','L']:
 				#edit Ligth path settings
-				self.editLight(log)
+				change = (self.editLight(log) or change)
 			elif choice in ['8','op','OP']:
 				#edit OPtions settings
-				self.editOption(log)
+				change = (self.editOption(log) or change)
 			elif choice in ['9','k','K']:
 				#edit Keywords settings
-				self.editKeyword(log)
+				change = (self.editKeyword(log) or change)
 			else:
 				log.write('unknow request!\n')
 	
@@ -462,6 +465,7 @@ class setting:
 	
 	def editBlenderPath(self, log):
 		#edit blender path
+		change = False
 		#print current blender path and ask a new one
 		os.system('clear')
 		log.write('blender path editing: ')
@@ -480,19 +484,22 @@ class setting:
 			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
 				log.write('blender path change canceled\n')
 			else:
-				log.write("error, the path must be an absolute path(beginng by '/' and ending by 'blender') or the 'blender' command\n blender path change canceled, retry\n")
-			return
+				log.write("error, the path must be an absolute path(beginng by '/' and ending by 'blender') or the 'blender' command\n blender path change canceled, retry!\n")
+			return change
 		elif choice == 'blender':
 			#apply new settings and save it
 			self.blenderPath = choice
+			change = True
 			log.write(choice+'\n')
 		else:
 			if os.path.exists(choice) and os.path.isfile(choice)\
 						and os.access(choice, os.X_OK):
 				self.blenderPath = choice
+				change = True
 				log.write(choice+'\n')
 			else:
 				log.write("error: the file didn't exist or is not a file or is not executable\n blender path change canceled, retry\n")
+		return change
 	
 	
 	
@@ -513,10 +520,10 @@ class setting:
 		match = re.search(r'^(\d{3,5})x(\d{3,5})@(\d{2,3})$',choice)
 		if match is None:
 			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
-				log.write('resolution change canceled\n')
+				log.write('quit resolution editing \n')
 			else:
-				log.write('error, resolution change canceled, retry\n')
-			return
+				log.write('error, resolution change unvalid, retry\n')
+			return False
 		
 		
 		#apply new settings and save it
@@ -524,6 +531,7 @@ class setting:
 		self.y = int(match.group(2))
 		self.percent = int(match.group(3))/100
 		log.write(choice+'\n')
+		return True
 	
 	
 	
@@ -545,11 +553,12 @@ class setting:
 				log.write('animation frame rate change canceled\n')
 			else:
 				log.write('error, animation frame rate change canceled, retry\n')
-			return
+			return False
 	
 		#apply new settings and save it
 		self.fps = int(match.group(1))
 		log.write(match.group(1)+'fps\n')
+		return True
 	
 	
 	
@@ -557,6 +566,7 @@ class setting:
 	
 	def editSample(self, log):
 		# edit Cycles samples settings
+		change = False
 		# print current settings
 		os.system('clear')
 		log.write('edit Cycles sample settings : ')
@@ -574,7 +584,7 @@ class setting:
 			if choice in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
 				# quit Cycles sample settings edition
 				log.write('quit sample editing\n')
-				return
+				return change
 			elif choice not in ['1', '2', '3']:
 				print('unvalid choice : '+choice)
 			else:
@@ -614,7 +624,7 @@ class setting:
 						self.backgroundCyclesSamples = new
 					elif choice == 3:
 						self.foregroundCyclesSamples = new
-				return
+					change = True
 	
 	
 	
@@ -622,6 +632,7 @@ class setting:
 	
 	def editEgine(self, log):
 		#edit Engine settings
+		change = False
 		# print old settings
 		os.system('clear')
 		log.write('change default engine Settings : ')
@@ -637,18 +648,20 @@ class setting:
 ''')
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '3']:
 				log.write('end\n')
-				return
+				return change
 			elif choice in ['1', 'e', 'E']:
 				if self.renderingEngine == 'CYCLES':
 					self.renderingEngine = 'BLENDER_RENDER'
 				else:
 					self.renderingEngine = 'CYCLES'
+				change = True
 				log.write('engine switch to '+self.renderingEngine+'\n')
 			elif choice in ['2', 'd', 'D']:
 				if self.renderingDevice == 'GPU':
 					self.renderingDevice = 'CPU'
 				else:
 					self.renderingDevice = 'GPU'
+				change = True
 				log.write('device switch to '+self.renderingDevice+'\n')
 			else:
 				log.write('unvalid choice :'+choice+'\nretry\nchange default engine Settings : ')

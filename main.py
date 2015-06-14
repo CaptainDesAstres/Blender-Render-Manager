@@ -116,9 +116,10 @@ def main():
 			log.write('choice : actualy unavailable function,not yet coded\n')
 		elif choice in ['4','P','p']:
 			log.write('choice : watch / edit preferences\n')
-			scriptSetting.see(log)
-			saveSettings(scriptSetting)
-			log.write('preferences saved\n')
+			if(scriptSetting.see(log)):
+				# save if there is a setting change
+				saveSettings(scriptSetting)
+				log.write('preferences saved\n')
 		elif choice in ['5','L','l']:
 			log.write('choice : actualy unavailable function,not yet coded\n')
 		else:
