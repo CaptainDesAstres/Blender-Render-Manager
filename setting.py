@@ -569,16 +569,16 @@ class setting:
 		change = False
 		# print current settings
 		while True:
-		os.system('clear')
-		log.write('edit Cycles sample settings : ')
-		log.print()
-		print('current Cycles sample settings: '\
-				+'\n\t1- Main sample : '+str(self.mainAnimationCyclesSamples)\
-				+'\n\t2- Background sample : '+str(self.backgroundCyclesSamples)\
-				+'\n\t3- Foreground sample : '+str(self.foregroundCyclesSamples)\
-				+'\n\n')
-		
-		# choice of the parameters to edit
+			os.system('clear')
+			log.write('edit Cycles sample settings : ')
+			log.print()
+			print('current Cycles sample settings: '\
+					+'\n\t1- Main sample : '+str(self.mainAnimationCyclesSamples)\
+					+'\n\t2- Background sample : '+str(self.backgroundCyclesSamples)\
+					+'\n\t3- Foreground sample : '+str(self.foregroundCyclesSamples)\
+					+'\n\n')
+			
+			# choice of the parameters to edit
 			choice = input('what\'s the parameter to edit? ( \'1\', \'2\' \'3\' or \'q\'):').strip()
 		
 			if choice in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
@@ -635,12 +635,12 @@ class setting:
 		change = False
 		# print old settings
 		while True:
-		os.system('clear')
-		log.write('change default engine Settings : ')
-		log.print()
-		print('current engine : '+self.renderingEngine\
-					+'\ncurrent rendering device : '+self.renderingDevice+' (Cycles only)\n\n')
-		
+			os.system('clear')
+			log.write('change default engine Settings : ')
+			log.print()
+			print('current engine : '+self.renderingEngine\
+						+'\ncurrent rendering device : '+self.renderingDevice+' (Cycles only)\n\n')
+			
 			choice = input('''choice :
 	1- switch rendering Engine
 	2- switch rendering Device
@@ -673,9 +673,159 @@ class setting:
 	
 	def editOutput(self, log):
 		#edit Output settings
-		# print old settings
-		# get user choice
-		# get and check new setting
+		change = False
+		while True:
+			os.system('clear')
+			log.write('change output Settings : ')
+			log.print()
+			
+			# print old settings
+			print('current output settings : '\
+					+'\n\t1- Output path (absolute) : '+str(self.outputPath)\
+					+'\n\t2- Subpath : '+self.outputSubPath\
+					+'\n\t3- Name : '+self.outputName\
+					+'\n\t4- Format : '+self.outputFormat\
+					+'\n\t5- Quit\n\n')
+			choice = input('''What's the setting to edit?''')
+			
+			
+			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '5']:
+				# quit edition
+				log.write('end\n')
+				return change
+				
+				
+				
+			elif choice in ['1', 'o', 'O']:
+				# edit output path
+				log.write('edit main output path:')
+				print('current output path : '+str(self.outputPath)) 
+				new = input('\nnew path (must already exist and be absolute path):').strip()
+				
+				# empty path
+				if new in ['', "''", '""']:
+					self.outputPath = None
+					log.write('set to None\n')
+					change = True
+					continue
+				if new[0] in ['\'', '"'] and new[0]==new[-1]:
+					new  = new[1:len(new)-1]
+				
+				match = re.search(r'^/(.+/)$',new)
+				
+				if match is None:
+					# check if path is a good syntaxe
+					log.write('unvalid path : "'+new+'"\nThe path must be absolute (begin and end by "/")')
+				else:
+					
+					# check if it's a good path and save it
+					if os.path.exists(new) and os.path.isdir(new)\
+							and os.access(new, os.W_OK):
+						self.outputPath = new
+						change = True
+						log.write(new+'\n')
+					else:
+						log.write("unvalid path : '"+new+"'\nthe path didn't exist, is not a directories or you don't have the right to write in it\n")
+				
+				
+				
+			elif choice in ['2', 's', 'S']:
+				# edit subpath
+				
+				log.write('edit output subpath :')
+				print('current output subpath : '+self.outputSubPath) 
+				new = input('\nnew subpath (%N will be replaced by the task file name and %S by the scene name):').strip()
+				
+				if new in ['', "''", '""']:
+					log.write('canceled\n')
+					continue
+				
+				if new[0] in ['\'', '"'] and new[0]==new[-1]:
+					new  = new[1:len(new)-1]
+				
+				if new.find('/') != -1:
+					# check if there is a '/' caractère in the new name
+					log.write('unvalid : "'+new+'"\nThe subpath must not contain "/"!\n')
+					continue
+				
+				if new.find('%S') == -1 or new.find('%N') == -1:
+					# check if there is a '%N' and a '%S' sequences in the new name
+					log.write('unvalid : "'+new+'"\nThe subpath must contain at less one occurence of "%N" and "%S" or different render risk to overwrite themselves!\n')
+					continue
+				
+				# change output SubPath if the new one is good
+				self.outputSubPath = new
+				log.write(new+'\n')
+				change = True
+				
+				
+				
+				
+			elif choice in ['3', 'n', 'N']:
+				# edit output naming
+				log.write('edit output naming :')
+				print('current output naming : '+self.outputName) 
+				
+				# get new name
+				new = input('%N will be replaced by the original blender file name (optionel)\n\
+%S will be replaced by the scene name (optionel)\n\
+%L will be replaced by the renderlayer name\n\
+%F will be replaced by the render frame number\n\
+new naming :').strip()
+				
+				if new in ['', "''", '""']:
+					log.write('canceled\n')
+					continue
+				
+				if new[0] in ['\'', '"'] and new[0]==new[-1]:
+					new  = new[1:len(new)-1]
+				
+				if new.find('/') != -1:
+					# check if there is a '/' caractère in the new name
+					log.write('unvalid : "'+new+'"\nThe name must not contain "/"!\n')
+					continue
+				
+				if new.find('%L') == -1 or new.find('%F') == -1:
+					# check if there is a '%F' and a '%L' sequences in the new name
+					log.write('unvalid : "'+new+'"\nThe name must contain at less one occurence of "%L" and "%F" or different render risk to overwrite themselves!\n')
+					continue
+					
+				# change output name if the new one is good
+				self.outputName = new
+				log.write(new+'\n')
+				change = True
+				
+				
+				
+				
+			elif choice in ['4', 'f', 'F']:
+				# edit output format
+				# print old setting
+				log.write('edit output format :')
+				print('current output format : '+self.outputFormat) 
+				new = input('new format (available: png / jpeg / open_exr / open_exr_multilayer):').strip()
+				
+				if new in ['', "''", '""']:
+					log.write('canceled\n')
+					continue
+				
+				new = new.upper()
+				
+				if new in ['PNG', 'JPEG', 'OPEN_EXR', 'OPEN_EXR_MULTILAYER']:
+					# change format if the one is one of the available
+					self.outputFormat = new
+					log.write(new+'\n')
+					change = True
+				else:
+					log.write('unvalid format : "'+new+'"\n')
+					continue
+				
+				
+				
+				
+			else:
+				log.write('unvalid choice :'+choice+'\nretry\n')
+			
 	
 	
 	
