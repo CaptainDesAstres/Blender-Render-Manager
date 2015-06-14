@@ -568,6 +568,7 @@ class setting:
 		# edit Cycles samples settings
 		change = False
 		# print current settings
+		while True:
 		os.system('clear')
 		log.write('edit Cycles sample settings : ')
 		log.print()
@@ -578,7 +579,6 @@ class setting:
 				+'\n\n')
 		
 		# choice of the parameters to edit
-		while True:
 			choice = input('what\'s the parameter to edit? ( \'1\', \'2\' \'3\' or \'q\'):').strip()
 		
 			if choice in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
@@ -634,13 +634,13 @@ class setting:
 		#edit Engine settings
 		change = False
 		# print old settings
+		while True:
 		os.system('clear')
 		log.write('change default engine Settings : ')
 		log.print()
 		print('current engine : '+self.renderingEngine\
 					+'\ncurrent rendering device : '+self.renderingDevice+' (Cycles only)\n\n')
 		
-		while True:
 			choice = input('''choice :
 	1- switch rendering Engine
 	2- switch rendering Device
@@ -665,11 +665,7 @@ class setting:
 				log.write('device switch to '+self.renderingDevice+'\n')
 			else:
 				log.write('unvalid choice :'+choice+'\nretry\nchange default engine Settings : ')
-			os.system('clear')
-			log.write('change default engine Settings : ')
-			log.print()
-			print('current engine : '+self.renderingEngine\
-						+'\ncurrent rendering device : '+self.renderingDevice+' (Cycles only)\n\n')
+			
 	
 	
 	
@@ -677,8 +673,6 @@ class setting:
 	
 	def editOutput(self, log):
 		#edit Output settings
-		log.write('not yet implement\n')
-		
 		# print old settings
 		# get user choice
 		# get and check new setting
