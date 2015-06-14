@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module containing 'setting' class'''
 import xml.etree.ElementTree as xmlMod
+import os, re
 
 class setting:
 	'''class that contain the script preferences or a rendering task preferences'''
@@ -291,7 +292,7 @@ class setting:
 	
 	
 	
-	def printPreferences(self):
+	def print(self):
 		'''print settings like preferences settings'''
 		enable = {True:'enabled', False:'Disabled'}
 		
@@ -361,8 +362,258 @@ class setting:
 		restart/end attributes value with start/end argument values if set'''
 		
 		return setting( xmlMod.fromstring( self.toXmlStr( head = True, root = True) ) )
+	
+	
+	
+	
+	
+	def see(self, log):
+		'''print settings and let edit or reset it'''
+		while True:
+			#print log and preferences
+			os.system('clear')
+			log.print()
+			print('\t\tSettings\n')
+			self.print()
+		
+			#treat available actions
+			choice= input('(e)dit, (r)eset or (q)uit (and save): ')
+			if choice in ['Q','q']:
+				log.write('quit settings\n')
+				return
+			elif choice in ['e','E']:
+				log.write('edit settings\n')
+				self.edit(log)
+			elif choice in ['R','r']:
+				#reset default settings
+				confirm = input('this action will reset to factory settings. confirm (y):')
+				if confirm in ['y','Y']:
+					self.__init__()
+					log.write('reset factory settings\n')
+				else:
+					log.write('abort settings reset\n')
+			else:
+				log.write('unknow request\n')
+	
+	
+	
+	
+	def edit(self, log):
+		'''edit script preferences'''
+	
+		while True:
+			#print log and edit preferences menu
+			os.system('clear')
+			log.print()
+			print('''		preferences editing:
+		0- Blender path
+		1- Resolution
+		2- Animation rate
+		3- Cycles samples
+		4- Engine
+		5- Output
+		6- Tiles
+		7- Ligth path
+		8- OPtions
+		9- Keywords''')
+		
+			#treat available actions
+			choice = input('what\'s the parameter to edit ?(or \'q\' or \'cancel\')')
+			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
+				log.write('quit\n')
+				return
+			elif choice in ['0','b','B']:
+				#edit blender path
+				self.editBlenderPath(log)
+			elif choice in ['1','r','R']:
+				#edit resolution setting
+				self.editResolution(log)
+			elif choice in ['2','a','A']:
+				#edit animation frame rate
+				self.editAnimationRate(log)
+			elif choice in ['3','c','C']:
+				# edit Cycles samples settings
+				self.editSample(log)
+			elif choice in ['4','e','E']:
+				#edit Engine settings
+				print('not yet implement')
+			elif choice in ['5','o','O']:
+				#edit Output settings
+				print('not yet implement')
+			elif choice in ['6','t','T']:
+				#edit Tiles settings
+				print('not yet implement')
+			elif choice in ['7','l','L']:
+				#edit Ligth path settings
+				print('not yet implement')
+			elif choice in ['8','op','OP']:
+				#edit OPtions settings
+				print('not yet implement')
+			elif choice in ['9','k','K']:
+				#edit Keywords settings
+				print('not yet implement')
+			else:
+				log.write('unknow request!\n')
+	
+	
+	
+	
+	
+	
+	def editBlenderPath(self, log):
+		#edit blender path
+		#print current blender path and ask a new one
+		os.system('clear')
+		log.write('blender path editing: ')
+		log.print()
+		print('current path :'+self.blenderPath+'\n\n')
+		
+		choice = input('''new absolute path ? ( 'blender' '/home/user/Download/blender' for example or 'cancel')''').strip()
+		
+		if choice[0] in ['\'', '"'] and choice[-1] == choice[0]:
+			#remove quote mark and apostrophe in first and last character
+			choice  = choice[1:len(choice)-1]
+	
+		#parse new settings and check it
+		match = re.search(r'(^blender$)|(^/(.+/)blender$)',choice)
+		if match is None:
+			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
+				log.write('blender path change canceled\n')
+			else:
+				log.write("error, the path must be an absolute path(beginng by '/' and ending by 'blender') or the 'blender' command\n blender path change canceled, retry\n")
+			return
+		elif choice == 'blender':
+			#apply new settings and save it
+			self.blenderPath = choice
+			log.write(choice+'\n')
+		else:
+			if os.path.exists(choice) and os.path.isfile(choice)\
+						and os.access(choice, os.X_OK):
+				self.blenderPath = choice
+				log.write(choice+'\n')
+			else:
+				log.write("error: the file didn't exist or is not a file or is not executable\n blender path change canceled, retry\n")
+	
+	
+	
+	
+	
+	
+	def editResolution(self, log):
+		#edit resolution setting
+		#print current resolution settings and ask new settings
+		os.system('clear')
+		log.write('resolution editing: ')
+		log.print()
+		print('current resolution :'+str(self.x)+'x'+str(self.y)+'@'+str(int(self.percent*100))+'\n\n')
+		choice = input('new resolution ? (1920x1080@100 for example or \'cancel\')')
 		
 		
-
-
-
+		#parse new settings and check it
+		match = re.search(r'^(\d{3,5})x(\d{3,5})@(\d{2,3})$',choice)
+		if match is None:
+			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
+				log.write('resolution change canceled\n')
+			else:
+				log.write('error, resolution change canceled, retry\n')
+			return
+		
+		
+		#apply new settings and save it
+		self.x = int(match.group(1))
+		self.y = int(match.group(2))
+		self.percent = int(match.group(3))/100
+		log.write(choice+'\n')
+	
+	
+	
+	
+	
+	def editAnimationRate(self, log):
+		#edit animation frame rate
+		#print log and current animation settings and ask new settings
+		os.system('clear')
+		log.write('edit animation rate : ')
+		log.print()
+		print('current animation rate: '+str(self.fps)+'fps\n\n')
+		choice = input('new animation rate? ( 30 for example or \'cancel\')')
+	
+		#parse new settings and check it
+		match = re.search(r'^(\d{1,})(fps)?$',choice)
+		if match is None:
+			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
+				log.write('animation frame rate change canceled\n')
+			else:
+				log.write('error, animation frame rate change canceled, retry\n')
+			return
+	
+		#apply new settings and save it
+		self.fps = int(match.group(1))
+		log.write(match.group(1)+'fps\n')
+	
+	
+	
+	
+	
+	def editSample(self, log):
+		# edit Cycles samples settings
+		# print current settings
+		os.system('clear')
+		log.write('edit Cycles sample settings : ')
+		log.print()
+		print('current Cycles sample settings: '\
+				+'\n\t1- Main sample : '+str(self.mainAnimationCyclesSamples)\
+				+'\n\t2- Background sample : '+str(self.backgroundCyclesSamples)\
+				+'\n\t3- Foreground sample : '+str(self.foregroundCyclesSamples)\
+				+'\n\n')
+		
+		# choice of the parameters to edit
+		while True:
+			choice = input('what\'s the parameter to edit? ( \'1\', \'2\' \'3\' or \'q\'):').strip()
+		
+			if choice in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
+				# quit Cycles sample settings edition
+				log.write('quit sample editing\n')
+				return
+			elif choice not in ['1', '2', '3']:
+				print('unvalid choice : '+choice)
+			else:
+				# edit sample settings
+			
+				choice = int(choice)
+				setName = ['main animation', 'background', 'foreground']
+				setValue = [str(self.mainAnimationCyclesSamples), 
+						str(self.backgroundCyclesSamples), 
+						str(self.foregroundCyclesSamples)]
+			
+				# print current setting
+				os.system('clear')
+				log.write(setName[choice]+' : ')
+				log.print()
+				print('current '+setName[choice]+' sample settings : '\
+						+setValue[choice]+'\n\n')
+				
+				# get user choice
+				new = input('new '+setName[choice]+' sample? (an integer or \'q\')').strip()
+				match = re.search(r'^(\d{1,})?$',new)
+			
+				# if user input is not an integer, quit cycle sample setting edition
+				if match is None:
+					if new not in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
+						log.write('unvalid settings :'+new\
+								+'\nretry\n')
+					else:
+						log.write('canceled\n')
+				else:
+					# apply a good new setting
+					log.write(new+'\n')
+					new = int(new)
+					if choice == 1:
+						self.mainAnimationCyclesSamples = new
+					elif choice == 2:
+						self.backgroundCyclesSamples = new
+					elif choice == 3:
+						self.foregroundCyclesSamples = new
+				return
+	
+	
