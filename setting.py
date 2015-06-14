@@ -622,11 +622,41 @@ class setting:
 	
 	def editEgine(self, log):
 		#edit Engine settings
-		log.write('not yet implement\n')
-		
 		# print old settings
-		# get user choice
-		# get and check new setting
+		os.system('clear')
+		log.write('change default engine Settings : ')
+		log.print()
+		print('current engine : '+self.renderingEngine\
+					+'\ncurrent rendering device : '+self.renderingDevice+' (Cycles only)\n\n')
+		
+		while True:
+			choice = input('''choice :
+	1- switch rendering Engine
+	2- switch rendering Device
+	3- Quit
+''')
+			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '3']:
+				log.write('end\n')
+				return
+			elif choice in ['1', 'e', 'E']:
+				if self.renderingEngine == 'CYCLES':
+					self.renderingEngine = 'BLENDER_RENDER'
+				else:
+					self.renderingEngine = 'CYCLES'
+				log.write('engine switch to '+self.renderingEngine+'\n')
+			elif choice in ['2', 'd', 'D']:
+				if self.renderingDevice == 'GPU':
+					self.renderingDevice = 'CPU'
+				else:
+					self.renderingDevice = 'GPU'
+				log.write('device switch to '+self.renderingDevice+'\n')
+			else:
+				log.write('unvalid choice :'+choice+'\nretry\nchange default engine Settings : ')
+			os.system('clear')
+			log.write('change default engine Settings : ')
+			log.print()
+			print('current engine : '+self.renderingEngine\
+						+'\ncurrent rendering device : '+self.renderingDevice+' (Cycles only)\n\n')
 	
 	
 	
