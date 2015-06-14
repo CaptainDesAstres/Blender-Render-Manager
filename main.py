@@ -259,8 +259,7 @@ def preference():
 
 def prefEdit():
 	'''edit script preferences'''
-	global log
-	global scriptSetting
+	global log, scriptSetting
 	
 	while True:
 		#print log and edit preferences menu
@@ -369,8 +368,65 @@ def prefEdit():
 			log.write(match.group(1)+'fps\n')
 			
 		elif choice in ['3','c','C']:
-			#edit Cycles samples settings
-			print('not yet implement')
+			# edit Cycles samples settings
+			# print current settings
+			os.system('clear')
+			log.write('edit Cycles sample settings : ')
+			log.print()
+			print('current Cycles sample settings: '\
+					+'\n\t1- Main sample : '+str(scriptSetting.mainAnimationCyclesSamples)\
+					+'\n\t2- Background sample : '+str(scriptSetting.backgroundCyclesSamples)\
+					+'\n\t3- Foreground sample : '+str(scriptSetting.foregroundCyclesSamples)\
+					+'\n\n')
+			
+			# choice of the parameters to edit
+			while True:
+				choice = input('what\'s the parameter to edit? ( \'1\', \'2\' \'3\' or \'q\'):').strip()
+				
+				if choice in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
+					# quit Cycles sample settings edition
+					log.write('canceled\n')
+					break
+				elif choice not in ['1', '2', '3']:
+					print('unvalid choice : '+choice)
+				else:
+					# edit sample settings
+					
+					choice = int(choice)
+					setName = ['main animation', 'background', 'foreground']
+					setValue = [str(scriptSetting.mainAnimationCyclesSamples), 
+							str(scriptSetting.backgroundCyclesSamples), 
+							str(scriptSetting.foregroundCyclesSamples)]
+					
+					# print current setting
+					os.system('clear')
+					log.write(setName[choice]+' : ')
+					log.print()
+					print('current '+setName[choice]+' sample settings : '\
+							+setValue[choice]+'\n\n')
+					
+					# get user choice
+					new = input('new '+setName[choice]+' sample? (an integer or \'q\')').strip()
+					match = re.search(r'^(\d{1,})?$',new)
+					
+					# if user input is not an integer, quit cycle sample setting edition
+					if match is None:
+						if new not in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
+							log.write('unvalid settings :'+new\
+									+'\nretry\n')
+						else:
+							log.write('canceled\n')
+					else:
+						# apply a good new setting
+						log.write(new+'\n')
+						new = int(new)
+						if choice == 1:
+							scriptSetting.mainAnimationCyclesSamples = new
+						elif choice == 2:
+							scriptSetting.backgroundCyclesSamples = new
+						elif choice == 3:
+							scriptSetting.foregroundCyclesSamples = new
+					break
 		elif choice in ['4','e','E']:
 			#edit Engine settings
 			print('not yet implement')
