@@ -401,7 +401,7 @@ class setting:
 	
 	
 	def edit(self, log):
-		'''edit script preferences'''
+		'''method to edit settings/preferences'''
 		change = False
 		
 		while True:
@@ -464,6 +464,7 @@ class setting:
 	
 	
 	def editBlenderPath(self, log):
+		'''method to change absolute path to the Blender version to use'''
 		#edit blender path
 		change = False
 		#print current blender path and ask a new one
@@ -507,6 +508,7 @@ class setting:
 	
 	
 	def editResolution(self, log):
+		'''method to edit the render resolution to use'''
 		#edit resolution setting
 		#print current resolution settings and ask new settings
 		os.system('clear')
@@ -538,6 +540,7 @@ class setting:
 	
 	
 	def editAnimationRate(self, log):
+		'''method to use to change the animation rate of the render'''
 		#edit animation frame rate
 		#print log and current animation settings and ask new settings
 		os.system('clear')
@@ -565,6 +568,7 @@ class setting:
 	
 	
 	def editSample(self, log):
+		'''method to change the sample settings of Cycles renders'''
 		# edit Cycles samples settings
 		change = False
 		# print current settings
@@ -631,6 +635,7 @@ class setting:
 	
 	
 	def editEngine(self, log):
+		'''method to change the default rendering engine '''
 		#edit Engine settings
 		change = False
 		# print old settings
@@ -672,6 +677,7 @@ class setting:
 	
 	
 	def editOutput(self, log):
+		'''method to change all the output settings'''
 		#edit Output settings
 		change = False
 		while True:
@@ -712,6 +718,7 @@ class setting:
 	
 	
 	def editOutputPath(self, log):
+		'''method to change output path'''
 		# edit output path
 		log.write('edit main output path:')
 		print('current output path : '+str(self.outputPath)) 
@@ -748,6 +755,7 @@ class setting:
 	
 	
 	def editOutputSubpath(self, log):
+		'''method to change output subpath naming convention'''
 		# edit output subpath
 		# write old settings
 		log.write('edit output subpath :')
@@ -781,6 +789,7 @@ class setting:
 	
 	
 	def editOutputName(self, log):
+		'''method to change output naming convention'''
 		# edit output naming
 		log.write('edit output naming :')
 		print('current output naming : '+self.outputName) 
@@ -818,6 +827,7 @@ new naming :').strip()
 	
 	
 	def editOutputFormat(self, log):
+		'''method to change output format'''
 		# edit output format
 		# print old setting
 		log.write('edit output format :')
@@ -837,6 +847,7 @@ new naming :').strip()
 	
 	
 	def editTiles(self, log):
+		'''method to change tiles size settings'''
 		#edit Tiles settings
 		change = False
 		
@@ -910,6 +921,7 @@ new naming :').strip()
 	
 	
 	def editLight(self, log):
+		'''method to change light path settings of Cycles'''
 		#edit Ligth path settings
 		log.write('not yet implement\n')
 		
@@ -922,6 +934,7 @@ new naming :').strip()
 	
 	
 	def editOption(self, log):
+		'''method to enable/disable rendering options'''
 		#edit OPtions settings
 		log.write('not yet implement\n')
 		
@@ -934,6 +947,7 @@ new naming :').strip()
 	
 	
 	def editKeyword(self, log):
+		'''method to manage renderlayer name keyword '''
 		#edit Keywords settings
 		log.write('not yet implement\n')
 		
