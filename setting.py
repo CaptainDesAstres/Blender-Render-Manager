@@ -598,13 +598,13 @@ class setting:
 			
 				# print current setting
 				os.system('clear')
-				log.write(setName[choice]+' : ')
+				log.write(setName[choice-1]+' : ')
 				log.print()
-				print('current '+setName[choice]+' sample settings : '\
-						+setValue[choice]+'\n\n')
+				print('current '+setName[choice-1]+' sample settings : '\
+						+setValue[choice-1]+'\n\n')
 				
 				# get user choice
-				new = input('new '+setName[choice]+' sample? (an integer or \'q\')').strip()
+				new = input('new '+setName[choice-1]+' sample? (an integer or \'q\')').strip()
 				match = re.search(r'^(\d{1,})?$',new)
 			
 				# if user input is not an integer, quit cycle sample setting edition
