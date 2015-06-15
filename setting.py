@@ -840,11 +840,11 @@ new naming :').strip()
 		#edit Tiles settings
 		change = False
 		
-		# print old settings
 		while True:
 			os.system('clear')
 			log.write('change tiles size : ')
 			log.print()
+			# print old settings
 			name = ['Cycle GPU', 'Cycles CPU', 'Blender Internal']
 			value = [ str(self.tilesCyclesGPUX)+'x'+str(self.tilesCyclesGPUY),
 						str(self.tilesCyclesCPUX)+'x'+str(self.tilesCyclesCPUY),
@@ -855,6 +855,7 @@ new naming :').strip()
 					+'\n\t\t3- Blender Internal tiles : '+value[2]+'\n\n'
 					)
 			
+			# get index of parameter to edit
 			choice = input('''what's the tile size to edit?('q' to quit)''')
 			
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
@@ -869,8 +870,11 @@ new naming :').strip()
 			name = name[choice-1]
 			value = value[choice-1]
 			log.write(name+' new tiles size : ')
+			
+			# print current settings
 			print('current '+name+' tiles size : '+value+'\n\n' )
 			
+			# get new size and check it
 			new = input('new '+name+' tiles size ("256x256" or "256" syntax)').strip()
 			match = re.search(r'^(\d{1,5})(x(\d{1,5}))?', new)
 			
@@ -878,6 +882,7 @@ new naming :').strip()
 				log.write('unvalid value : '+new+'\n')
 				continue
 			
+			# get new size x and y values
 			match = match.groups()
 			x = int(match[0])
 			if match[2] is None:
@@ -885,6 +890,7 @@ new naming :').strip()
 			else:
 				y = int(match[2])
 			
+			# apply new size
 			if choice == 1:
 				self.tilesCyclesGPUX = x
 				self.tilesCyclesGPUY = y
