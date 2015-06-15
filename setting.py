@@ -699,37 +699,10 @@ class setting:
 			elif choice in ['1', 'o', 'O']:
 				# edit output path
 				change = (self.editOutputPath(log) or change)
+				
 			elif choice in ['2', 's', 'S']:
 				# edit subpath
-				
-				log.write('edit output subpath :')
-				print('current output subpath : '+self.outputSubPath) 
-				new = input('\nnew subpath (%N will be replaced by the task file name and %S by the scene name):').strip()
-				
-				if new in ['', "''", '""']:
-					log.write('canceled\n')
-					continue
-				
-				if new[0] in ['\'', '"'] and new[0]==new[-1]:
-					new  = new[1:len(new)-1]
-				
-				if new.find('/') != -1:
-					# check if there is a '/' caractère in the new name
-					log.write('unvalid : "'+new+'"\nThe subpath must not contain "/"!\n')
-					continue
-				
-				if new.find('%S') == -1 or new.find('%N') == -1:
-					# check if there is a '%N' and a '%S' sequences in the new name
-					log.write('unvalid : "'+new+'"\nThe subpath must contain at less one occurence of "%N" and "%S" or different render risk to overwrite themselves!\n')
-					continue
-				
-				# change output SubPath if the new one is good
-				self.outputSubPath = new
-				log.write(new+'\n')
-				change = True
-				
-				
-				
+				change = (self.editOutputSubpath(log) or change)
 				
 			elif choice in ['3', 'n', 'N']:
 				# edit output naming
@@ -799,6 +772,7 @@ new naming :').strip()
 	
 	
 	
+	
 	def editOutputPath(self, log):
 		# edit output path
 		log.write('edit main output path:')
@@ -833,6 +807,40 @@ new naming :').strip()
 	
 	
 	
+	
+	
+	def editOutputSubpath(self, log):
+		# edit output subpath
+		# write old settings
+		log.write('edit output subpath :')
+		print('current output subpath : '+self.outputSubPath) 
+		new = input('\nnew subpath (%N will be replaced by the task file name and %S by the scene name):').strip()
+		
+		if new in ['', "''", '""']:
+			log.write('canceled\n')
+			return False
+		
+		if new[0] in ['\'', '"'] and new[0]==new[-1]:
+			new  = new[1:len(new)-1]
+		
+		if new.find('/') != -1:
+			# check if there is a '/' caractère in the new name
+			log.write('unvalid : "'+new+'"\nThe subpath must not contain "/"!\n')
+			return False
+		
+		if new.find('%S') == -1 or new.find('%N') == -1:
+			# check if there is a '%N' and a '%S' sequences in the new name
+			log.write('unvalid : "'+new+'"\nThe subpath must contain at less one occurence of "%N" and "%S" or different render risk to overwrite themselves!\n')
+			return False
+		
+		# change output SubPath if the new one is good
+		self.outputSubPath = new
+		log.write(new+'\n')
+		return True
+		
+		
+		
+		
 	
 	
 	def editTiles(self, log):
