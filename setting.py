@@ -934,8 +934,8 @@ new naming :').strip()
 			log.print()
 			# get current settings
 			name = ['bounces', 'transparency', 'diffuse', 'glossy', 'transmission', 'volume']
-			value = [ str(self.bouncesMin)+'to'+str(self.bouncesMax),
-						str(self.transparencyMinBounces)+'to'+str(self.transparencyMaxBounces),
+			value = [ str(self.bouncesMin)+' to '+str(self.bouncesMax),
+						str(self.transparencyMinBounces)+' to '+str(self.transparencyMaxBounces),
 						str(self.diffuseBounces),
 						str(self.glossyBounces),
 						str(self.transmissionBounces),
@@ -972,15 +972,18 @@ new naming :').strip()
 			else:
 				syntax = '8'
 			
+			# get new value
 			print(name+' current value : '+value+'\n')
 			new = input('new setting( respect "'+syntax+'" syntax)').strip()
 			
 			if choice >= 2:
+				# treat value that represent only one number
 				match = re.search(r'^(\d{1,})$',new)
 				if match is None:
 					log.write('unvalid value : "'+new+'"\nretry\n')
 					continue
 				
+				# change corresponding settings
 				new = int(new)
 				if choice == 2:
 					self.diffuseBounces = new
@@ -990,34 +993,36 @@ new naming :').strip()
 					self.transmissionBounces = new
 				elif choice == 5:
 					self.volumeBounces = new
+				
+				# confirm change
 				log.write(str(new)+'\n')
 				change = True
 			else:
-				match = re.search(r'^(\d{1,})to(\d{1,})$',new)
+				# treat value that contain 2 number ('1to10'syntax)
+				match = re.search(r'^(\d{1,}) to (\d{1,})$',new)
 				if match is None:
 					log.write('unvalid value : "'+new+'"\nretry\n')
 					continue
 				
+				# get value and check it
 				mini = match.group(1)
 				maxi = match.group(2)
-				
 				if maxi < mini:
 					log.write('unvalid value : "'+new+'" : second value must be greater or equal to first\nretry\n')
 					continue
 				
+				# change corresponding settings
 				if choice == 0:
 					self.bouncesMin = mini
 					self.bouncesMax = maxi
 				elif choice == 1:
 					self.transparencyMinBounces = mini
 					self.transparencyMaxBounces = maxi
+				
+				# confirm change
 				log.write(new+'\n')
 				change = True
 				
-		
-		# print old settings
-		# get user choice
-		# get and check new setting
 	
 	
 	
