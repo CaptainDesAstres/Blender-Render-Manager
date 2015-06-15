@@ -227,8 +227,8 @@ class setting:
 		
 		# export light path Cycles specific  parameters
 		txt += '\t\t<bouncesSet>\n'
-		txt += '\t\t\t<transparency min="'+str(self.transparencyMaxBounces)+'" max="'+str(self.transparencyMinBounces)+'" />\n'
-		txt += '\t\t\t<bounces min="'+str(self.bouncesMax)+'" max="'+str(self.bouncesMin)+'" />\n'
+		txt += '\t\t\t<transparency max="'+str(self.transparencyMaxBounces)+'" min="'+str(self.transparencyMinBounces)+'" />\n'
+		txt += '\t\t\t<bounces max="'+str(self.bouncesMax)+'" min="'+str(self.bouncesMin)+'" />\n'
 		txt += '\t\t\t<diffuse bounces="'+str(self.diffuseBounces)+'" />\n'
 		txt += '\t\t\t<glossy bounces="'+str(self.glossyBounces)+'" />\n'
 		txt += '\t\t\t<transmission bounces="'+str(self.transmissionBounces)+'" />\n'
