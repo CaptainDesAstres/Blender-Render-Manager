@@ -589,46 +589,49 @@ class setting:
 				# quit Cycles sample settings edition
 				log.write('quit sample editing\n')
 				return change
-			elif choice not in ['1', '2', '3']:
+			
+			if choice not in ['1', '2', '3']:
 				print('unvalid choice : '+choice)
-			else:
-				# edit sample settings
+				continue
 			
-				choice = int(choice)
-				name = ['main animation', 'background', 'foreground'][choice-1]
-				value = [str(self.mainAnimationCyclesSamples), 
-						str(self.backgroundCyclesSamples), 
-						str(self.foregroundCyclesSamples)][choice-1]
+			# edit sample settings
 			
-				# print current setting
-				os.system('clear')
-				log.write(name+' : ')
-				log.print()
-				print('current '+name+' sample settings : '\
-						+value+'\n\n')
-				
-				# get user choice
-				new = input('new '+name+' sample? (an integer or \'q\')').strip()
-				match = re.search(r'^(\d{1,})?$',new)
+			choice = int(choice)
+			name = ['main animation', 'background', 'foreground'][choice-1]
+			value = [str(self.mainAnimationCyclesSamples), 
+					str(self.backgroundCyclesSamples), 
+					str(self.foregroundCyclesSamples)][choice-1]
 			
-				# if user input is not an integer, quit cycle sample setting edition
-				if match is None:
-					if new not in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
-						log.write('unvalid settings :'+new\
-								+'\nretry\n')
-					else:
-						log.write('canceled\n')
-				else:
-					# apply a good new setting
-					log.write(new+'\n')
-					new = int(new)
-					if choice == 1:
-						self.mainAnimationCyclesSamples = new
-					elif choice == 2:
-						self.backgroundCyclesSamples = new
-					elif choice == 3:
-						self.foregroundCyclesSamples = new
-					change = True
+			# print current setting
+			os.system('clear')
+			log.write(name+' : ')
+			log.print()
+			print('current '+name+' sample settings : '\
+					+value+'\n\n')
+			
+			# get user choice
+			new = input('new '+name+' sample? (an integer or \'q\')').strip()
+			match = re.search(r'^(\d{1,})?$',new)
+			
+			# if user input is not an integer, quit cycle sample setting edition
+			if match is None:
+				if new not in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
+					log.write('unvalid settings :'+new\
+							+'\nretry\n')
+					return change
+				log.write('canceled\n')
+				continue
+			
+			# apply a good new setting
+			log.write(new+'\n')
+			new = int(new)
+			if choice == 1:
+				self.mainAnimationCyclesSamples = new
+			elif choice == 2:
+				self.backgroundCyclesSamples = new
+			elif choice == 3:
+				self.foregroundCyclesSamples = new
+			change = True
 	
 	
 	
