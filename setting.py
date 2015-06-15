@@ -950,7 +950,7 @@ new naming :').strip()
 				i += 1
 			
 			# get index of parameter to edit
-			choice = input('''what's the tile size to edit?('q' to quit)''').strip()
+			choice = input('''what's the parameter to edit?('q' to quit)''').strip()
 			
 			# if user want to quit menu
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
@@ -1031,11 +1031,94 @@ new naming :').strip()
 	def editOption(self, log):
 		'''method to enable/disable rendering options'''
 		#edit OPtions settings
-		log.write('not yet implement\n')
+		change = False
+		enable = { True : 'Enabled' , False : 'Disabled' }
 		
-		# print old settings
-		# get user choice
-		# get and check new setting
+		while True:
+			os.system('clear')
+			log.write('change rendering option : ')
+			log.print()
+			
+			# print current rendering options settings
+			print('current rendering option settings :'\
+				+'\n\t1- z pass : '+enable[self.zPass]\
+				+'\n\t2- object index pass : '+enable[self.objectIndexPass]\
+				+'\n\t3- compositing : '+enable[self.compositingEnable]\
+				+'\n\t4- transparent background : '+enable[self.filmTransparentEnable])
+			if self.simplify is None:
+				print('\t5- simplify : Disabled')
+			else:
+				print('\t5- simplify : '+str(self.simplify))
+			print('\t6- exposure (Cycles) : '+str(self.filmExposure))
+			
+			# get index of parameter to edit
+			choice = input('''what's the option to switch/edit?('q' to quit)''').strip()
+			
+			# if user want to quit menu
+			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
+				log.write('end\n')
+				return change
+			
+			# check if user make a valid choice
+			if choice not in ['1', '2', '3', '4', '5', '6']:
+				log.write('unvalid choice : "'+choice+'"\n')
+				continue
+			
+			choice = int(choice)
+			
+			if choice == 1:
+				# switch corresponding settings
+				self.zPass = not(self.zPass)
+				log.write('z pass set to : "'+enable[self.zPass]+'"\n')
+				change = True
+			elif choice == 2:
+				# switch corresponding settings
+				self.objectIndexPass = not(self.objectIndexPass)
+				log.write('object index pass set to : "'+enable[self.objectIndexPass]+'"\n')
+				change = True
+			elif choice == 3:
+				# switch corresponding settings
+				self.compositingEnable = not(self.compositingEnable)
+				log.write('compositing set to : "'+enable[self.compositingEnable]+'"\n')
+				change = True
+			elif choice == 4:
+				# switch corresponding settings
+				self.filmTransparentEnable = not(self.filmTransparentEnable)
+				log.write('transparent background set to : "'+enable[self.filmTransparentEnable]+'"\n')
+				change = True
+			
+			elif choice == 5 :
+				log.write('simplify : ')
+				choice = input('new simplify value (a integer (11 or higher for disabled)) : ').strip()
+				
+				# check value
+				if re.search(r'^(\d{1,})$',choice) is None:
+					log.write('unvalid value : "'+choice+'" : must be an integer\nretry\n')
+					continue
+				
+				# apply new value
+				choice = int(choice)
+				if choice > 10:
+					self.simplify = None
+					log.write('Disabled\n')
+				else:
+					self.simplify = choice
+					log.write(str(choice)+'\n')
+				change = True
+				
+			elif choice == 6 :
+				log.write('exposure : ')
+				choice = input('new exposure value (a float) : ').strip()
+				
+				# check value
+				if re.search(r'^(\d{1,}(\.\d{1,})?)$',choice) is None:
+					log.write('unvalid value : "'+choice+'" : must be a number\nretry\n')
+					continue
+				
+				# apply new value
+				self.filmExposure = float(choice)
+				log.write(choice+'\n')
+				change = True
 	
 	
 	
