@@ -439,7 +439,7 @@ class setting:
 				change = (self.editSample(log) or change)
 			elif choice in ['4','e','E']:
 				#edit Engine settings
-				change = (self.editEgine(log) or change)
+				change = (self.editEngine(log) or change)
 			elif choice in ['5','o','O']:
 				#edit Output settings
 				change = (self.editOutput(log) or change)
@@ -630,7 +630,7 @@ class setting:
 	
 	
 	
-	def editEgine(self, log):
+	def editEngine(self, log):
 		#edit Engine settings
 		change = False
 		# print old settings
