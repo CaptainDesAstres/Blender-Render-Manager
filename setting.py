@@ -706,40 +706,7 @@ class setting:
 				
 			elif choice in ['3', 'n', 'N']:
 				# edit output naming
-				log.write('edit output naming :')
-				print('current output naming : '+self.outputName) 
-				
-				# get new name
-				new = input('%N will be replaced by the original blender file name (optionel)\n\
-%S will be replaced by the scene name (optionel)\n\
-%L will be replaced by the renderlayer name\n\
-%F will be replaced by the render frame number\n\
-new naming :').strip()
-				
-				if new in ['', "''", '""']:
-					log.write('canceled\n')
-					continue
-				
-				if new[0] in ['\'', '"'] and new[0]==new[-1]:
-					new  = new[1:len(new)-1]
-				
-				if new.find('/') != -1:
-					# check if there is a '/' caractère in the new name
-					log.write('unvalid : "'+new+'"\nThe name must not contain "/"!\n')
-					continue
-				
-				if new.find('%L') == -1 or new.find('%F') == -1:
-					# check if there is a '%F' and a '%L' sequences in the new name
-					log.write('unvalid : "'+new+'"\nThe name must contain at less one occurence of "%L" and "%F" or different render risk to overwrite themselves!\n')
-					continue
-					
-				# change output name if the new one is good
-				self.outputName = new
-				log.write(new+'\n')
-				change = True
-				
-				
-				
+				change = (self.editOutputName(log) or change)
 				
 			elif choice in ['4', 'f', 'F']:
 				# edit output format
@@ -837,10 +804,47 @@ new naming :').strip()
 		self.outputSubPath = new
 		log.write(new+'\n')
 		return True
+	
+	
+	
+	
+	
+	def editOutputName(self, log):
+		# edit output naming
+		log.write('edit output naming :')
+		print('current output naming : '+self.outputName) 
 		
+		# get new name
+		new = input('%N will be replaced by the original blender file name (optionel)\n\
+%S will be replaced by the scene name (optionel)\n\
+%L will be replaced by the renderlayer name\n\
+%F will be replaced by the render frame number\n\
+new naming :').strip()
 		
+		if new in ['', "''", '""']:
+			log.write('canceled\n')
+			return False
 		
+		if new[0] in ['\'', '"'] and new[0]==new[-1]:
+			new  = new[1:len(new)-1]
 		
+		if new.find('/') != -1:
+			# check if there is a '/' caractère in the new name
+			log.write('unvalid : "'+new+'"\nThe name must not contain "/"!\n')
+			return False
+		
+		if new.find('%L') == -1 or new.find('%F') == -1:
+			# check if there is a '%F' and a '%L' sequences in the new name
+			log.write('unvalid : "'+new+'"\nThe name must contain at less one occurence of "%L" and "%F" or different render risk to overwrite themselves!\n')
+			return False
+		
+		# change output name if the new one is good
+		self.outputName = new
+		log.write(new+'\n')
+		return True
+	
+	
+	
 	
 	
 	def editTiles(self, log):
