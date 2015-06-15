@@ -688,51 +688,22 @@ class setting:
 					+'\n\t5- Quit\n\n')
 			choice = input('''What's the setting to edit?''')
 			
-			
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '5']:
 				# quit edition
 				log.write('end\n')
 				return change
-				
-				
-				
 			elif choice in ['1', 'o', 'O']:
 				# edit output path
 				change = (self.editOutputPath(log) or change)
-				
 			elif choice in ['2', 's', 'S']:
 				# edit subpath
 				change = (self.editOutputSubpath(log) or change)
-				
 			elif choice in ['3', 'n', 'N']:
 				# edit output naming
 				change = (self.editOutputName(log) or change)
-				
 			elif choice in ['4', 'f', 'F']:
 				# edit output format
-				# print old setting
-				log.write('edit output format :')
-				print('current output format : '+self.outputFormat) 
-				new = input('new format (available: png / jpeg / open_exr / open_exr_multilayer):').strip()
-				
-				if new in ['', "''", '""']:
-					log.write('canceled\n')
-					continue
-				
-				new = new.upper()
-				
-				if new in ['PNG', 'JPEG', 'OPEN_EXR', 'OPEN_EXR_MULTILAYER']:
-					# change format if the one is one of the available
-					self.outputFormat = new
-					log.write(new+'\n')
-					change = True
-				else:
-					log.write('unvalid format : "'+new+'"\n')
-					continue
-				
-				
-				
-				
+				change = (self.editOutputFormat(log) or change)
 			else:
 				log.write('unvalid choice :'+choice+'\nretry\n')
 			
@@ -843,6 +814,24 @@ new naming :').strip()
 		log.write(new+'\n')
 		return True
 	
+	
+	
+	
+	def editOutputFormat(self, log):
+		# edit output format
+		# print old setting
+		log.write('edit output format :')
+		print('current output format : '+self.outputFormat) 
+		new = input('new format (available: png / jpeg / open_exr / open_exr_multilayer):').strip().upper()
+		
+		if new in ['PNG', 'JPEG', 'OPEN_EXR', 'OPEN_EXR_MULTILAYER']:
+			# change format if the one is one of the available
+			self.outputFormat = new
+			log.write(new+'\n')
+			return True
+		
+		log.write('unvalid format : "'+new+'"\n')
+		return False
 	
 	
 	
