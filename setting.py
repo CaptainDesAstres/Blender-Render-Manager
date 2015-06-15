@@ -591,20 +591,20 @@ class setting:
 				# edit sample settings
 			
 				choice = int(choice)
-				setName = ['main animation', 'background', 'foreground']
-				setValue = [str(self.mainAnimationCyclesSamples), 
+				name = ['main animation', 'background', 'foreground'][choice-1]
+				value = [str(self.mainAnimationCyclesSamples), 
 						str(self.backgroundCyclesSamples), 
-						str(self.foregroundCyclesSamples)]
+						str(self.foregroundCyclesSamples)][choice-1]
 			
 				# print current setting
 				os.system('clear')
-				log.write(setName[choice-1]+' : ')
+				log.write(name+' : ')
 				log.print()
-				print('current '+setName[choice-1]+' sample settings : '\
-						+setValue[choice-1]+'\n\n')
+				print('current '+name+' sample settings : '\
+						+value+'\n\n')
 				
 				# get user choice
-				new = input('new '+setName[choice-1]+' sample? (an integer or \'q\')').strip()
+				new = input('new '+name+' sample? (an integer or \'q\')').strip()
 				match = re.search(r'^(\d{1,})?$',new)
 			
 				# if user input is not an integer, quit cycle sample setting edition
