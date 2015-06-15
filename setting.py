@@ -698,37 +698,7 @@ class setting:
 				
 			elif choice in ['1', 'o', 'O']:
 				# edit output path
-				log.write('edit main output path:')
-				print('current output path : '+str(self.outputPath)) 
-				new = input('\nnew path (must already exist and be absolute path):').strip()
-				
-				# empty path
-				if new in ['', "''", '""']:
-					self.outputPath = None
-					log.write('set to None\n')
-					change = True
-					continue
-				if new[0] in ['\'', '"'] and new[0]==new[-1]:
-					new  = new[1:len(new)-1]
-				
-				match = re.search(r'^/(.+/)$',new)
-				
-				if match is None:
-					# check if path is a good syntaxe
-					log.write('unvalid path : "'+new+'"\nThe path must be absolute (begin and end by "/")')
-				else:
-					
-					# check if it's a good path and save it
-					if os.path.exists(new) and os.path.isdir(new)\
-							and os.access(new, os.W_OK):
-						self.outputPath = new
-						change = True
-						log.write(new+'\n')
-					else:
-						log.write("unvalid path : '"+new+"'\nthe path didn't exist, is not a directories or you don't have the right to write in it\n")
-				
-				
-				
+				change = (self.editOutputPath(log) or change)
 			elif choice in ['2', 's', 'S']:
 				# edit subpath
 				
@@ -826,6 +796,40 @@ new naming :').strip()
 			else:
 				log.write('unvalid choice :'+choice+'\nretry\n')
 			
+	
+	
+	
+	def editOutputPath(self, log):
+		# edit output path
+		log.write('edit main output path:')
+		print('current output path : '+str(self.outputPath)) 
+		new = input('\nnew path (must already exist and be absolute path):').strip()
+		
+		# empty path
+		if new in ['', "''", '""']:
+			self.outputPath = None
+			log.write('set to None\n')
+			return True
+		
+		if new[0] in ['\'', '"'] and new[0]==new[-1]:
+			new  = new[1:len(new)-1]
+		
+		match = re.search(r'^/(.+/)$',new)
+		
+		if match is None:
+			# check if path is a good syntaxe
+			log.write('unvalid path : "'+new+'"\nThe path must be absolute (begin and end by "/")')
+			return False
+		
+		# check if it's a good path and save it
+		if os.path.exists(new) and os.path.isdir(new)\
+				and os.access(new, os.W_OK):
+			self.outputPath = new
+			log.write(new+'\n')
+			return True
+		
+		log.write("unvalid path : '"+new+"'\nthe path didn't exist, is not a directories or you don't have the right to write in it\n")
+		return False
 	
 	
 	
