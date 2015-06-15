@@ -926,7 +926,94 @@ new naming :').strip()
 	def editLight(self, log):
 		'''method to change light path settings of Cycles'''
 		#edit Ligth path settings
-		log.write('not yet implement\n')
+		change = False
+		
+		while True:
+			os.system('clear')
+			log.write('change Light path settings : ')
+			log.print()
+			# get current settings
+			name = ['bounces', 'transparency', 'diffuse', 'glossy', 'transmission', 'volume']
+			value = [ str(self.bouncesMin)+'to'+str(self.bouncesMax),
+						str(self.transparencyMinBounces)+'to'+str(self.transparencyMaxBounces),
+						str(self.diffuseBounces),
+						str(self.glossyBounces),
+						str(self.transmissionBounces),
+						str(self.volumeBounces)
+						]
+			
+			# print current light path settings
+			print('current light path settings :')
+			i=0
+			while i < 6:
+				print('\t\t'+str(i+1)+'- '+name[i]+' : '+value[i])
+				i += 1
+			
+			# get index of parameter to edit
+			choice = input('''what's the tile size to edit?('q' to quit)''').strip()
+			
+			# if user want to quit menu
+			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
+				log.write('end\n')
+				return change
+			
+			# if user don't make a valid choice
+			if choice not in['1', '2', '3', '4', '5', '6']:
+				log.write('unvalid choice : "'+choice+'"\n')
+				continue
+			
+			# get choice corresponding value
+			choice = int(choice)-1
+			name = name[choice]
+			value = value[choice]
+			log.write(name+' : ')
+			if choice < 2:
+				syntax = '3to15'
+			else:
+				syntax = '8'
+			
+			print(name+' current value : '+value+'\n')
+			new = input('new setting( respect "'+syntax+'" syntax)').strip()
+			
+			if choice >= 2:
+				match = re.search(r'^(\d{1,})$',new)
+				if match is None:
+					log.write('unvalid value : "'+new+'"\nretry\n')
+					continue
+				
+				new = int(new)
+				if choice == 2:
+					self.diffuseBounces = new
+				elif choice == 3:
+					self.glossyBounces = new
+				elif choice == 4:
+					self.transmissionBounces = new
+				elif choice == 5:
+					self.volumeBounces = new
+				log.write(str(new)+'\n')
+				change = True
+			else:
+				match = re.search(r'^(\d{1,})to(\d{1,})$',new)
+				if match is None:
+					log.write('unvalid value : "'+new+'"\nretry\n')
+					continue
+				
+				mini = match.group(1)
+				maxi = match.group(2)
+				
+				if maxi < mini:
+					log.write('unvalid value : "'+new+'" : second value must be greater or equal to first\nretry\n')
+					continue
+				
+				if choice == 0:
+					self.bouncesMin = mini
+					self.bouncesMax = maxi
+				elif choice == 1:
+					self.transparencyMinBounces = mini
+					self.transparencyMaxBounces = maxi
+				log.write(new+'\n')
+				change = True
+				
 		
 		# print old settings
 		# get user choice
