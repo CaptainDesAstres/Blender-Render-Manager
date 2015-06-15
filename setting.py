@@ -664,7 +664,7 @@ class setting:
 				change = True
 				log.write('device switch to '+self.renderingDevice+'\n')
 			else:
-				log.write('unvalid choice :'+choice+'\nretry\nchange default engine Settings : ')
+				log.write('unvalid choice :'+choice+'\nretry\n')
 			
 	
 	
@@ -838,11 +838,66 @@ new naming :').strip()
 	
 	def editTiles(self, log):
 		#edit Tiles settings
-		log.write('not yet implement\n')
+		change = False
 		
 		# print old settings
-		# get user choice
-		# get and check new setting
+		while True:
+			os.system('clear')
+			log.write('change tiles size : ')
+			log.print()
+			name = ['Cycle GPU', 'Cycles CPU', 'Blender Internal']
+			value = [ str(self.tilesCyclesGPUX)+'x'+str(self.tilesCyclesGPUY),
+						str(self.tilesCyclesCPUX)+'x'+str(self.tilesCyclesCPUY),
+						str(self.tilesBIX)+'x'+str(self.tilesBIY)]
+			print('current sizes :\n'\
+					+'\n\t\t1- Cycle GPU tiles : '+value[0]+'\n'\
+					+'\n\t\t2- Cycles CPU tiles : '+value[1]+'\n'\
+					+'\n\t\t3- Blender Internal tiles : '+value[2]+'\n\n'
+					)
+			
+			choice = input('''what's the tile size to edit?('q' to quit)''')
+			
+			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
+				log.write('end\n')
+				return change
+			
+			if choice not in ['1', '2', '3']:
+				log.write('unvalid choice : "'+choice+'"\nretry\n')
+				continue
+			
+			choice = int(choice)
+			name = name[choice-1]
+			value = value[choice-1]
+			log.write(name+' new tiles size : ')
+			print('current '+name+' tiles size : '+value+'\n\n' )
+			
+			new = input('new '+name+' tiles size ("256x256" or "256" syntax)').strip()
+			match = re.search(r'^(\d{1,5})(x(\d{1,5}))?', new)
+			
+			if match is None:
+				log.write('unvalid value : '+new+'\n')
+				continue
+			
+			match = match.groups()
+			x = int(match[0])
+			if match[2] is None:
+				y = x
+			else:
+				y = int(match[2])
+			
+			if choice == 1:
+				self.tilesCyclesGPUX = x
+				self.tilesCyclesGPUY = y
+			elif choice == 2:
+				self.tilesCyclesCPUX = x
+				self.tilesCyclesCPUY = y
+			elif choice == 3:
+				self.tilesBIX = x
+				self.tilesBIY = y
+			
+			log.write(str(x)+'x'+str(y)+'\n')
+			change = True
+	
 	
 	
 	
