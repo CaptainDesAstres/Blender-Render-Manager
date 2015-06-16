@@ -1127,11 +1127,132 @@ new naming :').strip()
 	def editKeyword(self, log):
 		'''method to manage renderlayer name keyword '''
 		#edit Keywords settings
-		log.write('not yet implement\n')
+		change = False
 		
-		# print old settings
-		# get user choice
-		# get and check new setting
+		while True:
+			os.system('clear')
+			log.write('edit renderlayer keywords : ')
+			log.print()
+			
+			# print option and current settings
+			print('1- remove from current background keyword(s) :\n\t'\
+				+(' | '.join(self.backgroundLayersKeywords))\
+				+'\n2- remove from current foreground keyword(s) :\n\t'\
+				+(' | '.join(self.foregroundLayersKeywords))\
+				+'\n3- add background keyword\n'\
+				+'4- add foreground keyword\n')
+				
+			
+			# get index of option to run
+			choice = input('''what do you want?('q' to quit)''').strip()
+			
+			# if user want to quit menu
+			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
+				log.write('end\n')
+				return change
+			
+			# check if user make a valid choice
+			if choice not in ['1', '2', '3', '4']:
+				log.write('unvalid choice : "'+choice+'"\n')
+				continue
+			
+			# get corresponding list 
+			if choice in ['1', '3']:
+				keys = self.backgroundLayersKeywords
+				noKeys = self.foregroundLayersKeywords
+			else:
+				keys = self.foregroundLayersKeywords
+				noKeys = self.backgroundLayersKeywords
+			
+			# call corresponding method
+			if choice in ['1', '2']:
+				change = (self.removeKeyWords(log, keys, noKeys, choice) or change)
+			else:
+				change = (self.addKeyWords(log, keys, noKeys, choice) or change)
+	
+	
+	
+	
+	
+	
+	def removeKeyWords(self, log, keys, noKeys, choice):
+		'''method to remove renderlayer name keyword '''
+		if choice=='1':
+			log.write('remove background keyword : ')
+			print('current background keyword(s) :')
+		else:
+			log.write('remove foreground keyword : ')
+			print('current foreground keyword(s) :')
+		
+		# print current settings
+		for i, k in enumerate(keys):
+			print('\t'+str(i)+'- '+k)
+		
+		choice = input('''what is the keyword to remove? (type corresponding number or 'q' to quit)''').strip()
+		match = re.search(r'^\d{1,}$', choice)
+		
+		# check user choice
+		if match is None:
+			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
+				log.write('end\n')
+				return False
+			log.write('unvalid choice : '+choice+' : must be an integer\nretry\n')
+			return False
+		
+		choice = int(choice)
+		if choice >= len(keys) :
+			log.write('unvalid choice : '+str(choice)+' : the greater keyword index is '+str(len(keys))+'\nretry\n')
+			return False
+		
+		# remove corresponding keyword
+		log.write(keys.pop(choice)+'\n')
+		return True
+	
+	
+	
+	
+	
+	def addKeyWords(self, log, keys, noKeys, choice):
+		'''method to add renderlayer name keywords'''
+		
+		if choice=='3':
+			log.write('add background keyword : ')
+			print('current background keyword(s) :')
+		else:
+			log.write('add foreground keyword : ')
+			print('current foreground keyword(s) :')
+		
+		# print current settings
+		for k in keys:
+			print('\t'+k)
+		
+		choice = input('''what is the keyword to add? (type new keyword(s), split by a pipe (|) or empty string to pass)''').strip()
+		
+		# check user choice
+		if choice == '':
+			log.write('canceled\n')
+			return False
+		match = re.search(r'^[-0-9a-zA-Z_]{3,}( *\| *[-0-9a-zA-Z_]{3,})*$', choice)
+		if match is None:
+			log.write('''unvalid choice : '''+choice+''' : the keyword must only contain letters, numbers or '-' or '_', they can be split by '|' and space\nretry\n''')
+			return False
+		
+		for v in choice:
+			if v in noKeys:
+				log.write('''unvalid choice : '''+choice+''' : some key word are already in the other keyword list\nretry\n''')
+				return False
+		
+		# split and add new keywords
+		log.write(choice+'\n')
+		choice = choice.split('|')
+		change = False
+		for v in choice:
+			if v not in keys:
+				keys.append(v.strip())
+				change = True
+		return change
+	
+	
 	
 	
 	
