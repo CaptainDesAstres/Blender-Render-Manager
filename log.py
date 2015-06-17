@@ -91,8 +91,8 @@ there is to log:
 					prefix = ''
 				else:
 					i -= 1
-					prefix = '╚═'
-				print(prefix+('  '*i)+m+' :')
+					prefix = '╚═ '
+				print(('  '*i)+prefix+m+' :')
 			print(bar)
 
 
