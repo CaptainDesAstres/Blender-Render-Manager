@@ -59,6 +59,23 @@ there is to log:
 	def iadd(self,txt):
 		'''redirect '+=' operator to the write()method'''
 		self.write(self,txt);
+	
+	
+	
+	
+	def menuIn(self, menu):
+		self.menu.append(menu)
+	
+	
+	
+	
+	def menuOut(self):
+		return self.menu.pop()
+	
+	
+	
+	
+	
 
 
 
