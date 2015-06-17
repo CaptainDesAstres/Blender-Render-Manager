@@ -41,9 +41,11 @@ there is to log:
 	
 	
 	
-	def print(self):
+	def print(self, menu = True):
 		'''print the log'''
-		return print(self.log)
+		print(self.log)
+		if menu :
+			self.printMenu()
 	
 	
 	
