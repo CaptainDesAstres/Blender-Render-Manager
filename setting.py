@@ -373,6 +373,7 @@ class setting:
 		while True:
 			#print log and preferences
 			os.system('clear')
+			log.write('preferences menu\n')
 			log.print()
 			print('\t\tSettings\n')
 			self.print()
@@ -392,10 +393,8 @@ class setting:
 					self.__init__()
 					change = True
 					log.write('reset factory settings\n')
-				else:
-					log.write('abort settings reset\n')
 			else:
-				log.write('unknow request\n')
+				log.write('\033[31munknow request\033[0m\n')
 	
 	
 	
@@ -407,6 +406,7 @@ class setting:
 		while True:
 			#print log and edit preferences menu
 			os.system('clear')
+			log.write('preferences editing menu')
 			log.print()
 			print('''		preferences editing:
 		0- Blender path
@@ -423,7 +423,7 @@ class setting:
 			#treat available actions
 			choice = input('what\'s the parameter to edit ?(or \'q\' or \'cancel\')')
 			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
-				log.write('quit\n')
+				log.write('\033[31mquit\033[0m\n')
 				return change
 			elif choice in ['0','b','B']:
 				#edit blender path
@@ -456,7 +456,7 @@ class setting:
 				#edit Keywords settings
 				change = (self.editKeyword(log) or change)
 			else:
-				log.write('unknow request!\n')
+				log.write('\033[31munknow request!\033[0m\n')
 	
 	
 	
@@ -469,7 +469,7 @@ class setting:
 		change = False
 		#print current blender path and ask a new one
 		os.system('clear')
-		log.write('blender path editing: ')
+		log.write('blender path editing : ')
 		log.print()
 		print('current path :'+self.blenderPath+'\n\n')
 		
@@ -483,9 +483,9 @@ class setting:
 		match = re.search(r'(^blender$)|(^/(.+/)blender$)',choice)
 		if match is None:
 			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
-				log.write('blender path change canceled\n')
+				log.write('\033[31mblender path change canceled\033[0m\n')
 			else:
-				log.write("error, the path must be an absolute path(beginng by '/' and ending by 'blender') or the 'blender' command\n blender path change canceled, retry!\n")
+				log.write("\033[31merror, the path must be an absolute path(beginng by '/' and ending by 'blender') or the 'blender' command\n blender path change canceled, retry!\033[0m\n")
 			return change
 		elif choice == 'blender':
 			#apply new settings and save it
@@ -499,7 +499,7 @@ class setting:
 				change = True
 				log.write(choice+'\n')
 			else:
-				log.write("error: the file didn't exist or is not a file or is not executable\n blender path change canceled, retry\n")
+				log.write("\033[31merror: the file didn't exist or is not a file or is not executable\n blender path change canceled, retry\033[0m\n")
 		return change
 	
 	
@@ -522,9 +522,9 @@ class setting:
 		match = re.search(r'^(\d{3,5})x(\d{3,5})@(\d{2,3})$',choice)
 		if match is None:
 			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
-				log.write('quit resolution editing \n')
+				log.write('\033[31mquit resolution editing\033[0m\n')
 			else:
-				log.write('error, resolution change unvalid, retry\n')
+				log.write('\033[31merror, resolution change unvalid, retry\033[0m\n')
 			return False
 		
 		
@@ -553,9 +553,9 @@ class setting:
 		match = re.search(r'^(\d{1,})(fps)?$',choice)
 		if match is None:
 			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
-				log.write('animation frame rate change canceled\n')
+				log.write('\033[31manimation frame rate change canceled\033[0m\n')
 			else:
-				log.write('error, animation frame rate change canceled, retry\n')
+				log.write('\033[31merror, animation frame rate change canceled, retry\033[0m\n')
 			return False
 	
 		#apply new settings and save it
@@ -587,10 +587,11 @@ class setting:
 		
 			if choice in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
 				# quit Cycles sample settings edition
-				log.write('quit sample editing\n')
+				log.write('\033[31mquit sample editing\033[0m\n')
 				return change
 			
 			if choice not in ['1', '2', '3']:
+				log.write('\033[31munvalid choice : '+choice+'\033[0m\n')
 				print('unvalid choice : '+choice)
 				continue
 			
@@ -616,10 +617,10 @@ class setting:
 			# if user input is not an integer, quit cycle sample setting edition
 			if match is None:
 				if new not in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
-					log.write('unvalid settings :'+new\
-							+'\nretry\n')
+					log.write('\033[31munvalid settings :'+new\
+							+'\033[0m\nretry\n')
 					return change
-				log.write('canceled\n')
+				log.write('\033[31mcanceled\033[0m\n')
 				continue
 			
 			# apply a good new setting
@@ -655,7 +656,7 @@ class setting:
 	3- Quit
 ''')
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '3']:
-				log.write('end\n')
+				log.write('\033[31mend\033[0m\n')
 				return change
 			elif choice in ['1', 'e', 'E']:
 				if self.renderingEngine == 'CYCLES':
@@ -672,7 +673,7 @@ class setting:
 				change = True
 				log.write('device switch to '+self.renderingDevice+'\n')
 			else:
-				log.write('unvalid choice :'+choice+'\nretry\n')
+				log.write('\033[31munvalid choice :'+choice+'\033[0m\nretry\n')
 			
 	
 	
@@ -699,7 +700,7 @@ class setting:
 			
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '5']:
 				# quit edition
-				log.write('end\n')
+				log.write('\033[31mend\033[0m\n')
 				return change
 			elif choice in ['1', 'o', 'O']:
 				# edit output path
@@ -714,7 +715,7 @@ class setting:
 				# edit output format
 				change = (self.editOutputFormat(log) or change)
 			else:
-				log.write('unvalid choice :'+choice+'\nretry\n')
+				log.write('\033[31munvalid choice :'+choice+'\033[0m\nretry\n')
 			
 	
 	
@@ -740,7 +741,7 @@ class setting:
 		
 		if match is None:
 			# check if path is a good syntaxe
-			log.write('unvalid path : "'+new+'"\nThe path must be absolute (begin and end by "/")')
+			log.write('\033[31munvalid path : "'+new+'"\nThe path must be absolute (begin and end by "/")\033[0m\n')
 			return False
 		
 		# check if it's a good path and save it
@@ -750,7 +751,7 @@ class setting:
 			log.write(new+'\n')
 			return True
 		
-		log.write("unvalid path : '"+new+"'\nthe path didn't exist, is not a directories or you don't have the right to write in it\n")
+		log.write("\033[31munvalid path : '"+new+"'\nthe path didn't exist, is not a directories or you don't have the right to write in it\033[0m\n")
 		return False
 	
 	
@@ -766,7 +767,7 @@ class setting:
 		new = input('\nnew subpath (%N will be replaced by the task file name and %S by the scene name):').strip()
 		
 		if new in ['', "''", '""']:
-			log.write('canceled\n')
+			log.write('\033[31mcanceled\033[0m\n')
 			return False
 		
 		if new[0] in ['\'', '"'] and new[0]==new[-1]:
@@ -774,12 +775,12 @@ class setting:
 		
 		if new.find('/') != -1:
 			# check if there is a '/' caractère in the new name
-			log.write('unvalid : "'+new+'"\nThe subpath must not contain "/"!\n')
+			log.write('\033[31munvalid : "'+new+'"\nThe subpath must not contain "/"!\033[0m\n')
 			return False
 		
 		if new.find('%S') == -1 or new.find('%N') == -1:
 			# check if there is a '%N' and a '%S' sequences in the new name
-			log.write('unvalid : "'+new+'"\nThe subpath must contain at less one occurence of "%N" and "%S" or different render risk to overwrite themselves!\n')
+			log.write('\033[31munvalid : "'+new+'"\nThe subpath must contain at less one occurence of "%N" and "%S" or different render risk to overwrite themselves!\033[0m\n')
 			return False
 		
 		# change output SubPath if the new one is good
@@ -805,7 +806,7 @@ class setting:
 new naming :').strip()
 		
 		if new in ['', "''", '""']:
-			log.write('canceled\n')
+			log.write('\033[31mcanceled\033[0m\n')
 			return False
 		
 		if new[0] in ['\'', '"'] and new[0]==new[-1]:
@@ -813,12 +814,12 @@ new naming :').strip()
 		
 		if new.find('/') != -1:
 			# check if there is a '/' caractère in the new name
-			log.write('unvalid : "'+new+'"\nThe name must not contain "/"!\n')
+			log.write('\033[31munvalid : "'+new+'"\nThe name must not contain "/"!\033[0m\n')
 			return False
 		
 		if new.find('%L') == -1 or new.find('%F') == -1:
 			# check if there is a '%F' and a '%L' sequences in the new name
-			log.write('unvalid : "'+new+'"\nThe name must contain at less one occurence of "%L" and "%F" or different render risk to overwrite themselves!\n')
+			log.write('\033[31munvalid : "'+new+'"\nThe name must contain at less one occurence of "%L" and "%F" or different render risk to overwrite themselves!\033[0m\n')
 			return False
 		
 		# change output name if the new one is good
@@ -843,7 +844,7 @@ new naming :').strip()
 			log.write(new+'\n')
 			return True
 		
-		log.write('unvalid format : "'+new+'"\n')
+		log.write('\033[31munvalid format : "'+new+'"\033[0m\n')
 		return False
 	
 	
@@ -873,11 +874,11 @@ new naming :').strip()
 			choice = input('''what's the tile size to edit?('q' to quit)''')
 			
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
-				log.write('end\n')
+				log.write('\033[31mend\033[0m\n')
 				return change
 			
 			if choice not in ['1', '2', '3']:
-				log.write('unvalid choice : "'+choice+'"\nretry\n')
+				log.write('\033[31munvalid choice : "'+choice+'"\033[0m\nretry\n')
 				continue
 			
 			choice = int(choice)
@@ -893,7 +894,7 @@ new naming :').strip()
 			match = re.search(r'^(\d{1,5})(x(\d{1,5}))?', new)
 			
 			if match is None:
-				log.write('unvalid value : '+new+'\n')
+				log.write('\033[31munvalid value : '+new+'\033[0m\n')
 				continue
 			
 			# get new size x and y values
@@ -954,12 +955,12 @@ new naming :').strip()
 			
 			# if user want to quit menu
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
-				log.write('end\n')
+				log.write('\033[31mend\033[0m\n')
 				return change
 			
 			# if user don't make a valid choice
 			if choice not in['1', '2', '3', '4', '5', '6']:
-				log.write('unvalid choice : "'+choice+'"\n')
+				log.write('\033[31munvalid choice : "'+choice+'"\033[0m\n')
 				continue
 			
 			# get choice corresponding value
@@ -980,7 +981,7 @@ new naming :').strip()
 				# treat value that represent only one number
 				match = re.search(r'^(\d{1,})$',new)
 				if match is None:
-					log.write('unvalid value : "'+new+'"\nretry\n')
+					log.write('\033[31munvalid value : "'+new+'"\033[0m\nretry\n')
 					continue
 				
 				# change corresponding settings
@@ -1001,14 +1002,14 @@ new naming :').strip()
 				# treat value that contain 2 number ('1to10'syntax)
 				match = re.search(r'^(\d{1,}) to (\d{1,})$',new)
 				if match is None:
-					log.write('unvalid value : "'+new+'"\nretry\n')
+					log.write('\033[31munvalid value : "'+new+'"\033[0m\nretry\n')
 					continue
 				
 				# get value and check it
 				mini = match.group(1)
 				maxi = match.group(2)
 				if maxi < mini:
-					log.write('unvalid value : "'+new+'" : second value must be greater or equal to first\nretry\n')
+					log.write('\033[31munvalid value : "'+new+'" : second value must be greater or equal to first\033[0m\nretry\n')
 					continue
 				
 				# change corresponding settings
@@ -1056,12 +1057,12 @@ new naming :').strip()
 			
 			# if user want to quit menu
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
-				log.write('end\n')
+				log.write('\033[31mend\033[0m\n')
 				return change
 			
 			# check if user make a valid choice
 			if choice not in ['1', '2', '3', '4', '5', '6']:
-				log.write('unvalid choice : "'+choice+'"\n')
+				log.write('\033[31munvalid choice : "'+choice+'"\033[0m\n')
 				continue
 			
 			choice = int(choice)
@@ -1093,7 +1094,7 @@ new naming :').strip()
 				
 				# check value
 				if re.search(r'^(\d{1,})$',choice) is None:
-					log.write('unvalid value : "'+choice+'" : must be an integer\nretry\n')
+					log.write('\033[31munvalid value : "'+choice+'" : must be an integer\033[0m\nretry\n')
 					continue
 				
 				# apply new value
@@ -1112,7 +1113,7 @@ new naming :').strip()
 				
 				# check value
 				if re.search(r'^(\d{1,}(\.\d{1,})?)$',choice) is None:
-					log.write('unvalid value : "'+choice+'" : must be a number\nretry\n')
+					log.write('\033[31munvalid value : "'+choice+'" : must be a number\033[0m\nretry\n')
 					continue
 				
 				# apply new value
@@ -1148,12 +1149,12 @@ new naming :').strip()
 			
 			# if user want to quit menu
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
-				log.write('end\n')
+				log.write('\033[31mend\033[0m\n')
 				return change
 			
 			# check if user make a valid choice
 			if choice not in ['1', '2', '3', '4']:
-				log.write('unvalid choice : "'+choice+'"\n')
+				log.write('\033[31munvalid choice : "'+choice+'"\033[0m\n')
 				continue
 			
 			# get corresponding list 
@@ -1194,14 +1195,14 @@ new naming :').strip()
 		# check user choice
 		if match is None:
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
-				log.write('end\n')
+				log.write('\033[31mend\033[0m\n')
 				return False
-			log.write('unvalid choice : '+choice+' : must be an integer\nretry\n')
+			log.write('\033[31munvalid choice : '+choice+' : must be an integer\033[0m\nretry\n')
 			return False
 		
 		choice = int(choice)
 		if choice >= len(keys) :
-			log.write('unvalid choice : '+str(choice)+' : the greater keyword index is '+str(len(keys))+'\nretry\n')
+			log.write('\033[31munvalid choice : '+str(choice)+' : the greater keyword index is '+str(len(keys))+'\033[0m\nretry\n')
 			return False
 		
 		# remove corresponding keyword
@@ -1230,16 +1231,16 @@ new naming :').strip()
 		
 		# check user choice
 		if choice == '':
-			log.write('canceled\n')
+			log.write('\033[31mcanceled\033[0m\n')
 			return False
 		match = re.search(r'^[-0-9a-zA-Z_]{3,}( *\| *[-0-9a-zA-Z_]{3,})*$', choice)
 		if match is None:
-			log.write('''unvalid choice : '''+choice+''' : the keyword must only contain letters, numbers or '-' or '_', they can be split by '|' and space\nretry\n''')
+			log.write('''\033[31munvalid choice : '''+choice+''' : the keyword must only contain letters, numbers or '-' or '_', they can be split by '|' and space\033[0m\nretry\n''')
 			return False
 		
 		for v in choice:
 			if v in noKeys:
-				log.write('''unvalid choice : '''+choice+''' : some key word are already in the other keyword list\nretry\n''')
+				log.write('''\033[31munvalid choice : '''+choice+''' : some key word are already in the other keyword list\033[0m\nretry\n''')
 				return False
 		
 		# split and add new keywords
