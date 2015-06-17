@@ -88,8 +88,8 @@ def main():
 	
 	while True:
 		#print log and main menu
-		log.print()
 		log.write('Main menu\n')
+		log.print()
 		print('''	Main Menu
 			1- Add
 			2- List
@@ -133,6 +133,9 @@ def addTask():
 	'''function to manage manual rendering task adding'''
 	global log, renderQueue, scriptSetting
 	os.system('clear')
+	log.menuIn('Add Task')
+	log.menuIn('Give File Path')
+	log.print()
 	path = ''
 	
 	while path == '':
@@ -141,6 +144,8 @@ def addTask():
 		if path in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
 			#cancel action
 			log.write('\033[31mcanceled action\033[0m\n')
+			log.menuOut()# quit Add Task
+			log.menuOut()# quit Give File Path
 			return
 		
 		
@@ -148,7 +153,7 @@ def addTask():
 			#remove quote mark and apostrophe in first and last character
 			path = path[1:len(path)-1]
 			print(path)
-			
+		
 		if path[0] != '/':
 			#check if path is absolute (begin by '/')
 			print('it\'s not an absolute path!')
@@ -184,6 +189,8 @@ def addTask():
 		os.system('clear')
 		log.print()
 		
+		log.menuIn('Scene Choice')
+		
 		# select scene to use 
 		if len(prefXml)==1:
 			scene = prefXml[0]
@@ -203,8 +210,12 @@ def addTask():
 				if(re.search(r'^\d+$',choice) and int(choice)<i):
 					scene = prefXml[int(choice)]
 					log.write('use «'+scene.get('name')+'» scene\n')
+					log.menuOut()# quit scene choice menu
 					break
 				elif choice in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
+					log.menuOut()# quit scene choice menu
+					log.menuOut()# quit path choice menu
+					log.menuOut()# quit add task menu
 					return
 				else:
 					print('\033[31mincorrect scene choice\033[0m\n')
