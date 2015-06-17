@@ -87,7 +87,7 @@ there is to log:
 			print('Main menu\n'+bar)
 		else:
 			for i,m in enumerate(self.menu):
-				if i = 0:
+				if i == 0:
 					prefix = ''
 				else:
 					i -= 1
