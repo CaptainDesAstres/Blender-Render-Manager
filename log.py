@@ -64,19 +64,23 @@ there is to log:
 	
 	
 	def menuIn(self, menu):
+		'''add a menu'''
 		self.menu.append(menu)
 	
 	
 	
 	
 	def menuOut(self):
+		'''quit a menu'''
 		return self.menu.pop()
 	
 	
 	
 	
 	def printMenu(self):
+		'''print three structure to current menu position'''
 		bar = '=========================='
+		print(bar)
 		if len(self.menu) == 0 :
 			print('Main menu\n'+bar)
 		else:
