@@ -140,7 +140,7 @@ def addTask():
 		
 		if path in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
 			#cancel action
-			log.write('canceled action\n')
+			log.write('\033[31mcanceled action\033[0m\n')
 			return
 		
 		
@@ -152,21 +152,21 @@ def addTask():
 		if path[0] != '/':
 			#check if path is absolute (begin by '/')
 			print('it\'s not an absolute path!')
-			log.write('unabsolute path reject :'+path+'\n')
+			log.write('\033[31munabsolute path reject :'+path+'\033[0m\n')
 			path = ''
 			continue
 			
 		elif len(path) < 7 or path[len(path)-6:] !='.blend':
 			#check if path point to a .blend file
 			print('the path don\'t seemed to be a blender file (need .blend extension)!')
-			log.write('it\'s not a blender file path :'+path+'\n')
+			log.write('\033[31mit\'s not a blender file path :'+path+'\033[0m\n')
 			path = ''
 			continue
 			
 		elif not os.path.exists(path) or not os.path.isfile(path) :
 			#check if the file exist
 			print('this path didn\'t exist or is not a file!')
-			log.write('no corresponding file to this path :'+path+'\n')
+			log.write('\033[31mno corresponding file to this path :'+path+'\033[0m\n')
 			path = ''
 			continue 
 		
@@ -198,6 +198,7 @@ def addTask():
 			
 			# scene choice
 			while True:
+				
 				choice = input('scene to use (or \'cancel\'):')
 				if(re.search(r'^\d+$',choice) and int(choice)<i):
 					scene = prefXml[int(choice)]
@@ -206,7 +207,7 @@ def addTask():
 				elif choice in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
 					return
 				else:
-					print('incorrect scene choice\n')
+					print('\033[31mincorrect scene choice\033[0m\n')
 		
 		
 		#add the task and save the queue
