@@ -136,7 +136,7 @@ def addTask():
 	path = ''
 	
 	while path == '':
-		path = input("Add File\n\tABSOLUTE path of the blender file (or 'cancel')").strip()
+		path = input("Add File\n  ABSOLUTE path of the blender file (or 'cancel')").strip()
 		
 		if path in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
 			#cancel action
@@ -190,7 +190,7 @@ def addTask():
 			log.write('only one scene in file, automatically use it : '+scene.get('name')+'\n')
 		else:
 			# print scene list
-			print('\tthere is more than one scene in the file :\n\n')
+			print('  there is more than one scene in the file :\n\n')
 			i=0
 			for s in prefXml:
 				print(str(i)+'- '+s.get('name'))

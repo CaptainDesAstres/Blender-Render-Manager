@@ -13,7 +13,7 @@ print('<preferences>')
 for name in bpy.data.scenes.keys():
 	scene = bpy.data.scenes[name]
 	
-	print('\t<scene name="'+name+'">')
+	print('  <scene name="'+name+'">')
 	pref = setting()
 	
 	# render resolution
@@ -90,6 +90,6 @@ for name in bpy.data.scenes.keys():
 		pref.simplify = scene.render.simplify_subdivision
 	
 	
-	print('\t\t'+pref.toXmlStr().replace('\n','\n\t\t'))
-	print('\t</scene>')
+	print('    '+pref.toXmlStr().replace('\n','\n    '))
+	print('  </scene>')
 print('</preferences>')

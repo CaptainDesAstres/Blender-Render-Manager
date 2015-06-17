@@ -207,82 +207,82 @@ class setting:
 			txt += '<settings>\n'
 			
 		# export resolution parameters
-		txt += '\t<resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(int(self.percent*100))+'" />\n'
+		txt += '  <resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(int(self.percent*100))+'" />\n'
 		
 		# export animation parameters depending of settings type
 		if self.start is None or self.end is None:
-			txt+= '\t<animation fps="'+str(self.fps)+'" />\n'
+			txt+= '  <animation fps="'+str(self.fps)+'" />\n'
 		else:
-			txt+= '\t<animation start="'+str(self.start)+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" />\n'
+			txt+= '  <animation start="'+str(self.start)+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" />\n'
 		
 		# export engine parameter
-		txt += '\t<engine value="'+self.renderingEngine+'"/>\n'
+		txt += '  <engine value="'+self.renderingEngine+'"/>\n'
 		
 		# export Cycles specific  parameters
-		txt += '\t<cycles>\n'
-		txt += '\t\t<cpu x="'+str(self.tilesCyclesCPUX)+'" y="'+str(self.tilesCyclesCPUY)+'"/>\n'
-		txt += '\t\t<gpu x="'+str(self.tilesCyclesGPUX)+'" y="'+str(self.tilesCyclesGPUY)+'"/>\n'
-		txt += '\t\t<device value="'+self.renderingDevice+'"/>\n'
-		txt += '\t\t<film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
+		txt += '  <cycles>\n'
+		txt += '    <cpu x="'+str(self.tilesCyclesCPUX)+'" y="'+str(self.tilesCyclesCPUY)+'"/>\n'
+		txt += '    <gpu x="'+str(self.tilesCyclesGPUX)+'" y="'+str(self.tilesCyclesGPUY)+'"/>\n'
+		txt += '    <device value="'+self.renderingDevice+'"/>\n'
+		txt += '    <film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
 		
 		# export light path Cycles specific  parameters
-		txt += '\t\t<bouncesSet>\n'
-		txt += '\t\t\t<transparency max="'+str(self.transparencyMaxBounces)+'" min="'+str(self.transparencyMinBounces)+'" />\n'
-		txt += '\t\t\t<bounces max="'+str(self.bouncesMax)+'" min="'+str(self.bouncesMin)+'" />\n'
-		txt += '\t\t\t<diffuse bounces="'+str(self.diffuseBounces)+'" />\n'
-		txt += '\t\t\t<glossy bounces="'+str(self.glossyBounces)+'" />\n'
-		txt += '\t\t\t<transmission bounces="'+str(self.transmissionBounces)+'" />\n'
-		txt += '\t\t\t<volume bounces="'+str(self.volumeBounces)+'" />\n'
-		txt += '\t\t</bouncesSet>\n'
+		txt += '    <bouncesSet>\n'
+		txt += '      <transparency max="'+str(self.transparencyMaxBounces)+'" min="'+str(self.transparencyMinBounces)+'" />\n'
+		txt += '      <bounces max="'+str(self.bouncesMax)+'" min="'+str(self.bouncesMin)+'" />\n'
+		txt += '      <diffuse bounces="'+str(self.diffuseBounces)+'" />\n'
+		txt += '      <glossy bounces="'+str(self.glossyBounces)+'" />\n'
+		txt += '      <transmission bounces="'+str(self.transmissionBounces)+'" />\n'
+		txt += '      <volume bounces="'+str(self.volumeBounces)+'" />\n'
+		txt += '    </bouncesSet>\n'
 		
 		
 		
-		txt += '\t</cycles>\n'
+		txt += '  </cycles>\n'
 		
 		# export Blender Internal engine specific  parameters
-		txt += '\t<blenderInternal x="'+str(self.tilesBIX)+'" y="'+str(self.tilesBIY)+'" />\n'
+		txt += '  <blenderInternal x="'+str(self.tilesBIX)+'" y="'+str(self.tilesBIY)+'" />\n'
 
 		# export rendering options
-		txt += '\t<compositing enable="'+str(self.compositingEnable)+'" />\n'
+		txt += '  <compositing enable="'+str(self.compositingEnable)+'" />\n'
 		if self.simplify is not None:
-			txt += '\t<simplify subdiv="'+str(self.simplify)+'" />\n'
+			txt += '  <simplify subdiv="'+str(self.simplify)+'" />\n'
 		
 		
 		# export renderlayer list and parameters
 		if len(self.renderLayerList)>0:
-			txt += '\t<renderLayerList>\n'
+			txt += '  <renderLayerList>\n'
 			for layer in self.renderLayerList:
-				txt += '\t\t<layer name="'+layer['name']+'" z="'+str(layer['z'])+'" objIndex="'+str(layer['object index'])+'" render="'+str(layer['use'])+'"/>\n'
-			txt += '\t</renderLayerList>\n'
+				txt += '    <layer name="'+layer['name']+'" z="'+str(layer['z'])+'" objIndex="'+str(layer['object index'])+'" render="'+str(layer['use'])+'"/>\n'
+			txt += '  </renderLayerList>\n'
 		
 		
-		txt += '\t<renderLayerPreferences>\n'
+		txt += '  <renderLayerPreferences>\n'
 		
 		# export background render layers specific parameters
-		txt += '\t\t<background sample="'+str(self.backgroundCyclesSamples)+'" frame="'+str(self.backgroundAnimation)+'" >\n'
+		txt += '    <background sample="'+str(self.backgroundCyclesSamples)+'" frame="'+str(self.backgroundAnimation)+'" >\n'
 		for key in self.backgroundLayersKeywords:
-			txt += '\t\t\t<keywords value="'+key+'" />\n'
-		txt += '\t\t</background>\n'
+			txt += '      <keywords value="'+key+'" />\n'
+		txt += '    </background>\n'
 		
 		# export foreground render layers specific parameters
-		txt += '\t\t<foreground sample="'+str(self.foregroundCyclesSamples)+'" frame="'+str(self.foregroundAnimation)+'" >\n'
+		txt += '    <foreground sample="'+str(self.foregroundCyclesSamples)+'" frame="'+str(self.foregroundAnimation)+'" >\n'
 		for key in self.foregroundLayersKeywords:
-			txt += '\t\t\t<keywords value="'+key+'" />\n'
-		txt += '\t\t</foreground>\n'
+			txt += '      <keywords value="'+key+'" />\n'
+		txt += '    </foreground>\n'
 		
 		# export animation render layers specific parameters
-		txt += '\t\t<main sample="'+str(self.mainAnimationCyclesSamples)+'" zPass="'+str(self.zPass)+'" objectIndexPass="'+str(self.objectIndexPass)+'" />\n'
+		txt += '    <main sample="'+str(self.mainAnimationCyclesSamples)+'" zPass="'+str(self.zPass)+'" objectIndexPass="'+str(self.objectIndexPass)+'" />\n'
 		
-		txt += '\t</renderLayerPreferences>\n'
+		txt += '  </renderLayerPreferences>\n'
 		
 		
 		# export rendering output parameters
-		txt += '\t<output format="'+self.outputFormat+'" '
+		txt += '  <output format="'+self.outputFormat+'" '
 		if self.outputPath is not None:
 			txt += 'mainpath="'+self.outputPath+'" '
 		txt += 'subpath="'+self.outputSubPath+'" name="'+self.outputName+'" />\n'
 		
-		txt += '\t<blender path="'+self.blenderPath+'" />\n'
+		txt += '  <blender path="'+self.blenderPath+'" />\n'
 		
 		if root:
 			txt += '</settings>'
@@ -303,9 +303,9 @@ class setting:
 		
 		# print Cycles sampling parameters
 		print('Cycles samples :')
-		print('\tmain : '+str(self.mainAnimationCyclesSamples))
-		print('\tbackground : '+str(self.backgroundCyclesSamples))
-		print('\tforeground : '+str(self.foregroundCyclesSamples)+'\n')
+		print('  main : '+str(self.mainAnimationCyclesSamples))
+		print('  background : '+str(self.backgroundCyclesSamples))
+		print('  foreground : '+str(self.foregroundCyclesSamples)+'\n')
 		
 		# print animation and engine parameters
 		print('Animation : '+str(self.fps)+'fps')
@@ -313,44 +313,44 @@ class setting:
 		
 		# print output parameters
 		print('Output : ')
-		print('\toutput path (absolute) : '+str(self.outputPath))
-		print('\tautomatique subpath (for each task) : '+self.outputSubPath)
-		print('\tname : '+self.outputName)
-		print('\tformat : '+self.outputFormat+'\n')
+		print('  output path (absolute) : '+str(self.outputPath))
+		print('  automatique subpath (for each task) : '+self.outputSubPath)
+		print('  name : '+self.outputName)
+		print('  format : '+self.outputFormat+'\n')
 		
 		
 		# print Tiles parameters
 		print('Tiles : ')
-		print('\tcycles GPU : '+str(self.tilesCyclesGPUX)+'x'+str(self.tilesCyclesGPUY))
-		print('\tcycles CPU : '+str(self.tilesCyclesCPUX)+'x'+str(self.tilesCyclesCPUY))
-		print('\tblender internal : '+str(self.tilesBIX)+'x'+str(self.tilesBIY)+'\n')
+		print('  cycles GPU : '+str(self.tilesCyclesGPUX)+'x'+str(self.tilesCyclesGPUY))
+		print('  cycles CPU : '+str(self.tilesCyclesCPUX)+'x'+str(self.tilesCyclesCPUY))
+		print('  blender internal : '+str(self.tilesBIX)+'x'+str(self.tilesBIY)+'\n')
 		
 		
 		# print Ligth path parameters
 		print('Ligth path : ')
-		print('\tbounces : '+str(self.bouncesMin)+' to '+str(self.bouncesMax))
-		print('\ttransparency : '+str(self.transparencyMinBounces)+' to '+str(self.transparencyMaxBounces))
-		print('\tdiffuse : '+str(self.diffuseBounces))
-		print('\tglossy : '+str(self.glossyBounces))
-		print('\ttransmission : '+str(self.transmissionBounces))
-		print('\tvolume : '+str(self.volumeBounces)+'\n')
+		print('  bounces : '+str(self.bouncesMin)+' to '+str(self.bouncesMax))
+		print('  transparency : '+str(self.transparencyMinBounces)+' to '+str(self.transparencyMaxBounces))
+		print('  diffuse : '+str(self.diffuseBounces))
+		print('  glossy : '+str(self.glossyBounces))
+		print('  transmission : '+str(self.transmissionBounces))
+		print('  volume : '+str(self.volumeBounces)+'\n')
 		
 		
 		# print others parameters
 		print('OPtions :')
-		print('\tz pass : '+enable[self.zPass])
-		print('\tobject index pass : '+enable[self.objectIndexPass])
-		print('\tcompositing : '+enable[self.compositingEnable])
-		print('\texposure (cycles) : '+str(self.filmExposure))
-		print('\ttransparent background : '+enable[self.filmTransparentEnable])
+		print('  z pass : '+enable[self.zPass])
+		print('  object index pass : '+enable[self.objectIndexPass])
+		print('  compositing : '+enable[self.compositingEnable])
+		print('  exposure (cycles) : '+str(self.filmExposure))
+		print('  transparent background : '+enable[self.filmTransparentEnable])
 		if self.simplify is None:
-			print('\tsimplify : Disabled\n')
+			print('  simplify : Disabled\n')
 		else:
-			print('\tsimplify : '+str(self.simplify)+'\n')
+			print('  simplify : '+str(self.simplify)+'\n')
 		
 		print('Keywords :')
-		print('\tbackground : '+' | '.join(self.backgroundLayersKeywords))
-		print('\tforeground : '+' | '.join(self.foregroundLayersKeywords)+'\n')
+		print('  background : '+' | '.join(self.backgroundLayersKeywords))
+		print('  foreground : '+' | '.join(self.foregroundLayersKeywords)+'\n')
 		
 	
 	
@@ -375,7 +375,7 @@ class setting:
 			os.system('clear')
 			log.write('preferences menu\n')
 			log.print()
-			print('\t\tSettings\n')
+			print('    Settings\n')
 			self.print()
 		
 			#treat available actions
@@ -577,9 +577,9 @@ class setting:
 			log.write('edit Cycles sample settings : ')
 			log.print()
 			print('current Cycles sample settings: '\
-					+'\n\t1- Main sample : '+str(self.mainAnimationCyclesSamples)\
-					+'\n\t2- Background sample : '+str(self.backgroundCyclesSamples)\
-					+'\n\t3- Foreground sample : '+str(self.foregroundCyclesSamples)\
+					+'\n  1- Main sample : '+str(self.mainAnimationCyclesSamples)\
+					+'\n  2- Background sample : '+str(self.backgroundCyclesSamples)\
+					+'\n  3- Foreground sample : '+str(self.foregroundCyclesSamples)\
 					+'\n\n')
 			
 			# choice of the parameters to edit
@@ -691,11 +691,11 @@ class setting:
 			
 			# print old settings
 			print('current output settings : '\
-					+'\n\t1- Output path (absolute) : '+str(self.outputPath)\
-					+'\n\t2- Subpath : '+self.outputSubPath\
-					+'\n\t3- Name : '+self.outputName\
-					+'\n\t4- Format : '+self.outputFormat\
-					+'\n\t5- Quit\n\n')
+					+'\n  1- Output path (absolute) : '+str(self.outputPath)\
+					+'\n  2- Subpath : '+self.outputSubPath\
+					+'\n  3- Name : '+self.outputName\
+					+'\n  4- Format : '+self.outputFormat\
+					+'\n  5- Quit\n\n')
 			choice = input('''What's the setting to edit?''')
 			
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '5']:
@@ -865,9 +865,9 @@ new naming :').strip()
 						str(self.tilesCyclesCPUX)+'x'+str(self.tilesCyclesCPUY),
 						str(self.tilesBIX)+'x'+str(self.tilesBIY)]
 			print('current sizes :\n'\
-					+'\n\t\t1- Cycle GPU tiles : '+value[0]+'\n'\
-					+'\n\t\t2- Cycles CPU tiles : '+value[1]+'\n'\
-					+'\n\t\t3- Blender Internal tiles : '+value[2]+'\n\n'
+					+'\n    1- Cycle GPU tiles : '+value[0]+'\n'\
+					+'\n    2- Cycles CPU tiles : '+value[1]+'\n'\
+					+'\n    3- Blender Internal tiles : '+value[2]+'\n\n'
 					)
 			
 			# get index of parameter to edit
@@ -947,7 +947,7 @@ new naming :').strip()
 			print('current light path settings :')
 			i=0
 			while i < 6:
-				print('\t\t'+str(i+1)+'- '+name[i]+' : '+value[i])
+				print('    '+str(i+1)+'- '+name[i]+' : '+value[i])
 				i += 1
 			
 			# get index of parameter to edit
@@ -1042,15 +1042,15 @@ new naming :').strip()
 			
 			# print current rendering options settings
 			print('current rendering option settings :'\
-				+'\n\t1- z pass : '+enable[self.zPass]\
-				+'\n\t2- object index pass : '+enable[self.objectIndexPass]\
-				+'\n\t3- compositing : '+enable[self.compositingEnable]\
-				+'\n\t4- transparent background : '+enable[self.filmTransparentEnable])
+				+'\n  1- z pass : '+enable[self.zPass]\
+				+'\n  2- object index pass : '+enable[self.objectIndexPass]\
+				+'\n  3- compositing : '+enable[self.compositingEnable]\
+				+'\n  4- transparent background : '+enable[self.filmTransparentEnable])
 			if self.simplify is None:
-				print('\t5- simplify : Disabled')
+				print('  5- simplify : Disabled')
 			else:
-				print('\t5- simplify : '+str(self.simplify))
-			print('\t6- exposure (Cycles) : '+str(self.filmExposure))
+				print('  5- simplify : '+str(self.simplify))
+			print('  6- exposure (Cycles) : '+str(self.filmExposure))
 			
 			# get index of parameter to edit
 			choice = input('''what's the option to switch/edit?('q' to quit)''').strip()
@@ -1136,9 +1136,9 @@ new naming :').strip()
 			log.print()
 			
 			# print option and current settings
-			print('1- remove from current background keyword(s) :\n\t'\
+			print('1- remove from current background keyword(s) :\n  '\
 				+(' | '.join(self.backgroundLayersKeywords))\
-				+'\n2- remove from current foreground keyword(s) :\n\t'\
+				+'\n2- remove from current foreground keyword(s) :\n  '\
 				+(' | '.join(self.foregroundLayersKeywords))\
 				+'\n3- add background keyword\n'\
 				+'4- add foreground keyword\n')
@@ -1187,7 +1187,7 @@ new naming :').strip()
 		
 		# print current settings
 		for i, k in enumerate(keys):
-			print('\t'+str(i)+'- '+k)
+			print('  '+str(i)+'- '+k)
 		
 		choice = input('''what is the keyword to remove? (type corresponding number or 'q' to quit)''').strip()
 		match = re.search(r'^\d{1,}$', choice)
@@ -1225,7 +1225,7 @@ new naming :').strip()
 		
 		# print current settings
 		for k in keys:
-			print('\t'+k)
+			print('  '+k)
 		
 		choice = input('''what is the keyword to add? (type new keyword(s), split by a pipe (|) or empty string to pass)''').strip()
 		
