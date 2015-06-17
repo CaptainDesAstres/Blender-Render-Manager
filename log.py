@@ -75,7 +75,19 @@ there is to log:
 	
 	
 	
-	
+	def printMenu(self):
+		bar = '=========================='
+		if len(self.menu) == 0 :
+			print('Main menu\n'+bar)
+		else:
+			for i,m in enumerate(self.menu):
+				if i = 0:
+					prefix = ''
+				else:
+					i -= 1
+					prefix = '╚═'
+				print(prefix+('  '*i)+m+' :')
+			print(bar)
 
 
 
