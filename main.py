@@ -132,12 +132,12 @@ def main():
 def addTask():
 	'''function to manage manual rendering task adding'''
 	global log, renderQueue, scriptSetting
-	os.system('clear')
 	log.menuIn('Add Task')
 	log.menuIn('Give File Path')
-	log.print()
 	
 	while True:
+		os.system('clear')
+		log.print()
 		path = input("Add File\n  ABSOLUTE path of the blender file (or 'cancel')").strip()
 		
 		if path in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
@@ -183,9 +183,9 @@ def addTask():
 		prefXml = re.search(r'<\?xml(.|\n)*</preferences>',prefXml).group(0)
 		prefXml = xmlMod.fromstring(prefXml).findall('scene')
 		os.system('clear')
+		log.menuIn('Scene Choice')
 		log.print()
 		
-		log.menuIn('Scene Choice')
 		
 		# select scene to use 
 		if len(prefXml)==1:
@@ -226,6 +226,7 @@ def addTask():
 		
 		renderQueue.add(task)
 		saveQueue(renderQueue)
+		log.write('file and scene added\n')
 
 
 
