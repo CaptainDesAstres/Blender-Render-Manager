@@ -136,9 +136,8 @@ def addTask():
 	log.menuIn('Add Task')
 	log.menuIn('Give File Path')
 	log.print()
-	path = ''
 	
-	while path == '':
+	while True:
 		path = input("Add File\n  ABSOLUTE path of the blender file (or 'cancel')").strip()
 		
 		if path in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
@@ -158,21 +157,18 @@ def addTask():
 			#check if path is absolute (begin by '/')
 			print('it\'s not an absolute path!')
 			log.write('\033[31munabsolute path reject :'+path+'\033[0m\n')
-			path = ''
 			continue
 			
 		elif len(path) < 7 or path[len(path)-6:] !='.blend':
 			#check if path point to a .blend file
 			print('the path don\'t seemed to be a blender file (need .blend extension)!')
 			log.write('\033[31mit\'s not a blender file path :'+path+'\033[0m\n')
-			path = ''
 			continue
 			
 		elif not os.path.exists(path) or not os.path.isfile(path) :
 			#check if the file exist
 			print('this path didn\'t exist or is not a file!')
 			log.write('\033[31mno corresponding file to this path :'+path+'\033[0m\n')
-			path = ''
 			continue 
 		
 		
