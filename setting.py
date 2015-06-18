@@ -296,57 +296,61 @@ class setting:
 		'''print settings like preferences settings'''
 		enable = {True:'enabled', False:'Disabled'}
 		
-		print('Blender path : '+self.blenderPath+'\n')
+		print('Blender path :       '+self.blenderPath+'\n')
 		
 		# print resolution parameters
-		print('Résolution : '+str(self.x)+'x'+str(self.y)+' (@'+str(int(self.percent*100))+'%)\n')
+		print('Résolution :          '+str(self.x)+'x'+str(self.y)+' (@'+str(int(self.percent*100))+'%)')
 		
 		# print Cycles sampling parameters
 		print('Cycles samples :')
-		print('  main : '+str(self.mainAnimationCyclesSamples))
-		print('  background : '+str(self.backgroundCyclesSamples))
-		print('  foreground : '+str(self.foregroundCyclesSamples)+'\n')
+		print('  main / background / foreground : \n                      '\
+				+str(self.mainAnimationCyclesSamples)+' / '\
+				+str(self.backgroundCyclesSamples)+' / '\
+				+str(self.foregroundCyclesSamples))
 		
 		# print animation and engine parameters
-		print('Animation : '+str(self.fps)+'fps')
-		print('Engine : '+self.renderingEngine.lower()+'('+self.renderingDevice+')\n')
+		print('Animation :           '+str(self.fps)+'fps')
+		print('Engine :              '+self.renderingEngine.lower()\
+							+'('+self.renderingDevice+')\n')
 		
 		# print output parameters
 		print('Output : ')
-		print('  output path (absolute) : '+str(self.outputPath))
-		print('  automatique subpath (for each task) : '+self.outputSubPath)
-		print('  name : '+self.outputName)
-		print('  format : '+self.outputFormat+'\n')
+		print('  output path (absolute) :                    '+str(self.outputPath))
+		print('  automatique subpath (for each task) :       '+self.outputSubPath)
+		print('  name :                                      '+self.outputName)
+		print('  format :                                    '+self.outputFormat+'\n')
 		
 		
 		# print Tiles parameters
 		print('Tiles : ')
-		print('  cycles GPU : '+str(self.tilesCyclesGPUX)+'x'+str(self.tilesCyclesGPUY))
-		print('  cycles CPU : '+str(self.tilesCyclesCPUX)+'x'+str(self.tilesCyclesCPUY))
-		print('  blender internal : '+str(self.tilesBIX)+'x'+str(self.tilesBIY)+'\n')
+		print('  cycles GPU :             '+str(self.tilesCyclesGPUX)+'x'\
+												+str(self.tilesCyclesGPUY))
+		print('  cycles CPU :             '+str(self.tilesCyclesCPUX)+'x'+str(self.tilesCyclesCPUY))
+		print('  blender internal :       '+str(self.tilesBIX)+'x'+str(self.tilesBIY))
 		
 		
 		# print Ligth path parameters
 		print('Ligth path : ')
-		print('  bounces : '+str(self.bouncesMin)+' to '+str(self.bouncesMax))
-		print('  transparency : '+str(self.transparencyMinBounces)+' to '+str(self.transparencyMaxBounces))
-		print('  diffuse : '+str(self.diffuseBounces))
-		print('  glossy : '+str(self.glossyBounces))
-		print('  transmission : '+str(self.transmissionBounces))
-		print('  volume : '+str(self.volumeBounces)+'\n')
+		print('  bounces :                '+str(self.bouncesMin)+' to '\
+								+str(self.bouncesMax))
+		print('  transparency :           '+str(self.transparencyMinBounces)\
+								+' to '+str(self.transparencyMaxBounces))
+		print('  diffuse / glossy / transmission / volume : \n                           '\
+				+str(self.diffuseBounces)+' / '+str(self.glossyBounces)+' / '\
+				+str(self.transmissionBounces)+' / '+str(self.volumeBounces)+'\n')
 		
 		
 		# print others parameters
 		print('OPtions :')
-		print('  z pass : '+enable[self.zPass])
-		print('  object index pass : '+enable[self.objectIndexPass])
-		print('  compositing : '+enable[self.compositingEnable])
-		print('  exposure (cycles) : '+str(self.filmExposure))
-		print('  transparent background : '+enable[self.filmTransparentEnable])
+		print('  z pass :                       '+enable[self.zPass])
+		print('  object index pass :            '+enable[self.objectIndexPass])
+		print('  compositing :                  '+enable[self.compositingEnable])
+		print('  exposure (cycles) :            '+str(self.filmExposure))
+		print('  transparent background :       '+enable[self.filmTransparentEnable])
 		if self.simplify is None:
-			print('  simplify : Disabled\n')
+			print('  simplify :                     Disabled\n')
 		else:
-			print('  simplify : '+str(self.simplify)+'\n')
+			print('  simplify :                     '+str(self.simplify)+'\n')
 		
 		print('Keywords :')
 		print('  background : '+' | '.join(self.backgroundLayersKeywords))
