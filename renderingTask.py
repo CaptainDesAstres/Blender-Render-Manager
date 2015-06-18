@@ -25,7 +25,7 @@ class renderingTask:
 			# get parameters values that only original file settings have
 			self.customSetting.start = self.fileSetting.start
 			self.customSetting.end = self.fileSetting.end
-			self.customSetting.renderLayerList = deepcopy(self.customSetting.renderLayerList)
+			self.customSetting.renderLayerList = deepcopy(self.fileSetting.renderLayerList)
 			
 			#overwrite renderlayer pass settings
 			for layer in self.customSetting.renderLayerList:
@@ -70,6 +70,16 @@ class renderingTask:
 		txt += '<fileSet>\n'+self.fileSetting.toXmlStr()+'</fileSet>\n'
 		txt += '</task>\n'
 		return txt
+	
+	
+	
+	
+	
+	
+	def settingsCompare(self, ref = None):
+		if ref is None:
+			ref = self.fileSetting
+		return self.customSetting.compare(ref)
 
 
 
