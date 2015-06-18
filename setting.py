@@ -370,10 +370,10 @@ class setting:
 	def see(self, log):
 		'''print settings and let edit or reset it'''
 		change = False
+		log.menuIn('Preferences')
 		while True:
 			#print log and preferences
 			os.system('clear')
-			log.write('preferences menu\n')
 			log.print()
 			print('    Settings\n')
 			self.print()
@@ -382,6 +382,7 @@ class setting:
 			choice= input('(e)dit, (r)eset or (q)uit (and save): ')
 			if choice in ['Q','q']:
 				log.write('quit settings\n')
+				log.menuOut()# quit preferences menu
 				return change
 			elif choice in ['e','E']:
 				log.write('edit settings\n')
@@ -402,11 +403,11 @@ class setting:
 	def edit(self, log):
 		'''method to edit settings/preferences'''
 		change = False
+		log.menuIn('Editing')
 		
 		while True:
 			#print log and edit preferences menu
 			os.system('clear')
-			log.write('preferences editing menu')
 			log.print()
 			print('''		preferences editing:
 		0- Blender path
@@ -424,6 +425,7 @@ class setting:
 			choice = input('what\'s the parameter to edit ?(or \'q\' or \'cancel\')')
 			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
 				log.write('\033[31mquit\033[0m\n')
+				log.menuOut()
 				return change
 			elif choice in ['0','b','B']:
 				#edit blender path
@@ -469,6 +471,7 @@ class setting:
 		change = False
 		#print current blender path and ask a new one
 		os.system('clear')
+		log.menuIn('Blender Path')
 		log.write('blender path editing : ')
 		log.print()
 		print('current path :'+self.blenderPath+'\n\n')
@@ -486,9 +489,10 @@ class setting:
 				log.write('\033[31mblender path change canceled\033[0m\n')
 			else:
 				log.write("\033[31merror, the path must be an absolute path(beginng by '/' and ending by 'blender') or the 'blender' command\n blender path change canceled, retry!\033[0m\n")
+			log.menuOut()
 			return change
 		elif choice == 'blender':
-			#apply new settings and save it
+			# apply new settings
 			self.blenderPath = choice
 			change = True
 			log.write(choice+'\n')
@@ -500,6 +504,7 @@ class setting:
 				log.write(choice+'\n')
 			else:
 				log.write("\033[31merror: the file didn't exist or is not a file or is not executable\n blender path change canceled, retry\033[0m\n")
+		log.menuOut()
 		return change
 	
 	
@@ -513,6 +518,7 @@ class setting:
 		#print current resolution settings and ask new settings
 		os.system('clear')
 		log.write('resolution editing: ')
+		log.menuIn('Resolution')
 		log.print()
 		print('current resolution :'+str(self.x)+'x'+str(self.y)+'@'+str(int(self.percent*100))+'\n\n')
 		choice = input('new resolution ? (1920x1080@100 for example or \'cancel\')')
@@ -525,6 +531,7 @@ class setting:
 				log.write('\033[31mquit resolution editing\033[0m\n')
 			else:
 				log.write('\033[31merror, resolution change unvalid, retry\033[0m\n')
+			log.menuOut()
 			return False
 		
 		
@@ -533,6 +540,7 @@ class setting:
 		self.y = int(match.group(2))
 		self.percent = int(match.group(3))/100
 		log.write(choice+'\n')
+		log.menuOut()
 		return True
 	
 	
@@ -545,6 +553,7 @@ class setting:
 		#print log and current animation settings and ask new settings
 		os.system('clear')
 		log.write('edit animation rate : ')
+		log.menuIn('Animation Rate')
 		log.print()
 		print('current animation rate: '+str(self.fps)+'fps\n\n')
 		choice = input('new animation rate? ( 30 for example or \'cancel\')')
@@ -556,11 +565,13 @@ class setting:
 				log.write('\033[31manimation frame rate change canceled\033[0m\n')
 			else:
 				log.write('\033[31merror, animation frame rate change canceled, retry\033[0m\n')
+			log.menuOut()
 			return False
-	
+		
 		#apply new settings and save it
 		self.fps = int(match.group(1))
 		log.write(match.group(1)+'fps\n')
+		log.menuOut()
 		return True
 	
 	
@@ -571,6 +582,7 @@ class setting:
 		'''method to change the sample settings of Cycles renders'''
 		# edit Cycles samples settings
 		change = False
+		log.menuIn('Cycles Samples')
 		# print current settings
 		while True:
 			os.system('clear')
@@ -588,6 +600,7 @@ class setting:
 			if choice in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
 				# quit Cycles sample settings edition
 				log.write('\033[31mquit sample editing\033[0m\n')
+				log.menuOut()
 				return change
 			
 			if choice not in ['1', '2', '3']:
@@ -605,6 +618,7 @@ class setting:
 			
 			# print current setting
 			os.system('clear')
+			log.menuIn(name.capitilize())
 			log.write(name+' : ')
 			log.print()
 			print('current '+name+' sample settings : '\
@@ -619,8 +633,11 @@ class setting:
 				if new not in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
 					log.write('\033[31munvalid settings :'+new\
 							+'\033[0m\nretry\n')
+					log.menuOut()
+					log.menuOut()
 					return change
 				log.write('\033[31mcanceled\033[0m\n')
+				log.menuOut()
 				continue
 			
 			# apply a good new setting
@@ -632,6 +649,7 @@ class setting:
 				self.backgroundCyclesSamples = new
 			elif choice == 3:
 				self.foregroundCyclesSamples = new
+			log.menuOut()
 			change = True
 	
 	
@@ -642,6 +660,7 @@ class setting:
 		'''method to change the default rendering engine '''
 		#edit Engine settings
 		change = False
+		log.menuIn('Engine')
 		# print old settings
 		while True:
 			os.system('clear')
@@ -657,6 +676,7 @@ class setting:
 ''')
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '3']:
 				log.write('\033[31mend\033[0m\n')
+				log.menuOut()
 				return change
 			elif choice in ['1', 'e', 'E']:
 				if self.renderingEngine == 'CYCLES':
@@ -684,6 +704,7 @@ class setting:
 		'''method to change all the output settings'''
 		#edit Output settings
 		change = False
+		log.menuIn('Output Settings')
 		while True:
 			os.system('clear')
 			log.write('change output Settings : ')
@@ -701,6 +722,7 @@ class setting:
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '5']:
 				# quit edition
 				log.write('\033[31mend\033[0m\n')
+				log.menuOut()
 				return change
 			elif choice in ['1', 'o', 'O']:
 				# edit output path
@@ -725,6 +747,9 @@ class setting:
 		'''method to change output path'''
 		# edit output path
 		log.write('edit main output path:')
+		log.menuIn('Main Output Path')
+		os.system('clear')
+		log.print()
 		print('current output path : '+str(self.outputPath)) 
 		new = input('\nnew path (must already exist and be absolute path):').strip()
 		
@@ -732,6 +757,7 @@ class setting:
 		if new in ['', "''", '""']:
 			self.outputPath = None
 			log.write('set to None\n')
+			log.menuOut()
 			return True
 		
 		if new[0] in ['\'', '"'] and new[0]==new[-1]:
@@ -742,6 +768,7 @@ class setting:
 		if match is None:
 			# check if path is a good syntaxe
 			log.write('\033[31munvalid path : "'+new+'"\nThe path must be absolute (begin and end by "/")\033[0m\n')
+			log.menuOut()
 			return False
 		
 		# check if it's a good path and save it
@@ -749,9 +776,11 @@ class setting:
 				and os.access(new, os.W_OK):
 			self.outputPath = new
 			log.write(new+'\n')
+			log.menuOut()
 			return True
 		
 		log.write("\033[31munvalid path : '"+new+"'\nthe path didn't exist, is not a directories or you don't have the right to write in it\033[0m\n")
+		log.menuOut()
 		return False
 	
 	
@@ -763,11 +792,15 @@ class setting:
 		# edit output subpath
 		# write old settings
 		log.write('edit output subpath :')
+		log.menuIn('Output Subpath')
+		os.system('clear')
+		log.print()
 		print('current output subpath : '+self.outputSubPath) 
 		new = input('\nnew subpath (%N will be replaced by the task file name and %S by the scene name):').strip()
 		
 		if new in ['', "''", '""']:
 			log.write('\033[31mcanceled\033[0m\n')
+			log.menuOut()
 			return False
 		
 		if new[0] in ['\'', '"'] and new[0]==new[-1]:
@@ -776,16 +809,19 @@ class setting:
 		if new.find('/') != -1:
 			# check if there is a '/' caractère in the new name
 			log.write('\033[31munvalid : "'+new+'"\nThe subpath must not contain "/"!\033[0m\n')
+			log.menuOut()
 			return False
 		
 		if new.find('%S') == -1 or new.find('%N') == -1:
 			# check if there is a '%N' and a '%S' sequences in the new name
 			log.write('\033[31munvalid : "'+new+'"\nThe subpath must contain at less one occurence of "%N" and "%S" or different render risk to overwrite themselves!\033[0m\n')
+			log.menuOut()
 			return False
 		
 		# change output SubPath if the new one is good
 		self.outputSubPath = new
 		log.write(new+'\n')
+		log.menuOut()
 		return True
 	
 	
@@ -796,6 +832,9 @@ class setting:
 		'''method to change output naming convention'''
 		# edit output naming
 		log.write('edit output naming :')
+		log.menuIn('output naming')
+		os.system('clear')
+		log.print()
 		print('current output naming : '+self.outputName) 
 		
 		# get new name
@@ -807,6 +846,7 @@ new naming :').strip()
 		
 		if new in ['', "''", '""']:
 			log.write('\033[31mcanceled\033[0m\n')
+			log.menuOut()
 			return False
 		
 		if new[0] in ['\'', '"'] and new[0]==new[-1]:
@@ -815,16 +855,19 @@ new naming :').strip()
 		if new.find('/') != -1:
 			# check if there is a '/' caractère in the new name
 			log.write('\033[31munvalid : "'+new+'"\nThe name must not contain "/"!\033[0m\n')
+			log.menuOut()
 			return False
 		
 		if new.find('%L') == -1 or new.find('%F') == -1:
 			# check if there is a '%F' and a '%L' sequences in the new name
 			log.write('\033[31munvalid : "'+new+'"\nThe name must contain at less one occurence of "%L" and "%F" or different render risk to overwrite themselves!\033[0m\n')
+			log.menuOut()
 			return False
 		
 		# change output name if the new one is good
 		self.outputName = new
 		log.write(new+'\n')
+		log.menuOut()
 		return True
 	
 	
@@ -835,6 +878,9 @@ new naming :').strip()
 		# edit output format
 		# print old setting
 		log.write('edit output format :')
+		log.menuIn('Output Format')
+		os.system('clear')
+		log.print()
 		print('current output format : '+self.outputFormat) 
 		new = input('new format (available: png / jpeg / open_exr / open_exr_multilayer):').strip().upper()
 		
@@ -842,9 +888,11 @@ new naming :').strip()
 			# change format if the one is one of the available
 			self.outputFormat = new
 			log.write(new+'\n')
+			log.menuOut()
 			return True
 		
 		log.write('\033[31munvalid format : "'+new+'"\033[0m\n')
+		log.menuOut()
 		return False
 	
 	
@@ -853,6 +901,7 @@ new naming :').strip()
 	def editTiles(self, log):
 		'''method to change tiles size settings'''
 		#edit Tiles settings
+		log.menuIn('Tiles Size')
 		change = False
 		
 		while True:
@@ -875,6 +924,7 @@ new naming :').strip()
 			
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
 				log.write('\033[31mend\033[0m\n')
+				log.menuOut()
 				return change
 			
 			if choice not in ['1', '2', '3']:
@@ -928,6 +978,7 @@ new naming :').strip()
 		'''method to change light path settings of Cycles'''
 		#edit Ligth path settings
 		change = False
+		log.menuIn('Light Path')
 		
 		while True:
 			os.system('clear')
@@ -956,6 +1007,7 @@ new naming :').strip()
 			# if user want to quit menu
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
 				log.write('\033[31mend\033[0m\n')
+				log.menuOut()
 				return change
 			
 			# if user don't make a valid choice
@@ -1033,6 +1085,7 @@ new naming :').strip()
 		'''method to enable/disable rendering options'''
 		#edit OPtions settings
 		change = False
+		log.menuIn('Rendering Options')
 		enable = { True : 'Enabled' , False : 'Disabled' }
 		
 		while True:
@@ -1058,6 +1111,7 @@ new naming :').strip()
 			# if user want to quit menu
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
 				log.write('\033[31mend\033[0m\n')
+				log.menuOut()
 				return change
 			
 			# check if user make a valid choice
@@ -1129,6 +1183,7 @@ new naming :').strip()
 		'''method to manage renderlayer name keyword '''
 		#edit Keywords settings
 		change = False
+		log.menuIn('Renderlayers Keywords')
 		
 		while True:
 			os.system('clear')
@@ -1150,6 +1205,7 @@ new naming :').strip()
 			# if user want to quit menu
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
 				log.write('\033[31mend\033[0m\n')
+				log.menuOut()
 				return change
 			
 			# check if user make a valid choice
@@ -1178,11 +1234,17 @@ new naming :').strip()
 	
 	def removeKeyWords(self, log, keys, noKeys, choice):
 		'''method to remove renderlayer name keyword '''
+		os.system('clear')
+		
 		if choice=='1':
 			log.write('remove background keyword : ')
+			log.menuIn('remove background keyword')
+			log.print()
 			print('current background keyword(s) :')
 		else:
 			log.write('remove foreground keyword : ')
+			log.menuIn('remove foreground keyword')
+			log.print()
 			print('current foreground keyword(s) :')
 		
 		# print current settings
@@ -1196,17 +1258,21 @@ new naming :').strip()
 		if match is None:
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
 				log.write('\033[31mend\033[0m\n')
+				log.menuOut()
 				return False
 			log.write('\033[31munvalid choice : '+choice+' : must be an integer\033[0m\nretry\n')
+			log.menuOut()
 			return False
 		
 		choice = int(choice)
 		if choice >= len(keys) :
 			log.write('\033[31munvalid choice : '+str(choice)+' : the greater keyword index is '+str(len(keys))+'\033[0m\nretry\n')
+			log.menuOut()
 			return False
 		
 		# remove corresponding keyword
 		log.write(keys.pop(choice)+'\n')
+		log.menuOut()
 		return True
 	
 	
@@ -1215,12 +1281,17 @@ new naming :').strip()
 	
 	def addKeyWords(self, log, keys, noKeys, choice):
 		'''method to add renderlayer name keywords'''
+		os.system('clear')
 		
 		if choice=='3':
 			log.write('add background keyword : ')
+			log.menuIn('add background keyword')
+			log.print()
 			print('current background keyword(s) :')
 		else:
 			log.write('add foreground keyword : ')
+			log.menuIn('add foreground keyword')
+			log.print()
 			print('current foreground keyword(s) :')
 		
 		# print current settings
@@ -1232,15 +1303,18 @@ new naming :').strip()
 		# check user choice
 		if choice == '':
 			log.write('\033[31mcanceled\033[0m\n')
+			log.menuOut()
 			return False
 		match = re.search(r'^[-0-9a-zA-Z_]{3,}( *\| *[-0-9a-zA-Z_]{3,})*$', choice)
 		if match is None:
 			log.write('''\033[31munvalid choice : '''+choice+''' : the keyword must only contain letters, numbers or '-' or '_', they can be split by '|' and space\033[0m\nretry\n''')
+			log.menuOut()
 			return False
 		
 		for v in choice:
 			if v in noKeys:
 				log.write('''\033[31munvalid choice : '''+choice+''' : some key word are already in the other keyword list\033[0m\nretry\n''')
+				log.menuOut()
 				return False
 		
 		# split and add new keywords
@@ -1251,6 +1325,7 @@ new naming :').strip()
 			if v not in keys:
 				keys.append(v.strip())
 				change = True
+		log.menuOut()
 		return change
 	
 	
