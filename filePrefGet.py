@@ -4,7 +4,7 @@
 
 import bpy
 import sys, os, re
-sys.path.append(os.path.abspath(sys.argv[0]+'/..'))
+sys.path.append(os.path.abspath(sys.argv[4]+'/..'))
 from setting import *
 
 print('<?xml version="1.0" encoding="UTF-8"?>')
