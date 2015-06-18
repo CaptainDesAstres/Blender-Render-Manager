@@ -371,6 +371,31 @@ class setting:
 	
 	
 	
+	def compare(self, ref, exclude = ['blenderPath', 'outputPath', 'outputSubPath', 'outputName', 'backgroundLayersKeywords', 'foregroundLayersKeywords']):
+		same = True
+		diff = []
+		excludeType = ["<class 'builtin_function_or_method'>",\
+						"<class 'function'>",\
+						"<class 'method-wrapper'>",\
+						"<class 'method'>"]
+		
+		for attr in dir(self):
+			if attr not in exclude\
+						and str(type(getattr(self, attr))) not in excludeType:
+				
+				if getattr(self, attr) != getattr(ref, attr):
+					same = False
+					print(type(getattr(self, attr)))
+					diff.append((attr, getattr(self, attr), getattr(ref, attr)))
+				
+		
+		return same, diff
+		
+	
+	
+	
+	
+	
 	def see(self, log):
 		'''print settings and let edit or reset it'''
 		change = False
