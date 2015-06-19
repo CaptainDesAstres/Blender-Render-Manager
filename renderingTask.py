@@ -3,6 +3,7 @@
 '''module containing class 'renderingTask' '''
 from setting import setting
 from copy import deepcopy
+import os
 
 class renderingTask:
 	'''class that contain the parameter for a rendering task'''
@@ -86,7 +87,7 @@ class renderingTask:
 	
 	
 	
-	def taskSettingsMenu(self, pref):
+	def taskSettingsMenu(self, log, pref):
 		'''method to access customize task settings menu'''
 		change = False
 		log.menuIn('Compare Task Settings')
@@ -96,6 +97,9 @@ class renderingTask:
 			os.system('clear')
 			log.write('Task settings menu : ')
 			log.print()
+			
+			red = '\033[31m'
+			rest = '\033[0m'
 			
 			choice = input('''Available Action:
 1- manually customize task settings
@@ -113,25 +117,25 @@ action?''').strip()
 			
 			if choice == 0:
 				log.menuOut()
-				log.write('quit\n')
+				log.write(red+'quit\n'+rest)
 				return change
 			elif choice == 1:
 				# manually customize task settings
-				print('action not yet implement')
+				log.write(red+'manually customize task settings : action not yet implement\n'+rest)
 			elif choice == 2:
 				# change reference  settings for preferences
-				print('action not yet implement')
+				log.write(red+'change reference  settings for preferences : action not yet implement\n'+rest)
 			elif choice == 3:
 				# change reference  settings for original blender file settings
-				print('action not yet implement')
+				log.write(red+'change reference  settings for original blender file settings : action not yet implement\n'+rest)
 			elif choice == 4:
 				# overwrite task settings with preferences
-				print('action not yet implement')
+				log.write(red+'overwrite task settings with preferences : action not yet implement\n'+rest)
 			elif choice == 5:
 				# overwrite task settings with original blender file settings
-				print('action not yet implement')
+				log.write(red+'overwrite task settings with original blender file settings : action not yet implement\n'+rest)
 			else:
-				log.write('unvalid action choice\n')
+				log.write(red+'unvalid action choice\n'+rest)
 			
 
 
