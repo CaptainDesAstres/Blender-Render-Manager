@@ -141,18 +141,31 @@ action?''').strip()
 				# manually customize task settings
 				log.write(red+'manually customize task settings : action not yet implement\n'+rest)
 			elif choice == 2:
-				# change reference  settings for preferences
+				# change reference settings for preferences
 				log.write(red+'change reference  settings for preferences : action not yet implement\n'+rest)
 			elif choice == 3:
-				# change reference  settings for original blender file settings
+				# change reference settings for original blender file settings
 				log.write(red+'change reference  settings for original blender file settings : action not yet implement\n'+rest)
 			elif choice == 4:
 				# overwrite task settings with preferences
+				os.system('clear')
+				log.menuIn('Overwrite With Preference Settings')
+				log.write('overwrite with preference settings : ')
+				log.print()
+				
+				confirm = input('do you realy want to overwrite current task settings with global preference settings? (y)').strip().lower()
+				
+				if confirm in ['y', 'yes']:
+					self.customSetting = pref.getClone()
+					self.checkSpecificSettings()
+					log.write(green+'confirmed\n'+rest)
+				else:
+					log.write(red+'canceled\n'+rest)
 				
 			elif choice == 5:
 				# overwrite task settings with original blender file settings
 				os.system('clear')
-				log.menuIn('Overwrite With  Original Blender File Settings')
+				log.menuIn('Overwrite With Original Blender File Settings')
 				log.write('overwrite with original Blender file settings : ')
 				log.print()
 				
