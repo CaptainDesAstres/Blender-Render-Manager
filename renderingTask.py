@@ -107,13 +107,14 @@ class renderingTask:
 		log.menuIn('Compare Task Settings')
 		ref = self.fileSetting
 		
+		red = '\033[31m'
+		rest = '\033[0m'
+		green = '\033[32m'
+		
 		while True:
 			os.system('clear')
 			log.write('Task settings menu : ')
 			log.print()
-			
-			red = '\033[31m'
-			rest = '\033[0m'
 			
 			choice = input('''Available Action:
 1- manually customize task settings
@@ -147,7 +148,7 @@ action?''').strip()
 				log.write(red+'change reference  settings for original blender file settings : action not yet implement\n'+rest)
 			elif choice == 4:
 				# overwrite task settings with preferences
-				log.write(red+'overwrite task settings with preferences : action not yet implement\n'+rest)
+				
 			elif choice == 5:
 				# overwrite task settings with original blender file settings
 				os.system('clear')
@@ -162,6 +163,7 @@ action?''').strip()
 					self.customSetting.blenderPath = pref.blenderPath
 					self.customSetting.backgroundLayersKeywords = pref.backgroundLayersKeywords[:]
 					self.customSetting.foregroundLayersKeywords = pref.foregroundLayersKeywords[:]
+					log.write(green+'confirmed\n'+rest)
 				else:
 					log.write(red+'canceled\n'+rest)
 				
