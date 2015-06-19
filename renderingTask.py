@@ -77,9 +77,29 @@ class renderingTask:
 	
 	
 	def settingsCompare(self, ref = None):
+		'''method to comapare task settings to original file settings or to other settings'''
 		if ref is None:
 			ref = self.fileSetting
 		return self.customSetting.compare(ref)
+	
+	
+	
+	
+	
+	def taskSettingsMenu(self, pref):
+		'''method to customize task settings'''
+		change = False
+		log.menuIn('Compare Task Settings')
+		ref = self.fileSetting
+		
+		while True:
+			os.system('clear')
+			log.print()
+			log.menuOut()
+			return change
+
+
+
 
 
 
