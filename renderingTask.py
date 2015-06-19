@@ -87,7 +87,7 @@ class renderingTask:
 	
 	
 	def taskSettingsMenu(self, pref):
-		'''method to customize task settings'''
+		'''method to access customize task settings menu'''
 		change = False
 		log.menuIn('Compare Task Settings')
 		ref = self.fileSetting
@@ -95,6 +95,17 @@ class renderingTask:
 		while True:
 			os.system('clear')
 			log.print()
+			
+			choice = input('''Available Action:
+1- edit task settings
+2- compare task settings to preferences
+3- compare task settings to original blender file settings
+4- overwrite task settings with preferences
+5- overwrite task settings with original blender file settings
+6- manually customize task settings
+0- save & quit
+action?''').strip()
+			
 			log.menuOut()
 			return change
 
