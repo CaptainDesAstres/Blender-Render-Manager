@@ -23,15 +23,8 @@ class renderingTask:
 			self.fileSetting = setting(fileXmlSetting)
 			self.customSetting = preferences.getClone()
 			
-			# get parameters values that only original file settings have
-			self.customSetting.start = self.fileSetting.start
-			self.customSetting.end = self.fileSetting.end
-			self.customSetting.renderLayerList = deepcopy(self.fileSetting.renderLayerList)
-			
-			#overwrite renderlayer pass settings
-			for layer in self.customSetting.renderLayerList:
-				layer['z'] = self.customSetting.zPass
-				layer['object index'] = self.customSetting.objectIndexPass 
+			# check task specific parameters
+			self.checkSpecificSettings()
 			
 			
 			self.status = 'ready'
@@ -45,6 +38,27 @@ class renderingTask:
 			self.status='unset'
 			
 			self.fromXml(xml)
+	
+	
+	
+	
+	
+	def checkSpecificSettings(self):
+		'''check if task setting have settings for the parameter that is not in global preferences (start/end frame and renderlayer list) '''
+		# get parameters values that only original file settings have
+		if self.customSetting.start is None:
+			self.customSetting.start = self.fileSetting.start
+		
+		if self.customSetting.end is None:
+			self.customSetting.end = self.fileSetting.end
+		
+		if len(self.customSetting.renderLayerList) == 0:
+			self.customSetting.renderLayerList = deepcopy(self.fileSetting.renderLayerList)
+			#overwrite renderlayer pass settings
+			for layer in self.customSetting.renderLayerList:
+				layer['z'] = self.customSetting.zPass
+				layer['object index'] = self.customSetting.objectIndexPass 
+	
 	
 	
 	
