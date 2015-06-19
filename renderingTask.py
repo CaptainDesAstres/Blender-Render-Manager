@@ -142,10 +142,12 @@ action?''').strip()
 				log.write(red+'manually customize task settings : action not yet implement\n'+rest)
 			elif choice == 2:
 				# change reference settings for preferences
-				log.write(red+'change reference  settings for preferences : action not yet implement\n'+rest)
+				ref = pref
+				log.write(green+'switch references settings to preference\n'+rest)
 			elif choice == 3:
 				# change reference settings for original blender file settings
-				log.write(red+'change reference  settings for original blender file settings : action not yet implement\n'+rest)
+				ref = self.fileSetting
+				log.write(green+'switch references settings to original file settings\n'+rest)
 			elif choice == 4:
 				# overwrite task settings with preferences
 				os.system('clear')
