@@ -228,7 +228,7 @@ def addTask():
 		saveQueue(renderQueue)
 		log.write('file and scene added\n')
 		
-		task.custom(scriptSetting)
+		task.taskSettingsMenu(scriptSetting)
 		saveQueue(renderQueue)
 		log.write('task settings saved\n')
 
