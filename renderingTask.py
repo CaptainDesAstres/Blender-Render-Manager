@@ -75,6 +75,7 @@ class renderingTask:
 	
 	
 	
+	
 	def toXmlStr(self,head=False):
 		'''export the object values into an xml formated strings'''
 		txt =''
@@ -85,7 +86,6 @@ class renderingTask:
 		txt += '<fileSet>\n'+self.fileSetting.toXmlStr()+'</fileSet>\n'
 		txt += '</task>\n'
 		return txt
-	
 	
 	
 	
@@ -150,7 +150,21 @@ action?''').strip()
 				log.write(red+'overwrite task settings with preferences : action not yet implement\n'+rest)
 			elif choice == 5:
 				# overwrite task settings with original blender file settings
-				log.write(red+'overwrite task settings with original blender file settings : action not yet implement\n'+rest)
+				os.system('clear')
+				log.menuIn('Overwrite With  Original Blender File Settings')
+				log.write('overwrite with original Blender file settings : ')
+				log.print()
+				
+				confirm = input('do you realy want to overwrite current task settings with the original settings of the plender file (and ignore the preferences)? (y)').strip().lower()
+				
+				if confirm in ['y', 'yes']:
+					self.customSetting = self.fileSetting.getClone()
+					self.customSetting.blenderPath = pref.blenderPath
+					self.customSetting.backgroundLayersKeywords = pref.backgroundLayersKeywords[:]
+					self.customSetting.foregroundLayersKeywords = pref.foregroundLayersKeywords[:]
+				else:
+					log.write(red+'canceled\n'+rest)
+				
 			else:
 				log.write(red+'unvalid action choice\n'+rest)
 			
