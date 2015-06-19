@@ -103,7 +103,7 @@ def main():
 	''')
 		
 		# menu choice
-		choice = input()
+		choice = input().strip()
 		if choice in ['0','q','Q']: 
 			log.write('choice : close Blender Render Manager\n')
 			return
@@ -202,7 +202,7 @@ def addTask():
 			# scene choice
 			while True:
 				
-				choice = input('scene to use (or \'cancel\'):')
+				choice = input('scene to use (or \'cancel\'):').strip()
 				if(re.search(r'^\d+$',choice) and int(choice)<i):
 					scene = prefXml[int(choice)]
 					log.write('use «'+scene.get('name')+'» scene\n')

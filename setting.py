@@ -402,7 +402,7 @@ class setting:
 			self.print()
 		
 			#treat available actions
-			choice= input('(e)dit, (r)eset or (q)uit (and save): ')
+			choice= input('(e)dit, (r)eset or (q)uit (and save): ').strip()
 			if choice in ['Q','q']:
 				log.write('quit settings\n')
 				log.menuOut()# quit preferences menu
@@ -412,7 +412,7 @@ class setting:
 				change = (self.edit(log) or change)
 			elif choice in ['R','r']:
 				#reset default settings
-				confirm = input('this action will reset to factory settings. confirm (y):')
+				confirm = input('this action will reset to factory settings. confirm (y):').strip()
 				if confirm in ['y','Y']:
 					self.__init__()
 					change = True
@@ -445,7 +445,7 @@ class setting:
 		9- Keywords''')
 		
 			#treat available actions
-			choice = input('what\'s the parameter to edit ?(or \'q\' or \'cancel\')')
+			choice = input('what\'s the parameter to edit ?(or \'q\' or \'cancel\')').strip()
 			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
 				log.write('\033[31mquit\033[0m\n')
 				log.menuOut()
@@ -544,7 +544,7 @@ class setting:
 		log.menuIn('Resolution')
 		log.print()
 		print('current resolution :'+str(self.x)+'x'+str(self.y)+'@'+str(int(self.percent*100))+'\n\n')
-		choice = input('new resolution ? (1920x1080@100 for example or \'cancel\')')
+		choice = input('new resolution ? (1920x1080@100 for example or \'cancel\')').strip()
 		
 		
 		#parse new settings and check it
@@ -579,7 +579,7 @@ class setting:
 		log.menuIn('Animation Rate')
 		log.print()
 		print('current animation rate: '+str(self.fps)+'fps\n\n')
-		choice = input('new animation rate? ( 30 for example or \'cancel\')')
+		choice = input('new animation rate? ( 30 for example or \'cancel\')').strip()
 	
 		#parse new settings and check it
 		match = re.search(r'^(\d{1,})(fps)?$',choice)
@@ -696,7 +696,7 @@ class setting:
 	1- switch rendering Engine
 	2- switch rendering Device
 	3- Quit
-''')
+''').strip()
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '3']:
 				log.write('\033[31mend\033[0m\n')
 				log.menuOut()
@@ -740,7 +740,7 @@ class setting:
 					+'\n  3- Name : '+self.outputName\
 					+'\n  4- Format : '+self.outputFormat\
 					+'\n  5- Quit\n\n')
-			choice = input('''What's the setting to edit?''')
+			choice = input('''What's the setting to edit?''').strip()
 			
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '5']:
 				# quit edition
@@ -943,7 +943,7 @@ new naming :').strip()
 					)
 			
 			# get index of parameter to edit
-			choice = input('''what's the tile size to edit?('q' to quit)''')
+			choice = input('''what's the tile size to edit?('q' to quit)''').strip()
 			
 			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
 				log.write('\033[31mend\033[0m\n')
