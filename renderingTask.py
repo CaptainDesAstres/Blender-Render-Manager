@@ -111,7 +111,10 @@ class renderingTask:
 action?''').strip()
 			
 			try:
-				choice = int(choice)
+				if choice in ['q', 'Q', 'cancel', 'CANCEL']:
+					choice = 0
+				else:
+					choice = int(choice)
 			except ValueError:
 				choice = 9999
 			
