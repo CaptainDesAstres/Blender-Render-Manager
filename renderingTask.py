@@ -164,6 +164,8 @@ action?''').strip()
 				else:
 					log.write(red+'canceled\n'+rest)
 				
+				log.menuOut()
+				
 			elif choice == 5:
 				# overwrite task settings with original blender file settings
 				os.system('clear')
@@ -181,6 +183,8 @@ action?''').strip()
 					log.write(green+'confirmed\n'+rest)
 				else:
 					log.write(red+'canceled\n'+rest)
+				
+				log.menuOut()
 				
 			else:
 				log.write(red+'unvalid action choice\n'+rest)
