@@ -142,7 +142,7 @@ def addTask():
 		
 		if path in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
 			#cancel action
-			log.write('\033[31mcanceled action\033[0m\n')
+			log.write('\033[31mquit add task menu\033[0m\n')
 			log.menuOut()# quit Add Task
 			log.menuOut()# quit Give File Path
 			return
@@ -227,6 +227,10 @@ def addTask():
 		renderQueue.add(task)
 		saveQueue(renderQueue)
 		log.write('file and scene added\n')
+		
+		task.custom(scriptSetting)
+		saveQueue(renderQueue)
+		log.write('task settings saved\n')
 
 
 
