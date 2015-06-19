@@ -94,20 +94,45 @@ class renderingTask:
 		
 		while True:
 			os.system('clear')
+			log.write('Task settings menu : ')
 			log.print()
 			
 			choice = input('''Available Action:
-1- edit task settings
+1- manually customize task settings
 2- compare task settings to preferences
 3- compare task settings to original blender file settings
 4- overwrite task settings with preferences
 5- overwrite task settings with original blender file settings
-6- manually customize task settings
 0- save & quit
 action?''').strip()
 			
-			log.menuOut()
-			return change
+			try:
+				choice = int(choice)
+			except ValueError:
+				choice = 9999
+			
+			if choice == 0:
+				log.menuOut()
+				log.write('quit\n')
+				return change
+			elif choice == 1:
+				# manually customize task settings
+				print('action not yet implement')
+			elif choice == 2:
+				# change reference  settings for preferences
+				print('action not yet implement')
+			elif choice == 3:
+				# change reference  settings for original blender file settings
+				print('action not yet implement')
+			elif choice == 4:
+				# overwrite task settings with preferences
+				print('action not yet implement')
+			elif choice == 5:
+				# overwrite task settings with original blender file settings
+				print('action not yet implement')
+			else:
+				log.write('unvalid action choice\n')
+			
 
 
 
