@@ -117,21 +117,24 @@ class renderingTask:
 					last = 'Max'
 				cusVal = str(getattr(custom, attr+first))+sep+str(getattr(custom, attr+last))
 				refVal = str(getattr(ref, attr+first))+sep+str(getattr(ref, attr+last))
+			elif attr in ['backgroundLayersKeywords', 'foregroundLayersKeywords']:
+				cusVal = ' | '.join(getattr(custom, attr))
+				refVal = ' | '.join(getattr(ref, attr))
 			else:
 				cusVal = getattr(custom, attr)
 				refVal = getattr(ref, attr)
-			
+				
 				if attr == 'percent':
 					cusVal *= 100
 					refVal *= 100
-			
+				
 				if type(cusVal) == type(True):
 					cusVal = enable[cusVal]
 				elif cusVal is None:
 					cusVal = 'Disabled'
 				else:
 					cusVal = str(cusVal)
-			
+				
 				if type(refVal) == type(True):
 					refVal = enable[refVal]
 				elif refVal is None:
