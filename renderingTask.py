@@ -104,17 +104,22 @@ class renderingTask:
 	def printCompare(self, ref):
 		'''method to print the task custom settings compared to another settings'''
 		
-		def getValue(attr, xy = False, to = False, custom = self.customSetting, ref = ref):
+		def getValue(attr, xy = False, to = False, frame = False,\
+						 custom = self.customSetting, ref = ref):
 			enable = {True:'Enabled', False:'Disabled'}
-			if xy or to:
+			if xy or to or frame:
 				if xy :
 					sep = 'x'
 					first = 'X'
 					last = 'Y'
-				else:
+				elif to:
 					sep = ' to '
 					first = 'Min'
 					last = 'Max'
+				elif frame:
+					sep = ' to '
+					first = 'start'
+					last = 'end'
 				cusVal = str(getattr(custom, attr+first))+sep+str(getattr(custom, attr+last))
 				refVal = str(getattr(ref, attr+first))+sep+str(getattr(ref, attr+last))
 			elif attr in ['backgroundLayersKeywords', 'foregroundLayersKeywords']:
@@ -149,21 +154,23 @@ class renderingTask:
 					+refVal+')\033[0m'
 		
 		
-		print('Blender path :       '+getValue('blenderPath')+'\n')
+		print('Blender path :        '+getValue('blenderPath')+'\n')
 		
 		# print resolution parameters
-		print('Résolution :          '+getValue('',xy = True)+' (@'+getValue('percent')+'%)')
+		print('Résolution :           '+getValue('',xy = True)+' (@'+getValue('percent')+'%)')
 		
 		# print Cycles sampling parameters
 		print('Cycles samples :')
-		print('  main / background / foreground : \n                      '\
+		print('  main / background / foreground : \n                       '\
 				+getValue('mainAnimationCyclesSamples')+' / '\
 				+getValue('backgroundCyclesSamples')+' / '\
 				+getValue('foregroundCyclesSamples'))
 		
 		# print animation and engine parameters
-		print('Animation :           '+getValue('fps')+'fps')
-		print('Engine :              '+getValue('renderingEngine').lower()\
+		print('Animation :            '+getValue('',frame = True)+' ('+getValue('fps')+'fps)')
+		print('background animation : '+getValue('backgroundAnimation')+' frames')
+		print('foreground animation : '+getValue('foregroundAnimation')+' frames')
+		print('Engine :               '+getValue('renderingEngine').lower()\
 							+'('+getValue('renderingDevice')+')\n')
 		
 		# print output parameters
