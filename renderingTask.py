@@ -166,7 +166,10 @@ class renderingTask:
 			if cusVal == refVal:
 				return '\033[32m'+cusVal+'\033[0m'
 			else:
-				return '\033[31m'+cusVal+' ('\
+				if cusVal in enable.values() and refVal in enable.values():
+					return '\033[31m'+cusVal+'\033[0m'
+				else:
+					return '\033[31m'+cusVal+' ('\
 					+refVal+')\033[0m'
 		
 		
