@@ -101,6 +101,14 @@ class renderingTask:
 	
 	
 	
+	def printCompare(self, ref):
+		'''method to print the task custom settings compared to another settings'''
+		
+	
+	
+	
+	
+	
 	def taskSettingsMenu(self, log, pref):
 		'''method to access customize task settings menu'''
 		change = False
@@ -115,6 +123,8 @@ class renderingTask:
 			os.system('clear')
 			log.write('Task settings menu : ')
 			log.print()
+			
+			self.printCompare(ref)
 			
 			choice = input('''Available Action:
 1- manually customize task settings
