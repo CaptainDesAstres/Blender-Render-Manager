@@ -104,11 +104,19 @@ class renderingTask:
 	def printCompare(self, ref):
 		'''method to print the task custom settings compared to another settings'''
 		
-		def getValue(attr, xy = False, custom = self.customSetting, ref = ref):
+		def getValue(attr, xy = False, to = False, custom = self.customSetting, ref = ref):
 			enable = {True:'Enabled', False:'Disabled'}
-			if xy:
-				cusVal = getattr(custom, attr+'X')+'x'+getattr(custom, attr+'Y')
-				refVal = getattr(ref, attr+'X')+'x'+getattr(ref, attr+'Y')
+			if xy or to:
+				if xy :
+					sep = 'x'
+					first = 'X'
+					last = 'Y'
+				else:
+					sep = ' to '
+					first = 'Min'
+					last = 'Max'
+				cusVal = str(getattr(custom, attr+first))+sep+str(getattr(custom, attr+last))
+				refVal = str(getattr(ref, attr+first))+sep+str(getattr(ref, attr+last))
 			else:
 				cusVal = getattr(custom, attr)
 				refVal = getattr(ref, attr)
@@ -141,7 +149,7 @@ class renderingTask:
 		print('Blender path :       '+getValue('blenderPath')+'\n')
 		
 		# print resolution parameters
-		print('Résolution :          '+getValue('x')+'x'+getValue('y')+' (@'+getValue('percent')+'%)')
+		print('Résolution :          '+getValue('',xy = True)+' (@'+getValue('percent')+'%)')
 		
 		# print Cycles sampling parameters
 		print('Cycles samples :')
@@ -165,20 +173,15 @@ class renderingTask:
 		
 		# print Tiles parameters
 		print('Tiles : ')
-		print('  cycles GPU :             '+getValue('tilesCyclesGPUX')+'x'\
-												+getValue('tilesCyclesGPUY'))
-		print('  cycles CPU :             '+getValue('tilesCyclesCPUX')+'x'\
-												+getValue('tilesCyclesCPUY'))
-		print('  blender internal :       '+getValue('tilesBIX')+'x'\
-												+getValue('tilesBIY'))
+		print('  cycles GPU :             '+getValue('tilesCyclesGPU', xy = True))
+		print('  cycles CPU :             '+getValue('tilesCyclesCPU', xy = True))
+		print('  blender internal :       '+getValue('tilesBI', xy = True))
 		
 		
 		# print Ligth path parameters
 		print('Ligth path : ')
-		print('  bounces :                '+getValue('bouncesMin')+' to '\
-								+getValue('bouncesMax'))
-		print('  transparency :           '+getValue('transparencyMinBounces')\
-								+' to '+getValue('transparencyMaxBounces'))
+		print('  bounces :                '+getValue('bouncesMin', to = True))
+		print('  transparency :           '+getValue('transparencyBounces', to = True))
 		print('  diffuse / glossy / transmission / volume : \n                           '\
 				+getValue('diffuseBounces')+' / '+getValue('glossyBounces')+' / '\
 				+getValue('transmissionBounces')+' / '+getValue('volumeBounces')+'\n')
