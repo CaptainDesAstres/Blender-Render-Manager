@@ -105,22 +105,34 @@ class renderingTask:
 		'''method to print the task custom settings compared to another settings'''
 		
 		def getValue(attr, custom = self.customSetting, ref = ref):
-			enable = {True:'enabled', False:'Disabled'}
+			enable = {True:'Enabled', False:'Disabled'}
+			
 			cusVal = getattr(custom, attr)
 			refVal = getattr(ref, attr)
 			
-			if cusVal == refVal:
-				if type(cusVal) == type(True):
-					return '\033[32m'+enable[cusVal]+'\033[0m'
-				else:
-					return '\033[32m'+str(cusVal)+'\033[0m'
+			if attr == 'percent':
+				cusVal *= 100
+				refVal *= 100
+			
+			if type(cusVal) == type(True):
+				cusVal = enable[cusVal]
+			elif cusVal is None:
+				cusVal = 'Disabled'
 			else:
-				if type(cusVal) == type(True):
-					return '\033[31m'+enable[cusVal]+' ('\
-						+enable[refVal]+')\033[0m'
-				else:
-					return '\033[31m'+str(cusVal)+' ('\
-						+str(refVal)+')\033[0m'
+				cusVal = str(cusVal)
+			
+			if type(refVal) == type(True):
+				refVal = enable[refVal]
+			elif refVal is None:
+				refVal = 'Disabled'
+			else:
+				refVal = str(cusVal)
+			
+			if cusVal == refVal:
+				return '\033[32m'+cusVal+'\033[0m'
+			else:
+				return '\033[31m'+cusVal+' ('\
+					+refVal+')\033[0m'
 		
 		
 		print('Blender path :       '+getValue('blenderPath')+'\n')
