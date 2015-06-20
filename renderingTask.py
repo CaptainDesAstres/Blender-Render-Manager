@@ -106,6 +106,8 @@ class renderingTask:
 		
 		def getValue(attr, custom = self.customSetting, ref = ref):
 			enable = {True:'enabled', False:'Disabled'}
+			
+			
 			if getattr(custom, attr) == getattr(ref, attr):
 				if type(getattr(custom, attr)) == type(True):
 					return '\033[32m'+enable[getattr(custom, attr)]+'\033[0m'
@@ -120,7 +122,64 @@ class renderingTask:
 						+str(getattr(ref, attr))+')\033[0m'
 		
 		
+		print('Blender path :       '+getValue('blenderPath')+'\n')
 		
+		# print resolution parameters
+		print('Résolution :          '+getValue('x')+'x'+getValue('y')+' (@'+getValue('percent')+'%)')
+		
+		# print Cycles sampling parameters
+		print('Cycles samples :')
+		print('  main / background / foreground : \n                      '\
+				+getValue('mainAnimationCyclesSamples')+' / '\
+				+getValue('backgroundCyclesSamples')+' / '\
+				+getValue('foregroundCyclesSamples'))
+		
+		# print animation and engine parameters
+		print('Animation :           '+getValue('fps')+'fps')
+		print('Engine :              '+getValue('renderingEngine').lower()\
+							+'('+getValue('renderingDevice')+')\n')
+		
+		# print output parameters
+		print('Output : ')
+		print('  output path (absolute) :                    '+getValue('outputPath'))
+		print('  automatique subpath (for each task) :       '+getValue('outputSubPath'))
+		print('  name :                                      '+getValue('outputName'))
+		print('  format :                                    '+getValue('outputFormat')+'\n')
+		
+		
+		# print Tiles parameters
+		print('Tiles : ')
+		print('  cycles GPU :             '+getValue('tilesCyclesGPUX')+'x'\
+												+getValue('tilesCyclesGPUY'))
+		print('  cycles CPU :             '+getValue('tilesCyclesCPUX')+'x'\
+												+getValue('tilesCyclesCPUY'))
+		print('  blender internal :       '+getValue('tilesBIX')+'x'\
+												+getValue('tilesBIY'))
+		
+		
+		# print Ligth path parameters
+		print('Ligth path : ')
+		print('  bounces :                '+getValue('bouncesMin')+' to '\
+								+getValue('bouncesMax'))
+		print('  transparency :           '+getValue('transparencyMinBounces')\
+								+' to '+getValue('transparencyMaxBounces'))
+		print('  diffuse / glossy / transmission / volume : \n                           '\
+				+getValue('diffuseBounces')+' / '+getValue('glossyBounces')+' / '\
+				+getValue('transmissionBounces')+' / '+getValue('volumeBounces')+'\n')
+		
+		
+		# print others parameters
+		print('OPtions :')
+		print('  z pass :                       '+getValue('zPass'))
+		print('  object index pass :            '+getValue('objectIndexPass'))
+		print('  compositing :                  '+getValue('compositingEnable'))
+		print('  exposure (cycles) :            '+getValue('filmExposure'))
+		print('  transparent background :       '+getValue('filmTransparentEnable'))
+		print('  simplify :                     '+getValue('simplify')+'\n')
+		
+		print('Keywords :')
+		print('  background : '+getValue('backgroundLayersKeywords'))
+		print('  foreground : '+getValue('foregroundLayersKeywords')+'\n')
 	
 	
 	
