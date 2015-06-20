@@ -140,7 +140,7 @@ class renderingTask:
 				elif refVal is None:
 					refVal = 'Disabled'
 				else:
-					refVal = str(cusVal)
+					refVal = str(refVal)
 			
 			if cusVal == refVal:
 				return '\033[32m'+cusVal+'\033[0m'
