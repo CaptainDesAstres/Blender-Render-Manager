@@ -106,20 +106,21 @@ class renderingTask:
 		
 		def getValue(attr, custom = self.customSetting, ref = ref):
 			enable = {True:'enabled', False:'Disabled'}
+			cusVal = getattr(custom, attr)
+			refVal = getattr(ref, attr)
 			
-			
-			if getattr(custom, attr) == getattr(ref, attr):
-				if type(getattr(custom, attr)) == type(True):
-					return '\033[32m'+enable[getattr(custom, attr)]+'\033[0m'
+			if cusVal == refVal:
+				if type(cusVal) == type(True):
+					return '\033[32m'+enable[cusVal]+'\033[0m'
 				else:
-					return '\033[32m'+str(getattr(custom, attr))+'\033[0m'
+					return '\033[32m'+str(cusVal)+'\033[0m'
 			else:
-				if type(getattr(custom, attr)) == type(True):
-					return '\033[31m'+enable[getattr(custom, attr)]+' ('\
-						+enable[getattr(ref, attr)]+')\033[0m'
+				if type(cusVal) == type(True):
+					return '\033[31m'+enable[cusVal]+' ('\
+						+enable[refVal]+')\033[0m'
 				else:
-					return '\033[31m'+str(getattr(custom, attr))+' ('\
-						+str(getattr(ref, attr))+')\033[0m'
+					return '\033[31m'+str(cusVal)+' ('\
+						+str(refVal)+')\033[0m'
 		
 		
 		print('Blender path :       '+getValue('blenderPath')+'\n')
