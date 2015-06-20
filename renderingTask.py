@@ -104,29 +104,32 @@ class renderingTask:
 	def printCompare(self, ref):
 		'''method to print the task custom settings compared to another settings'''
 		
-		def getValue(attr, custom = self.customSetting, ref = ref):
+		def getValue(attr, xy = False, custom = self.customSetting, ref = ref):
 			enable = {True:'Enabled', False:'Disabled'}
-			
-			cusVal = getattr(custom, attr)
-			refVal = getattr(ref, attr)
-			
-			if attr == 'percent':
-				cusVal *= 100
-				refVal *= 100
-			
-			if type(cusVal) == type(True):
-				cusVal = enable[cusVal]
-			elif cusVal is None:
-				cusVal = 'Disabled'
+			if xy:
+				cusVal = getattr(custom, attr+'X')+'x'+getattr(custom, attr+'Y')
+				refVal = getattr(ref, attr+'X')+'x'+getattr(ref, attr+'Y')
 			else:
-				cusVal = str(cusVal)
+				cusVal = getattr(custom, attr)
+				refVal = getattr(ref, attr)
 			
-			if type(refVal) == type(True):
-				refVal = enable[refVal]
-			elif refVal is None:
-				refVal = 'Disabled'
-			else:
-				refVal = str(cusVal)
+				if attr == 'percent':
+					cusVal *= 100
+					refVal *= 100
+			
+				if type(cusVal) == type(True):
+					cusVal = enable[cusVal]
+				elif cusVal is None:
+					cusVal = 'Disabled'
+				else:
+					cusVal = str(cusVal)
+			
+				if type(refVal) == type(True):
+					refVal = enable[refVal]
+				elif refVal is None:
+					refVal = 'Disabled'
+				else:
+					refVal = str(cusVal)
 			
 			if cusVal == refVal:
 				return '\033[32m'+cusVal+'\033[0m'
