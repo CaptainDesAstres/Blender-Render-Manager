@@ -105,7 +105,7 @@ class setting:
 		self.tilesCyclesGPUY = int(node.get('y'))
 		self.renderingDevice = xml.find('cycles').find('device').get('value')
 		node = xml.find('cycles').find('film')
-		self.filmExposure = node.get('exposure') in ['true', 'True']
+		self.filmExposure = float(node.get('exposure'))
 		self.filmTransparentEnable = node.get('transparent') in ['true', 'True']
 		
 		# get cycles Ligth Path parameters
@@ -445,39 +445,49 @@ class setting:
 		9- Keywords''')
 		
 			#treat available actions
-			choice = input('what\'s the parameter to edit ?(or \'q\' or \'cancel\')').strip()
-			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
+			choice = input('what\'s the parameter to edit ?(number or \'q\')').strip().lower()
+			
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = -1
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = 9999
+			
+			
+			if choice == -1 :
 				log.write('\033[31mquit\033[0m\n')
 				log.menuOut()
 				return change
-			elif choice in ['0','b','B']:
+			elif choice == 0:
 				#edit blender path
 				change = (self.editBlenderPath(log) or change)
-			elif choice in ['1','r','R']:
+			elif choice == 1:
 				#edit resolution setting
 				change = (self.editResolution(log) or change)
-			elif choice in ['2','a','A']:
+			elif choice == 2:
 				#edit animation frame rate
 				change = (self.editAnimationRate(log) or change)
-			elif choice in ['3','c','C']:
+			elif choice == 3:
 				# edit Cycles samples settings
 				change = (self.editSample(log) or change)
-			elif choice in ['4','e','E']:
+			elif choice == 4:
 				#edit Engine settings
 				change = (self.editEngine(log) or change)
-			elif choice in ['5','o','O']:
+			elif choice == 5:
 				#edit Output settings
 				change = (self.editOutput(log) or change)
-			elif choice in ['6','t','T']:
+			elif choice == 6:
 				#edit Tiles settings
 				change = (self.editTiles(log) or change)
-			elif choice in ['7','l','L']:
+			elif choice == 7:
 				#edit Ligth path settings
 				change = (self.editLight(log) or change)
-			elif choice in ['8','op','OP']:
+			elif choice == 8:
 				#edit OPtions settings
 				change = (self.editOption(log) or change)
-			elif choice in ['9','k','K']:
+			elif choice == 9:
 				#edit Keywords settings
 				change = (self.editKeyword(log) or change)
 			else:
@@ -579,12 +589,19 @@ class setting:
 		log.menuIn('Animation Rate')
 		log.print()
 		print('current animation rate: '+str(self.fps)+'fps\n\n')
-		choice = input('new animation rate? ( 30 for example or \'cancel\')').strip()
+		choice = input('new animation rate? ( 30 for example or \'cancel\')').strip().lower()
 	
 		#parse new settings and check it
-		match = re.search(r'^(\d{1,})(fps)?$',choice)
-		if match is None:
-			if choice in ['cancel','CANCEL','QUIT','quit','Q','q']:
+		try:
+			if choice in ['q', 'cancel', 'quit']:
+				choice = -1
+			else:
+				choice = int(choice)
+		except ValueError:
+			choice = -2
+		
+		if choice < 0:
+			if choice == -1:
 				log.write('\033[31manimation frame rate change canceled\033[0m\n')
 			else:
 				log.write('\033[31merror, animation frame rate change canceled, retry\033[0m\n')
@@ -592,8 +609,8 @@ class setting:
 			return False
 		
 		#apply new settings and save it
-		self.fps = int(match.group(1))
-		log.write(match.group(1)+'fps\n')
+		self.fps = choice
+		log.write(str(choice)+'fps\n')
 		log.menuOut()
 		return True
 	
@@ -618,22 +635,27 @@ class setting:
 					+'\n\n')
 			
 			# choice of the parameters to edit
-			choice = input('what\'s the parameter to edit? ( \'1\', \'2\' \'3\' or \'q\'):').strip()
-		
-			if choice in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
+			choice = input('what\'s the parameter to edit? ( number or \'q\'):').strip().lower()
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = -1
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = 9999
+			
+			if choice == -1:
 				# quit Cycles sample settings edition
 				log.write('\033[31mquit sample editing\033[0m\n')
 				log.menuOut()
 				return change
 			
-			if choice not in ['1', '2', '3']:
-				log.write('\033[31munvalid choice : '+choice+'\033[0m\n')
-				print('unvalid choice : '+choice)
+			if choice > 3 or choice < 0:
+				log.write('\033[31munvalid choice : '+str(choice)+'\033[0m\n')
+				print('unvalid choice : '+str(choice))
 				continue
 			
 			# edit sample settings
-			
-			choice = int(choice)
 			name = ['main animation', 'background', 'foreground'][choice-1]
 			value = [str(self.mainAnimationCyclesSamples), 
 					str(self.backgroundCyclesSamples), 
@@ -641,31 +663,37 @@ class setting:
 			
 			# print current setting
 			os.system('clear')
-			log.menuIn(name.capitilize())
+			log.menuIn(name.capitalize())
 			log.write(name+' : ')
 			log.print()
 			print('current '+name+' sample settings : '\
 					+value+'\n\n')
 			
 			# get user choice
-			new = input('new '+name+' sample? (an integer or \'q\')').strip()
-			match = re.search(r'^(\d{1,})?$',new)
+			new = input('new '+name+' sample? (an integer or \'q\')').strip().lower()
+			try:
+				if new in ['q', 'cancel', 'quit']:
+					new = -1
+				else:
+					new = int(new)
+			except ValueError:
+				new = -2
 			
 			# if user input is not an integer, quit cycle sample setting edition
-			if match is None:
-				if new not in ['q', 'quit', 'cancel', 'Q', 'QUIT', 'CANCEL']:
-					log.write('\033[31munvalid settings :'+new\
-							+'\033[0m\nretry\n')
-					log.menuOut()
-					log.menuOut()
-					return change
+			
+			if new == -1 :
+				log.write('\033[31munvalid settings :'+new\
+						+'\033[0m\nretry\n')
+				log.menuOut()
+				log.menuOut()
+				return change
+			elif new < 0:
 				log.write('\033[31mcanceled\033[0m\n')
 				log.menuOut()
 				continue
 			
 			# apply a good new setting
-			log.write(new+'\n')
-			new = int(new)
+			log.write(str(new)+'\n')
 			if choice == 1:
 				self.mainAnimationCyclesSamples = new
 			elif choice == 2:
@@ -695,20 +723,29 @@ class setting:
 			choice = input('''choice :
 	1- switch rendering Engine
 	2- switch rendering Device
-	3- Quit
-''').strip()
-			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '3']:
+	0- Quit
+''').strip().lower()
+			
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = 0
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = 9999
+			
+			if choice == 0:
 				log.write('\033[31mend\033[0m\n')
 				log.menuOut()
 				return change
-			elif choice in ['1', 'e', 'E']:
+			elif choice == 1:
 				if self.renderingEngine == 'CYCLES':
 					self.renderingEngine = 'BLENDER_RENDER'
 				else:
 					self.renderingEngine = 'CYCLES'
 				change = True
 				log.write('engine switch to '+self.renderingEngine+'\n')
-			elif choice in ['2', 'd', 'D']:
+			elif choice == 2:
 				if self.renderingDevice == 'GPU':
 					self.renderingDevice = 'CPU'
 				else:
@@ -716,7 +753,7 @@ class setting:
 				change = True
 				log.write('device switch to '+self.renderingDevice+'\n')
 			else:
-				log.write('\033[31munvalid choice :'+choice+'\033[0m\nretry\n')
+				log.write('\033[31munvalid choice : '+str(choice)+'\033[0m\nretry\n')
 			
 	
 	
@@ -739,28 +776,36 @@ class setting:
 					+'\n  2- Subpath : '+self.outputSubPath\
 					+'\n  3- Name : '+self.outputName\
 					+'\n  4- Format : '+self.outputFormat\
-					+'\n  5- Quit\n\n')
-			choice = input('''What's the setting to edit?''').strip()
+					+'\n  0- Quit\n\n')
+			choice = input('''What's the setting to edit?''').strip().lower()
 			
-			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL', '5']:
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = 0
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = -2
+			
+			if choice == 0:
 				# quit edition
 				log.write('\033[31mend\033[0m\n')
 				log.menuOut()
 				return change
-			elif choice in ['1', 'o', 'O']:
+			elif choice == 1:
 				# edit output path
 				change = (self.editOutputPath(log) or change)
-			elif choice in ['2', 's', 'S']:
+			elif choice == 2:
 				# edit subpath
 				change = (self.editOutputSubpath(log) or change)
-			elif choice in ['3', 'n', 'N']:
+			elif choice == 3:
 				# edit output naming
 				change = (self.editOutputName(log) or change)
-			elif choice in ['4', 'f', 'F']:
+			elif choice == 4:
 				# edit output format
 				change = (self.editOutputFormat(log) or change)
 			else:
-				log.write('\033[31munvalid choice :'+choice+'\033[0m\nretry\n')
+				log.write('\033[31munvalid choice :'+str(choice)+'\033[0m\nretry\n')
 			
 	
 	
@@ -943,18 +988,26 @@ new naming :').strip()
 					)
 			
 			# get index of parameter to edit
-			choice = input('''what's the tile size to edit?('q' to quit)''').strip()
+			choice = input('''what's the tile size to edit?('q' to quit)''').strip().lower()
 			
-			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = -1
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = 9999
+			
+			if choice == -1:
 				log.write('\033[31mend\033[0m\n')
 				log.menuOut()
 				return change
 			
-			if choice not in ['1', '2', '3']:
-				log.write('\033[31munvalid choice : "'+choice+'"\033[0m\nretry\n')
+			if choice < 1 or choice > 3:
+				log.write('\033[31munvalid choice : "'+str(choice)+'"\033[0m\nretry\n')
 				continue
 			
-			choice = int(choice)
+			
 			name = name[choice-1]
 			value = value[choice-1]
 			log.write(name+' new tiles size : ')
@@ -1025,42 +1078,53 @@ new naming :').strip()
 				i += 1
 			
 			# get index of parameter to edit
-			choice = input('''what's the parameter to edit?('q' to quit)''').strip()
+			choice = input('''what's the parameter to edit?('q' to quit)''').strip().lower()
+			
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = -1
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = -2
 			
 			# if user want to quit menu
-			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
+			if choice == -1:
 				log.write('\033[31mend\033[0m\n')
 				log.menuOut()
 				return change
 			
 			# if user don't make a valid choice
-			if choice not in['1', '2', '3', '4', '5', '6']:
-				log.write('\033[31munvalid choice : "'+choice+'"\033[0m\n')
+			if choice < 1 or choice > 6:
+				log.write('\033[31munvalid choice : "'+str(choice)+'"\033[0m\n')
 				continue
 			
 			# get choice corresponding value
-			choice = int(choice)-1
+			choice -= 1
 			name = name[choice]
 			value = value[choice]
 			log.write(name+' : ')
 			if choice < 2:
-				syntax = '3to15'
+				syntax = '3 to 15'
 			else:
 				syntax = '8'
 			
 			# get new value
 			print(name+' current value : '+value+'\n')
-			new = input('new setting( respect "'+syntax+'" syntax)').strip()
+			new = input('new setting( respect "'+syntax+'" syntax)').strip().lower()
 			
 			if choice >= 2:
 				# treat value that represent only one number
-				match = re.search(r'^(\d{1,})$',new)
-				if match is None:
-					log.write('\033[31munvalid value : "'+new+'"\033[0m\nretry\n')
+				try:
+					new = int(new)
+				except ValueError:
+					new = -1
+				
+				if new < 0:
+					log.write('\033[31munvalid value : "'+str(new)+'"\033[0m\nretry\n')
 					continue
 				
 				# change corresponding settings
-				new = int(new)
 				if choice == 2:
 					self.diffuseBounces = new
 				elif choice == 3:
@@ -1075,7 +1139,7 @@ new naming :').strip()
 				change = True
 			else:
 				# treat value that contain 2 number ('1to10'syntax)
-				match = re.search(r'^(\d{1,}) to (\d{1,})$',new)
+				match = re.search(r'^(\d{1,}) ?to ?(\d{1,})$',new)
 				if match is None:
 					log.write('\033[31munvalid value : "'+new+'"\033[0m\nretry\n')
 					continue
@@ -1129,20 +1193,27 @@ new naming :').strip()
 			print('  6- exposure (Cycles) : '+str(self.filmExposure))
 			
 			# get index of parameter to edit
-			choice = input('''what's the option to switch/edit?('q' to quit)''').strip()
+			choice = input('''what's the option to switch/edit?('q' to quit)''').strip().lower()
+			
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = -1
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = -2
 			
 			# if user want to quit menu
-			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
+			if choice == -1:
 				log.write('\033[31mend\033[0m\n')
 				log.menuOut()
 				return change
 			
 			# check if user make a valid choice
-			if choice not in ['1', '2', '3', '4', '5', '6']:
-				log.write('\033[31munvalid choice : "'+choice+'"\033[0m\n')
+			if choice < 1 or choice > 6:
+				log.write('\033[31munvalid choice : "'+str(choice)+'"\033[0m\n')
 				continue
 			
-			choice = int(choice)
 			
 			if choice == 1:
 				# switch corresponding settings
@@ -1169,13 +1240,17 @@ new naming :').strip()
 				log.write('simplify : ')
 				choice = input('new simplify value (a integer (11 or higher for disabled)) : ').strip()
 				
+				try:
+					choice = int(choice)
+				except ValueError:
+					choice = -1
+				
 				# check value
-				if re.search(r'^(\d{1,})$',choice) is None:
-					log.write('\033[31munvalid value : "'+choice+'" : must be an integer\033[0m\nretry\n')
+				if choice == -1:
+					log.write('\033[31munvalid value : "'+str(choice)+'" : must be a positive integer\033[0m\nretry\n')
 					continue
 				
 				# apply new value
-				choice = int(choice)
 				if choice > 10:
 					self.simplify = None
 					log.write('Disabled\n')
@@ -1188,14 +1263,19 @@ new naming :').strip()
 				log.write('exposure : ')
 				choice = input('new exposure value (a float) : ').strip()
 				
+				try:
+					choice = float(choice)
+				except ValueError:
+					choice = -1
+				
 				# check value
-				if re.search(r'^(\d{1,}(\.\d{1,})?)$',choice) is None:
-					log.write('\033[31munvalid value : "'+choice+'" : must be a number\033[0m\nretry\n')
+				if choice == -1:
+					log.write('\033[31munvalid value : "'+str(choice)+'" : must be a number\033[0m\nretry\n')
 					continue
 				
 				# apply new value
-				self.filmExposure = float(choice)
-				log.write(choice+'\n')
+				self.filmExposure = choice
+				log.write(str(choice)+'\n')
 				change = True
 	
 	
@@ -1225,19 +1305,27 @@ new naming :').strip()
 			# get index of option to run
 			choice = input('''what do you want?('q' to quit)''').strip()
 			
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = -1
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = -2
+			
 			# if user want to quit menu
-			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
+			if choice == -1 :
 				log.write('\033[31mend\033[0m\n')
 				log.menuOut()
 				return change
 			
 			# check if user make a valid choice
-			if choice not in ['1', '2', '3', '4']:
-				log.write('\033[31munvalid choice : "'+choice+'"\033[0m\n')
+			if choice < 1 or choice > 4:
+				log.write('\033[31munvalid choice : "'+str(choice)+'"\033[0m\n')
 				continue
 			
 			# get corresponding list 
-			if choice in ['1', '3']:
+			if choice in [1, 3]:
 				keys = self.backgroundLayersKeywords
 				noKeys = self.foregroundLayersKeywords
 			else:
@@ -1245,7 +1333,7 @@ new naming :').strip()
 				noKeys = self.backgroundLayersKeywords
 			
 			# call corresponding method
-			if choice in ['1', '2']:
+			if choice in [1, 2]:
 				change = (self.removeKeyWords(log, keys, noKeys, choice) or change)
 			else:
 				change = (self.addKeyWords(log, keys, noKeys, choice) or change)
@@ -1259,7 +1347,7 @@ new naming :').strip()
 		'''method to remove renderlayer name keyword '''
 		os.system('clear')
 		
-		if choice=='1':
+		if choice == 1:
 			log.write('remove background keyword : ')
 			log.menuIn('remove background keyword')
 			log.print()
@@ -1274,22 +1362,25 @@ new naming :').strip()
 		for i, k in enumerate(keys):
 			print('  '+str(i)+'- '+k)
 		
-		choice = input('''what is the keyword to remove? (type corresponding number or 'q' to quit)''').strip()
-		match = re.search(r'^\d{1,}$', choice)
+		choice = input('''what is the keyword to remove? (type corresponding number or 'q' to quit)''').strip().lower()
+		
+		try:
+			if choice in ['q', 'cancel', 'quit']:
+				choice = -1
+			else:
+				choice = int(choice)
+		except ValueError:
+			choice = -2
 		
 		# check user choice
-		if match is None:
-			if choice in ['q', 'Q', 'quit', 'QUIT', 'cancel', 'CANCEL']:
-				log.write('\033[31mend\033[0m\n')
-				log.menuOut()
-				return False
-			log.write('\033[31munvalid choice : '+choice+' : must be an integer\033[0m\nretry\n')
+		if choice == -1:
+			log.write('\033[31mend\033[0m\n')
 			log.menuOut()
 			return False
 		
-		choice = int(choice)
-		if choice >= len(keys) :
-			log.write('\033[31munvalid choice : '+str(choice)+' : the greater keyword index is '+str(len(keys))+'\033[0m\nretry\n')
+		
+		if choice < 0 or choice >= len(keys) :
+			log.write('\033[31munvalid choice : '+str(choice)+' : must be an integer between 0 and '+str(len(keys)-1)+'\033[0m\nretry\n')
 			log.menuOut()
 			return False
 		
@@ -1306,7 +1397,7 @@ new naming :').strip()
 		'''method to add renderlayer name keywords'''
 		os.system('clear')
 		
-		if choice=='3':
+		if choice == 3:
 			log.write('add background keyword : ')
 			log.menuIn('add background keyword')
 			log.print()
@@ -1328,6 +1419,7 @@ new naming :').strip()
 			log.write('\033[31mcanceled\033[0m\n')
 			log.menuOut()
 			return False
+			
 		match = re.search(r'^[-0-9a-zA-Z_]{3,}( *\| *[-0-9a-zA-Z_]{3,})*$', choice)
 		if match is None:
 			log.write('''\033[31munvalid choice : '''+choice+''' : the keyword must only contain letters, numbers or '-' or '_', they can be split by '|' and space\033[0m\nretry\n''')
