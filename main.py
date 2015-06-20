@@ -132,7 +132,7 @@ def main():
 		elif choice == 5:
 			log.write('choice : actualy unavailable function,not yet coded\n')
 		else:
-			log.write('unknow choice: "'+choice+'"\n')
+			log.write('unknow choice: "'+str(choice)+'"\n')
 		
 		os.system('clear')
 
@@ -221,7 +221,7 @@ def addTask():
 					choice = i+1
 				
 				if choice < i :
-					scene = prefXml[int(choice)]
+					scene = prefXml[choice]
 					log.write('use «'+scene.get('name')+'» scene\n')
 					log.menuOut()# quit scene choice menu
 					break
