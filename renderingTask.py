@@ -183,7 +183,7 @@ class renderingTask:
 		
 		# print Ligth path parameters
 		print('Ligth path : ')
-		print('  bounces :                '+getValue('bouncesMin', to = True))
+		print('  bounces :                '+getValue('bounces', to = True))
 		print('  transparency :           '+getValue('transparencyBounces', to = True))
 		print('  diffuse / glossy / transmission / volume : \n                           '\
 				+getValue('diffuseBounces')+' / '+getValue('glossyBounces')+' / '\
