@@ -31,7 +31,7 @@ class setting:
 		self.blenderPath = 'blender'
 		self.renderingDevice = 'GPU'
 		self.renderingEngine = 'CYCLES'
-		self.outputFormat = 'EXR'
+		self.outputFormat = 'OPEN_EXR_MULTILAYER'
 		self.outputPath = None
 		self.outputSubPath = '%N-%S'
 		self.outputName = '%L-%F'
