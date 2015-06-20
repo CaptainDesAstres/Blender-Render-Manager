@@ -107,6 +107,22 @@ class renderingTask:
 		def getValue(attr, xy = False, to = False, frame = False,\
 						 custom = self.customSetting, ref = ref):
 			enable = {True:'Enabled', False:'Disabled'}
+			
+			if attr == 'renderLayerList':
+				out = 'name => z pass => object index Pass => layer activated\n'
+				for i, layerCus in enumerate(getattr(custom, attr)):
+					layerRef = getattr(ref, attr)[i]
+					
+					out += layerCus['name']
+					for key in ['z', 'object index', 'use']:
+						if layerCus[key] == layerRef[key]:
+							out += ' => \033[32m'
+						else:
+							out += ' => \033[31m'
+						out += enable[layerCus[key]]+'\033[0m'
+					out += '\n'
+				return out
+				
 			if xy or to or frame:
 				if xy :
 					sep = 'x'
@@ -209,6 +225,9 @@ class renderingTask:
 		print('Keywords :')
 		print('  background : '+getValue('backgroundLayersKeywords'))
 		print('  foreground : '+getValue('foregroundLayersKeywords')+'\n')
+		
+		print('Renderlayer List : ')
+		print(getValue('renderLayerList'))
 	
 	
 	
