@@ -98,29 +98,38 @@ def main():
 			5- Log
 			0- Quit
 
-	choice (hit corresponding number or first letter) :
+	choice (hit corresponding number) :
 
 	''')
 		
 		# menu choice
 		choice = input().strip()
-		if choice in ['0','q','Q']: 
+		
+		try:
+			if choice in ['q', 'Q', 'cancel', 'CANCEL']:
+				choice = 0
+			else:
+				choice = int(choice)
+		except ValueError:
+			choice = 9999
+		
+		if choice == 0: 
 			log.write('choice : close Blender Render Manager\n')
 			return
-		elif choice in ['1','A','a']:
+		elif choice == 1:
 			log.write('choice : add rendering task\n')
 			addTask();
-		elif choice in ['2','L','l']:
+		elif choice == 2:
 			log.write('choice : actualy unavailable function,not yet coded\n')
-		elif choice in ['3','R','r']:
+		elif choice == 3:
 			log.write('choice : actualy unavailable function,not yet coded\n')
-		elif choice in ['4','P','p']:
+		elif choice == 4:
 			log.write('choice : watch / edit preferences\n')
 			if(scriptSetting.see(log)):
 				# save if there is a setting change
 				saveSettings(scriptSetting)
 				log.write('preferences saved\n')
-		elif choice in ['5','L','l']:
+		elif choice == 5:
 			log.write('choice : actualy unavailable function,not yet coded\n')
 		else:
 			log.write('unknow choice: "'+choice+'"\n')
@@ -201,14 +210,22 @@ def addTask():
 			
 			# scene choice
 			while True:
-				
 				choice = input('scene to use (or \'cancel\'):').strip()
-				if(re.search(r'^\d+$',choice) and int(choice)<i):
+				
+				try:
+					if choice in ['q', 'Q', 'cancel', 'CANCEL', 'quit', 'QUIT']:
+						choice = i
+					else:
+						choice = int(choice)
+				except ValueError:
+					choice = i+1
+				
+				if choice < i :
 					scene = prefXml[int(choice)]
 					log.write('use «'+scene.get('name')+'» scene\n')
 					log.menuOut()# quit scene choice menu
 					break
-				elif choice in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
+				elif choice == i:
 					log.menuOut()# quit scene choice menu
 					log.menuOut()# quit path choice menu
 					log.menuOut()# quit add task menu
