@@ -104,6 +104,23 @@ class renderingTask:
 	def printCompare(self, ref):
 		'''method to print the task custom settings compared to another settings'''
 		
+		def getValue(attr, custom = self.customSetting, ref = ref):
+			enable = {True:'enabled', False:'Disabled'}
+			if getattr(custom, attr) == getattr(ref, attr):
+				if type(getattr(custom, attr)) == type(True):
+					return '\033[32m'+enable[getattr(custom, attr)]+'\033[0m'
+				else:
+					return '\033[32m'+str(getattr(custom, attr))+'\033[0m'
+			else:
+				if type(getattr(custom, attr)) == type(True):
+					return '\033[31m'+enable[getattr(custom, attr)]+' ('\
+						+enable[getattr(ref, attr)]+')\033[0m'
+				else:
+					return '\033[31m'+str(getattr(custom, attr))+' ('\
+						+str(getattr(ref, attr))+')\033[0m'
+		
+		
+		
 	
 	
 	
