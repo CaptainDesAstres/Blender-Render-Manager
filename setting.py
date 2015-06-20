@@ -12,8 +12,8 @@ class setting:
 		'''initialize settings object with default value or values extracted from an xml object'''
 		# default values of all the attributes
 		# animation and resolution attributes
-		self.x = 1920
-		self.y = 1080
+		self.X = 1920
+		self.Y = 1080
 		self.percent = 1
 		self.start = None
 		self.end = None
@@ -77,8 +77,8 @@ class setting:
 		
 		# get rendering resolution parameters 
 		node = xml.find('resolution')
-		self.x = int(node.get('x'))
-		self.y = int(node.get('y'))
+		self.X = int(node.get('x'))
+		self.Y = int(node.get('y'))
 		self.percent = int(node.get('percent'))/100
 		
 		# get animation parameters
@@ -207,7 +207,7 @@ class setting:
 			txt += '<settings>\n'
 			
 		# export resolution parameters
-		txt += '  <resolution x="'+str(self.x)+'" y="'+str(self.y)+'" percent="'+str(int(self.percent*100))+'" />\n'
+		txt += '  <resolution x="'+str(self.X)+'" y="'+str(self.Y)+'" percent="'+str(int(self.percent*100))+'" />\n'
 		
 		# export animation parameters depending of settings type
 		if self.start is None or self.end is None:
@@ -299,7 +299,7 @@ class setting:
 		print('Blender path :       '+self.blenderPath+'\n')
 		
 		# print resolution parameters
-		print('Résolution :          '+str(self.x)+'x'+str(self.y)+' (@'+str(int(self.percent*100))+'%)')
+		print('Résolution :          '+str(self.X)+'x'+str(self.Y)+' (@'+str(int(self.percent*100))+'%)')
 		
 		# print Cycles sampling parameters
 		print('Cycles samples :')
@@ -543,7 +543,7 @@ class setting:
 		log.write('resolution editing: ')
 		log.menuIn('Resolution')
 		log.print()
-		print('current resolution :'+str(self.x)+'x'+str(self.y)+'@'+str(int(self.percent*100))+'\n\n')
+		print('current resolution :'+str(self.X)+'x'+str(self.Y)+'@'+str(int(self.percent*100))+'\n\n')
 		choice = input('new resolution ? (1920x1080@100 for example or \'cancel\')').strip()
 		
 		
@@ -559,8 +559,8 @@ class setting:
 		
 		
 		#apply new settings and save it
-		self.x = int(match.group(1))
-		self.y = int(match.group(2))
+		self.X = int(match.group(1))
+		self.Y = int(match.group(2))
 		self.percent = int(match.group(3))/100
 		log.write(choice+'\n')
 		log.menuOut()

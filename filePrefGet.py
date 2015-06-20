@@ -17,8 +17,8 @@ for name in bpy.data.scenes.keys():
 	pref = setting()
 	
 	# render resolution
-	pref.x = scene.render.resolution_x
-	pref.y = scene.render.resolution_y
+	pref.X = scene.render.resolution_x
+	pref.Y = scene.render.resolution_y
 	pref.percent = scene.render.resolution_percentage
 	
 	# animation parameters
