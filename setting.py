@@ -55,8 +55,8 @@ class setting:
 		self.foregroundAnimation = 0
 		
 		# Light Path attributes
-		self.transparencyMaxBounces = 6
-		self.transparencyMinBounces = 4
+		self.transparencyBouncesMax = 6
+		self.transparencyBouncesMin = 4
 		self.bouncesMax = 8
 		self.bouncesMin = 3
 		self.diffuseBounces = 4
@@ -110,8 +110,8 @@ class setting:
 		
 		# get cycles Ligth Path parameters
 		node = xml.find('cycles').find('bouncesSet')
-		self.transparencyMaxBounces = int(node.find('transparency').get('max'))
-		self.transparencyMinBounces = int(node.find('transparency').get('min'))
+		self.transparencyBouncesMax = int(node.find('transparency').get('max'))
+		self.transparencyBouncesMin = int(node.find('transparency').get('min'))
 		self.bouncesMax = int(node.find('bounces').get('max'))
 		self.bouncesMin = int(node.find('bounces').get('min'))
 		self.diffuseBounces = int(node.find('diffuse').get('bounces'))
@@ -227,7 +227,7 @@ class setting:
 		
 		# export light path Cycles specific  parameters
 		txt += '    <bouncesSet>\n'
-		txt += '      <transparency max="'+str(self.transparencyMaxBounces)+'" min="'+str(self.transparencyMinBounces)+'" />\n'
+		txt += '      <transparency max="'+str(self.transparencyBouncesMax)+'" min="'+str(self.transparencyBouncesMin)+'" />\n'
 		txt += '      <bounces max="'+str(self.bouncesMax)+'" min="'+str(self.bouncesMin)+'" />\n'
 		txt += '      <diffuse bounces="'+str(self.diffuseBounces)+'" />\n'
 		txt += '      <glossy bounces="'+str(self.glossyBounces)+'" />\n'
@@ -333,8 +333,8 @@ class setting:
 		print('Ligth path : ')
 		print('  bounces :                '+str(self.bouncesMin)+' to '\
 								+str(self.bouncesMax))
-		print('  transparency :           '+str(self.transparencyMinBounces)\
-								+' to '+str(self.transparencyMaxBounces))
+		print('  transparency :           '+str(self.transparencyBouncesMin)\
+								+' to '+str(self.transparencyBouncesMax))
 		print('  diffuse / glossy / transmission / volume : \n                           '\
 				+str(self.diffuseBounces)+' / '+str(self.glossyBounces)+' / '\
 				+str(self.transmissionBounces)+' / '+str(self.volumeBounces)+'\n')
@@ -1010,7 +1010,7 @@ new naming :').strip()
 			# get current settings
 			name = ['bounces', 'transparency', 'diffuse', 'glossy', 'transmission', 'volume']
 			value = [ str(self.bouncesMin)+' to '+str(self.bouncesMax),
-						str(self.transparencyMinBounces)+' to '+str(self.transparencyMaxBounces),
+						str(self.transparencyBouncesMin)+' to '+str(self.transparencyBouncesMax),
 						str(self.diffuseBounces),
 						str(self.glossyBounces),
 						str(self.transmissionBounces),
@@ -1092,8 +1092,8 @@ new naming :').strip()
 					self.bouncesMin = mini
 					self.bouncesMax = maxi
 				elif choice == 1:
-					self.transparencyMinBounces = mini
-					self.transparencyMaxBounces = maxi
+					self.transparencyBouncesMin = mini
+					self.transparencyBouncesMax = maxi
 				
 				# confirm change
 				log.write(new+'\n')

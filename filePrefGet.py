@@ -42,8 +42,8 @@ for name in bpy.data.scenes.keys():
 	
 	
 	#cycles ligth path parameters
-	pref.transparencyMaxBounces = scene.cycles.transparent_max_bounces
-	pref.transparencyMinBounces = scene.cycles.transparent_min_bounces
+	pref.transparencyBouncesMax = scene.cycles.transparent_max_bounces
+	pref.transparencyBouncesMin = scene.cycles.transparent_min_bounces
 	pref.bouncesMax = scene.cycles.max_bounces
 	pref.bouncesMin = scene.cycles.min_bounces
 	pref.diffuseBounces = scene.cycles.diffuse_bounces
