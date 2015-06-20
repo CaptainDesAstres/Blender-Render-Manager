@@ -38,7 +38,10 @@ for name in bpy.data.scenes.keys():
 		pref.filmTransparentEnable = scene.cycles.film_transparent
 	else:
 		pref.filmTransparentEnable = (scene.render.alpha_mode == 'TRANSPARENT')
-	pref.backgroundCyclesSamples = pref.foregroundCyclesSamples = pref.mainAnimationCyclesSamples = scene.cycles.samples
+	if scene.cycles.use_square_samples:
+		pref.backgroundCyclesSamples = pref.foregroundCyclesSamples = pref.mainAnimationCyclesSamples = scene.cycles.samples*scene.cycles.samples
+	else:
+		pref.backgroundCyclesSamples = pref.foregroundCyclesSamples = pref.mainAnimationCyclesSamples = scene.cycles.samples
 	
 	
 	#cycles ligth path parameters
