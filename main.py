@@ -214,18 +214,18 @@ def addTask():
 				
 				try:
 					if choice in ['q', 'Q', 'cancel', 'CANCEL', 'quit', 'QUIT']:
-						choice = i
+						choice = -1
 					else:
 						choice = int(choice)
 				except ValueError:
-					choice = i+1
+					choice = -2
 				
-				if choice < i :
+				if choice < i and choice >= 0 :
 					scene = prefXml[choice]
 					log.write('use «'+scene.get('name')+'» scene\n')
 					log.menuOut()# quit scene choice menu
 					break
-				elif choice == i:
+				elif choice == -1:
 					log.menuOut()# quit scene choice menu
 					log.menuOut()# quit path choice menu
 					log.menuOut()# quit add task menu
