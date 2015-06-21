@@ -606,6 +606,14 @@ class setting:
 	
 	
 	
+	def editAnimation(self, log):
+		'''method to display a menu to access extended animation settings editing'''
+		# menu to edit extended animation settings
+		return False
+	
+	
+	
+	
 	def editAnimationRate(self, log):
 		'''method to use to change the animation rate of the render'''
 		#edit animation frame rate
@@ -1473,6 +1481,9 @@ new naming :').strip()
 	
 	
 	
-	
+	def editRenderlayerList(self, log):
+		'''method to edit renderlayer settings'''
+		
+		return False
 	
 	
