@@ -423,16 +423,27 @@ class setting:
 	
 	
 	
-	def edit(self, log):
+	def edit(self, log, extended = False):
 		'''method to edit settings/preferences'''
 		change = False
-		log.menuIn('Editing')
-		
-		while True:
-			#print log and edit preferences menu
-			os.system('clear')
-			log.print()
-			print('''		preferences editing:
+		if extended:
+			log.menuIn('Customize')
+			log.write('Customize task settings\n')
+			menu = '''		customize task settings :
+		0- Blender path
+		1- Resolution
+		2- Animation
+		3- Cycles samples
+		4- Engine
+		5- Output
+		6- Tiles
+		7- Ligth path
+		8- OPtions
+		9- Keywords
+		10- Renderlayer settings'''
+		else:
+			log.menuIn('Editing')
+			menu = '''		preferences editing:
 		0- Blender path
 		1- Resolution
 		2- Animation rate
@@ -442,7 +453,16 @@ class setting:
 		6- Tiles
 		7- Ligth path
 		8- OPtions
-		9- Keywords''')
+		9- Keywords'''
+		
+		
+		while True:
+			#print log and edit preferences menu
+			os.system('clear')
+			log.print()
+			
+			
+			print(menu)
 		
 			#treat available actions
 			choice = input('what\'s the parameter to edit ?(number or \'q\')').strip().lower()
@@ -468,7 +488,10 @@ class setting:
 				change = (self.editResolution(log) or change)
 			elif choice == 2:
 				#edit animation frame rate
-				change = (self.editAnimationRate(log) or change)
+				if extended:
+					change = (self.editAnimation(log) or change)
+				else:
+					change = (self.editAnimationRate(log) or change)
 			elif choice == 3:
 				# edit Cycles samples settings
 				change = (self.editSample(log) or change)
@@ -490,6 +513,9 @@ class setting:
 			elif choice == 9:
 				#edit Keywords settings
 				change = (self.editKeyword(log) or change)
+			elif choice == 10:
+				#edit renderlayer list settings
+				change = (self.editRenderlayerList(log) or change)
 			else:
 				log.write('\033[31munknow request!\033[0m\n')
 	
