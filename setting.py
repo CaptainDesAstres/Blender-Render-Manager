@@ -624,14 +624,96 @@ class setting:
 																+' frame(s))')
 			print('5- foreground animation     ('+str(self.foregroundAnimation)\
 																+' frame(s))')
+			choice = input('action? (\'q\' to quit)').strip().lower()
 			
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = -1
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = -2
 			
+			if choice == -1:
+				log.menuOut()
+				return change
 			
-			log.menuOut()
-			return change
-		
-		
-		
+			if choice < 1 or choice > 5:
+				log.write('animation setting edit : \033[31munvalid action\033[0m\n')
+				continue
+			
+			if choice == 1:
+				# edit animation rate
+				change = (self.editAnimationRate(log) or change)
+				continue
+			
+			if choice == 2:
+				# start frame reminder
+				print('		Edit Start Frame :')
+				print('Current Start Frame : '+str(self.start)+'\n')
+			elif choice == 3:
+				# end frame reminder
+				print('		Edit End Frame :')
+				print('Current End Frame : '+str(self.end)+'\n')
+				
+			elif choice == 4:
+				# background animation duration reminder
+				print('		Edit background animation duration :')
+				print('Current background animation duration : '\
+							+str(self.backgroundAnimation)+'\n')
+				
+			elif choice == 5:
+				# foreground animation duration reminder
+				print('		Edit foreground animation duration :')
+				print('Current foreground animation duration : '\
+							+str(self.foregroundAnimation)+'\n')
+			
+			new = input('new settings?').strip().lower()
+			
+			try:
+				new = int(new)
+			except ValueError:
+				new = None
+			
+			if new is None:
+				log.write('animation setting edit : \033[31mError : new value must be an integer\033[0m\n')
+				continue
+			
+			if choice == 2:
+				# start frame reminder
+				if new > self.end:
+					log.write('start frame edit : \033[31m'+str(new)+' : Error : start frame must be lower than end frame!\033[0m\n')
+				else:
+					self.start = new
+					log.write('start frame edit : '+str(new)+'\n')
+					change = True
+			elif choice == 3:
+				# end frame reminder
+				if new < self.start:
+					log.write('end frame edit : \033[31m'+str(new)+' : Error : end frame must be bigger than start frame!\033[0m\n')
+				else:
+					self.end = new
+					log.write('end frame edit : '+str(new)+'\n')
+					change = True
+			elif choice == 4:
+				# background animation duration reminder
+				if new < 0:
+					self.backgroundAnimation = 0
+				else:
+					self.backgroundAnimation = new
+				log.write('Background animation duration set to : '\
+									+str(self.backgroundAnimation)+'\n')
+				change = True
+			elif choice == 5:
+				# foreground animation duration reminder
+				if new < 0:
+					self.foregroundAnimation = 0
+				else:
+					self.foregroundAnimation = new
+				log.write('Foreground animation duration set to : '\
+									+str(self.foregroundAnimation)+'\n')
+				change = True
+	
 	
 	
 	
