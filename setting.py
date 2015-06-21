@@ -1498,7 +1498,7 @@ new naming :').strip()
 	
 	
 	def editRenderlayerList(self, log):
-		'''method to edit renderlayer settings'''
+		'''method to choose a renderlayer to edit settings'''
 		change = False
 		log.menuIn('Renderlayers')
 		enable = { True : 'Enabled', False : 'Disabled' }
@@ -1516,11 +1516,40 @@ new naming :').strip()
 					txt += ' => '+enable[layer[k]]
 				print(txt)
 			
+			choice = input("id of renderlayer to edit?(or 'q' to quit)").strip().lower()
 			
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = -1
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = -2
 			
-			log.menuOut()
-			return change
+			if choice == -1:
+				log.menuOut()
+				log.write('quit\n')
+				return change
 			
-		
+			if choice < 0 or choice > i:
+				log.write('unvalid choice, must be a integer between 0 and '+str(i)+' or q\n')
+				continue
+			
+			change = (self.editRenderlayer(log, choice) or change)
+	
+	
+	
+	
+	
+	def editRenderlayer(self, log, index):
+		'''method to edit a renderlayer settings'''
+		change = False
+		log.menuIn(self.renderLayerList[index])
+		log.write('\n')
+		log.menuOut()
+		return change
+	
+	
+	
 	
 	
