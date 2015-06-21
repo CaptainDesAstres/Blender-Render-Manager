@@ -609,7 +609,29 @@ class setting:
 	def editAnimation(self, log):
 		'''method to display a menu to access extended animation settings editing'''
 		# menu to edit extended animation settings
-		return False
+		change = False
+		log.menuIn('Animation Settings')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('		Edit animation setting :')
+			print('1- animation rate           ('+str(self.fps)+'fps)')
+			print('2- start frame              ('+str(self.start)+')')
+			print('3- end frame                ('+str(self.end)+')')
+			print('4- background animation     ('+str(self.backgroundAnimation)\
+																+' frame(s))')
+			print('5- foreground animation     ('+str(self.foregroundAnimation)\
+																+' frame(s))')
+			
+			
+			
+			log.menuOut()
+			return change
+		
+		
+		
 	
 	
 	
