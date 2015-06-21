@@ -140,6 +140,7 @@ def main():
 					for task in renderQueue.tasks:
 						task.apply(scriptSetting, passBool)
 					saveQueue(renderQueue)
+					log.write('new preferences applied to all task (renderlayer applied : '+str(passBool)+')\n')
 				log.menuOut()
 				
 		elif choice == 5:
