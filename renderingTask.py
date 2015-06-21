@@ -91,6 +91,31 @@ class renderingTask:
 	
 	
 	
+	def apply(self, settings, passBool):
+		'''method to apply a setting to the task'''
+		new = settings.getClone()
+		
+		if new.start is None:
+			new.start = self.customSetting.start
+		
+		if new.end is None:
+			new.end = self.customSetting.end
+		
+		if len(new.renderLayerList) == 0:
+			new.renderLayerList = deepcopy(self.customSetting.renderLayerList)
+		
+		if passBool:
+			for layer in new.renderLayerList:
+				layer['z'] = new.zPass
+				layer['object index'] = new.objectIndexPass 
+		
+		self.customSetting = new
+		
+	
+	
+	
+	
+	
 	def settingsCompare(self, ref = None):
 		'''method to comapare task settings to original file settings or to other settings'''
 		if ref is None:
