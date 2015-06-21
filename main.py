@@ -81,7 +81,7 @@ else:
 
 def main():
 	'''main function to execute'''
-	global log
+	global log, renderQueue, scriptSetting
 	#clear standart output
 	os.system('clear')
 	
@@ -129,6 +129,19 @@ def main():
 				# save if there is a setting change
 				saveSettings(scriptSetting)
 				log.write('preferences saved\n')
+				os.system('clear')
+				log.menuIn('Apply Preferences To All Task')
+				log.print()
+				choice = input('preferences have been changed. Do you want to apply preferences to all task in queue? (\'y\')').strip().lower()
+				
+				if choice in ['y', 'yes']:
+					passBool = input('Do you want z pass and object index pass settings to be apply to all renderlayers? (\'y\')').strip().lower() in ['y', 'yes']
+					
+					for task in renderQueue.tasks:
+						task.apply(scriptSetting, passBool)
+					saveQueue(renderQueue)
+				log.menuOut()
+				
 		elif choice == 5:
 			log.write('choice : actualy unavailable function,not yet coded\n')
 		else:
