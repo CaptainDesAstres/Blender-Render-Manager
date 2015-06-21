@@ -1254,11 +1254,27 @@ new naming :').strip()
 				self.zPass = not(self.zPass)
 				log.write('z pass set to : "'+enable[self.zPass]+'"\n')
 				change = True
+				
+				choice = input('apply to all renderlayer?(y)').strip().lower()
+				if choice in ['y', 'yes']:
+					for layer in self.renderLayerList:
+						layer['z'] = self.zPass
+					log.write('z pass settings apply to all renderlayer\n')
+				else:
+					log.write('\033[31mz pass settings not apply to renderlayer\033[0m\n')
 			elif choice == 2:
 				# switch corresponding settings
 				self.objectIndexPass = not(self.objectIndexPass)
 				log.write('object index pass set to : "'+enable[self.objectIndexPass]+'"\n')
 				change = True
+				
+				choice = input('apply to all renderlayer?(y)').strip().lower()
+				if choice in ['y', 'yes']:
+					for layer in self.renderLayerList:
+						layer['object index'] = self.objectIndexPass
+					log.write('object index pass settings apply to all renderlayer\n')
+				else:
+					log.write('\033[31mobject index pass settings not apply to renderlayer\033[0m\n')
 			elif choice == 3:
 				# switch corresponding settings
 				self.compositingEnable = not(self.compositingEnable)
