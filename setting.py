@@ -1499,7 +1499,28 @@ new naming :').strip()
 	
 	def editRenderlayerList(self, log):
 		'''method to edit renderlayer settings'''
+		change = False
+		log.menuIn('Renderlayers')
+		enable = { True : 'Enabled', False : 'Disabled' }
 		
-		return False
+		while True:
+			os.system('clear')
+			log.write('edit renderlayer : ')
+			log.print()
+			print('		renderlayer list:\n')
+			print('id- name => z pass => object index pass => activated')
+			
+			for i, layer in enumerate(self.renderLayerList):
+				txt = str(i)+'- '+layer['name']
+				for k in ['z', 'object index', 'use']:
+					txt += ' => '+enable[layer[k]]
+				print(txt)
+			
+			
+			
+			log.menuOut()
+			return change
+			
+		
 	
 	
