@@ -1544,10 +1544,21 @@ new naming :').strip()
 	def editRenderlayer(self, log, index):
 		'''method to edit a renderlayer settings'''
 		change = False
-		log.menuIn(self.renderLayerList[index])
-		log.write('\n')
-		log.menuOut()
-		return change
+		layer = self.renderLayerList[index]
+		log.menuIn(layer['name'])
+		log.write(layer['name']+'\n')
+		enable = { True : 'Disable', False : 'enable' }
+		settings = ['z', 'object index', 'use']
+		
+		while True:
+			print('		Edit «'+layer['name']+'» renderlayer settings :')
+			print('1- '+enable[layer['z']]+' renderlayer Z pass')
+			print('2- '+enable[layer['object index']]+' renderlayer object index pass')
+			print('3- '+enable[layer['use']]+' renderlayer')
+			
+			log.write('\n')
+			log.menuOut()
+			return change
 	
 	
 	
