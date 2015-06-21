@@ -1551,14 +1551,42 @@ new naming :').strip()
 		settings = ['z', 'object index', 'use']
 		
 		while True:
+			os.system('clear')
+			log.print()
+			
 			print('		Edit «'+layer['name']+'» renderlayer settings :')
 			print('1- '+enable[layer['z']]+' renderlayer Z pass')
 			print('2- '+enable[layer['object index']]+' renderlayer object index pass')
 			print('3- '+enable[layer['use']]+' renderlayer')
 			
-			log.write('\n')
-			log.menuOut()
-			return change
+			choice = input("action?(corresponding integer or 'q' to quit)").strip().lower()
+			
+			try:
+				if choice in ['q', 'cancel', 'quit']:
+					choice = -1
+				else:
+					choice = int(choice)-1
+			except ValueError:
+				choice = -2
+			
+			if choice == -1:
+				log.menuOut()
+				log.write('quit\n')
+				return change
+			
+			if choice < 0 or choice > 2:
+				log.write('unknow action\n')
+				continue
+			
+			
+			log.write(enable[layer[settings[choice]]])
+			if choice == 2:
+				log.write(' renderlayer\n')
+			else:
+				log.write(' '+settings[choice]+' pass\n')
+			layer[settings[choice]] = not(layer[settings[choice]])
+			change = True
+			
 	
 	
 	
