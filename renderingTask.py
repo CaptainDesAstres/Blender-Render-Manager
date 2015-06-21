@@ -276,7 +276,7 @@ action?''').strip()
 				return change
 			elif choice == 1:
 				# manually customize task settings
-				log.write(red+'manually customize task settings : action not yet implement\n'+rest)
+				self.customSetting.edit(log, True)
 			elif choice == 2:
 				# change reference settings for preferences
 				ref = pref
