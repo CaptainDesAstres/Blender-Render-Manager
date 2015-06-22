@@ -9,7 +9,7 @@ def columnLimit(value, limit, begin = True):
 	if begin is True:
 		begin = limit
 	
-	if len(value) > limit
+	if len(value) > limit:
 		return value[0:begin-1]+'…'+value[len(value)-(limit-begin)]+'|'
 	else:
 		return value+(' '*(limit-len(value)))+'|'
