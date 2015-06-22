@@ -90,7 +90,7 @@ class queue:
 	def getListHeader(self, cols):
 		'''a method to get list header and column size for a list of attributes'''
 		txt = 'id  |Task File Name                |'
-		size = [30]
+		size = []
 		
 		for col in cols:
 			if col == 'scene':
@@ -103,8 +103,8 @@ class queue:
 				txt += 'eng.(Dev)|'
 				size.append(9)
 			elif col == 'B/Fground Anim':
-				txt += 'B/F Anim|'
-				size.append(8)
+				txt += 'B/F Anim |'
+				size.append(9)
 			elif col == 'status':
 				txt += 'Status  |'
 				size.append(8)
