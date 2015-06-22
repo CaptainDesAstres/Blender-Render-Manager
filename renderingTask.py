@@ -359,6 +359,27 @@ action?''').strip()
 	def getListRow(self, cols, colSize):
 		'''a method to get a list row corresponding to the task with asked attributes'''
 		txt = columnLimit(self.path.split('/').pop(), 30, 0)
+		
+		for i, col in enumerate(cols):
+			if col == 'scene':
+				txt += columnLimit(self.scene, colSize[i])
+			elif col == 'duration':
+				val = self.customSetting.end - self.customSetting.start + 1
+				txt += columnLimit(val, colSize[i])
+			elif col == 'engine':
+				
+				if self.customSetting.renderingEngine == 'CYCLES':
+					val = 'Cyc.('+self.customSetting.renderingDevice+')'
+				else:
+					val = 'B.I.(CPU)'
+					
+				txt += columnLimit(val, colSize[i])
+			elif col == 'B/Fground Anim':
+				val = str(self.customSetting.backgroundAnimation)[0:4]+'/'\
+						+str(self.customSetting.foregroundAnimation)[0:4]
+				txt += columnLimit(val, colSize[i])
+			elif col == 'status':
+				txt += columnLimit(self.status, colSize[i])
 		return txt
 
 
