@@ -3,6 +3,7 @@
 '''module that contain queue class'''
 from renderingTask import renderingTask
 import os
+from usefullFunctions import *
 
 class queue:
 	'''class who contain the list of all the rendering task to manage'''
@@ -153,8 +154,21 @@ class queue:
 				{'menuEntry':'Volumes Bounces', 'key':'volume'}
 				]
 		while True:
+			y = 0
+			txt =''
+			while y < 6:
+				x = 0
+				while x < 4:
+					n = y + (6 * x)
+					txt += columnLimit(str(n)+'- '+menu[n]['menuEntry'], 30)
+					x += 1
+				txt += '\n'
+				y += 1
+			n += 1
+			txt += (' '*30+'|')*3\
+					+columnLimit(str(n)+'- '+menu[n]['menuEntry'], 30)+'\n'
 			
-			
+			print(txt)
 			
 			
 			choice = input("'q' to quit").strip().lower()
