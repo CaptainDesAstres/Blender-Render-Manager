@@ -48,3 +48,13 @@ class queue:
 	
 	
 	
+	
+	
+	def list(self, log, scriptSetting):
+		'''list task and access editing functions'''
+		
+	
+	
+	
+	
+	
