@@ -55,13 +55,16 @@ class queue:
 		'''list task and access editing functions'''
 		os.system('clear')
 		log.menuIn('Rendering Queue')
-		col = ['scene', 'duration', 'engine', 'B/Fground Anim', 'status']
+		cols = ['scene', 'duration', 'engine', 'B/Fground Anim', 'status']
 		
 		while True:
 			log.print()
 			print('RenderList :')
-			header, colSize = self.getListHeader(col)
+			header, colSize = self.getListHeader(cols)
 			print(header)
+			for i, task in enumerate(self.tasks):
+				ident = str(i)+(' '*(4-len(str(i))))+'|'
+				print(ident+task.getListRow(cols, colSize))
 			
 			choice = input("action?('q' to quit)").strip().lower()
 			
@@ -86,7 +89,7 @@ class queue:
 	
 	def getListHeader(self, cols):
 		'''a method to get list header and column size for a list of attributes'''
-		txt = 'Task File Name                |'
+		txt = 'id  |Task File Name                |'
 		size = [30]
 		
 		for col in cols:
