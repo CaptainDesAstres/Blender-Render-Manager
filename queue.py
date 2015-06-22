@@ -122,10 +122,50 @@ class queue:
 		os.system('clear')
 		log.menuIn('list attribute choice')
 		log.print()
-		
+		menu = [
+				{'menuEntry':'Scene Name', 'key':'scene'},
+				{'menuEntry':'Status', 'key':'status'},
+				{'menuEntry':'Back/Foreground animation', 'key':'B/Fground Anim'},
+				{'menuEntry':'Animation Rate (fps)', 'key':'fps'},
+				{'menuEntry':'Duration', 'key':'duration'},
+				{'menuEntry':'Start/End Frame', 'key':'start/end'},
+				
+				{'menuEntry':'Blender Path', 'key':'blender'},
+				{'menuEntry':'Engine (Devices)', 'key':'engine'},
+				{'menuEntry':'Tiles Size', 'key':'tiles'},
+				{'menuEntry':'Résolution', 'key':'resolution'},
+				{'menuEntry':'Samples', 'key':'samples'},
+				{'menuEntry':'Simplify', 'key':'simplify'},
+				
+				{'menuEntry':'Output Format', 'key':'format'},
+				{'menuEntry':'Transparent Background', 'key':'alpha'},
+				{'menuEntry':'Z Pass', 'key':'Zpass'},
+				{'menuEntry':'Object Index Pass', 'key':'OIpass'},
+				{'menuEntry':'Compositing', 'key':'compositing'},
+				{'menuEntry':'Exposure', 'key':'exposure'},
+				
+				{'menuEntry':'Bounces Min/Max', 'key':'bounces m/M'},
+				{'menuEntry':'Transparent Bou. Min/Max', 'key':'T bounces m/M'},
+				{'menuEntry':'Dif./Glo./Tra./Vol.', 'key':'DGTV'},
+				{'menuEntry':'Diffuse Bounces', 'key':'diffuse'},
+				{'menuEntry':'Glossy Bounces', 'key':'glossy'},
+				{'menuEntry':'Transmission Bounces', 'key':'transmission'},
+				{'menuEntry':'Volumes Bounces', 'key':'volume'}
+				]
 		while True:
 			
-			log.menuOut()
-			return(cols)
 			
+			
+			
+			choice = input("'q' to quit").strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel']:
+				log.menuOut()
+				return cols
+			
+			
+	
+	
+	
+	
 	
