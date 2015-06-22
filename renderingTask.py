@@ -4,6 +4,7 @@
 from setting import setting
 from copy import deepcopy
 import os
+from usefullFunctions import *
 
 class renderingTask:
 	'''class that contain the parameter for a rendering task'''
@@ -350,7 +351,15 @@ action?''').strip()
 				
 			else:
 				log.write(red+'unvalid action choice\n'+rest)
-			
+	
+	
+	
+	
+	
+	def getListRow(self, cols, colSize):
+		'''a method to get a list row corresponding to the task with asked attributes'''
+		txt = columnLimit(self.path.split('/').pop(), 30, 0)
+		return txt
 
 
 
