@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module that contain queue class'''
 from renderingTask import renderingTask
+import os
 
 class queue:
 	'''class who contain the list of all the rendering task to manage'''
@@ -52,7 +53,26 @@ class queue:
 	
 	def list(self, log, scriptSetting):
 		'''list task and access editing functions'''
+		os.system('clear')
+		log.menuIn('Rendering Queue')
 		
+		while True:
+			choice = input("action?('q' to quit)").strip().lower()
+			
+			try:
+				if choice in ['q', 'quit', 'cancel']:
+					choice = -1
+				else:
+					choice = int(choice)
+			except ValueError:
+				choice = -9999
+			
+			if choice == -1:
+				log.menuOut()
+				return
+			
+			
+			
 	
 	
 	
