@@ -1696,3 +1696,11 @@ new naming :').strip()
 	
 	
 	
+	def duration(self):
+		'''method to return the render duration in frame(s)'''
+		return (self.end - self.start + 1)
+	
+	
+	
+	
+	
