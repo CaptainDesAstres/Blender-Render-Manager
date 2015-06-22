@@ -65,12 +65,14 @@ class queue:
 			for i, task in enumerate(self.tasks):
 				ident = str(i)+(' '*(4-len(str(i))))+'|'
 				print(ident+task.getListRow(cols, colSize))
-			
-			choice = input("action?('q' to quit)").strip().lower()
+			print('(l)ist | (q)uit')
+			choice = input("action?").strip().lower()
 			
 			try:
 				if choice in ['q', 'quit', 'cancel']:
 					choice = -1
+				elif choice == 'l':
+					choice = -2
 				else:
 					choice = int(choice)
 			except ValueError:
@@ -80,6 +82,8 @@ class queue:
 				log.menuOut()
 				return
 			
+			if choice == -2:
+				cols = self.attrList(log, cols)
 			
 			
 	
@@ -113,5 +117,15 @@ class queue:
 	
 	
 	
-	
+	def attrList(self, log, cols):
+		'''a method to choose the attribut to display in the list'''
+		os.system('clear')
+		log.menuIn('list attribute choice')
+		log.print()
+		
+		while True:
+			
+			log.menuOut()
+			return(cols)
+			
 	
