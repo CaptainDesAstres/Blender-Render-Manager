@@ -84,10 +84,10 @@ class queue:
 		{'menuEntry':'Glossy Bounces',				'id':22,
 		'headerLabel':'Glo.|',						'limit':4},
 		
-		{'menuEntry':'Transmission Bounces',		'id':24,
+		{'menuEntry':'Transmission Bounces',		'id':23,
 		'headerLabel':'Trans.|',					'limit':6},
 		
-		{'menuEntry':'Volumes Bounces',				'id':25,
+		{'menuEntry':'Volumes Bounces',				'id':24,
 		'headerLabel':'Vol.|',						'limit':4}
 		]
 	
