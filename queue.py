@@ -7,7 +7,36 @@ from usefullFunctions import *
 
 class queue:
 	'''class who contain the list of all the rendering task to manage'''
-	
+	menu = [
+		{'menuEntry':'Scene Name', 'key':'scene'},
+		{'menuEntry':'Status', 'key':'status'},
+		{'menuEntry':'Back/Foreground animation', 'key':'B/Fground Anim'},
+		{'menuEntry':'Animation Rate (fps)', 'key':'fps'},
+		{'menuEntry':'Duration', 'key':'duration'},
+		{'menuEntry':'Start/End Frame', 'key':'start/end'},
+		
+		{'menuEntry':'Blender Path', 'key':'blender'},
+		{'menuEntry':'Engine (Devices)', 'key':'engine'},
+		{'menuEntry':'Tiles Size', 'key':'tiles'},
+		{'menuEntry':'Résolution', 'key':'resolution'},
+		{'menuEntry':'Samples', 'key':'samples'},
+		{'menuEntry':'Simplify', 'key':'simplify'},
+		
+		{'menuEntry':'Output Format', 'key':'format'},
+		{'menuEntry':'Transparent Background', 'key':'alpha'},
+		{'menuEntry':'Z Pass', 'key':'Zpass'},
+		{'menuEntry':'Object Index Pass', 'key':'OIpass'},
+		{'menuEntry':'Compositing', 'key':'compositing'},
+		{'menuEntry':'Exposure', 'key':'exposure'},
+		
+		{'menuEntry':'Bounces Min/Max', 'key':'bounces m/M'},
+		{'menuEntry':'Transparent Bou. Min/Max', 'key':'T bounces m/M'},
+		{'menuEntry':'Dif./Glo./Tra./Vol.', 'key':'DGTV'},
+		{'menuEntry':'Diffuse Bounces', 'key':'diffuse'},
+		{'menuEntry':'Glossy Bounces', 'key':'glossy'},
+		{'menuEntry':'Transmission Bounces', 'key':'transmission'},
+		{'menuEntry':'Volumes Bounces', 'key':'volume'}
+		]
 	
 	def __init__(self,xml=False):
 		'''initialize queue object with empty queue who is filled with values extract from an xml object if paste to the function'''
@@ -123,36 +152,7 @@ class queue:
 		os.system('clear')
 		log.menuIn('list attribute choice')
 		log.print()
-		menu = [
-				{'menuEntry':'Scene Name', 'key':'scene'},
-				{'menuEntry':'Status', 'key':'status'},
-				{'menuEntry':'Back/Foreground animation', 'key':'B/Fground Anim'},
-				{'menuEntry':'Animation Rate (fps)', 'key':'fps'},
-				{'menuEntry':'Duration', 'key':'duration'},
-				{'menuEntry':'Start/End Frame', 'key':'start/end'},
-				
-				{'menuEntry':'Blender Path', 'key':'blender'},
-				{'menuEntry':'Engine (Devices)', 'key':'engine'},
-				{'menuEntry':'Tiles Size', 'key':'tiles'},
-				{'menuEntry':'Résolution', 'key':'resolution'},
-				{'menuEntry':'Samples', 'key':'samples'},
-				{'menuEntry':'Simplify', 'key':'simplify'},
-				
-				{'menuEntry':'Output Format', 'key':'format'},
-				{'menuEntry':'Transparent Background', 'key':'alpha'},
-				{'menuEntry':'Z Pass', 'key':'Zpass'},
-				{'menuEntry':'Object Index Pass', 'key':'OIpass'},
-				{'menuEntry':'Compositing', 'key':'compositing'},
-				{'menuEntry':'Exposure', 'key':'exposure'},
-				
-				{'menuEntry':'Bounces Min/Max', 'key':'bounces m/M'},
-				{'menuEntry':'Transparent Bou. Min/Max', 'key':'T bounces m/M'},
-				{'menuEntry':'Dif./Glo./Tra./Vol.', 'key':'DGTV'},
-				{'menuEntry':'Diffuse Bounces', 'key':'diffuse'},
-				{'menuEntry':'Glossy Bounces', 'key':'glossy'},
-				{'menuEntry':'Transmission Bounces', 'key':'transmission'},
-				{'menuEntry':'Volumes Bounces', 'key':'volume'}
-				]
+		
 		
 		while True:
 			# print attributes choice
@@ -162,18 +162,18 @@ class queue:
 				x = 0
 				while x < 4:
 					n = y + (6 * x)
-					txt += columnLimit(str(n)+'- '+menu[n]['menuEntry'], 30)
+					txt += columnLimit(str(n)+'- '+queue.menu[n]['menuEntry'], 30)
 					x += 1
 				txt += '\n'
 				y += 1
 			n += 1
 			txt += (' '*30+'|')*3\
-					+columnLimit(str(n)+'- '+menu[n]['menuEntry'], 30)+'\n'
+					+columnLimit(str(n)+'- '+queue.menu[n]['menuEntry'], 30)+'\n'
 			print(txt)
 			
 			# explain and get user choice
 			print('choice attribute to display by typing there number, split by "|" character and in wanted order (5 max).\nexample : «0|4|7|2|1» (correspond to default attribute displayed)')
-			choice = input("'q' to quit").strip().lower()
+			choice = input("'q' to quit : ").strip().lower()
 			
 			# get quit choice
 			if choice in ['q', 'quit', 'cancel', '']:
@@ -201,14 +201,19 @@ class queue:
 				continue
 			
 			# check all number correspond to an existing menu entry
+			newCols = []
 			for n in choice:
 				if n > 24 or n < 0:
 					error = True
 					break
+				else:
+					newCols.append(queue.menu[n]['key'])
 			if error:
 				log.write('\033[31mList Attribute Choice Error : one of the number is unvalid!\033[0m\n')
 				continue
-			
+			log.write('List Attribute Choice : '+'|'.join(newCols)+'m\n')
+			log.menuOut()
+			return newCols
 	
 	
 	
