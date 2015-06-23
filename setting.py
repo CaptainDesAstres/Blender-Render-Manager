@@ -55,10 +55,10 @@ class setting:
 		self.foregroundAnimation = 0
 		
 		# Light Path attributes
-		self.transparencyBouncesMax = 6
 		self.transparencyBouncesMin = 4
-		self.bouncesMax = 8
+		self.transparencyBouncesMax = 6
 		self.bouncesMin = 3
+		self.bouncesMax = 8
 		self.diffuseBounces = 4
 		self.glossyBounces = 4
 		self.transmissionBounces = 12
