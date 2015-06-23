@@ -359,6 +359,7 @@ action?''').strip()
 	def getListRow(self, cols, colSize):
 		'''a method to get a list row corresponding to the task with asked attributes'''
 		txt = columnLimit(self.path.split('/').pop(), 30, 0)
+		enable = {True:'Enabled', False:'Disabled'}
 		
 		for i, col in enumerate(cols):
 			if col == 0:
@@ -372,10 +373,20 @@ action?''').strip()
 				val = str(self.customSetting.backgroundAnimation)[0:4]+'/'\
 						+str(self.customSetting.foregroundAnimation)[0:4]
 				txt += columnLimit(val, colSize[i])
+			elif col == 3:
+				# animation rate column
+				txt += columnLimit(str(self.customSetting.fps), colSize[i])
 			elif col == 4:
 				# animation duration column
 				val = self.customSetting.end - self.customSetting.start + 1
 				txt += columnLimit(val, colSize[i])
+			elif col == 5:
+				# start end frame column
+				val = str(self.customSetting.start)+':'+str(self.customSetting.end)
+				txt += columnLimit(val, colSize[i])
+			elif col == 6:
+				# Blender path column
+				txt += columnLimit(self.customSetting.blenderPath, colSize[i], 4)
 			elif col == 7:
 				# engine/device column
 				
@@ -385,6 +396,99 @@ action?''').strip()
 					val = 'B.I.(CPU)'
 					
 				txt += columnLimit(val, colSize[i])
+			elif col == 8:
+				# tiles size column
+				
+				if self.customSetting.renderingEngine == 'CYCLES':
+					if self.customSetting.renderingDevice == 'GPU':
+						val = str(self.customSetting.tilesCyclesGPUX)+'x'\
+								+str(self.customSetting.tilesCyclesGPUY)
+					else:
+						val = str(self.customSetting.tilesCyclesCPUX)+'x'\
+								+str(self.customSetting.tilesCyclesCPUY)
+				else:
+					val = str(self.customSetting.tilesBIX)+'x'\
+							+str(self.customSetting.tilesBIY)
+				
+				txt += columnLimit(val, colSize[i])
+			elif col == 9:
+				# resolution column
+				val = str(self.customSetting.X)+'x'+str(self.customSetting.Y)
+				txt += columnLimit(val, colSize[i])
+			elif col == 10:
+				# samples column
+				if self.customSetting.renderingEngine == 'CYCLES':
+					val = str(self.customSetting.mainAnimationCyclesSamples)\
+							+'/'+str(self.customSetting.backgroundCyclesSamples)\
+							+'/'+str(self.customSetting.foregroundCyclesSamples)
+				else:
+					val = 'Not Cycles Rendering'
+				
+				txt += columnLimit(val, colSize[i])
+			elif col == 11:
+				# simplify column
+				if type(self.customSetting.simplify) is int:
+					val = str(self.customSetting.simplify)
+				else:
+					val = 'Disable'
+				txt += columnLimit(val, colSize[i])
+			elif col == 12:
+				# output format column
+				val = self.customSetting.outputFormat.lower()
+				if val == 'open_exr_multilayer':
+					val = 'exrmul'
+				elif val == 'open_exr':
+					val = 'exr'
+				txt += columnLimit(val, colSize[i])
+			elif col == 13:
+				# alpha background column
+				txt += columnLimit(enable[self.customSetting.filmTransparentEnable],\
+									colSize[i])
+			elif col == 14:
+				# z pass column
+				txt += columnLimit(enable[self.customSetting.zPass],\
+									colSize[i])
+			elif col == 15:
+				# object index pass column
+				txt += columnLimit(enable[self.customSetting.objectIndexPass],\
+									colSize[i])
+			elif col == 16:
+				# compositing column
+				txt += columnLimit(enable[self.customSetting.compositingEnable],\
+									colSize[i])
+			elif col == 17:
+				# exposure column
+				txt += columnLimit(self.customSetting.filmExposure,colSize[i])
+			elif col == 18:
+				# bounces Min Max column
+				val = str(self.customSetting.bouncesMin)+'/'\
+							+str(self.customSetting.bouncesMax)
+				txt += columnLimit(val,colSize[i])
+			elif col == 19:
+				# transparent bounces Min Max column
+				val = str(self.customSetting.transparencyBouncesMin)+'/'\
+							+str(self.customSetting.transparencyBouncesMax)
+				txt += columnLimit(val,colSize[i])
+			elif col == 20:
+				# diffuse/glossy/Transmission/Volume bounces column
+				val = str(self.customSetting.diffuseBounces)+'/'\
+						+str(self.customSetting.glossyBounces)+'/'\
+						+str(self.customSetting.transmissionBounces)+'/'\
+						+str(self.customSetting.volumeBounces)
+				txt += columnLimit(val,colSize[i])
+			elif col == 21:
+				# diffuse bounces column
+				txt += columnLimit(self.customSetting.diffuseBounces,colSize[i])
+			elif col == 22:
+				# glossy bounces column
+				txt += columnLimit(self.customSetting.glossyBounces,colSize[i])
+			elif col == 23:
+				# Transmission bounces column
+				txt += columnLimit(self.customSetting.transmissionBounces,colSize[i])
+			elif col == 24:
+				# Volume bounces column
+				txt += columnLimit(self.customSetting.volumeBounces,colSize[i])
+		
 		return txt
 
 
