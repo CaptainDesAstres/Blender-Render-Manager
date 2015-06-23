@@ -225,7 +225,7 @@ class queue:
 			print(txt)
 			
 			# explain and get user choice
-			print('choice attribute to display by typing there number, split by "|" character and in wanted order (5 max).\nexample : «0|4|7|2|1» (correspond to default attribute displayed)')
+			print('choice attribute to display by typing there number, split by "." character and in wanted order (5 max).\nexample : «0.4.7.2.1» (correspond to default attribute displayed)')
 			choice = input("'q' to quit : ").strip().lower()
 			
 			# get quit choice
@@ -234,7 +234,7 @@ class queue:
 				return cols
 			
 			# convert choice in int list
-			choice = choice.split('|')
+			choice = choice.split('.')
 			error = False
 			for i, n in enumerate(choice):
 				try:
@@ -264,7 +264,7 @@ class queue:
 			if error:
 				log.write('\033[31mList Attribute Choice Error : one of the number is unvalid!\033[0m\n')
 				continue
-			log.write('List Attribute Choice : '+'|'.join(newCols)+'m\n')
+			log.write('List Attribute Choice : '+'.'.join(newCols)+'\n')
 			log.menuOut()
 			return newCols
 	
