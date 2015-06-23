@@ -361,12 +361,23 @@ action?''').strip()
 		txt = columnLimit(self.path.split('/').pop(), 30, 0)
 		
 		for i, col in enumerate(cols):
-			if col == 'scene':
+			if col == 0:
+				# scene name column
 				txt += columnLimit(self.scene, colSize[i])
-			elif col == 'duration':
+			elif col == 1:
+				# task status column
+				txt += columnLimit(self.status, colSize[i])
+			elif col == 2:
+				# Background / foreground animation column
+				val = str(self.customSetting.backgroundAnimation)[0:4]+'/'\
+						+str(self.customSetting.foregroundAnimation)[0:4]
+				txt += columnLimit(val, colSize[i])
+			elif col == 4:
+				# animation duration column
 				val = self.customSetting.end - self.customSetting.start + 1
 				txt += columnLimit(val, colSize[i])
-			elif col == 'engine':
+			elif col == 7:
+				# engine/device column
 				
 				if self.customSetting.renderingEngine == 'CYCLES':
 					val = 'Cyc.('+self.customSetting.renderingDevice+')'
@@ -374,12 +385,6 @@ action?''').strip()
 					val = 'B.I.(CPU)'
 					
 				txt += columnLimit(val, colSize[i])
-			elif col == 'B/Fground Anim':
-				val = str(self.customSetting.backgroundAnimation)[0:4]+'/'\
-						+str(self.customSetting.foregroundAnimation)[0:4]
-				txt += columnLimit(val, colSize[i])
-			elif col == 'status':
-				txt += columnLimit(self.status, colSize[i])
 		return txt
 
 

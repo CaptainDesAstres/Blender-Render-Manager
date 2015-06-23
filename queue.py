@@ -9,85 +9,85 @@ class queue:
 	'''class who contain the list of all the rendering task to manage'''
 	
 	menu = [
-		{'menuEntry':'Scene Name',					'key':'scene',
+		{'menuEntry':'Scene Name',					'id':0,
 		'headerLabel':'Scene Name          |',		'limit':20},
 		
-		{'menuEntry':'Status',						'key':'status',
+		{'menuEntry':'Status',						'id':1,
 		'headerLabel':'Status  |',					'limit':8},
 		
-		{'menuEntry':'Back/Foreground animation',	'key':'B/Fground Anim',
+		{'menuEntry':'Back/Foreground animation',	'id':2,
 		'headerLabel':'B/F Anim |',					'limit':9},
 		
-		{'menuEntry':'Animation Rate (fps)',		'key':'fps',
+		{'menuEntry':'Animation Rate (fps)',		'id':3,
 		'headerLabel':'Fps|',						'limit':3},
 		
-		{'menuEntry':'Duration',					'key':'duration',
+		{'menuEntry':'Duration',					'id':4,
 		'headerLabel':'Duration|',					'limit':8},
 		
-		{'menuEntry':'Start/End Frame',				'key':'start/end',
+		{'menuEntry':'Start/End Frame',				'id':5,
 		'headerLabel':'Start-End|',					'limit':9},
 		
 		
 		
-		{'menuEntry':'Blender Path',				'key':'blender',
+		{'menuEntry':'Blender Path',				'id':6,
 		'headerLabel':'Blender             |',		'limit':20},
 		
-		{'menuEntry':'Engine (Devices)',			'key':'engine',
+		{'menuEntry':'Engine (Devices)',			'id':7,
 		'headerLabel':'eng.(Dev)|',					'limit':9},
 		
-		{'menuEntry':'Tiles Size',					'key':'tiles',
+		{'menuEntry':'Tiles Size',					'id':8,
 		'headerLabel':'Tiles  |',					'limit':7},
 		
-		{'menuEntry':'Resolution',					'key':'resolution',
+		{'menuEntry':'Resolution',					'id':9,
 		'headerLabel':'Resolution |',				'limit':11},
 		
-		{'menuEntry':'Samples Main/Back/Fore',		'key':'samples',
+		{'menuEntry':'Samples Main/Back/Fore',		'id':10,
 		'headerLabel':'Samples A./B./F. |',			'limit':17},
 		
-		{'menuEntry':'Simplify',					'key':'simplify',
+		{'menuEntry':'Simplify',					'id':11,
 		'headerLabel':'Simp.|',						'limit':5},
 		
 		
 		
-		{'menuEntry':'Output Format',				'key':'format',
+		{'menuEntry':'Output Format',				'id':12,
 		'headerLabel':'Format|',					'limit':6},
 		
-		{'menuEntry':'Transparent Background',		'key':'alpha',
+		{'menuEntry':'Transparent Background',		'id':13,
 		'headerLabel':'Alpha Back.|',				'limit':11},
 		
-		{'menuEntry':'Z Pass',						'key':'Zpass',
+		{'menuEntry':'Z Pass',						'id':14,
 		'headerLabel':'Z Pass|',					'limit':6},
 		
-		{'menuEntry':'Object Index Pass',			'key':'OIpass',
+		{'menuEntry':'Object Index Pass',			'id':15,
 		'headerLabel':'Obj. Ind.|',					'limit':9},
 		
-		{'menuEntry':'Compositing',					'key':'compositing',
+		{'menuEntry':'Compositing',					'id':16,
 		'headerLabel':'Compo.|',					'limit':6},
 		
-		{'menuEntry':'Exposure',					'key':'exposure',
+		{'menuEntry':'Exposure',					'id':17,
 		'headerLabel':'Expos.|',					'limit':6},
 		
 		
 		
-		{'menuEntry':'Bounces Min/Max',				'key':'bounces m/M',
+		{'menuEntry':'Bounces Min/Max',				'id':18,
 		'headerLabel':'Bounces m/M|',				'limit':11},
 		
-		{'menuEntry':'Transparent Bou. Min/Max',	'key':'T bounces m/M',
+		{'menuEntry':'Transparent Bou. Min/Max',	'id':19,
 		'headerLabel':'Transparence m/M|',			'limit':16},
 		
-		{'menuEntry':'Dif./Glo./Tra./Vol.',			'key':'DGTV',
+		{'menuEntry':'Dif./Glo./Tra./Vol.',			'id':20,
 		'headerLabel':'Di/Gl/Tr/Vo|',				'limit':11},
 		
-		{'menuEntry':'Diffuse Bounces',				'key':'diffuse',
+		{'menuEntry':'Diffuse Bounces',				'id':21,
 		'headerLabel':'Diff.|',						'limit':5},
 		
-		{'menuEntry':'Glossy Bounces',				'key':'glossy',
+		{'menuEntry':'Glossy Bounces',				'id':22,
 		'headerLabel':'Glo.|',						'limit':4},
 		
-		{'menuEntry':'Transmission Bounces',		'key':'transmission',
+		{'menuEntry':'Transmission Bounces',		'id':24,
 		'headerLabel':'Trans.|',					'limit':6},
 		
-		{'menuEntry':'Volumes Bounces',				'key':'volume',
+		{'menuEntry':'Volumes Bounces',				'id':25,
 		'headerLabel':'Vol.|',						'limit':4}
 		]
 	
@@ -138,7 +138,7 @@ class queue:
 		'''list task and access editing functions'''
 		os.system('clear')
 		log.menuIn('Rendering Queue')
-		cols = ['scene', 'duration', 'engine', 'B/Fground Anim', 'status']
+		cols = [ 0, 4, 7, 2, 1 ]
 		
 		while True:
 			log.print()
@@ -180,21 +180,8 @@ class queue:
 		size = []
 		
 		for col in cols:
-			if col == 'scene':
-				txt += 'Scene Name          |'
-				size.append(20)
-			elif col == 'duration':
-				txt += 'Duration|'
-				size.append(8)
-			elif col == 'engine':
-				txt += 'eng.(Dev)|'
-				size.append(9)
-			elif col == 'B/Fground Anim':
-				txt += 'B/F Anim |'
-				size.append(9)
-			elif col == 'status':
-				txt += 'Status  |'
-				size.append(8)
+			txt += queue.menu[col]['headerLabel']
+			size.append(queue.menu[col]['limit'])
 		
 		return txt, size
 	
@@ -260,7 +247,7 @@ class queue:
 					error = True
 					break
 				else:
-					newCols.append(queue.menu[n]['key'])
+					newCols.append(queue.menu[n]['id'])
 			if error:
 				log.write('\033[31mList Attribute Choice Error : one of the number is unvalid!\033[0m\n')
 				continue
