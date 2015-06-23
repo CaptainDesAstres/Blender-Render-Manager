@@ -166,7 +166,7 @@ class queue:
 				return
 			
 			if choice == -2:
-				cols = self.attrList(log, cols)
+				cols = self.attrListChoice(log, cols)
 			
 			
 	
@@ -200,7 +200,7 @@ class queue:
 	
 	
 	
-	def attrList(self, log, cols):
+	def attrListChoice(self, log, cols):
 		'''a method to choose the attribut to display in the list'''
 		os.system('clear')
 		log.menuIn('list attribute choice')
