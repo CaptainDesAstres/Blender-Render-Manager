@@ -139,11 +139,11 @@ class queue:
 		os.system('clear')
 		log.menuIn('Rendering Queue')
 		cols = [ 0, 4, 7, 2, 1 ]
+		header, colSize = self.getListHeader(cols)
 		
 		while True:
 			log.print()
 			print('RenderList :')
-			header, colSize = self.getListHeader(cols)
 			print(header)
 			for i, task in enumerate(self.tasks):
 				ident = str(i)+(' '*(4-len(str(i))))+'|'
@@ -166,7 +166,7 @@ class queue:
 				return
 			
 			if choice == -2:
-				cols = self.attrListChoice(log, cols)
+				cols, header, colSize = self.attrListChoice(log, cols)
 			
 			
 	
@@ -176,14 +176,14 @@ class queue:
 	
 	def getListHeader(self, cols):
 		'''a method to get list header and column size for a list of attributes'''
-		txt = 'id  |Task File Name                |'
+		header = 'id  |Task File Name                |'
 		size = []
 		
 		for col in cols:
-			txt += queue.menu[col]['headerLabel']
+			header += queue.menu[col]['headerLabel']
 			size.append(queue.menu[col]['limit'])
 		
-		return txt, size
+		return header, size
 	
 	
 	
@@ -218,7 +218,8 @@ class queue:
 			# get quit choice
 			if choice in ['q', 'quit', 'cancel', '']:
 				log.menuOut()
-				return cols
+				header, colSize = self.getListHeader(cols)
+				return cols, header, colSize 
 			
 			# convert choice in int list
 			choice = choice.split('.')
@@ -241,19 +242,17 @@ class queue:
 				continue
 			
 			# check all number correspond to an existing menu entry
-			newCols = []
 			for n in choice:
 				if n > 24 or n < 0:
 					error = True
 					break
-				else:
-					newCols.append(queue.menu[n]['id'])
 			if error:
 				log.write('\033[31mList Attribute Choice Error : one of the number is unvalid!\033[0m\n')
 				continue
-			log.write('List Attribute Choice : '+'.'.join(newCols)+'\n')
+			log.write('List Attribute Choice : '+'.'.join(str(x) for x in choice)+'\n')
+			header, size = self.getListHeader(choice)
 			log.menuOut()
-			return newCols
+			return choice, header, size
 	
 	
 	
