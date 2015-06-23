@@ -7,35 +7,88 @@ from usefullFunctions import *
 
 class queue:
 	'''class who contain the list of all the rendering task to manage'''
+	
 	menu = [
-		{'menuEntry':'Scene Name', 'key':'scene'},
-		{'menuEntry':'Status', 'key':'status'},
-		{'menuEntry':'Back/Foreground animation', 'key':'B/Fground Anim'},
-		{'menuEntry':'Animation Rate (fps)', 'key':'fps'},
-		{'menuEntry':'Duration', 'key':'duration'},
-		{'menuEntry':'Start/End Frame', 'key':'start/end'},
+		{'menuEntry':'Scene Name',					'key':'scene',
+		'headerLabel':'Scene Name          |',		'limit':20},
 		
-		{'menuEntry':'Blender Path', 'key':'blender'},
-		{'menuEntry':'Engine (Devices)', 'key':'engine'},
-		{'menuEntry':'Tiles Size', 'key':'tiles'},
-		{'menuEntry':'Résolution', 'key':'resolution'},
-		{'menuEntry':'Samples', 'key':'samples'},
-		{'menuEntry':'Simplify', 'key':'simplify'},
+		{'menuEntry':'Status',						'key':'status',
+		'headerLabel':'Status  |',					'limit':8},
 		
-		{'menuEntry':'Output Format', 'key':'format'},
-		{'menuEntry':'Transparent Background', 'key':'alpha'},
-		{'menuEntry':'Z Pass', 'key':'Zpass'},
-		{'menuEntry':'Object Index Pass', 'key':'OIpass'},
-		{'menuEntry':'Compositing', 'key':'compositing'},
-		{'menuEntry':'Exposure', 'key':'exposure'},
+		{'menuEntry':'Back/Foreground animation',	'key':'B/Fground Anim',
+		'headerLabel':'B/F Anim |',					'limit':9},
 		
-		{'menuEntry':'Bounces Min/Max', 'key':'bounces m/M'},
-		{'menuEntry':'Transparent Bou. Min/Max', 'key':'T bounces m/M'},
-		{'menuEntry':'Dif./Glo./Tra./Vol.', 'key':'DGTV'},
-		{'menuEntry':'Diffuse Bounces', 'key':'diffuse'},
-		{'menuEntry':'Glossy Bounces', 'key':'glossy'},
-		{'menuEntry':'Transmission Bounces', 'key':'transmission'},
-		{'menuEntry':'Volumes Bounces', 'key':'volume'}
+		{'menuEntry':'Animation Rate (fps)',		'key':'fps',
+		'headerLabel':'Fps|',						'limit':3},
+		
+		{'menuEntry':'Duration',					'key':'duration',
+		'headerLabel':'Duration|',					'limit':8},
+		
+		{'menuEntry':'Start/End Frame',				'key':'start/end',
+		'headerLabel':'Start-End|',					'limit':9},
+		
+		
+		
+		{'menuEntry':'Blender Path',				'key':'blender',
+		'headerLabel':'Blender             |',		'limit':20},
+		
+		{'menuEntry':'Engine (Devices)',			'key':'engine',
+		'headerLabel':'eng.(Dev)|',					'limit':9},
+		
+		{'menuEntry':'Tiles Size',					'key':'tiles',
+		'headerLabel':'Tiles  |',					'limit':7},
+		
+		{'menuEntry':'Resolution',					'key':'resolution',
+		'headerLabel':'Resolution |',				'limit':11},
+		
+		{'menuEntry':'Samples Main/Back/Fore',		'key':'samples',
+		'headerLabel':'Samples A./B./F. |',			'limit':17},
+		
+		{'menuEntry':'Simplify',					'key':'simplify',
+		'headerLabel':'Simp.|',						'limit':5},
+		
+		
+		
+		{'menuEntry':'Output Format',				'key':'format',
+		'headerLabel':'Format|',					'limit':6},
+		
+		{'menuEntry':'Transparent Background',		'key':'alpha',
+		'headerLabel':'Alpha Back.|',				'limit':11},
+		
+		{'menuEntry':'Z Pass',						'key':'Zpass',
+		'headerLabel':'Z Pass|',					'limit':6},
+		
+		{'menuEntry':'Object Index Pass',			'key':'OIpass',
+		'headerLabel':'Obj. Ind.|',					'limit':9},
+		
+		{'menuEntry':'Compositing',					'key':'compositing',
+		'headerLabel':'Compo.|',					'limit':6},
+		
+		{'menuEntry':'Exposure',					'key':'exposure',
+		'headerLabel':'Expos.|',					'limit':6},
+		
+		
+		
+		{'menuEntry':'Bounces Min/Max',				'key':'bounces m/M',
+		'headerLabel':'Bounces m/M|',				'limit':11},
+		
+		{'menuEntry':'Transparent Bou. Min/Max',	'key':'T bounces m/M',
+		'headerLabel':'Transparence m/M|',			'limit':16},
+		
+		{'menuEntry':'Dif./Glo./Tra./Vol.',			'key':'DGTV',
+		'headerLabel':'Di/Gl/Tr/Vo|',				'limit':11},
+		
+		{'menuEntry':'Diffuse Bounces',				'key':'diffuse',
+		'headerLabel':'Diff.|',						'limit':5},
+		
+		{'menuEntry':'Glossy Bounces',				'key':'glossy',
+		'headerLabel':'Glo.|',						'limit':4},
+		
+		{'menuEntry':'Transmission Bounces',		'key':'transmission',
+		'headerLabel':'Trans.|',					'limit':6},
+		
+		{'menuEntry':'Volumes Bounces',				'key':'volume',
+		'headerLabel':'Vol.|',						'limit':4}
 		]
 	
 	def __init__(self,xml=False):
