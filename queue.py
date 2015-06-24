@@ -146,6 +146,7 @@ class queue:
 		while True:
 			os.system('clear')
 			log.print()
+			
 			print('	Render list :\n')
 			print('\033[4m'+header+'\033[0m')
 			self.printList(cols, colSize, select)
@@ -285,7 +286,7 @@ b =>	Move selected task to the bottom of the list
 				ident = str(i)+(' '*(4-len(str(i))))+'|'
 				print(ident+self.tasks[i].getListRow(cols, colSize))
 			
-		elif select is None:
+		elif select is None or select == []:
 			for i, task in enumerate(self.tasks):
 				ident = str(i)+(' '*(4-len(str(i))))+'|'
 				print(ident+task.getListRow(cols, colSize))
@@ -511,12 +512,8 @@ b =>	Move selected task to the bottom of the list
 		log.menuIn('Batch task Editing')
 		
 		while True:
-			os.system('clear')
-			log.print()
 			
-			print('	Batch task Editing :\n')
-			print('\033[4m'+header+'\033[0m')
-			self.printList(cols, colSize)
+			select = self.multiSelect(log, cols, colSize, header)
 			
 			input('type enter to continue')
 			log.menuOut()
@@ -526,8 +523,23 @@ b =>	Move selected task to the bottom of the list
 	
 	
 	
-	
-	
+	def multiSelect(self, log, cols, colSize, header, selected = []):
+		'''method to select multiple task'''
+		log.menuIn('Select Multiple Task')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('Multiple selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, selected)
+			
+			input('type enter to continue')
+			
+			log.menuOut()
+			return selected
+
 	
 	
 	
