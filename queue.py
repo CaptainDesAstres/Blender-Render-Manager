@@ -515,7 +515,7 @@ b =>	Move selected task to the bottom of the list
 			
 			select = self.multiSelect(log, cols, colSize, header)
 			
-			input('type enter to continue')
+			
 			log.menuOut()
 			return
 	
@@ -535,10 +535,22 @@ b =>	Move selected task to the bottom of the list
 			print('\033[4m'+header+'\033[0m')
 			self.printList(cols, colSize, selected)
 			
-			input('type enter to continue')
+			choice = input('add? (\'h\' for help)')
 			
-			log.menuOut()
-			return selected
+			if choice in ['h', 'help', 'man', 'manual']:
+				os.system('clear')
+				log.menuIn('Help')
+				log.print()
+				
+				print('''
+h =>	Show this page
+q =>	Confirm selection and quit
+''')
+				input('enter to continue')
+				log.menuOut()
+			elif choice in ['q', 'quit']:
+				log.menuOut()
+				return selected
 
 	
 	
