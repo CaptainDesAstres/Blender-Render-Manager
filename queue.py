@@ -166,6 +166,8 @@ class queue:
 					choice = -3
 				elif choice == 'r':
 					choice = -4
+				elif choice == 'e':
+					choice = -5
 				elif choice in ['h', 'help', 'man', 'manual', 'wtf']:
 					choice = -9998
 				else:
@@ -178,21 +180,32 @@ class queue:
 				return
 			
 			if choice >= 0:
+				# select a task
 				if choice >= len(self.tasks):
 					log.write('\033[31mTask selecting error : there is no task n°'+str(choice)+'\033[0m\n')
 				else:
 					select = choice
 					log.write('Select task n°'+str(choice)+'\n')
+				
 			elif choice == -2:
+				# change displayed attribute of the list
 				cols, header, colSize = self.attrListChoice(log, cols)
+				
 			elif choice == -3:
+				# add task ot the list
 				self.addTask(log, scriptSetting, mainPath)
 				select = len(self.tasks)-1
+				
 			elif choice == -4:
+				# remove the task from the queue
 				if len(self.tasks)>0:
 					self.tasks.pop(select)
 					if select >= len(self.tasks):
 						select -= 1
+				
+			elif choice == -5:
+				# edit settings of the selected task
+				self.tasks[select].taskSettingsMenu(log, scriptSetting)
 				
 			elif choice == -9998:
 				os.system('clear')
@@ -210,6 +223,7 @@ a => Add
 the highlight row are selected task. the following action are apply to this task.
 to select another task, type the corresponding number
 r => remove selected task
+e => edit settings of selected task
 ''')
 				input('type enter to continue')
 				log.menuOut()
