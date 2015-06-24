@@ -5,7 +5,6 @@ import time
 import os
 import sys
 import xml.etree.ElementTree as xmlMod
-import re
 from log import *
 from setting import *
 from queue import *
@@ -118,7 +117,7 @@ def main():
 			return
 		elif choice == 1:
 			log.write('choice : add rendering task\n')
-			addTask();
+			renderQueue.addTask(log, scriptSetting, mainPath);
 		elif choice == 2:
 			log.write('choice : look rendering list\n')
 			renderQueue.list(log, scriptSetting)
@@ -153,116 +152,7 @@ def main():
 
 
 
-def addTask():
-	'''function to manage manual rendering task adding'''
-	global log, renderQueue, scriptSetting
-	log.menuIn('Add Task')
-	log.menuIn('Give File Path')
-	
-	while True:
-		os.system('clear')
-		log.print()
-		path = input("Add File\n  ABSOLUTE path of the blender file (or 'cancel')").strip()
-		
-		if path in ['cancel', 'quit', 'CANCEL', 'QUIT', 'q', 'Q']:
-			#cancel action
-			log.write('\033[31mquit add task menu\033[0m\n')
-			log.menuOut()# quit Add Task
-			log.menuOut()# quit Give File Path
-			return
-		
-		
-		if path[0] in ['\'', '"'] and path[-1] in ['\'', '"']:
-			#remove quote mark and apostrophe in first and last character
-			path = path[1:len(path)-1]
-			print(path)
-		
-		if path[0] != '/':
-			#check if path is absolute (begin by '/')
-			print('it\'s not an absolute path!')
-			log.write('\033[31munabsolute path reject :'+path+'\033[0m\n')
-			continue
-			
-		elif len(path) < 7 or path[len(path)-6:] !='.blend':
-			#check if path point to a .blend file
-			print('the path don\'t seemed to be a blender file (need .blend extension)!')
-			log.write('\033[31mit\'s not a blender file path :'+path+'\033[0m\n')
-			continue
-			
-		elif not os.path.exists(path) or not os.path.isfile(path) :
-			#check if the file exist
-			print('this path didn\'t exist or is not a file!')
-			log.write('\033[31mno corresponding file to this path :'+path+'\033[0m\n')
-			continue 
-		
-		
-		#open the file and get settings
-		log.write('prepare the adding of : '+path+'\n')
-		
-		os.chdir(mainPath)
-		prefXml = os.popen('"'+scriptSetting.blenderPath+'" -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
-		os.chdir(settingPath)
-		
-		
-		prefXml = re.search(r'<\?xml(.|\n)*</preferences>',prefXml).group(0)
-		prefXml = xmlMod.fromstring(prefXml).findall('scene')
-		os.system('clear')
-		log.menuIn('Scene Choice')
-		log.print()
-		
-		
-		# select scene to use 
-		if len(prefXml)==1:
-			scene = prefXml[0]
-			log.write('only one scene in file, automatically use it : '+scene.get('name')+'\n')
-		else:
-			# print scene list
-			print('  there is more than one scene in the file :\n\n')
-			i=0
-			for s in prefXml:
-				print(str(i)+'- '+s.get('name'))
-				i+=1
-			
-			# scene choice
-			while True:
-				choice = input('scene to use (or \'cancel\'):').strip()
-				
-				try:
-					if choice in ['q', 'Q', 'cancel', 'CANCEL', 'quit', 'QUIT']:
-						choice = -1
-					else:
-						choice = int(choice)
-				except ValueError:
-					choice = -2
-				
-				if choice < i and choice >= 0 :
-					scene = prefXml[choice]
-					log.write('use «'+scene.get('name')+'» scene\n')
-					log.menuOut()# quit scene choice menu
-					break
-				elif choice == -1:
-					log.menuOut()# quit scene choice menu
-					log.menuOut()# quit path choice menu
-					log.menuOut()# quit add task menu
-					return
-				else:
-					print('\033[31mincorrect scene choice\033[0m\n')
-		
-		
-		#add the task and save the queue
-		task = renderingTask(
-								path = path, 
-								scene = scene.get('name'), 
-								fileXmlSetting = scene,
-								preferences = scriptSetting)
-		
-		renderQueue.add(task)
-		saveQueue(renderQueue)
-		log.write('file and scene added\n')
-		
-		task.taskSettingsMenu(log, scriptSetting)
-		saveQueue(renderQueue)
-		log.write('task settings saved\n')
+
 
 
 
