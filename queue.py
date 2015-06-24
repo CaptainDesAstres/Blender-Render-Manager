@@ -280,13 +280,20 @@ b =>	Move selected task to the bottom of the list
 	
 	def printList(self, cols, colSize, select = None):
 		'''a method to print the list of all task in the queue'''
-		
-		for i, task in enumerate(self.tasks):
-			ident = str(i)+(' '*(4-len(str(i))))+'|'
-			if i == select:
-				print('\033[30;47m'+ident+task.getListRow(cols, colSize)+'\033[0m')
-			else:
+		if select is None:
+			for i, task in enumerate(self.tasks):
+				ident = str(i)+(' '*(4-len(str(i))))+'|'
 				print(ident+task.getListRow(cols, colSize))
+		else:
+			if type(select) is int:
+				select = [select]
+			for i, task in enumerate(self.tasks):
+				ident = str(i)+(' '*(4-len(str(i))))+'|'
+				if i in select:
+					print('\033[30;47m'+ident+task.getListRow(cols, colSize)+'\033[0m')
+				else:
+					print(ident+task.getListRow(cols, colSize))
+		
 	
 	
 	
