@@ -136,7 +136,7 @@ class queue:
 	
 	
 	
-	def list(self, log, scriptSetting, mainPath):
+	def list(self, log, pref, mainPath):
 		'''list task and access editing functions'''
 		select = 0
 		log.menuIn('Rendering Queue List')
@@ -198,7 +198,7 @@ class queue:
 				
 			elif choice == -3:
 				# add task ot the list
-				self.addTask(log, scriptSetting, mainPath)
+				self.addTask(log, pref, mainPath)
 				select = len(self.tasks)-1
 				
 			elif choice == -4:
@@ -211,7 +211,7 @@ class queue:
 				
 			elif choice == -5:
 				# edit settings of the selected task
-				self.tasks[select].taskSettingsMenu(log, scriptSetting)
+				self.tasks[select].taskSettingsMenu(log, pref)
 				saveQueue(self)
 				
 			elif choice in [-6, -7, -8, -9]:
@@ -237,7 +237,7 @@ class queue:
 				saveQueue(self)
 				
 			elif choice == -10:
-				self.multiEdit(log, scriptSetting)
+				self.multiEdit(log, pref)
 				#saveQueue(self)
 				
 			elif choice == -9998:
@@ -384,7 +384,7 @@ b =>	Move selected task to the bottom of the list
 	
 
 	
-	def addTask(self, log, scriptSetting, mainPath):
+	def addTask(self, log, pref, mainPath):
 		'''method to manually add rendering task'''
 		
 		log.menuIn('Add Task')
@@ -431,7 +431,7 @@ b =>	Move selected task to the bottom of the list
 			log.write('prepare the adding of : '+path+'\n')
 			
 			
-			prefXml = os.popen('"'+scriptSetting.blenderPath+'" -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
+			prefXml = os.popen('"'+pref.blenderPath+'" -b "'+path+'" -P "'+mainPath+'/filePrefGet.py" ').read()
 			
 			
 			
@@ -486,13 +486,13 @@ b =>	Move selected task to the bottom of the list
 									path = path, 
 									scene = scene.get('name'), 
 									fileXmlSetting = scene,
-									preferences = scriptSetting)
+									preferences = pref)
 			
 			self.add(task)
 			saveQueue(self)
 			log.write('file and scene added\n')
 			
-			task.taskSettingsMenu(log, scriptSetting)
+			task.taskSettingsMenu(log, pref)
 			saveQueue(self)
 			log.write('task settings saved\n')
 	
@@ -500,7 +500,7 @@ b =>	Move selected task to the bottom of the list
 	
 	
 	
-	def multiEdit(self, log, scriptSettings):
+	def multiEdit(self, log, pref):
 		'''a method to batch edit task settings '''
 		return 'not yet implement'
 	
