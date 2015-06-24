@@ -136,26 +136,29 @@ class queue:
 	
 	def list(self, log, scriptSetting):
 		'''list task and access editing functions'''
-		os.system('clear')
-		log.menuIn('Rendering Queue')
+		
+		log.menuIn('Rendering Queue List')
 		cols = [ 0, 4, 7, 2, 1 ]
 		header, colSize = self.getListHeader(cols)
 		
 		while True:
+			os.system('clear')
 			log.print()
 			print('RenderList :')
 			print(header)
 			for i, task in enumerate(self.tasks):
 				ident = str(i)+(' '*(4-len(str(i))))+'|'
 				print(ident+task.getListRow(cols, colSize))
-			print('(l)ist | (q)uit')
-			choice = input("action?").strip().lower()
+			
+			choice = input("action?(\'h\' to see help)").strip().lower()
 			
 			try:
 				if choice in ['q', 'quit', 'cancel']:
 					choice = -1
 				elif choice == 'l':
 					choice = -2
+				elif choice in ['h', 'help', 'man', 'manual', 'wtf']:
+					choice = -9998
 				else:
 					choice = int(choice)
 			except ValueError:
@@ -167,7 +170,24 @@ class queue:
 			
 			if choice == -2:
 				cols, header, colSize = self.attrListChoice(log, cols)
-			
+			elif choice == -9998:
+				os.system('clear')
+				log.menuIn('Help')
+				log.print()
+				print('''        \033[4mRender Queue Help:\033[0m
+
+    \033[4mGeneral action :\033[0m
+l => Change the settings displayed in the list
+q => Quit 'Render Queue List' menu
+h => show this page
+
+    \033[4mIndividual action :\033[0m
+not yet implement
+''')
+				input('type enter to continue')
+				log.menuOut()
+			else:
+				log.writes('Rendering Queue : unknow action')
 			
 	
 	
