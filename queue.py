@@ -246,24 +246,27 @@ class queue:
 				print('''        \033[4mRender Queue Help:\033[0m
 
     \033[4mGeneral action :\033[0m
-l => Change the settings displayed in the list
-q => Quit 'Render Queue List' menu
-h => Show this page
-a => Add
+l =>	Change the settings displayed in the list
+q =>	Quit 'Render Queue List' menu
+h =>	Show this page
+a =>	Add task
+
 
     \033[4mIndividual action :\033[0m
-the highlight row are selected task. the following action are apply to this task.
-to select another task, type the corresponding number
-r => remove selected task
-e => edit settings of selected task
-u => move up the selected task
-+ => alias for u
-d => move down the selected task
-- => alias for d
-t => move selected task to the top of the list
-++ => alias for t
-b => move selected task to the bottom of the list
--- => alias for b
+The highlight row are selected task. the following action are apply to this task.
+To select another task, type the corresponding number
+r =>	Remove selected task
+e =>	Edit settings of selected task
+
+u =>	Move up the selected task
++ =>	Alias for u
+d =>	Move down the selected task
+- =>	Alias for d
+
+t =>	Move selected task to the top of the list
+++ =>	Alias for t
+b =>	Move selected task to the bottom of the list
+-- =>	Alias for b
 ''')
 				input('type enter to continue')
 				log.menuOut()
