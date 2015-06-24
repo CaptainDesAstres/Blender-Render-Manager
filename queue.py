@@ -237,7 +237,7 @@ class queue:
 				saveQueue(self)
 				
 			elif choice == -10:
-				self.multiEdit(log, pref, cols, colSize)
+				self.multiEdit(log, pref, cols, colSize, header)
 				#saveQueue(self)
 				
 			elif choice == -9998:
@@ -506,13 +506,16 @@ b =>	Move selected task to the bottom of the list
 	
 	
 	
-	def multiEdit(self, log, pref, cols, colSize):
+	def multiEdit(self, log, pref, cols, colSize, header):
 		'''a method to batch edit task settings '''
 		log.menuIn('Batch task Editing')
 		
 		while True:
 			os.system('clear')
 			log.print()
+			
+			print('	Batch task Editing :\n')
+			print(header)
 			self.printList(cols, colSize)
 			
 			input('type enter to continue')
