@@ -535,7 +535,7 @@ b =>	Move selected task to the bottom of the list
 			print('\033[4m'+header+'\033[0m')
 			self.printList(cols, colSize, selected)
 			
-			choice = input('add? (\'h\' for help)')
+			choice = input('add? (\'h\' for help)').strip().lower()
 			
 			if choice in ['h', 'help', 'man', 'manual']:
 				os.system('clear')
@@ -545,12 +545,28 @@ b =>	Move selected task to the bottom of the list
 				print('''
 h =>	Show this page
 q =>	Confirm selection and quit
+select task by typing there corresponding number one by one
+or type multiple number seperate by '.'
+example : '2.5.10' select task 2, 5 and 10.
 ''')
 				input('enter to continue')
 				log.menuOut()
 			elif choice in ['q', 'quit']:
 				log.menuOut()
 				return selected
+			else:
+				choice = choice.split('.')
+				
+				# convert to int
+				try:
+					for i, s in enumerate(choice):
+						choice[i] = int(s.strip())
+				except ValueError:
+					log.write('\033[31mMultiple selection error : non numeric input, selection ignore\033[0m\n')
+					continue
+				
+				
+				
 
 	
 	
