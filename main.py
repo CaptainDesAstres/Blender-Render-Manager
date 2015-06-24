@@ -120,7 +120,7 @@ def main():
 			renderQueue.addTask(log, scriptSetting, mainPath);
 		elif choice == 2:
 			log.write('choice : look rendering list\n')
-			renderQueue.list(log, scriptSetting)
+			renderQueue.list(log, scriptSetting, mainPath)
 		elif choice == 3:
 			log.write('choice : actualy unavailable function,not yet coded\n')
 		elif choice == 4:

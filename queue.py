@@ -136,7 +136,7 @@ class queue:
 	
 	
 	
-	def list(self, log, scriptSetting):
+	def list(self, log, scriptSetting, mainPath):
 		'''list task and access editing functions'''
 		select = 0
 		log.menuIn('Rendering Queue List')
