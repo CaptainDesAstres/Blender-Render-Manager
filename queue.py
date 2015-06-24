@@ -237,7 +237,7 @@ class queue:
 				saveQueue(self)
 				
 			elif choice == -10:
-				self.multiEdit(log, pref)
+				self.multiEdit(log, pref, cols, colSize)
 				#saveQueue(self)
 				
 			elif choice == -9998:
@@ -278,12 +278,18 @@ b =>	Move selected task to the bottom of the list
 	
 	
 	
-	def printList(self, cols, colSize, select = None):
+	def printList(self, cols, colSize, select = None, onlySelected = False):
 		'''a method to print the list of all task in the queue'''
-		if select is None:
+		if onlySelected and type(select) is list:
+			for i in select:
+				ident = str(i)+(' '*(4-len(str(i))))+'|'
+				print(ident+self.tasks[i].getListRow(cols, colSize))
+			
+		elif select is None:
 			for i, task in enumerate(self.tasks):
 				ident = str(i)+(' '*(4-len(str(i))))+'|'
 				print(ident+task.getListRow(cols, colSize))
+			
 		else:
 			if type(select) is int:
 				select = [select]
@@ -500,9 +506,24 @@ b =>	Move selected task to the bottom of the list
 	
 	
 	
-	def multiEdit(self, log, pref):
+	def multiEdit(self, log, pref, cols, colSize):
 		'''a method to batch edit task settings '''
-		return 'not yet implement'
+		log.menuIn('Batch task Editing')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			self.printList(cols, colSize)
+			
+			input('type enter to continue')
+			log.menuOut()
+			return
+	
+	
+	
+	
+	
+	
 	
 	
 	
