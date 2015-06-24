@@ -148,7 +148,10 @@ class queue:
 			print(header)
 			for i, task in enumerate(self.tasks):
 				ident = str(i)+(' '*(4-len(str(i))))+'|'
-				print(ident+task.getListRow(cols, colSize))
+				if i == select:
+					print('\033[30;47m'+ident+task.getListRow(cols, colSize)+'\033[0m')
+				else:
+					print(ident+task.getListRow(cols, colSize))
 			
 			choice = input("action?(\'h\' to see help)").strip().lower()
 			
@@ -188,7 +191,8 @@ q => Quit 'Render Queue List' menu
 h => show this page
 
     \033[4mIndividual action :\033[0m
-type the number of a task to select it
+the highlight row are selected task. the following action are apply to this task.
+to select another task, type the corresponding number
 ''')
 				input('type enter to continue')
 				log.menuOut()
