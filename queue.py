@@ -164,6 +164,8 @@ class queue:
 					choice = -2
 				elif choice == 'a':
 					choice = -3
+				elif choice == 'r':
+					choice = -4
 				elif choice in ['h', 'help', 'man', 'manual', 'wtf']:
 					choice = -9998
 				else:
@@ -186,6 +188,12 @@ class queue:
 			elif choice == -3:
 				self.addTask(log, scriptSetting, mainPath)
 				select = len(self.tasks)-1
+			elif choice == -4:
+				if len(self.tasks)>0:
+					self.tasks.pop(select)
+					if select >= len(self.tasks):
+						select -= 1
+				
 			elif choice == -9998:
 				os.system('clear')
 				log.menuIn('Help')
@@ -201,6 +209,7 @@ a => Add
     \033[4mIndividual action :\033[0m
 the highlight row are selected task. the following action are apply to this task.
 to select another task, type the corresponding number
+r => remove selected task
 ''')
 				input('type enter to continue')
 				log.menuOut()
@@ -222,6 +231,8 @@ to select another task, type the corresponding number
 			size.append(queue.menu[col]['limit'])
 		
 		return header, size
+	
+	
 	
 	
 	
