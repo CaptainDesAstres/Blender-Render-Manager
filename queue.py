@@ -168,6 +168,14 @@ class queue:
 					choice = -4
 				elif choice == 'e':
 					choice = -5
+				elif choice in['u', '+']:
+					choice = -6
+				elif choice in['d', '-']:
+					choice = -7
+				elif choice in['t', '++']:
+					choice = -8
+				elif choice in['b', '--']:
+					choice = -9
 				elif choice in ['h', 'help', 'man', 'manual', 'wtf']:
 					choice = -9998
 				else:
@@ -209,6 +217,28 @@ class queue:
 				self.tasks[select].taskSettingsMenu(log, scriptSetting)
 				saveQueue(self)
 				
+			elif choice in [-6, -7, -8, -9]:
+				# move selected task
+				t = self.tasks.pop(select)
+				if choice == -6:
+					# move up
+					select -= 1
+					if select < 0:
+						select = 0
+				elif choice == -7:
+					# move down
+					select += 1
+					if select > len(self.tasks):
+						select -=1
+				elif choice == -8:
+					# move to top
+					select = 0
+				elif choice == -9:
+					# move to bottom
+					select = len(self.tasks)
+				self.tasks.insert(select, t)
+				saveQueue(self)
+				
 			elif choice == -9998:
 				os.system('clear')
 				log.menuIn('Help')
@@ -226,6 +256,14 @@ the highlight row are selected task. the following action are apply to this task
 to select another task, type the corresponding number
 r => remove selected task
 e => edit settings of selected task
+u => move up the selected task
++ => alias for u
+d => move down the selected task
+- => alias for d
+t => move selected task to the top of the list
+++ => alias for t
+b => move selected task to the bottom of the list
+-- => alias for b
 ''')
 				input('type enter to continue')
 				log.menuOut()
