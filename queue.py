@@ -176,6 +176,8 @@ class queue:
 					choice = -8
 				elif choice in['b', '--']:
 					choice = -9
+				elif choice == 'm':
+					choice = -10
 				elif choice in ['h', 'help', 'man', 'manual', 'wtf']:
 					choice = -9998
 				else:
@@ -239,6 +241,10 @@ class queue:
 				self.tasks.insert(select, t)
 				saveQueue(self)
 				
+			elif choice == -10:
+				self.multiEdit(log, scriptSetting)
+				#saveQueue(self)
+				
 			elif choice == -9998:
 				os.system('clear')
 				log.menuIn('Help')
@@ -250,7 +256,7 @@ l =>	Change the settings displayed in the list
 q =>	Quit 'Render Queue List' menu
 h =>	Show this page
 a =>	Add task
-
+m =>	edit settings for multiple tasks
 
     \033[4mIndividual action :\033[0m
 The highlight row are selected task. the following action are apply to this task.
@@ -479,7 +485,9 @@ b =>	Move selected task to the bottom of the list
 	
 	
 	
-	
+	def multiEdit(self, log, scriptSettings):
+		'''a method to batch edit task settings '''
+		return 'not yet implement'
 	
 	
 	
