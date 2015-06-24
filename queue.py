@@ -357,6 +357,7 @@ to select another task, type the corresponding number
 			if len(prefXml)==1:
 				scene = prefXml[0]
 				log.write('only one scene in file, automatically use it : '+scene.get('name')+'\n')
+				log.menuOut()# quit Scene Choice menu
 			else:
 				# print scene list
 				print('  there is more than one scene in the file :\n\n')
