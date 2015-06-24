@@ -202,10 +202,12 @@ class queue:
 					self.tasks.pop(select)
 					if select >= len(self.tasks):
 						select -= 1
+					saveQueue(self)
 				
 			elif choice == -5:
 				# edit settings of the selected task
 				self.tasks[select].taskSettingsMenu(log, scriptSetting)
+				saveQueue(self)
 				
 			elif choice == -9998:
 				os.system('clear')
