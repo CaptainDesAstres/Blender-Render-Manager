@@ -146,8 +146,8 @@ class queue:
 		while True:
 			os.system('clear')
 			log.print()
-			print('RenderList :')
-			print(header)
+			print('	Render list :\n')
+			print('\033[4m'+header+'\033[0m')
 			self.printList(cols, colSize, select)
 			
 			choice = input("action?(\'h\' to see help)").strip().lower()
@@ -515,7 +515,7 @@ b =>	Move selected task to the bottom of the list
 			log.print()
 			
 			print('	Batch task Editing :\n')
-			print(header)
+			print('\033[4m'+header+'\033[0m')
 			self.printList(cols, colSize)
 			
 			input('type enter to continue')
