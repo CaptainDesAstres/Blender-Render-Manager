@@ -136,7 +136,7 @@ class queue:
 	
 	def list(self, log, scriptSetting):
 		'''list task and access editing functions'''
-		
+		select = 0
 		log.menuIn('Rendering Queue List')
 		cols = [ 0, 4, 7, 2, 1 ]
 		header, colSize = self.getListHeader(cols)
@@ -168,7 +168,13 @@ class queue:
 				log.menuOut()
 				return
 			
-			if choice == -2:
+			if choice >= 0:
+				if choice >= len(self.tasks):
+					log.write('\033[31mTask selecting error : there is no task n°'+str(choice)+'\033[0m\n')
+				else:
+					select = choice
+					log.write('Select task n°'+str(choice)+'\n')
+			elif choice == -2:
 				cols, header, colSize = self.attrListChoice(log, cols)
 			elif choice == -9998:
 				os.system('clear')
@@ -182,12 +188,12 @@ q => Quit 'Render Queue List' menu
 h => show this page
 
     \033[4mIndividual action :\033[0m
-not yet implement
+type the number of a task to select it
 ''')
 				input('type enter to continue')
 				log.menuOut()
 			else:
-				log.writes('Rendering Queue : unknow action')
+				log.write('\033[31mRendering Queue : unknow action\033[0m\n')
 			
 	
 	
