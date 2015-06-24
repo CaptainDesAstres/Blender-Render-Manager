@@ -162,6 +162,8 @@ class queue:
 					choice = -1
 				elif choice == 'l':
 					choice = -2
+				elif choice == 'a':
+					choice = -3
 				elif choice in ['h', 'help', 'man', 'manual', 'wtf']:
 					choice = -9998
 				else:
@@ -181,6 +183,9 @@ class queue:
 					log.write('Select task n°'+str(choice)+'\n')
 			elif choice == -2:
 				cols, header, colSize = self.attrListChoice(log, cols)
+			elif choice == -3:
+				self.addTask(log, scriptSetting, mainPath)
+				select = len(self.tasks)-1
 			elif choice == -9998:
 				os.system('clear')
 				log.menuIn('Help')
@@ -190,7 +195,8 @@ class queue:
     \033[4mGeneral action :\033[0m
 l => Change the settings displayed in the list
 q => Quit 'Render Queue List' menu
-h => show this page
+h => Show this page
+a => Add
 
     \033[4mIndividual action :\033[0m
 the highlight row are selected task. the following action are apply to this task.
