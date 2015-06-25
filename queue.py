@@ -560,14 +560,17 @@ example : '2.5.10' select task 2, 5 and 10.
 				return selected
 			elif choice == 'a':
 				selected = range(0, len(self.tasks))
+				log.write('Multiple selection : all task selected\n')
 			elif choice == 'n':
 				selected = []
+				log.write('Multiple selection : all task unselect\n')
 			elif choice == 'i':
 				for i in range(0, len(self.tasks)):
 					if i in selected:
 						selected.pop(selected.index(i))
 					else:
 						selected.append(i)
+				log.write('Multiple selection invert : task n°'+('.'.join(str(x) for x in selected))+'\n')
 			else:
 				choice = choice.split('.')
 				
