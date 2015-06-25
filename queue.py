@@ -752,8 +752,8 @@ example : '2.5.10' unselect task 2, 5 and 10.
 5- move up
 6- move down
 7- erase selection
-#- clone selection at bottom and select
-#- clone selection at original position and select
+8- duplicate selection at bottom and select
+9- duplicate selection just after original position and select
 0- quit''')
 			choice = input('action?').strip().lower()
 			
@@ -781,6 +781,10 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			elif choice == 7:
 				# erase selection
 				select = self.eraseSelected(log, select)
+				
+			elif choice in [8, 9]:
+				# duplicate selection
+				select = self.duplicateSelected(log, select, choice == 8)
 				
 			else:
 				log.write('\033[31mUnknow action index!\033[0m\n')
@@ -865,10 +869,31 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			select = []
 		
 		return select
+	
+	
+	
+	
+	
+	def duplicateSelected(self, log, select, bottom):
+		'''a method to duplicate selected tasks'''
+		if input('Are you sure that you want to duplicate all this task? (y to confirm) ').strip().lower() in ['y', 'yes']:
+			newSelect = []
+			if bottom:
+				for i in select:
+					self.tasks.append(self.tasks[i].getClone())
+					log.write('Task n°'+str(i)+' duplicate at row n°'+str(len(self.tasks)-1)+'\n')
+					newSelect.append(len(self.tasks)-1)
+			else:
+				
+				for i in select:
+					print(i)
+					n = i + len(newSelect)
+					self.tasks.insert( n+1 , self.tasks[n].getClone())
+					log.write('Task n°'+str(i)+' duplicate at row n°'+str( n+1 )+'\n')
+					newSelect.append( n + 1 )
+			return newSelect
 		
-	
-	
-	
+		return select
 	
 	
 	
