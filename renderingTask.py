@@ -501,7 +501,7 @@ action?''').strip()
 		'''create another settings object with the same attribut values
 		restart/end attributes value with start/end argument values if set'''
 		
-		return renderingTask( xmlMod.fromstring( self.toXmlStr( head = True) ) )
+		return renderingTask( xml = xmlMod.fromstring( self.toXmlStr( head = True) ) )
 	
 
 
