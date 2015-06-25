@@ -992,8 +992,18 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				log.write('\033[31msettings application canceled\033[0m\n')
 				return
 			else:
+				if ref == 'file settings':
+					for i in select:
+						task = self.tasks[i]
+						task.apply( task.fileSetting, False)
+					
+					log.write('File settings apply to task n°'\
+								+('.'.join(str(x) for x in select))+'\n')
+					
+				else:
+					log.write('\033[31mnot yet implement\033[0m\n')
+				
 				log.menuOut()
-				log.write('\033[31mnot yet implement\033[0m\n')
 				return
 			
 			
