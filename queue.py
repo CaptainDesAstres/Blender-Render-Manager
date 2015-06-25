@@ -548,6 +548,7 @@ q =>	Confirm selection and quit
 a =>	All : select all task
 n =>	Nothing : unselect all task
 i =>	invert selection
+u =>	switch to unselecting mode
 
 select task by typing their corresponding number one by one
 or type multiple numbers seperate by '.'
@@ -559,7 +560,7 @@ example : '2.5.10' select task 2, 5 and 10.
 				log.menuOut()
 				return selected
 			elif choice == 'a':
-				selected = range(0, len(self.tasks))
+				selected = list(range(0, len(self.tasks)))
 				log.write('Multiple selection : all task selected\n')
 			elif choice == 'n':
 				selected = []
@@ -571,6 +572,9 @@ example : '2.5.10' select task 2, 5 and 10.
 					else:
 						selected.append(i)
 				log.write('Multiple selection invert : task n°'+('.'.join(str(x) for x in selected))+'\n')
+			elif choice == 'u':
+				log.menuOut()
+				return self.multiUnselect(log, cols, colSize, header, selected)
 			else:
 				choice = choice.split('.')
 				
@@ -590,7 +594,82 @@ example : '2.5.10' select task 2, 5 and 10.
 				
 				selected.sort()
 				log.write('Multiple selection : task n°'+('.'.join(str(x) for x in selected))+'\n')
+	
+	
+	
+	
+	
+	def multiUnselect(self, log, cols, colSize, header, selected = []):
+		'''method to unselect multiple task'''
+		log.menuIn('Select Multiple Task (unselect mode)')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('Multiple unselection :\n(only selected task are display)\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, selected, True)
+			
+			choice = input('remove? (\'h\' for help)').strip().lower()
+			
+			if choice in ['h', 'help', 'man', 'manual']:
+				os.system('clear')
+				log.menuIn('Help')
+				log.print()
+				
+				print('''
+h =>	Show this page
+q =>	Confirm selection and quit
+a =>	All : select all task
+n =>	Nothing : unselect all task
+i =>	invert selection
+s =>	switch to selecting mode
 
+unselect task by typing their corresponding number one by one
+or type multiple numbers seperate by '.'
+example : '2.5.10' unselect task 2, 5 and 10.
+''')
+				input('enter to continue')
+				log.menuOut()
+			elif choice in ['q', 'quit']:
+				log.menuOut()
+				return selected
+			elif choice == 'a':
+				selected = list(range(0, len(self.tasks)))
+				log.write('Multiple selection : all task selected\n')
+			elif choice == 'n':
+				selected = []
+				log.write('Multiple selection : all task unselect\n')
+			elif choice == 'i':
+				for i in range(0, len(self.tasks)):
+					if i in selected:
+						selected.pop(selected.index(i))
+					else:
+						selected.append(i)
+				log.write('Multiple selection invert : task n°'+('.'.join(str(x) for x in selected))+'\n')
+			elif choice == 's':
+				log.menuOut()
+				return self.multiSelect(log, cols, colSize, header, selected)
+			else:
+				choice = choice.split('.')
+				
+				# convert to int
+				try:
+					for i, s in enumerate(choice):
+						choice[i] = int(s.strip())
+				except ValueError:
+					log.write('\033[31mMultiple unselection error : non numeric input, unselection ignore\033[0m\n')
+					continue
+				
+				for s in choice:
+					if s not in selected:
+						log.write('\033[31mMultiple unselection error : task n°'+str(s)+' is not selected, ignore\033[0m\n')
+					else:
+						selected.pop(selected.index(s))
+				
+				log.write('Multiple selection : task n°'+('.'.join(str(x) for x in selected))+'\n')
+	
 	
 	
 	
