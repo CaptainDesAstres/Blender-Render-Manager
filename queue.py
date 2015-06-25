@@ -514,7 +514,7 @@ b =>	Move selected task to the bottom of the list
 			'''print multiple task edition main menu'''
 			if select:
 				print('''\n        \033[4mAction :\033[0m
-#- Modify selection
+1- Modify selection
 #- Edit Queue Composition
 #- Apply A Settings
 #- Edit Quality
@@ -523,12 +523,12 @@ b =>	Move selected task to the bottom of the list
 #- Edit Output Settings
 #- Edit Options Settings
 #- Edit Cycles Lightpath Settings'
-q- Save and quit
+0- Save and quit
 (# means not yet implement action)''')
 			else:
 				print('''\n        \033[4mAction :\033[0m
-#- Modify selection
-q- Save and quit
+1- Modify selection
+0- Save and quit
     \033[31m-You must select something to acess other action!-\033[0m
 (# means not yet implement action)''')
 		
@@ -553,12 +553,21 @@ q- Save and quit
 			
 			choice = input('action?').strip().lower()
 			
-			if choice in ['q', 'quit', 'cancel']:
+			if choice in ['q', 'quit', 'cancel', '0']:
 				log.menuOut() # quit action choice
 				log.menuOut() # quit Batch task Editing
 				return
-			elif len(select) == 0:
-				log.write('\033[31mNothing selected, so nothing to do!\033[0m\n')
+			else:
+				try:
+					choice = int(choice)
+				except ValueError:
+					choice = -9999
+				if choice == 1:
+					select = self.multiSelect(log, cols, colSize, header)
+				elif len(select) == 0:
+					log.write('\033[31mNothing selected, so nothing to do!\033[0m\n')
+				else:
+					log.write('\033[31mUnknow action!\033[0m\n')
 			
 		
 	
