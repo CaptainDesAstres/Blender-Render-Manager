@@ -749,8 +749,8 @@ example : '2.5.10' unselect task 2, 5 and 10.
 2- regroup at first task position
 3- regroup at last task position
 4- regroup at bottom
-#- move up
-#- move down
+5- move up
+6- move down
 #- erase selection
 #- clone selection at bottom and select
 #- clone selection at original position and select
@@ -769,6 +769,14 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			if choice > 0 and choice < 5:
 				# regroup selection
 				select = self.regroup(log, choice, select)
+				
+			elif choice == 5:
+				# move up
+				select = self.moveSelected(log, select)
+				
+			elif choice == 6:
+				# move down
+				select = self.moveSelected(log, select, False)
 				
 			else:
 				log.write('\033[31mUnknow action index!\033[0m\n')
@@ -805,3 +813,48 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			select = list( range( len(self.tasks)-len(select), len(self.tasks) ) )
 		log.write(' regroup to row n°'+('.'.join(str(x) for x in select))+'\n')
 		return select
+	
+	
+	
+	
+	
+	def moveSelected(self, log, select, way = True):
+		'''move selected task up (way is True) or down'''
+		log.write('task n°'+('.'.join(str(x) for x in select)))
+		
+		newSelect = []
+		if way:
+			# move up
+			for i in select:
+				if i != 0 and i-1 not in newSelect:
+					self.tasks.insert(i-1, self.tasks.pop(i))
+					newSelect.append(i-1)
+				else:
+					newSelect.append(i)
+		else:
+			# move down
+			select.reverse()
+			for i in select:
+				if i != len(self.tasks)-1 and i+1 not in newSelect:
+					self.tasks.insert(i+1, self.tasks.pop(i))
+					newSelect.append(i+1)
+				else:
+					newSelect.append(i)
+			newSelect.reverse()
+		
+		log.write(' move to row n°'+('.'.join(str(x) for x in newSelect))+'\n')
+		
+		return newSelect
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
