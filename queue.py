@@ -511,13 +511,28 @@ b =>	Move selected task to the bottom of the list
 		'''a method to batch edit task settings '''
 		log.menuIn('Batch task Editing')
 		
+		# initial selection
+		select = self.multiSelect(log, cols, colSize, header)
+		log.menuIn('Action Choice')
+		
 		while True:
 			
-			select = self.multiSelect(log, cols, colSize, header)
 			
+			os.system('clear')
+			log.print()
 			
-			log.menuOut()
+			print('Selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			print('\nAction :\n')
+			
+			choice = input('not yet implement, enter to quit')
+			if len(select) == 0:
+				log.write('\033[31mNothing selected, so nothing to do!\033[0m\n')
+			log.menuOut() # quit action choice
+			log.menuOut() # quit Batch task Editing
 			return
+		
 	
 	
 	
