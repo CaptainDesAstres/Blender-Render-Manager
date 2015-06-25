@@ -751,7 +751,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 4- regroup at bottom
 5- move up
 6- move down
-#- erase selection
+7- erase selection
 #- clone selection at bottom and select
 #- clone selection at original position and select
 0- quit''')
@@ -777,6 +777,10 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			elif choice == 6:
 				# move down
 				select = self.moveSelected(log, select, False)
+				
+			elif choice == 7:
+				# erase selection
+				select = self.eraseSelected(log, select)
 				
 			else:
 				log.write('\033[31mUnknow action index!\033[0m\n')
@@ -850,7 +854,18 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	
 	
-	
+	def eraseSelected(self, log, select):
+		'''a method to erase selected task'''
+		
+		if input('Are you sure that you want to erase all this task? (y to confirm) ').strip().lower() in ['y', 'yes']:
+			select.reverse()
+			for i in select:
+				self.tasks.pop(i)
+				log.write('\033[31merase task n°'+str(i)+'\033[0m\n')
+			select = []
+		
+		return select
+		
 	
 	
 	
