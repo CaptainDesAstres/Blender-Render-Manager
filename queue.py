@@ -389,7 +389,8 @@ b =>	Move selected task to the bottom of the list
 			return choice, header, size
 	
 	
-
+	
+	
 	
 	def addTask(self, log, pref, mainPath):
 		'''method to manually add rendering task'''
@@ -509,6 +510,30 @@ b =>	Move selected task to the bottom of the list
 	
 	def multiEdit(self, log, pref, cols, colSize, header):
 		'''a method to batch edit task settings '''
+		def mainMenu(select):
+			'''print multiple task edition main menu'''
+			if select:
+				print('''\n        \033[4mAction :\033[0m
+#- Modify selection
+#- Edit Queue Composition
+#- Apply A Settings
+#- Edit Quality
+#- Edit Animation Settings
+#- Edit Performance Settings
+#- Edit Output Settings
+#- Edit Options Settings
+#- Edit Cycles Lightpath Settings'
+q- Save and quit
+(# means not yet implement action)''')
+			else:
+				print('''\n        \033[4mAction :\033[0m
+#- Modify selection
+q- Save and quit
+    \033[31m-You must select something to acess other action!-\033[0m
+(# means not yet implement action)''')
+		
+		
+		
 		log.menuIn('Batch task Editing')
 		
 		# initial selection
@@ -524,14 +549,17 @@ b =>	Move selected task to the bottom of the list
 			print('Selection :\n')
 			print('\033[4m'+header+'\033[0m')
 			self.printList(cols, colSize, select, True)
-			print('\nAction :\n')
+			mainMenu( len(select) > 0 )
 			
-			choice = input('not yet implement, enter to quit')
-			if len(select) == 0:
+			choice = input('action?').strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel']:
+				log.menuOut() # quit action choice
+				log.menuOut() # quit Batch task Editing
+				return
+			elif len(select) == 0:
 				log.write('\033[31mNothing selected, so nothing to do!\033[0m\n')
-			log.menuOut() # quit action choice
-			log.menuOut() # quit Batch task Editing
-			return
+			
 		
 	
 	
