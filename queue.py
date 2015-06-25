@@ -982,7 +982,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			if ref == 'file settings':
 				print('Are you sure that you want to apply blender file settings to all task?\n\033[5m(blender file settings are not reload from the file)\033[0m\n')
 			else:
-				print('Are you sure that you want to apply this settings to all selected task?\n\033[5mAll settings gone be overwrite except start/end frame settings!\033[0m\n')
+				print('Are you sure that you want to apply this settings to all selected task?\n\033[5mAll settings gone be overwrite except start/end frame settings!\nrenderlayer pass settings will be overwrite too!\033[0m\n')
 			
 			
 			choice = input('confirm (y)').strip().lower()
@@ -1001,7 +1001,21 @@ example : '2.5.10' unselect task 2, 5 and 10.
 								+('.'.join(str(x) for x in select))+'\n')
 					
 				else:
-					log.write('\033[31mnot yet implement\033[0m\n')
+					if type(ref) is int:
+						log.write('Settings of task n°'+str(ref)+' applied to task n°'\
+								+('.'.join(str(x) for x in select))+'\n')
+						ref = self.tasks[ref].customSetting.getClone()
+					else:
+						log.write('Preference settings applied to task n°'\
+								+('.'.join(str(x) for x in select))+'\n')
+					
+					ref.start = None
+					ref.end = None
+					
+					for i in select:
+						task = self.tasks[i]
+						task.apply( ref, True)
+					
 				
 				log.menuOut()
 				return
