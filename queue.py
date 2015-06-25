@@ -516,7 +516,7 @@ b =>	Move selected task to the bottom of the list
 				print('''\n        \033[4mAction :\033[0m
 1- Modify selection
 2- Edit Queue Composition
-#- Apply A Settings
+3- Apply A Settings
 #- Edit Quality
 #- Edit Animation Settings
 #- Edit Performance Settings
@@ -563,11 +563,13 @@ b =>	Move selected task to the bottom of the list
 				except ValueError:
 					choice = -9999
 				if choice == 1:
-					select = self.multiSelect(log, cols, colSize, header)
+					select = self.multiSelect(log, cols, colSize, header, select)
 				elif len(select) == 0:
 					log.write('\033[31mNothing selected, so nothing to do!\033[0m\n')
 				elif choice == 2:
 					select = self.queueEditMenu(log, cols, colSize, header, select)
+				elif choice == 3:
+					self.applySettingsMenu(log, cols, colSize, header, select)
 				else:
 					log.write('\033[31mUnknow action!\033[0m\n')
 			
@@ -894,6 +896,29 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			return newSelect
 		
 		return select
+	
+	
+	
+	
+	
+	def applySettingsMenu(self, log, cols, colSize, header, select):
+		'''Display menu to choose a references settings to apply to selected tasks'''
+		os.system('clear')
+		log.menuIn('Apply Settings To Selected Task')
+		log.menuIn('Settings Choice')
+		log.print()
+		
+		input('not yet implement, enter to continue')
+		log.menuOut()
+		log.menuOut()
+		return
+		
+	
+	
+	
+	
+	
+	
 	
 	
 	
