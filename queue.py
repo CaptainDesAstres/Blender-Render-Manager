@@ -930,13 +930,13 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			if choice == '1':
 				# apply preferences settings to selected task
 				log.menuOut()
-				self.applySettings(log, select, pref)
+				self.applySettings(log, select, pref, cols, colSize, header)
 				log.menuIn('Settings Choice')
 				
 			elif choice == '2':
 				# apply file settings settings to selected task
 				log.menuOut()
-				self.applySettings(log, select, 'file settings')
+				self.applySettings(log, select, 'file settings', cols, colSize, header)
 				log.menuIn('Settings Choice')
 				
 			elif choice == '3':
@@ -956,7 +956,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				else:
 					# apply task settings to selected task
 					log.menuOut()
-					self.applySettings(log, select, choice)
+					self.applySettings(log, select, choice, cols, colSize, header)
 					log.menuIn('Settings Choice')
 				
 			else:
@@ -966,9 +966,32 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	
 	
-	def applySettings(self, log, select, ref = None):
+	def applySettings(self, log, select, ref, cols, colSize, header):
 		'''a method to apply a settings to all selected task'''
+		log.menuIn('Confirmation')
 		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('	selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			
+			
+			choice = input('not yet implement, enter to continue').strip().lower()
+			
+			if choice not in ['y', 'yes']:
+				log.menuOut()
+				log.write('\033[31msettings application canceled\033[0m\n')
+				return
+			else:
+				log.menuOut()
+				log.write('\033[31mnot yet implement\033[0m\n')
+				return
+			
+			
+	
 	
 	
 	
