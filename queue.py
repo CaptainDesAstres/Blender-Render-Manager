@@ -515,7 +515,7 @@ b =>	Move selected task to the bottom of the list
 			if select:
 				print('''\n        \033[4mAction :\033[0m
 1- Modify selection
-#- Edit Queue Composition
+2- Edit Queue Composition
 #- Apply A Settings
 #- Edit Quality
 #- Edit Animation Settings
@@ -534,6 +534,35 @@ b =>	Move selected task to the bottom of the list
 		
 		
 		
+		
+		
+		def queueEditMenu():
+			'''menu to edit selection inside queue'''
+			log.menuIn('Edit Queue Composition')
+			while True:
+				os.system('clear')
+				log.print()
+			
+				print('Selection :\n')
+				print('\033[4m'+header+'\033[0m')
+				self.printList(cols, colSize, select, True)
+				print('''        Queue edition :
+#- regroup
+#- move
+#- erase
+#- clone
+0- quit''')
+				choice = input('action?').strip().lower()
+				
+				if choice in ['q', 'quit', 'cancel', '0']:
+					log.menuOut()
+					return
+		
+		
+		
+		
+		
+		
 		log.menuIn('Batch task Editing')
 		
 		# initial selection
@@ -541,8 +570,6 @@ b =>	Move selected task to the bottom of the list
 		log.menuIn('Action Choice')
 		
 		while True:
-			
-			
 			os.system('clear')
 			log.print()
 			
@@ -566,6 +593,8 @@ b =>	Move selected task to the bottom of the list
 					select = self.multiSelect(log, cols, colSize, header)
 				elif len(select) == 0:
 					log.write('\033[31mNothing selected, so nothing to do!\033[0m\n')
+				elif choice == 2:
+					queueEditMenu()
 				else:
 					log.write('\033[31mUnknow action!\033[0m\n')
 			
@@ -596,7 +625,7 @@ b =>	Move selected task to the bottom of the list
 				
 				print('''
 h =>	Show this page
-q =>	Confirm selection and quit
+q =>	Confirm selection and quit (empty input make the same)
 a =>	All : select all task
 n =>	Nothing : unselect all task
 i =>	invert selection
@@ -608,7 +637,7 @@ example : '2.5.10' select task 2, 5 and 10.
 ''')
 				input('enter to continue')
 				log.menuOut()
-			elif choice in ['q', 'quit']:
+			elif choice in ['q', 'quit', '']:
 				log.menuOut()
 				return selected
 			elif choice == 'a':
@@ -672,7 +701,7 @@ example : '2.5.10' select task 2, 5 and 10.
 				
 				print('''
 h =>	Show this page
-q =>	Confirm selection and quit
+q =>	Confirm selection and quit (empty input make the same)
 a =>	All : select all task
 n =>	Nothing : unselect all task
 i =>	invert selection
@@ -684,7 +713,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 ''')
 				input('enter to continue')
 				log.menuOut()
-			elif choice in ['q', 'quit']:
+			elif choice in ['q', 'quit', '']:
 				log.menuOut()
 				return selected
 			elif choice == 'a':
