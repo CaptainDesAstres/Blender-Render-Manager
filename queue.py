@@ -569,7 +569,7 @@ b =>	Move selected task to the bottom of the list
 				elif choice == 2:
 					select = self.queueEditMenu(log, cols, colSize, header, select)
 				elif choice == 3:
-					self.applySettingsMenu(log, cols, colSize, header, select)
+					self.applySettingsMenu(log, cols, colSize, header, select, pref)
 				else:
 					log.write('\033[31mUnknow action!\033[0m\n')
 			
@@ -901,7 +901,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	
 	
-	def applySettingsMenu(self, log, cols, colSize, header, select):
+	def applySettingsMenu(self, log, cols, colSize, header, select, pref):
 		'''Display menu to choose a references settings to apply to selected tasks'''
 		log.menuIn('Apply Settings To Selected Task')
 		log.menuIn('Settings Choice')
@@ -915,9 +915,9 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			self.printList(cols, colSize, select, True)
 			
 			print('''\n\n        Choice of settings to apply :
-#- Preferences Settings
-#- Blender Files Settings
-#- Settings of one of the selected task
+1- Preferences Settings
+2- Blender Files Settings
+3- Settings of one of the selected task
 0- Quit''')
 			
 			choice = input('choice?').strip().lower()
@@ -927,11 +927,48 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				log.menuOut()
 				return
 			
+			if choice == '1':
+				# apply preferences settings to selected task
+				log.menuOut()
+				self.applySettings(log, select, pref)
+				log.menuIn('Settings Choice')
+				
+			elif choice == '2':
+				# apply file settings settings to selected task
+				log.menuOut()
+				self.applySettings(log, select, 'file settings')
+				log.menuIn('Settings Choice')
+				
+			elif choice == '3':
+				# choose a task to use
+				choice = input('what task to use?(q to cancel)').strip().lower()
+				if choice in ['q', 'quit', 'cancel']:
+					continue
+				
+				try:
+					choice = int(choice)
+				except ValueError:
+					log.write('\033[31mApply task settings to selected task error : invalid choice\033[0m\n')
+					continue
+				
+				if choice not in select:
+					log.write('\033[31mApply task settings to selected task error : task not in selected tasks\033[0m\n')
+				else:
+					# apply task settings to selected task
+					log.menuOut()
+					self.applySettings(log, select, choice)
+					log.menuIn('Settings Choice')
+				
+			else:
+				log.write('\033[31merror, unvalid input\033[0m\n')
+	
+	
+	
+	
+	
+	def applySettings(self, log, select, ref = None):
+		'''a method to apply a settings to all selected task'''
 		
-	
-	
-	
-	
 	
 	
 	
