@@ -903,15 +903,30 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	def applySettingsMenu(self, log, cols, colSize, header, select):
 		'''Display menu to choose a references settings to apply to selected tasks'''
-		os.system('clear')
 		log.menuIn('Apply Settings To Selected Task')
 		log.menuIn('Settings Choice')
-		log.print()
 		
-		input('not yet implement, enter to continue')
-		log.menuOut()
-		log.menuOut()
-		return
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('	selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			
+			print('''\n\n        Choice of settings to apply :
+#- Preferences Settings
+#- Blender Files Settings
+#- Settings of one of the selected task
+0- Quit''')
+			
+			choice = input('choice?').strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel', '0']:
+				log.menuOut()
+				log.menuOut()
+				return
+			
 		
 	
 	
