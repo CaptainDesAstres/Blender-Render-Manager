@@ -978,8 +978,14 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			print('\033[4m'+header+'\033[0m')
 			self.printList(cols, colSize, select, True)
 			
+			print('        Apply Settings Confirmation :\n')
+			if ref == 'file settings':
+				print('Are you sure that you want to apply blender file settings to all task?\n(blender file settings are not reload from the file)\n')
+			else:
+				print('Are you sure that you want to apply this settings to all selected task?\nAll settings gone be overwrite except start/end frame settings!\n')
 			
-			choice = input('not yet implement, enter to continue').strip().lower()
+			
+			choice = input('confirm (y)').strip().lower()
 			
 			if choice not in ['y', 'yes']:
 				log.menuOut()
