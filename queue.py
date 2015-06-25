@@ -536,76 +536,6 @@ b =>	Move selected task to the bottom of the list
 		
 		
 		
-		def queueEditMenu(log, cols, colSize, header, select):
-			'''menu to edit selection inside queue'''
-			log.menuIn('Edit Queue Composition')
-			
-			while True:
-				os.system('clear')
-				log.print()
-			
-				print('Selection :\n')
-				print('\033[4m'+header+'\033[0m')
-				self.printList(cols, colSize, select, True)
-				print('''        Queue edition :
-1- regroup on top
-2- regroup at first task position
-3- regroup at last task position
-4- regroup at bottom
-#- move up
-#- move down
-#- erase selection
-#- clone selection at bottom and select
-#- clone selection at original position and select
-0- quit''')
-				choice = input('action?').strip().lower()
-				
-				if choice in ['q', 'quit', 'cancel', '0']:
-					log.menuOut()
-					return select
-				
-				try:
-					choice = int(choice)
-				except ValueError:
-					choice = -9999
-				
-				if choice > 0 and choice < 5:
-					# regroup selection
-					group = []
-					for i in select:
-						group.append(self.tasks.pop(i-len(group)))
-						
-					log.write('group size : '+str(len(group))+'\n')
-					log.write('tasks size : '+str(len(self.tasks))+'\n')
-					# place group in the good place:
-					if choice == 1:
-						# place on top of the list
-						self.tasks = group+self.tasks
-						select = list( range( 0, len(select) ) )
-					elif choice == 2:
-						# place at first task position
-						i = select[0]
-						self.tasks = self.tasks[0:i] + group + self.tasks[i:]
-						select = list( range(i, i + len(select)) )
-					elif choice == 3:
-						# place at last task position
-						i = select[len(select)-1] - (len(group)-1)
-						self.tasks = self.tasks[0:i] + group + self.tasks[i:]
-						select = list( range(i, i + len(select)) )
-					else:
-						# place on bottom of the list
-						self.tasks.extend(group)
-						select = list( range( len(self.tasks)-len(select), len(self.tasks) ) )
-					
-					
-				else:
-					log.write('\033[31mUnknow action index!\033[0m\n')
-		
-		
-		
-		
-		
-		
 		log.menuIn('Batch task Editing')
 		
 		# initial selection
@@ -637,7 +567,7 @@ b =>	Move selected task to the bottom of the list
 				elif len(select) == 0:
 					log.write('\033[31mNothing selected, so nothing to do!\033[0m\n')
 				elif choice == 2:
-					select = queueEditMenu(log, cols, colSize, header, select)
+					select = self.queueEditMenu(log, cols, colSize, header, select)
 				else:
 					log.write('\033[31mUnknow action!\033[0m\n')
 			
@@ -803,3 +733,75 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	
 	
+	def queueEditMenu(self, log, cols, colSize, header, select):
+		'''menu to edit selection inside queue'''
+		log.menuIn('Edit Queue Composition')
+		
+		while True:
+			os.system('clear')
+			log.print()
+		
+			print('Selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			print('''        Queue edition :
+1- regroup on top
+2- regroup at first task position
+3- regroup at last task position
+4- regroup at bottom
+#- move up
+#- move down
+#- erase selection
+#- clone selection at bottom and select
+#- clone selection at original position and select
+0- quit''')
+			choice = input('action?').strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel', '0']:
+				log.menuOut()
+				return select
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				choice = -9999
+			
+			if choice > 0 and choice < 5:
+				# regroup selection
+				select = self.regroup(log, choice, select)
+				
+			else:
+				log.write('\033[31mUnknow action index!\033[0m\n')
+	
+	
+	
+	
+	
+	def regroup(self, log, choice, select):
+		'''regroup selected task in the queue'''
+		log.write('task n°'+('.'.join(str(x) for x in select)))
+		group = []
+		for i in select:
+			group.append(self.tasks.pop(i-len(group)))
+		
+		# place group in the good place:
+		if choice == 1:
+			# place on top of the list
+			self.tasks = group+self.tasks
+			select = list( range( 0, len(select) ) )
+		elif choice == 2:
+			# place at first task position
+			i = select[0]
+			self.tasks = self.tasks[0:i] + group + self.tasks[i:]
+			select = list( range(i, i + len(select)) )
+		elif choice == 3:
+			# place at last task position
+			i = select[len(select)-1] - (len(group)-1)
+			self.tasks = self.tasks[0:i] + group + self.tasks[i:]
+			select = list( range(i, i + len(select)) )
+		else:
+			# place on bottom of the list
+			self.tasks.extend(group)
+			select = list( range( len(self.tasks)-len(select), len(self.tasks) ) )
+		log.write(' regroup to row n°'+('.'.join(str(x) for x in select))+'\n')
+		return select
