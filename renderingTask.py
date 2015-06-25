@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module containing class 'renderingTask' '''
 from setting import setting
+import xml.etree.ElementTree as xmlMod
 from copy import deepcopy
 import os
 from usefullFunctions import *
@@ -490,6 +491,18 @@ action?''').strip()
 				txt += columnLimit(self.customSetting.volumeBounces,colSize[i])
 		
 		return txt
+	
+	
+	
+	
+	
+	
+	def getClone(self):
+		'''create another settings object with the same attribut values
+		restart/end attributes value with start/end argument values if set'''
+		
+		return renderingTask( xmlMod.fromstring( self.toXmlStr( head = True) ) )
+	
 
 
 
