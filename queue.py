@@ -647,9 +647,11 @@ b =>	Move selected task to the bottom of the list
 	
 	
 	
-	def multiSelect(self, log, cols, colSize, header, selected = []):
+	def multiSelect(self, log, cols, colSize, header, selected = None):
 		'''method to select multiple task'''
 		log.menuIn('Select Multiple Task')
+		if selected is None:
+			selected = []
 		
 		while True:
 			os.system('clear')
@@ -723,9 +725,12 @@ example : '2.5.10' select task 2, 5 and 10.
 	
 	
 	
-	def multiUnselect(self, log, cols, colSize, header, selected = []):
+	def multiUnselect(self, log, cols, colSize, header, selected = None):
 		'''method to unselect multiple task'''
 		log.menuIn('Select Multiple Task (unselect mode)')
+		
+		if selected is None:
+			selected = []
 		
 		while True:
 			os.system('clear')
