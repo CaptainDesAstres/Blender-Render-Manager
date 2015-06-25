@@ -546,6 +546,8 @@ b =>	Move selected task to the bottom of the list
 h =>	Show this page
 q =>	Confirm selection and quit
 a =>	All : select all task
+n =>	Nothing : unselect all task
+i =>	invert selection
 
 select task by typing their corresponding number one by one
 or type multiple numbers seperate by '.'
@@ -558,6 +560,14 @@ example : '2.5.10' select task 2, 5 and 10.
 				return selected
 			elif choice == 'a':
 				selected = range(0, len(self.tasks))
+			elif choice == 'n':
+				selected = []
+			elif choice == 'i':
+				for i in range(0, len(self.tasks)):
+					if i in selected:
+						selected.pop(selected.index(i))
+					else:
+						selected.append(i)
 			else:
 				choice = choice.split('.')
 				
