@@ -545,8 +545,10 @@ b =>	Move selected task to the bottom of the list
 				print('''
 h =>	Show this page
 q =>	Confirm selection and quit
-select task by typing there corresponding number one by one
-or type multiple number seperate by '.'
+a =>	All : select all task
+
+select task by typing their corresponding number one by one
+or type multiple numbers seperate by '.'
 example : '2.5.10' select task 2, 5 and 10.
 ''')
 				input('enter to continue')
@@ -554,6 +556,8 @@ example : '2.5.10' select task 2, 5 and 10.
 			elif choice in ['q', 'quit']:
 				log.menuOut()
 				return selected
+			elif choice == 'a':
+				selected = range(0, len(self.tasks))
 			else:
 				choice = choice.split('.')
 				
@@ -565,8 +569,14 @@ example : '2.5.10' select task 2, 5 and 10.
 					log.write('\033[31mMultiple selection error : non numeric input, selection ignore\033[0m\n')
 					continue
 				
+				for s in choice:
+					if s >= len(self.tasks) or s < 0:
+						log.write('\033[31mMultiple selection error : selection of inexistant task n°'+str(s)+' have been ignore\033[0m\n')
+					elif s not in selected:
+						selected.append(s)
 				
-				
+				selected.sort()
+				log.write('Multiple selection : task n°'+('.'.join(str(x) for x in selected))+'\n')
 
 	
 	
