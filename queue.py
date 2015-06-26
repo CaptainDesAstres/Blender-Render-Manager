@@ -517,7 +517,7 @@ b =>	Move selected task to the bottom of the list
 1- Modify selection
 2- Edit Queue Composition
 3- Apply A Settings
-#- Edit Quality
+4- Edit Quality
 #- Edit Animation Settings
 #- Edit Performance Settings
 #- Edit Output Settings
@@ -570,6 +570,8 @@ b =>	Move selected task to the bottom of the list
 					select = self.queueEditMenu(log, cols, colSize, header, select)
 				elif choice == 3:
 					self.applySettingsMenu(log, cols, colSize, header, select, pref)
+				elif choice == 4:
+					self.qualityMenu(log, cols, colSize, header, select, pref)
 				else:
 					log.write('\033[31mUnknow action!\033[0m\n')
 			
@@ -1021,6 +1023,22 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				return
 			
 			
+	
+	
+	
+	
+	
+	def qualityMenu(self, log, cols, colSize, header, select, pref):
+		'''display the menu to choose a quality settings to change'''
+		
+		
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
