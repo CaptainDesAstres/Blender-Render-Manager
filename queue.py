@@ -1030,7 +1030,39 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	def qualityMenu(self, log, cols, colSize, header, select, pref):
 		'''display the menu to choose a quality settings to change'''
+		log.menuIn('Edit Quality settings')
 		
+		while True:
+			os.system('clear')
+			log.print()
+		
+			print('Selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			print('''        Quality edition :
+#- X resolution
+#- Y resolution
+#- Resolution percent
+#- File format
+#- Simplify
+#- Main animation samples 
+#- Background samples
+#- Foreground samples
+#- BackgroundLayersKeywords
+#- ForegroundLayersKeywords
+0- quit\n\n''')
+			choice = input('action?').strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel', '0']:
+				log.menuOut()
+				return
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				choice = -9999
+			
+			log.write('\033[31mUnknow action index!\033[0m\n')
 		
 	
 	
