@@ -41,7 +41,7 @@ class queue:
 		'headerLabel':'Tiles  |',					'limit':7},
 		
 		{'menuEntry':'Resolution',					'id':9,
-		'headerLabel':'Resolution |',				'limit':11},
+		'headerLabel':'Resolution     |',			'limit':15},
 		
 		{'menuEntry':'Samples Main/Back/Fore',		'id':10,
 		'headerLabel':'Samples A./B./F. |',			'limit':17},
@@ -1042,7 +1042,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			print('''        Quality edition :
 1- X resolution
 2- Y resolution
-#- Resolution percent
+3- Resolution percent
 #- File format
 #- Simplify
 #- Main animation samples 
@@ -1066,6 +1066,9 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				self.batchEditIntAttr(log, 'X', 'X resolution', pref, select, 9, 1)
 			elif choice == 2:
 				self.batchEditIntAttr(log, 'Y', 'Y resolution', pref, select, 9, 1)
+			elif choice == 3:
+				self.batchEditIntAttr(log, 'percent', 'resolution percent', pref,\
+											select, 9, 1)
 			else:
 				log.write('\033[31mUnknow action index!\033[0m\n')
 	
@@ -1091,7 +1094,10 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			self.printList(cols, colSize, select, True)
 			
 			# print pref settings
-			print('\nPreference '+label+' settings : '+str( getattr(pref, attr) )+'\n\n' )
+			if attr == 'percent':
+				print('\nPreference '+label+' settings : '+str( int(getattr(pref, attr)*100) )+'\n\n' )
+			else:
+				print('\nPreference '+label+' settings : '+str( getattr(pref, attr) )+'\n\n' )
 			
 			# get input
 			choice = input('New '+label+' setting value (or q) : ').strip().lower()
@@ -1106,7 +1112,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			try:
 				choice = int(choice)
 			except ValueError:
-				log.write('\033[31mValueError while batch editing '+label+' setting.\033[0m\n')
+				log.write('\033[31mValueError while batch editing '+label+' setting, must be an integer.\033[0m\n')
 				continue
 			
 			# test input
@@ -1116,6 +1122,9 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				continue
 			
 			# apply new settings and quit
+			if attr == 'percent':
+				choice /= 100
+			
 			for i in select:
 				setattr( self.tasks[i].customSetting, attr, choice)
 			log.write(label+' setting set to '+str(choice)+' for task n°'+('.'.join( str(x) for x in select))+'\n')

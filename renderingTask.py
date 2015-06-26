@@ -414,7 +414,8 @@ action?''').strip()
 				txt += columnLimit(val, colSize[i])
 			elif col == 9:
 				# resolution column
-				val = str(self.customSetting.X)+'x'+str(self.customSetting.Y)
+				val = str(self.customSetting.X)+'x'+str(self.customSetting.Y)\
+						+'@'+str(int(self.customSetting.percent*100))
 				txt += columnLimit(val, colSize[i])
 			elif col == 10:
 				# samples column
