@@ -1041,7 +1041,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			self.printList(cols, colSize, select, True)
 			print('''        Quality edition :
 1- X resolution
-#- Y resolution
+2- Y resolution
 #- Resolution percent
 #- File format
 #- Simplify
@@ -1062,7 +1062,12 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			except ValueError:
 				choice = -9999
 			
-			log.write('\033[31mUnknow action index!\033[0m\n')
+			if choice == 1:
+				self.batchEditIntAttr(log, 'X', 'X resolution', pref, select, 9, 1)
+			elif choice == 2:
+				self.batchEditIntAttr(log, 'Y', 'Y resolution', pref, select, 9, 1)
+			else:
+				log.write('\033[31mUnknow action index!\033[0m\n')
 	
 	
 	
