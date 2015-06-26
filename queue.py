@@ -1044,7 +1044,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 2- Y resolution
 3- Resolution percent
 #- File format
-#- Simplify
+5- Simplify
 #- Main animation samples 
 #- Background samples
 #- Foreground samples
@@ -1069,6 +1069,8 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			elif choice == 3:
 				self.batchEditIntAttr(log, 'percent', 'resolution percent', pref,\
 											select, 9, 1)
+			elif choice == 5:
+				self.batchEditIntAttr(log, 'simplify', 'simplify', pref, select, 11)
 			else:
 				log.write('\033[31mUnknow action index!\033[0m\n')
 	
@@ -1096,6 +1098,8 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			# print pref settings
 			if attr == 'percent':
 				print('\nPreference '+label+' settings : '+str( int(getattr(pref, attr)*100) )+'\n\n' )
+			elif attr == 'simplify' and getattr(pref, attr) is None:
+				print('\nPreference '+label+' settings : Disabled\n\n' )
 			else:
 				print('\nPreference '+label+' settings : '+str( getattr(pref, attr) )+'\n\n' )
 			
@@ -1124,10 +1128,18 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			# apply new settings and quit
 			if attr == 'percent':
 				choice /= 100
+			elif attr == 'simplify':
+				if choice < 0:
+					choice = 0
+				elif choice > 10:
+					choice = None
 			
 			for i in select:
 				setattr( self.tasks[i].customSetting, attr, choice)
-			log.write(label+' setting set to '+str(choice)+' for task n°'+('.'.join( str(x) for x in select))+'\n')
+			if choice is None:
+				log.write(label+' option disabled for task n°'+('.'.join( str(x) for x in select))+'\n')
+			else:
+				log.write(label+' setting set to '+str(choice)+' for task n°'+('.'.join( str(x) for x in select))+'\n')
 			log.menuOut()
 			return
 	
