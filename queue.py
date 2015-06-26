@@ -1040,7 +1040,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			print('\033[4m'+header+'\033[0m')
 			self.printList(cols, colSize, select, True)
 			print('''        Quality edition :
-#- X resolution
+1- X resolution
 #- Y resolution
 #- Resolution percent
 #- File format
@@ -1063,12 +1063,59 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				choice = -9999
 			
 			log.write('\033[31mUnknow action index!\033[0m\n')
+	
+	
+	
+	
+	
+	def batchEditIntAttr(self, log, attr, label, pref, select, colId, m = None, M = None):
+		'''a method to edit standard numerical attribute'''
+		log.menuIn('Edit '+label+' setting')
 		
-	
-	
-	
-	
-	
+		# get list header
+		cols = [0, colId, 1]
+		header, colSize = self.getListHeader(cols)
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			# print list
+			print('Selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			
+			# print pref settings
+			print('\nPreference '+label+' settings : '+str( getattr(pref, attr) )+'\n\n' )
+			
+			# get input
+			choice = input('New '+label+' setting value (or q) : ').strip().lower()
+			
+			# check if quit
+			if choice in ['q', 'quit', 'cancel', '']:
+				log.menuOut()
+				log.write('cancel batch editing of '+label+' setting.\n')
+				return
+			
+			# convert input
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.write('\033[31mValueError while batch editing '+label+' setting.\033[0m\n')
+				continue
+			
+			# test input
+			if (m is not None and choice < m) \
+				or (M is not None and choice > M):
+				log.write('\033[31mBatch editing of '+label+' setting abort : out of range value.\033[0m\n')
+				continue
+			
+			# apply new settings and quit
+			for i in select:
+				setattr( self.tasks[i].customSetting, attr, choice)
+			log.write(label+' setting set to '+str(choice)+' for task n°'+('.'.join( str(x) for x in select))+'\n')
+			log.menuOut()
+			return
 	
 	
 	
