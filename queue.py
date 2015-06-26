@@ -1092,8 +1092,10 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		log.menuIn('Edit '+label+' setting')
 		
 		# get list header
-		cols = [0, colId, 1]
+		cols = [0, 1, colId]
 		header, colSize = self.getListHeader(cols)
+		header = header.rstrip('|')+(' '* (60-colSize[2]) )+'|'
+		colSize[2] = 60
 		
 		while True:
 			os.system('clear')
