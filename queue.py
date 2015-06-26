@@ -1045,9 +1045,9 @@ example : '2.5.10' unselect task 2, 5 and 10.
 3- Resolution percent
 #- File format
 5- Simplify
-#- Main animation samples 
-#- Background samples
-#- Foreground samples
+6- Main animation samples 
+7- Background samples
+8- Foreground samples
 #- BackgroundLayersKeywords
 #- ForegroundLayersKeywords
 0- quit\n\n''')
@@ -1071,6 +1071,15 @@ example : '2.5.10' unselect task 2, 5 and 10.
 											select, 9, 1)
 			elif choice == 5:
 				self.batchEditIntAttr(log, 'simplify', 'simplify', pref, select, 11)
+			elif choice == 6:
+				self.batchEditIntAttr(log, 'mainAnimationCyclesSamples',\
+						'main samples', pref, select, 10, 0)
+			elif choice == 7:
+				self.batchEditIntAttr(log, 'backgroundCyclesSamples',\
+						'background renderlayer Samples', pref, select, 10, 0)
+			elif choice == 8:
+				self.batchEditIntAttr(log, 'foregroundCyclesSamples',\
+						'foreground renderlayer Samples', pref, select, 10, 0)
 			else:
 				log.write('\033[31mUnknow action index!\033[0m\n')
 	
@@ -1136,6 +1145,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			
 			for i in select:
 				setattr( self.tasks[i].customSetting, attr, choice)
+			
 			if choice is None:
 				log.write(label+' option disabled for task n°'+('.'.join( str(x) for x in select))+'\n')
 			else:
