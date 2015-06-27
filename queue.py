@@ -1043,7 +1043,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 1- X resolution
 2- Y resolution
 3- Resolution percent
-#- File format
+4- File format
 5- Simplify
 6- Main animation samples 
 7- Background samples
@@ -1069,6 +1069,8 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			elif choice == 3:
 				self.batchEditIntAttr(log, 'percent', 'resolution percent', pref,\
 											select, 9, 1)
+			elif choice == 4:
+				self.batchEditListAttr(log, 'outputFormat', 'render format', pref, select, 12)
 			elif choice == 5:
 				self.batchEditIntAttr(log, 'simplify', 'simplify', pref, select, 11)
 			elif choice == 6:
@@ -1120,7 +1122,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			# check if quit
 			if choice in ['q', 'quit', 'cancel', '']:
 				log.menuOut()
-				log.write('cancel batch editing of '+label+' setting.\n')
+				log.write('\033[31mcancel batch editing of '+label+' setting.\033[0m\n')
 				return
 			
 			# convert input
@@ -1152,6 +1154,71 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				log.write(label+' option disabled for task n°'+('.'.join( str(x) for x in select))+'\n')
 			else:
 				log.write(label+' setting set to '+str(choice)+' for task n°'+('.'.join( str(x) for x in select))+'\n')
+			log.menuOut()
+			return
+	
+	
+	
+	
+	
+	def batchEditListAttr(self, log, attr, label, pref, select, colId):
+		'''a method to edit settings with available value list'''
+		log.menuIn('Edit '+label+' setting')
+		
+		if attr == 'outputFormat':
+			options = ['PNG', 'JPEG', 'OPEN_EXR', 'OPEN_EXR_MULTILAYER']
+		
+		# get list header
+		cols = [0, 1, colId]
+		header, colSize = self.getListHeader(cols)
+		header = header.rstrip('|')+(' '* (60-colSize[2]) )+'|'
+		colSize[2] = 60
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			# print list
+			print('Selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			
+			# print pref settings
+			print('\nPreference '+label+' settings : '+getattr(pref, attr)+'\n\n' )
+			
+			# print available value
+			print('Available settings :\n')
+			for i, opt in enumerate(options):
+				print(str(i)+'- '+opt)
+			
+			# get input
+			choice = input('New '+label+' setting (or q) : ').strip().lower()
+			
+			# check if quit
+			if choice in ['q', 'quit', 'cancel', '']:
+				log.menuOut()
+				log.write('\033[31mcancel batch editing of '+label+' setting.\033[0m\n')
+				return
+			
+			# convert input
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.write('\033[31mValueError while batch editing '+label+' setting, choice must be an integer.\033[0m\n')
+				continue
+			
+			# test input
+			if choice < 0 or choice >= len(options):
+				log.write('\033[31mBatch editing of '+label+' setting abort : choice don\'t correspond to an available option.\033[0m\n')
+				continue
+			
+			# apply new settings and quit
+			choice = options[choice]
+			
+			for i in select:
+				setattr( self.tasks[i].customSetting, attr, choice)
+			
+			log.write(label+' setting set to '+choice+' for task n°'+('.'.join( str(x) for x in select))+'\n')
 			log.menuOut()
 			return
 	
