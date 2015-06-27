@@ -1245,8 +1245,17 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				elif choice > 10:
 					choice = None
 			
-			for i in select:
-				setattr( self.tasks[i].customSetting, attr, choice)
+			if attr == 'start':
+				for i in select:
+					self.tasks[i].customSetting.start = min(choice, \
+								self.tasks[i].customSetting.end)
+			elif attr == 'end':
+				for i in select:
+					self.tasks[i].customSetting.end = max(choice, \
+								self.tasks[i].customSetting.start)
+			else:
+				for i in select:
+					setattr( self.tasks[i].customSetting, attr, choice)
 			
 			if choice is None:
 				log.write(label+' option disabled for task n°'+('.'.join( str(x) for x in select))+'\n')
