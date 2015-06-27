@@ -1230,10 +1230,12 @@ example : '2.5.10' unselect task 2, 5 and 10.
 									pref, select, 26, 1)
 				
 			elif choice == 7: # Rendering engine
-				log.write('\033[31mNot yet implemented…\033[0m\n')
+				self.batchEditListAttr(log, 'renderingEngine', 'rendering engine',\
+								pref, select, 7)
 				
 			elif choice == 8: # Rendering device (for Cycles engine)
-				log.write('\033[31mNot yet implemented…\033[0m\n')
+				self.batchEditListAttr(log, 'renderingDevice', 'rendering device',\
+								pref, select, 7)
 				
 			elif choice == 9: # Blender version
 				log.write('\033[31mNot yet implemented…\033[0m\n')
@@ -1409,6 +1411,10 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		
 		if attr == 'outputFormat':
 			options = ['PNG', 'JPEG', 'OPEN_EXR', 'OPEN_EXR_MULTILAYER']
+		elif attr == 'renderingEngine':
+			options = ['CYCLES', 'BLENDER_RENDER']
+		elif attr == 'renderingDevice':
+			options = ['GPU', 'CPU']
 		
 		# get list header
 		cols = [0, 1, colId]
