@@ -437,10 +437,12 @@ action?''').strip()
 			elif col == 12:
 				# output format column
 				val = self.customSetting.outputFormat.lower()
-				if val == 'open_exr_multilayer':
-					val = 'exrmul'
-				elif val == 'open_exr':
-					val = 'exr'
+				if colSize[i] < 60:
+					if val == 'open_exr_multilayer':
+						val = 'exrmul'
+					elif val == 'open_exr':
+						val = 'exr'
+				
 				txt += columnLimit(val, colSize[i])
 			elif col == 13:
 				# alpha background column

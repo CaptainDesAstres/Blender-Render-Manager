@@ -306,7 +306,7 @@ b =>	Move selected task to the bottom of the list
 	
 	
 	
-	def getListHeader(self, cols):
+	def getListHeader(self, cols, thirdLimit = True):
 		'''a method to get list header and column size for a list of attributes'''
 		header = 'id  |Task File Name                |'
 		size = []
@@ -314,6 +314,10 @@ b =>	Move selected task to the bottom of the list
 		for col in cols:
 			header += queue.menu[col]['headerLabel']
 			size.append(queue.menu[col]['limit'])
+		
+		if thirdLimit == False and len(size) == 3:
+			header = header.rstrip('|')+(' '* (60-size[2]) )+'|'
+			size[2] = 60
 		
 		return header, size
 	
@@ -1095,9 +1099,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		
 		# get list header
 		cols = [0, 1, colId]
-		header, colSize = self.getListHeader(cols)
-		header = header.rstrip('|')+(' '* (60-colSize[2]) )+'|'
-		colSize[2] = 60
+		header, colSize = self.getListHeader(cols, False)
 		
 		while True:
 			os.system('clear')
@@ -1170,9 +1172,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		
 		# get list header
 		cols = [0, 1, colId]
-		header, colSize = self.getListHeader(cols)
-		header = header.rstrip('|')+(' '* (60-colSize[2]) )+'|'
-		colSize[2] = 60
+		header, colSize = self.getListHeader(cols, False)
 		
 		while True:
 			os.system('clear')
