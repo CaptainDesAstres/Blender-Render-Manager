@@ -1044,7 +1044,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	def qualityMenu(self, log, cols, colSize, header, select, pref):
 		'''display the menu to choose a quality settings to change'''
-		log.menuIn('Edit Quality settings')
+		log.menuIn('Edit Quality Settings')
 		
 		while True:
 			os.system('clear')
@@ -1110,7 +1110,53 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	def animationMenu(self, log, cols, colSize, header, select, pref):
 		'''display the menu to choose a animation settings to change'''
-	
+		log.menuIn('Edit animation Settings')
+		
+		while True:
+			os.system('clear')
+			log.print()
+		
+			print('Selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			print('''        Animation settings edition :
+1- Animation rate
+2- Start frame
+3- End Frame
+4- Background Animation
+5- Foreground Animation
+6- Background renderlayers keywords
+7- Foreground renderlayers keywords
+0- quit\n\n''')
+			choice = input('action?').strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel', '0']:
+				log.menuOut()
+				return
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				choice = -9999
+			
+			if choice == 1: # animation rate
+				self.batchEditIntAttr(log, 'fps', 'animation rate', pref, select, 3, 1)
+			elif choice == 2: # start frame
+				self.batchEditIntAttr(log, 'start', 'start frame', pref, select, 5)
+			elif choice == 3: # end frame
+				self.batchEditIntAttr(log, 'end', 'end frame', pref, select, 5)
+			elif choice == 4: # background animation
+				self.batchEditIntAttr(log, 'backgroundAnimation', \
+						'background animation duration', pref, select, 2, 0)
+			elif choice == 5: # foreground animation
+				self.batchEditIntAttr(log, 'foregroundAnimation', \
+						'foreground animation duration', pref, select, 2, 0)
+			elif choice == 6: # background keyword
+				self.batchEditKeywordMenu(log, pref, select, 'background')
+			elif choice == 7: # foreground keyword
+				self.batchEditKeywordMenu(log, pref, select, 'foreground')
+			else:
+				log.write('\033[31mUnknow action index!\033[0m\n')
 	
 	
 	
@@ -1422,7 +1468,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			
 			# check keyword composition
 			for k in choice:
-				match = re.search(r'^[-0-9a-zA-Z_]{3,}( *\| *[-0-9a-zA-Z_]{3,})*$', k)
+				match = re.search(r'^[-0-9a-zA-Z_]{3,}*$', k)
 				if match is None:
 					log.write('''\033[31munvalid keyword : the keyword must only contains letters, numbers or '-' or '_', they can be split by '|' and space\033[0m\n''')
 					log.menuOut()
