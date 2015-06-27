@@ -492,6 +492,21 @@ action?''').strip()
 			elif col == 24:
 				# Volume bounces column
 				txt += columnLimit(self.customSetting.volumeBounces,colSize[i])
+			elif col == 25:
+				# Blender Internal Tiles Size
+				val = str(self.customSetting.tilesBIX)+'x'\
+						+str(self.customSetting.tilesBIY)
+				txt += columnLimit(val, 60)
+			elif col == 26:
+				# Cycles GPU Tiles Size
+				val = str(self.customSetting.tilesCyclesGPUX)+'x'\
+						+str(self.customSetting.tilesCyclesGPUY)
+				txt += columnLimit(val, 60)
+			elif col == 27:
+				# Cycles CPU Tiles Size
+				val = str(self.customSetting.tilesCyclesCPUX)+'x'\
+						+str(self.customSetting.tilesCyclesCPUY)
+				txt += columnLimit(val, 60)
 		
 		return txt
 	

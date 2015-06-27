@@ -90,7 +90,18 @@ class queue:
 		'headerLabel':'Trans.|',					'limit':6},
 		
 		{'menuEntry':'Volumes Bounces',				'id':24,
-		'headerLabel':'Vol.|',						'limit':4}
+		'headerLabel':'Vol.|',						'limit':4},
+		
+		
+		
+		{'menuEntry':'BI Tiles',				'id':25,
+		'headerLabel':'BI Tiles |',						'limit':9},
+		
+		{'menuEntry':'GPU Tiles',				'id':26,
+		'headerLabel':'GPU Tiles|',						'limit':9},
+		
+		{'menuEntry':'CPU Tiles',				'id':27,
+		'headerLabel':'CPU Tiles|',						'limit':9}
 		]
 	
 	def __init__(self,xml=False):
@@ -1163,6 +1174,71 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	def performanceMenu(self, log, cols, colSize, header, select, pref):
 		'''display the menu to choose a performance settings to change'''
+		log.menuIn('Edit Performance Settings')
+		
+		while True:
+			os.system('clear')
+			log.print()
+		
+			print('Selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			print('''        Performance settings edition :
+1- Blender Internal Tiles X size
+2- Blender Internal Tiles Y size
+3- Cycles CPU Tiles X size
+4- Cycles CPU Tiles Y size
+5- Cycles GPU Tiles X size
+6- Cycles GPU Tiles Y size
+7- Rendering engine
+8- Rendering device (for Cycles engine)
+9- Blender path
+0- quit\n\n''')
+			choice = input('action?').strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel', '0']:
+				log.menuOut()
+				return
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				choice = -9999
+			
+			if choice == 1: # Blender Internal Tiles X size
+				self.batchEditIntAttr(log, 'tilesBIX', 'X Blender Internal tiles size',\
+									 pref, select, 25, 1)
+				
+			elif choice == 2: # Blender Internal Tiles Y size
+				self.batchEditIntAttr(log, 'tilesBIY', 'Y Blender Internal tiles size',\
+									pref, select, 25, 1)
+				
+			elif choice == 3: # Cycles CPU Tiles X size
+				self.batchEditIntAttr(log, 'tilesCyclesCPUX', 'X Cycles CPU tiles size',\
+									pref, select, 27, 1)
+				
+			elif choice == 4: # Cycles CPU Tiles Y size
+				self.batchEditIntAttr(log, 'tilesCyclesCPUY', 'Y Cycles CPU tiles size',\
+									pref, select, 27, 1)
+				
+			elif choice == 5: # Cycles GPU Tiles X size
+				self.batchEditIntAttr(log, 'tilesCyclesGPUX', 'X Cycles GPU tiles size',\
+									pref, select, 26, 1)
+				
+			elif choice == 6: # Cycles GPU Tiles Y size
+				self.batchEditIntAttr(log, 'tilesCyclesGPUY', 'Y Cycles GPU tiles size',\
+									pref, select, 26, 1)
+				
+			elif choice == 7: # Rendering engine
+				log.write('\033[31mNot yet implemented…\033[0m\n')
+				
+			elif choice == 8: # Rendering device (for Cycles engine)
+				log.write('\033[31mNot yet implemented…\033[0m\n')
+				
+			elif choice == 9: # Blender version
+				log.write('\033[31mNot yet implemented…\033[0m\n')
+			else:
+				log.write('\033[31mUnknow action index!\033[0m\n')
 	
 	
 	
