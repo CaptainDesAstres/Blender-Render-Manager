@@ -1323,7 +1323,8 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	def batchEditKeyword(self, log, pref, select, ground, mode):
 		'''a method to batch edit keyword list'''
-		menu = ['Error',
+		menu = [
+				'Error',
 				'Add Keyword',
 				'Remove Keyword',
 				'Empty Lists',
@@ -1344,8 +1345,23 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		# print list
 		self.printListKeywords(select, pref, attr, ground)
 		
-		input()
-		log.menuOut()
+		msg = [
+				'Error',
+				'Keyword to add (empty input to cancel)?',
+				'Keyword to remove (empty input to cancel)?',
+				'Do you really want to erase the '+ground+' keyword of all this tasks (y)?',
+				'List the keyword to replace current lists of all tasks (empty input to cancel)?',
+				'Do you really want to overwrite all selected tasks '+ground+' keyword lists with the preferences one (y)?',
+				'Do you really want to overwrite all selected tasks '+ground+' keyword lists with the Inventory one (y)?',
+				'overwrite all selected tasks '+ground+' keyword with wich one tasks keyword list (empty input to cancel)?'
+				]
+		
+		choice = input(msg[mode]).strip().lower()
+		
+		if choice = ''
+			log.menuOut()
+			return
+		
 		
 	
 	
