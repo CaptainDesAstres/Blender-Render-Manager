@@ -1052,8 +1052,8 @@ example : '2.5.10' unselect task 2, 5 and 10.
 6- Main animation samples 
 7- Background samples
 8- Foreground samples
-#- BackgroundLayersKeywords
-#- ForegroundLayersKeywords
+9- Background renderlayers keywords
+10- Foreground renderlayers keywords
 0- quit\n\n''')
 			choice = input('action?').strip().lower()
 			
@@ -1086,6 +1086,10 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			elif choice == 8:
 				self.batchEditIntAttr(log, 'foregroundCyclesSamples',\
 						'foreground renderlayer Samples', pref, select, 10, 0)
+			elif choice == 9:
+				self.batchEditKeywordMenu(log, pref, select, 'background')
+			elif choice == 10:
+				self.batchEditKeywordMenu(log, pref, select, 'foreground')
 			else:
 				log.write('\033[31mUnknow action index!\033[0m\n')
 	
@@ -1226,7 +1230,82 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	
 	
-	
+	def batchEditKeywordMenu(self, log, pref, select, ground):
+		'''a method to display a menu to choose a way to batch edit keywords list'''
+		log.menuIn('Edit '+ground+' keywords list')
+		
+		attr = {'background' : 'backgroundLayersKeywords',\
+				 'foreground' : 'foregroundLayersKeywords'}[ground]
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			# print list
+			print('Selection :\n')
+			print('\033[4m'\
+				+'id  |Task File Name                |Scene Name          |Status  |'\
+				+ground+' keywords                                         |'
+				+'\033[0m')
+			allKeys = []
+			for i in select:
+				row = columnLimit(i, 4)
+				row += columnLimit(self.tasks[i].path.split('/').pop(), 30)
+				row += columnLimit(self.tasks[i].scene, 20)
+				row += columnLimit(self.tasks[i].status, 8)
+				
+				keys = getattr(self.tasks[i].customSetting, attr)
+				for k in keys:
+					if k not in allKeys:
+						allKeys.append(k)
+				
+				val = '|'.join(keys)
+				row += columnLimit(val, 60)
+				print(row)
+			
+			# print pref settings
+			val = '|'.join( getattr(pref, attr) )
+			print('\nPreference '+ground+' keywords list : '+val+'\n\n' )
+			
+			#print all keywords inventory
+			print('\nAll '+ground+' keywords inventoried : \n'\
+					+('|'.join(allKeys))+'\n\n' )
+			
+			# print menu
+			print('''Action :
+#- Add Keywords
+#- Remove Keyword
+#- Empty keyword lists
+#- overwrite keyword lists manually
+#- overwrite keyword lists with preferences keyword list
+#- overwrite keyword lists with a selected task keyword list
+0- quit
+''')
+			
+			
+			# get input
+			choice = input('action? ').strip().lower()
+			
+			# check if quit
+			if choice in ['q', 'quit', 'cancel', '0']:
+				log.menuOut()
+				log.write('\033[31mcancel batch editing of '+ground+' keywords list.\033[0m\n')
+				return
+			
+			# convert input
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.write('\033[31mError : choice must be an integer.\033[0m\n')
+				continue
+			
+			# test menu choice
+			if choice in [1,2,3,4,5,6]:
+				log.write('\033[31mAction not yet implemented\033[0m\n')
+				continue
+			else:
+				log.write('\033[31mError : unknow action.\033[0m\n')
+				continue
 	
 	
 	
