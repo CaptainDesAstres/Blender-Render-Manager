@@ -522,11 +522,11 @@ b =>	Move selected task to the bottom of the list
 2- Edit Queue Composition
 3- Apply A Settings
 4- Edit Quality
-#- Edit Animation Settings
-#- Edit Performance Settings
-#- Edit Output Settings
-#- Edit Options Settings
-#- Edit Cycles Lightpath Settings'
+5- Edit Animation Settings
+6- Edit Performance Settings
+7- Edit Output Settings
+8- Edit Options Settings
+9- Edit Cycles Lightpath Settings'
 0- Save and quit
 (# means not yet implement action)''')
 			else:
@@ -576,6 +576,16 @@ b =>	Move selected task to the bottom of the list
 					self.applySettingsMenu(log, cols, colSize, header, select, pref)
 				elif choice == 4:
 					self.qualityMenu(log, cols, colSize, header, select, pref)
+				elif choice == 5:
+					self.animationMenu(log, cols, colSize, header, select, pref)
+				elif choice == 6:
+					self.performanceMenu(log, cols, colSize, header, select, pref)
+				elif choice == 7:
+					self.outputMenu(log, cols, colSize, header, select, pref)
+				elif choice == 8:
+					self.optionMenu(log, cols, colSize, header, select, pref)
+				elif choice == 9:
+					self.lightpathMenu(log, cols, colSize, header, select, pref)
 				else:
 					log.write('\033[31mUnknow action!\033[0m\n')
 			
@@ -1092,6 +1102,42 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				self.batchEditKeywordMenu(log, pref, select, 'foreground')
 			else:
 				log.write('\033[31mUnknow action index!\033[0m\n')
+	
+	
+	
+	
+	
+	
+	def animationMenu(self, log, cols, colSize, header, select, pref):
+		'''display the menu to choose a animation settings to change'''
+	
+	
+	
+	
+	
+	def performanceMenu(self, log, cols, colSize, header, select, pref):
+		'''display the menu to choose a performance settings to change'''
+	
+	
+	
+	
+	
+	def outputMenu(self, log, cols, colSize, header, select, pref):
+		'''display the menu to choose a output settings to change'''
+	
+	
+	
+	
+	
+	def optionMenu(self, log, cols, colSize, header, select, pref):
+		'''display the menu to choose a option settings to change'''
+	
+	
+	
+	
+	
+	def lightpathMenu(self, log, cols, colSize, header, select, pref):
+		'''display the menu to choose a Cycles lightpath settings to change'''
 	
 	
 	
