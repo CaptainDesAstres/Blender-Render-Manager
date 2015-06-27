@@ -1242,17 +1242,17 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			log.print()
 			
 			# print list
-			allKeys = self.printListKeywords(select, pref, attr, ground)
+			self.printListKeywords(select, pref, attr, ground)
 			
 			# print menu
 			print('''Action :
-#- Add Keywords
-#- Remove Keyword
-#- Empty keyword lists
-#- overwrite keyword lists manually
-#- overwrite keyword lists with preferences keyword list
-#- overwrite keyword lists with inventory keyword list
-#- overwrite keyword lists with a selected task keyword list
+1- Add Keywords
+2- Remove Keyword
+3- Empty keyword lists
+4- overwrite keyword lists manually
+5- overwrite keyword lists with preferences keyword list
+6- overwrite keyword lists with inventory keyword list
+7- overwrite keyword lists with a selected task keyword list
 0- quit
 ''')
 			
@@ -1275,8 +1275,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			
 			# test menu choice
 			if choice in [1,2,3,4,5,6,7]:
-				log.write('\033[31mAction not yet implemented\033[0m\n')
-				continue
+				self.batchEditKeyword(log, pref, select, ground, choice)
 			else:
 				log.write('\033[31mError : unknow action.\033[0m\n')
 				continue
@@ -1319,6 +1318,35 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		return allKeys
 	
 	
+	
+	
+	
+	def batchEditKeyword(self, log, pref, select, ground, mode):
+		'''a method to batch edit keyword list'''
+		menu = ['Error',
+				'Add Keyword',
+				'Remove Keyword',
+				'Empty Lists',
+				'Manually Overwrite Lists',
+				'Overwrite With Preferences',
+				'Overwrite With Inventory',
+				'Overwrite With Task'
+				]
+		log.menuIn(menu[mode])
+		
+		attr = {'background' : 'backgroundLayersKeywords',\
+				 'foreground' : 'foregroundLayersKeywords'}[ground]
+		
+		
+		os.system('clear')
+		log.print()
+		
+		# print list
+		self.printListKeywords(select, pref, attr, ground)
+		
+		input()
+		log.menuOut()
+		
 	
 	
 	
