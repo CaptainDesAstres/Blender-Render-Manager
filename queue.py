@@ -1339,12 +1339,12 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				 'foreground' : 'foregroundLayersKeywords'}[ground]
 		
 		
+		# print list
 		os.system('clear')
 		log.print()
+		inventory = self.printListKeywords(select, pref, attr, ground)
 		
-		# print list
-		self.printListKeywords(select, pref, attr, ground)
-		
+		# ask confirmation or settings
 		msg = [
 				'Error',
 				'Keyword to add (empty input to cancel)?',
@@ -1355,14 +1355,108 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				'Do you really want to overwrite all selected tasks '+ground+' keyword lists with the Inventory one (y)?',
 				'overwrite all selected tasks '+ground+' keyword with wich one tasks keyword list (empty input to cancel)?'
 				]
-		
 		choice = input(msg[mode]).strip().lower()
 		
-		if choice = ''
+		# quit menu whithout action
+		if choice == '':
+			log.write('\033[31mQuit '+ground+' keywords batch editing.\033[0m\n')
 			log.menuOut()
 			return
 		
 		
+		#check keyword list
+		if mode in [1,2,4]:
+			choice = choice.split('|')
+			
+			for i,k in enumerate(choice):
+				choice[i] = choice[i].strip() # remove useless space
+			
+			while '' in choice:
+				choice.remove('') # remove empty string
+			
+			# check keyword composition
+			for k in choice:
+				match = re.search(r'^[-0-9a-zA-Z_]{3,}( *\| *[-0-9a-zA-Z_]{3,})*$', k)
+				if match is None:
+					log.write('''\033[31munvalid keyword : the keyword must only contains letters, numbers or '-' or '_', they can be split by '|' and space\033[0m\n''')
+					log.menuOut()
+					return
+			
+			# check there is keyword
+			if len(choice) == 0:
+				log.write('''\033[31mNo valid keyword! Quit!\033[0m\n''')
+				log.menuOut()
+				return
+		
+		
+		
+		if mode == 1:
+			# add keywords to all selected keywords list that don't contains it
+			for i in select:
+				selectKeys = getattr(self.tasks[i].customSetting, attr)
+				for k in choice:
+					if k not in selectKeys:
+						selectKeys.append(k)
+			
+			log.write('keywords ['+('|'.join(choice))+'] have been added to '+ground+' keywords list of task n°'+('.'.join(str(x) for x in select))+'\n')
+			
+			
+		elif mode == 2:
+			# remove keywords from all selected keywords list that contains it
+			for i in select:
+				selectKeys = getattr(self.tasks[i].customSetting, attr)
+				for k in choice:
+					if k in selectKeys:
+						selectKeys.remove(k)
+			
+			log.write('keywords ['+('|'.join(choice))+'] have been removed from '+ground+' keywords list of task n°'+('.'.join(str(x) for x in select))+'\n')
+			
+			
+		elif mode == 3 and choice in ['y', 'yes']:
+			# empty all selected keywords list
+			for i in select:
+				setattr(self.tasks[i].customSetting, attr, [])
+			log.write('Erase '+ground+' keyword list of task n°'+('.'.join(str(x) for x in select))+'\n')
+			
+			
+		elif (mode in [5,6] and choice in ['y', 'yes'])\
+			or mode in [4, 7] :
+			
+			if mode == 4:
+				# overwrite all list with manually typed list
+				ref = choice
+				
+			elif mode == 5:
+				# overwrite all list with preference list
+				ref = getattr(pref, attr)
+				
+			elif mode == 6:
+				# overwrite all list with inventory list
+				ref = inventory
+				
+			elif mode == 7:
+				# overwrite all list with a selected task list
+				try:
+					ref = getattr(self.tasks[int(choice)].customSetting, attr)
+				except ValueError:
+					log.write('\033[31mError : '+choice+'don\'tcorrespond to aselected task.\033[0m\n')
+					log.menuOut()
+					return
+			
+			# apply list
+			for i in select:
+				setattr(self.tasks[i].customSetting, attr, ref[:])
+			
+			# log confirm action
+			log.write('Overwrite '+ground+' keyword list of task n°'\
+					+('.'.join(str(x) for x in select))+' with : '\
+					+'|'.join(ref)+'\n')
+					
+		else:
+			log.write('\033[31mError : abort '+ground+' keywords batch editing.\033[0m\n')
+		
+		log.menuOut()
+		return
 	
 	
 	
