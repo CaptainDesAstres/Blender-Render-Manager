@@ -1242,34 +1242,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			log.print()
 			
 			# print list
-			print('Selection :\n')
-			print('\033[4m'\
-				+'id  |Task File Name                |Scene Name          |Status  |'\
-				+ground+' keywords                                         |'
-				+'\033[0m')
-			allKeys = []
-			for i in select:
-				row = columnLimit(i, 4)
-				row += columnLimit(self.tasks[i].path.split('/').pop(), 30)
-				row += columnLimit(self.tasks[i].scene, 20)
-				row += columnLimit(self.tasks[i].status, 8)
-				
-				keys = getattr(self.tasks[i].customSetting, attr)
-				for k in keys:
-					if k not in allKeys:
-						allKeys.append(k)
-				
-				val = '|'.join(keys)
-				row += columnLimit(val, 60)
-				print(row)
-			
-			# print pref settings
-			val = '|'.join( getattr(pref, attr) )
-			print('\nPreference '+ground+' keywords list : '+val+'\n\n' )
-			
-			#print all keywords inventory
-			print('\nAll '+ground+' keywords inventoried : \n'\
-					+('|'.join(allKeys))+'\n\n' )
+			allKeys = self.printListKeywords(select, pref, attr, ground)
 			
 			# print menu
 			print('''Action :
@@ -1278,6 +1251,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 #- Empty keyword lists
 #- overwrite keyword lists manually
 #- overwrite keyword lists with preferences keyword list
+#- overwrite keyword lists with inventory keyword list
 #- overwrite keyword lists with a selected task keyword list
 0- quit
 ''')
@@ -1300,12 +1274,53 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				continue
 			
 			# test menu choice
-			if choice in [1,2,3,4,5,6]:
+			if choice in [1,2,3,4,5,6,7]:
 				log.write('\033[31mAction not yet implemented\033[0m\n')
 				continue
 			else:
 				log.write('\033[31mError : unknow action.\033[0m\n')
 				continue
+	
+	
+	
+	
+	
+	def printListKeywords(self, select, pref, attr, ground):
+		'''a method to print all selected tasks background/foreground keywords and return inventory of it'''
+		allKeys = []
+		print('Selection :\n')
+		print('\033[4m'\
+			+'id  |Task File Name                |Scene Name          |Status  |'\
+			+ground+' keywords                                         |'
+			+'\033[0m')
+		for i in select:
+			row = columnLimit(i, 4)
+			row += columnLimit(self.tasks[i].path.split('/').pop(), 30)
+			row += columnLimit(self.tasks[i].scene, 20)
+			row += columnLimit(self.tasks[i].status, 8)
+			
+			keys = getattr(self.tasks[i].customSetting, attr)
+			for k in keys:
+				if k not in allKeys:
+					allKeys.append(k)
+			
+			val = '|'.join(keys)
+			row += columnLimit(val, 60)
+			print(row)
+		
+		# print pref settings
+		val = '|'.join( getattr(pref, attr) )
+		print('\nPreference '+ground+' keywords list :\n'+val+'\n\n' )
+		
+		#print all keywords inventory
+		print('\nAll '+ground+' keywords inventoried : \n'\
+				+('|'.join(allKeys))+'\n\n' )
+		
+		return allKeys
+	
+	
+	
+	
 	
 	
 	
