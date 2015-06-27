@@ -1253,6 +1253,10 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				for i in select:
 					self.tasks[i].customSetting.end = max(choice, \
 								self.tasks[i].customSetting.start)
+			elif attr in ['backgroundAnimation', 'foregroundAnimation']:
+				for i in select:
+					val = min( choice, self.tasks[i].customSetting.duration() )
+					setattr( self.tasks[i].customSetting, attr, val)
 			else:
 				for i in select:
 					setattr( self.tasks[i].customSetting, attr, choice)
