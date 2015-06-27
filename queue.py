@@ -1184,7 +1184,62 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	def lightpathMenu(self, log, cols, colSize, header, select, pref):
 		'''display the menu to choose a Cycles lightpath settings to change'''
-	
+		log.menuIn('Edit Cycles Lightpath Settings')
+		
+		while True:
+			os.system('clear')
+			log.print()
+		
+			print('Selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			print('''        Cycles lightpath settings edition :
+1- Max bounces
+2- Min bounces
+3- Max transparency bounces
+4- Min transparency bounces
+5- Diffuse bounces
+6- Glossy bounces
+7- Transmission bounces
+8- Volume bounces
+0- quit\n\n''')
+			choice = input('action?').strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel', '0']:
+				log.menuOut()
+				return
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				choice = -9999
+			
+			if choice == 1: # Max bounces
+				self.batchEditIntAttr(log, 'bouncesMax',\
+						'maximal bounces', pref, select, 18, 0)
+			elif choice == 2: # Min bounces
+				self.batchEditIntAttr(log, 'bouncesMin',\
+						'minimal bounces', pref, select, 18, 0)
+			elif choice == 3: # Max transparency bounces
+				self.batchEditIntAttr(log, 'transparencyBouncesMax',\
+						'maximal transparency bounces', pref, select, 19, 0)
+			elif choice == 4: # Min transparency bounces
+				self.batchEditIntAttr(log, 'transparencyBouncesMin',\
+						'minimal transparency bounces', pref, select, 19, 0)
+			elif choice == 5: # Diffuse bounces
+				self.batchEditIntAttr(log, 'diffuseBounces',\
+						'diffuse bounces', pref, select, 21, 0)
+			elif choice == 6: # Glossy bounces
+				self.batchEditIntAttr(log, 'glossyBounces',\
+						'glossy bounces', pref, select, 22, 0)
+			elif choice == 7: # Transmission bounces
+				self.batchEditIntAttr(log, 'transmissionBounces',\
+						'transmission bounces', pref, select, 23, 0)
+			elif choice == 8: # Volume bounces
+				self.batchEditIntAttr(log, 'volumeBounces',\
+						'volume bounces', pref, select, 24, 0)
+			else:
+				log.write('\033[31mUnknow action index!\033[0m\n')
 	
 	
 	
