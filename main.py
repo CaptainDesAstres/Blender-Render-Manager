@@ -10,6 +10,7 @@ from setting import *
 from queue import *
 from save import *
 from renderingTask import *
+from settingMod.Preferences import *
 
 #get path to the script directories
 mainPath = os.path.abspath(sys.argv[0]+'/..')
@@ -60,6 +61,19 @@ else:
 	log.write('get saved preferences:')
 	with open(os.getcwd()+'/settings','r') as setFile:
 		scriptSetting = setting( xmlMod.fromstring( (setFile.read( ) ) ) )
+	log.write('done\n')
+
+
+# check configuration file exist: create it if necessary and open it
+if not os.path.exists(os.getcwd()+'/Preferences'):
+	log.write('no preferences file, create default file:')
+	preferences = Preferences()
+	savePreferences(preferences)
+	log.write('done\n')
+else:
+	log.write('get saved preferences:')
+	with open(os.getcwd()+'/Preferences','r') as prefFile:
+		preferences = Preferences( xmlMod.fromstring( (prefFile.read( ) ) ) )
 	log.write('done\n')
 
 

@@ -34,7 +34,7 @@ class Preferences:
 	
 	def toXml(self):
 		'''export preferences settings into xml syntaxed string'''
-		
+		return ''
 	
 	
 	
