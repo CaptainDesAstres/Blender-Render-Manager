@@ -22,8 +22,7 @@ class VersionList:
 	def defaultInit(self):
 		'''initialize Blender version list with default value'''
 		
-		self.alias = ['Standard Blender']
-		self.path = ['blender']
+		self.list = {'Standard Blender':'blender'}
 	
 	
 	
@@ -39,7 +38,13 @@ class VersionList:
 	
 	def toXml(self):
 		'''export Blender version list into xml syntaxed string'''
-		return ''
+		
+		xml = '  <versionsList>\n'
+		for k, v in self.list.items():
+			xml += '    <version alias="'+k+'" path="'+v+'" />'
+		xml = '  </versionsList>\n'
+		
+		return xml
 	
 	
 	

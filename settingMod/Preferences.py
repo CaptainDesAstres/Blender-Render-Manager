@@ -31,6 +31,7 @@ class Preferences:
 	def fromXml(self, xml):
 		'''initialize preferences object with values extracted from an xml object'''
 		
+		
 	
 	
 	
