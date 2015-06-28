@@ -63,10 +63,12 @@ class VersionList:
 			os.system('clear')
 			log.print()
 			
-			#self.print()
+			self.print()
 			
-			print('''\n    Blender version list\n
-0- Quit''')
+			print('''\n    \033[4mMenu :\033[0m
+0- Quit
+
+''')
 			
 			
 		
@@ -78,6 +80,15 @@ class VersionList:
 			else:
 				log.write('\033[31munknow request\033[0m\n')
 	
+	
+	
+	
+	
+	def print(self):
+		'''a method to display the Blender version list'''
+		print('\n            \033[4mBlender Version List :\033[0m\n')
+		for k, v in self.list.items():
+			print(k+' :\n    '+v+'\n')
 	
 	
 	

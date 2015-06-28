@@ -65,9 +65,11 @@ class Preferences:
 			#print log and preferences
 			os.system('clear')
 			log.print()
-			print('''    Preferences\n
+			print('''\n    \033[4mPreferences Menu :\033[0m
 1- Blender versions
-0- Save and quit''')
+0- Save and quit
+
+''')
 			
 			
 		
