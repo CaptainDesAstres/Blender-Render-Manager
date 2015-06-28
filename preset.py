@@ -15,26 +15,14 @@ class setting:
 		self.X = 1920
 		self.Y = 1080
 		self.percent = 1
-		self.start = None
-		self.end = None
 		self.fps = 30
 		
-		# tiles size attributes
-		self.tilesCyclesCPUX = 32
-		self.tilesCyclesCPUY = 32
-		self.tilesCyclesGPUX = 256
-		self.tilesCyclesGPUY = 256
-		self.tilesBIX = 256
-		self.tilesBIY = 256
-		
 		# rendering engine and output attributes
-		self.blenderPath = 'blender'
+		self.blender = 'blender'
 		self.renderingDevice = 'GPU'
 		self.renderingEngine = 'CYCLES'
 		self.outputFormat = 'OPEN_EXR_MULTILAYER'
-		self.outputPath = None
-		self.outputSubPath = '%N-%S'
-		self.outputName = '%L-%F'
+		
 		
 		# rendering options attributes
 		self.zPass = True
@@ -45,14 +33,8 @@ class setting:
 		self.simplify = None
 		
 		# renderlayer parameters attributes
-		self.renderLayerList = []
-		self.backgroundLayersKeywords = ['bck', 'background']
-		self.foregroundLayersKeywords = ['fgd', 'foreground']
-		self.backgroundCyclesSamples = 1500
-		self.foregroundCyclesSamples = 1500
-		self.mainAnimationCyclesSamples = 1500
-		self.backgroundAnimation = 0
-		self.foregroundAnimation = 0
+		self.cyclesSamples = 1500
+		self.animation = 0
 		
 		# Light Path attributes
 		self.transparencyBouncesMin = 4
@@ -83,26 +65,14 @@ class setting:
 		
 		# get animation parameters
 		node = xml.find('animation')
-		self.start = node.get('start', self.start)
-		if self.start is not None:
-			self.start = int(self.start)
-		self.end = node.get('end', self.end)
-		if self.end is not None:
-			self.end = int(self.end)
 		self.fps = int(node.get('fps'))
-		self.startEndCheck()
+		self.animation = int(node.get('duration'))
 		
 		# get engine value
 		node = xml.find('engine')
 		self.renderingEngine = node.get('value')
 		
 		# get cycles parameters
-		node = xml.find('cycles').find('cpu')
-		self.tilesCyclesCPUX = int(node.get('x'))
-		self.tilesCyclesCPUY = int(node.get('y'))
-		node = xml.find('cycles').find('gpu')
-		self.tilesCyclesGPUX = int(node.get('x'))
-		self.tilesCyclesGPUY = int(node.get('y'))
 		self.renderingDevice = xml.find('cycles').find('device').get('value')
 		node = xml.find('cycles').find('film')
 		self.filmExposure = float(node.get('exposure'))
@@ -119,11 +89,6 @@ class setting:
 		self.transmissionBounces = int(node.find('transmission').get('bounces'))
 		self.volumeBounces = int(node.find('volume').get('bounces'))
 		
-		# get Blender Internal parameters
-		node = xml.find('blenderInternal')
-		self.tilesBIX = int(node.get('x'))
-		self.tilesBIY = int(node.get('y'))
-		
 		# get others parameters
 		self.compositingEnable = xml.find('compositing').get('enable') in ['true', 'True']
 		node = xml.find('simplify')
@@ -132,38 +97,9 @@ class setting:
 		else:
 			self.simplify = int(node.get('subdiv'))
 		
-		# get renderlayers list and parameters if there is some
-		node = xml.find('renderLayerList')
-		self.renderLayerList = []
-		if node is not None:
-			for layer in node.findall('layer'):
-				self.renderLayerList.append({
-						'name' : layer.get('name'),
-						'z' : layer.get('z') in ['true', 'True'],
-						'object index' : layer.get('objIndex') in ['true', 'True'],
-						'use' : layer.get('render') in ['true', 'True']
-						})
-		
-		# get background parameters
-		node = xml.find('renderLayerPreferences').find('background')
-		self.backgroundCyclesSamples = int(node.get('sample'))
-		self.backgroundAnimation = int(node.get('frame'))
-		self.backgroundLayersKeywords = []
-		for key in node.findall('keywords'):
-			self.backgroundLayersKeywords.append(key.get('value'))
-		
-		
-		# get foreground parameters
-		node = xml.find('renderLayerPreferences').find('foreground')
-		self.foregroundCyclesSamples = int(node.get('sample'))
-		self.foregroundAnimation = int(node.get('frame'))
-		self.foregroundLayersKeywords = []
-		for key in node.findall('keywords'):
-			self.foregroundLayersKeywords.append(key.get('value'))
 		
 		# get main animation parameters
 		node = xml.find('renderLayerPreferences').find('main')
-		self.mainAnimationCyclesSamples = int(node.get('sample'))
 		self.zPass = node.get('zPass') in ['true', 'True']
 		self.objectIndexPass = node.get('objectIndexPass') in ['true', 'True']
 		
@@ -171,26 +107,11 @@ class setting:
 		# output parameters
 		node = xml.find('output')
 		self.outputFormat = node.get('format')
-		self.outputPath = node.get('mainpath', self.outputPath)
-		self.outputSubPath = node.get('subpath')
-		self.outputName = node.get('name')
 		
 		# blender absolute path
 		self.blenderPath = xml.find('blender').get('path')
 		
 	
-	
-	
-	
-	
-	
-	def startEndCheck(self):
-		'''make sure that that start frame and end frame are all set or all None'''
-		if self.start is None and self.end is not None:
-			self.start = self.end
-		elif self.start is not None and self.end is None:
-			self.end = self.start
-		
 	
 	
 	
@@ -210,20 +131,18 @@ class setting:
 		txt += '  <resolution x="'+str(self.X)+'" y="'+str(self.Y)+'" percent="'+str(int(self.percent*100))+'" />\n'
 		
 		# export animation parameters depending of settings type
-		if self.start is None or self.end is None:
-			txt+= '  <animation fps="'+str(self.fps)+'" />\n'
-		else:
-			txt+= '  <animation start="'+str(self.start)+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" />\n'
+		txt+= '  <animation fps="'+str(self.fps)+'" duration="'+str(self.animation)+'" />\n'
+		
 		
 		# export engine parameter
 		txt += '  <engine value="'+self.renderingEngine+'"/>\n'
 		
 		# export Cycles specific  parameters
-		txt += '  <cycles>\n'
-		txt += '    <cpu x="'+str(self.tilesCyclesCPUX)+'" y="'+str(self.tilesCyclesCPUY)+'"/>\n'
-		txt += '    <gpu x="'+str(self.tilesCyclesGPUX)+'" y="'+str(self.tilesCyclesGPUY)+'"/>\n'
+		txt += '  <cycles samples="'+str(self.cyclesSamples)+'">\n'
 		txt += '    <device value="'+self.renderingDevice+'"/>\n'
 		txt += '    <film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
+		
+		
 		
 		# export light path Cycles specific  parameters
 		txt += '    <bouncesSet>\n'
@@ -248,41 +167,14 @@ class setting:
 			txt += '  <simplify subdiv="'+str(self.simplify)+'" />\n'
 		
 		
-		# export renderlayer list and parameters
-		if len(self.renderLayerList)>0:
-			txt += '  <renderLayerList>\n'
-			for layer in self.renderLayerList:
-				txt += '    <layer name="'+layer['name']+'" z="'+str(layer['z'])+'" objIndex="'+str(layer['object index'])+'" render="'+str(layer['use'])+'"/>\n'
-			txt += '  </renderLayerList>\n'
-		
-		
-		txt += '  <renderLayerPreferences>\n'
-		
-		# export background render layers specific parameters
-		txt += '    <background sample="'+str(self.backgroundCyclesSamples)+'" frame="'+str(self.backgroundAnimation)+'" >\n'
-		for key in self.backgroundLayersKeywords:
-			txt += '      <keywords value="'+key+'" />\n'
-		txt += '    </background>\n'
-		
-		# export foreground render layers specific parameters
-		txt += '    <foreground sample="'+str(self.foregroundCyclesSamples)+'" frame="'+str(self.foregroundAnimation)+'" >\n'
-		for key in self.foregroundLayersKeywords:
-			txt += '      <keywords value="'+key+'" />\n'
-		txt += '    </foreground>\n'
-		
 		# export animation render layers specific parameters
-		txt += '    <main sample="'+str(self.mainAnimationCyclesSamples)+'" zPass="'+str(self.zPass)+'" objectIndexPass="'+str(self.objectIndexPass)+'" />\n'
-		
-		txt += '  </renderLayerPreferences>\n'
+		txt += '    <pass z="'+str(self.zPass)+'" objectIndex="'+str(self.objectIndexPass)+'" />\n'
 		
 		
 		# export rendering output parameters
 		txt += '  <output format="'+self.outputFormat+'" '
-		if self.outputPath is not None:
-			txt += 'mainpath="'+self.outputPath+'" '
-		txt += 'subpath="'+self.outputSubPath+'" name="'+self.outputName+'" />\n'
 		
-		txt += '  <blender path="'+self.blenderPath+'" />\n'
+		txt += '  <blender version="'+self.blender+'" />\n'
 		
 		if root:
 			txt += '</settings>'
@@ -296,37 +188,22 @@ class setting:
 		'''print settings like preferences settings'''
 		enable = {True:'enabled', False:'Disabled'}
 		
-		print('Blender path :       '+self.blenderPath+'\n')
+		print('Blender version :       '+self.blender+'\n')
 		
 		# print resolution parameters
 		print('Résolution :          '+str(self.X)+'x'+str(self.Y)+' (@'+str(int(self.percent*100))+'%)')
 		
 		# print Cycles sampling parameters
-		print('Cycles samples :')
-		print('  main / background / foreground : \n                      '\
-				+str(self.mainAnimationCyclesSamples)+' / '\
-				+str(self.backgroundCyclesSamples)+' / '\
-				+str(self.foregroundCyclesSamples))
+		print('Cycles samples : '+str(self.cyclesSamples))
 		
 		# print animation and engine parameters
-		print('Animation :           '+str(self.fps)+'fps')
+		print('Animation rate :           '+str(self.fps)+'fps')
+		print('Animation duration :           '+str(self.animation)+' frames')
 		print('Engine :              '+self.renderingEngine.lower()\
 							+'('+self.renderingDevice+')\n')
 		
 		# print output parameters
-		print('Output : ')
-		print('  output path (absolute) :                    '+str(self.outputPath))
-		print('  automatique subpath (for each task) :       '+self.outputSubPath)
-		print('  name :                                      '+self.outputName)
-		print('  format :                                    '+self.outputFormat+'\n')
-		
-		
-		# print Tiles parameters
-		print('Tiles : ')
-		print('  cycles GPU :             '+str(self.tilesCyclesGPUX)+'x'\
-												+str(self.tilesCyclesGPUY))
-		print('  cycles CPU :             '+str(self.tilesCyclesCPUX)+'x'+str(self.tilesCyclesCPUY))
-		print('  blender internal :       '+str(self.tilesBIX)+'x'+str(self.tilesBIY))
+		print('Output format :                '+self.outputFormat+'\n')
 		
 		
 		# print Ligth path parameters
@@ -352,9 +229,6 @@ class setting:
 		else:
 			print('  simplify :                     '+str(self.simplify)+'\n')
 		
-		print('Keywords :')
-		print('  background : '+' | '.join(self.backgroundLayersKeywords))
-		print('  foreground : '+' | '.join(self.foregroundLayersKeywords)+'\n')
 		
 	
 	
@@ -371,36 +245,18 @@ class setting:
 	
 	
 	
-	def compare(self, ref, exclude = ['blenderPath', 'outputPath', 'outputSubPath', 'outputName', 'backgroundLayersKeywords', 'foregroundLayersKeywords']):
-		same = True
-		excludeType = ["<class 'builtin_function_or_method'>",\
-						"<class 'function'>",\
-						"<class 'method-wrapper'>",\
-						"<class 'method'>"]
-		
-		for attr in dir(self):
-			if attr not in exclude\
-			and str(type(getattr(self, attr))) not in excludeType:
-				if getattr(self, attr) != getattr(ref, attr):
-					same = False
-		return same
-		
-	
-	
-	
-	
-	
 	def see(self, log):
 		'''print settings and let edit or reset it'''
 		change = False
 		log.menuIn('Preferences')
+		
 		while True:
 			#print log and preferences
 			os.system('clear')
 			log.print()
 			print('    Settings\n')
 			self.print()
-		
+			
 			#treat available actions
 			choice= input('(e)dit, (r)eset or (q)uit (and save): ').strip()
 			if choice in ['Q','q']:
@@ -949,135 +805,6 @@ class setting:
 	
 	
 	
-	def editOutputPath(self, log):
-		'''method to change output path'''
-		# edit output path
-		log.write('edit main output path:')
-		log.menuIn('Main Output Path')
-		os.system('clear')
-		log.print()
-		print('current output path : '+str(self.outputPath)) 
-		new = input('\nnew path (must already exist and be absolute path):').strip()
-		
-		# empty path
-		if new in ['', "''", '""']:
-			self.outputPath = None
-			log.write('set to None\n')
-			log.menuOut()
-			return True
-		
-		if new[0] in ['\'', '"'] and new[0]==new[-1]:
-			new  = new[1:len(new)-1]
-		
-		match = re.search(r'^/(.+/)$',new)
-		
-		if match is None:
-			# check if path is a good syntaxe
-			log.write('\033[31munvalid path : "'+new+'"\nThe path must be absolute (begin and end by "/")\033[0m\n')
-			log.menuOut()
-			return False
-		
-		# check if it's a good path and save it
-		if os.path.exists(new) and os.path.isdir(new)\
-				and os.access(new, os.W_OK):
-			self.outputPath = new
-			log.write(new+'\n')
-			log.menuOut()
-			return True
-		
-		log.write("\033[31munvalid path : '"+new+"'\nthe path didn't exist, is not a directories or you don't have the right to write in it\033[0m\n")
-		log.menuOut()
-		return False
-	
-	
-	
-	
-	
-	def editOutputSubpath(self, log):
-		'''method to change output subpath naming convention'''
-		# edit output subpath
-		# write old settings
-		log.write('edit output subpath :')
-		log.menuIn('Output Subpath')
-		os.system('clear')
-		log.print()
-		print('current output subpath : '+self.outputSubPath) 
-		new = input('\nnew subpath (%N will be replaced by the task file name and %S by the scene name):').strip()
-		
-		if new in ['', "''", '""']:
-			log.write('\033[31mcanceled\033[0m\n')
-			log.menuOut()
-			return False
-		
-		if new[0] in ['\'', '"'] and new[0]==new[-1]:
-			new  = new[1:len(new)-1]
-		
-		if new.find('/') != -1:
-			# check if there is a '/' caractère in the new name
-			log.write('\033[31munvalid : "'+new+'"\nThe subpath must not contain "/"!\033[0m\n')
-			log.menuOut()
-			return False
-		
-		if new.find('%S') == -1 or new.find('%N') == -1:
-			# check if there is a '%N' and a '%S' sequences in the new name
-			log.write('\033[31munvalid : "'+new+'"\nThe subpath must contain at less one occurence of "%N" and "%S" or different render risk to overwrite themselves!\033[0m\n')
-			log.menuOut()
-			return False
-		
-		# change output SubPath if the new one is good
-		self.outputSubPath = new
-		log.write(new+'\n')
-		log.menuOut()
-		return True
-	
-	
-	
-	
-	
-	def editOutputName(self, log):
-		'''method to change output naming convention'''
-		# edit output naming
-		log.write('edit output naming :')
-		log.menuIn('output naming')
-		os.system('clear')
-		log.print()
-		print('current output naming : '+self.outputName) 
-		
-		# get new name
-		new = input('%N will be replaced by the original blender file name (optionel)\n\
-%S will be replaced by the scene name (optionel)\n\
-%L will be replaced by the renderlayer name\n\
-%F will be replaced by the render frame number\n\
-new naming :').strip()
-		
-		if new in ['', "''", '""']:
-			log.write('\033[31mcanceled\033[0m\n')
-			log.menuOut()
-			return False
-		
-		if new[0] in ['\'', '"'] and new[0]==new[-1]:
-			new  = new[1:len(new)-1]
-		
-		if new.find('/') != -1:
-			# check if there is a '/' caractère in the new name
-			log.write('\033[31munvalid : "'+new+'"\nThe name must not contain "/"!\033[0m\n')
-			log.menuOut()
-			return False
-		
-		if new.find('%L') == -1 or new.find('%F') == -1:
-			# check if there is a '%F' and a '%L' sequences in the new name
-			log.write('\033[31munvalid : "'+new+'"\nThe name must contain at less one occurence of "%L" and "%F" or different render risk to overwrite themselves!\033[0m\n')
-			log.menuOut()
-			return False
-		
-		# change output name if the new one is good
-		self.outputName = new
-		log.write(new+'\n')
-		log.menuOut()
-		return True
-	
-	
-	
 	
 	def editOutputFormat(self, log):
 		'''method to change output format'''
@@ -1100,88 +827,6 @@ new naming :').strip()
 		log.write('\033[31munvalid format : "'+new+'"\033[0m\n')
 		log.menuOut()
 		return False
-	
-	
-	
-	
-	def editTiles(self, log):
-		'''method to change tiles size settings'''
-		#edit Tiles settings
-		log.menuIn('Tiles Size')
-		change = False
-		
-		while True:
-			os.system('clear')
-			log.write('change tiles size : ')
-			log.print()
-			# print old settings
-			name = ['Cycle GPU', 'Cycles CPU', 'Blender Internal']
-			value = [ str(self.tilesCyclesGPUX)+'x'+str(self.tilesCyclesGPUY),
-						str(self.tilesCyclesCPUX)+'x'+str(self.tilesCyclesCPUY),
-						str(self.tilesBIX)+'x'+str(self.tilesBIY)]
-			print('current sizes :\n'\
-					+'\n    1- Cycle GPU tiles : '+value[0]+'\n'\
-					+'\n    2- Cycles CPU tiles : '+value[1]+'\n'\
-					+'\n    3- Blender Internal tiles : '+value[2]+'\n\n'
-					)
-			
-			# get index of parameter to edit
-			choice = input('''what's the tile size to edit?('q' to quit)''').strip().lower()
-			
-			try:
-				if choice in ['q', 'cancel', 'quit']:
-					choice = -1
-				else:
-					choice = int(choice)
-			except ValueError:
-				choice = 9999
-			
-			if choice == -1:
-				log.write('\033[31mend\033[0m\n')
-				log.menuOut()
-				return change
-			
-			if choice < 1 or choice > 3:
-				log.write('\033[31munvalid choice : "'+str(choice)+'"\033[0m\nretry\n')
-				continue
-			
-			
-			name = name[choice-1]
-			value = value[choice-1]
-			log.write(name+' new tiles size : ')
-			
-			# print current settings
-			print('current '+name+' tiles size : '+value+'\n\n' )
-			
-			# get new size and check it
-			new = input('new '+name+' tiles size ("256x256" or "256" syntax)').strip()
-			match = re.search(r'^(\d{1,5})(x(\d{1,5}))?', new)
-			
-			if match is None:
-				log.write('\033[31munvalid value : '+new+'\033[0m\n')
-				continue
-			
-			# get new size x and y values
-			match = match.groups()
-			x = int(match[0])
-			if match[2] is None:
-				y = x
-			else:
-				y = int(match[2])
-			
-			# apply new size
-			if choice == 1:
-				self.tilesCyclesGPUX = x
-				self.tilesCyclesGPUY = y
-			elif choice == 2:
-				self.tilesCyclesCPUX = x
-				self.tilesCyclesCPUY = y
-			elif choice == 3:
-				self.tilesBIX = x
-				self.tilesBIY = y
-			
-			log.write(str(x)+'x'+str(y)+'\n')
-			change = True
 	
 	
 	
@@ -1432,273 +1077,6 @@ new naming :').strip()
 				log.write(str(choice)+'\n')
 				change = True
 	
-	
-	
-	
-	
-	def editKeyword(self, log):
-		'''method to manage renderlayer name keyword '''
-		#edit Keywords settings
-		change = False
-		log.menuIn('Renderlayers Keywords')
-		
-		while True:
-			os.system('clear')
-			log.write('edit renderlayer keywords : ')
-			log.print()
-			
-			# print option and current settings
-			print('1- remove from current background keyword(s) :\n  '\
-				+(' | '.join(self.backgroundLayersKeywords))\
-				+'\n2- remove from current foreground keyword(s) :\n  '\
-				+(' | '.join(self.foregroundLayersKeywords))\
-				+'\n3- add background keyword\n'\
-				+'4- add foreground keyword\n')
-				
-			
-			# get index of option to run
-			choice = input('''what do you want?('q' to quit)''').strip()
-			
-			try:
-				if choice in ['q', 'cancel', 'quit']:
-					choice = -1
-				else:
-					choice = int(choice)
-			except ValueError:
-				choice = -2
-			
-			# if user want to quit menu
-			if choice == -1 :
-				log.write('\033[31mend\033[0m\n')
-				log.menuOut()
-				return change
-			
-			# check if user make a valid choice
-			if choice < 1 or choice > 4:
-				log.write('\033[31munvalid choice : "'+str(choice)+'"\033[0m\n')
-				continue
-			
-			# get corresponding list 
-			if choice in [1, 3]:
-				keys = self.backgroundLayersKeywords
-				noKeys = self.foregroundLayersKeywords
-			else:
-				keys = self.foregroundLayersKeywords
-				noKeys = self.backgroundLayersKeywords
-			
-			# call corresponding method
-			if choice in [1, 2]:
-				change = (self.removeKeyWords(log, keys, noKeys, choice) or change)
-			else:
-				change = (self.addKeyWords(log, keys, noKeys, choice) or change)
-	
-	
-	
-	
-	
-	
-	def removeKeyWords(self, log, keys, noKeys, choice):
-		'''method to remove renderlayer name keyword '''
-		os.system('clear')
-		
-		if choice == 1:
-			log.write('remove background keyword : ')
-			log.menuIn('remove background keyword')
-			log.print()
-			print('current background keyword(s) :')
-		else:
-			log.write('remove foreground keyword : ')
-			log.menuIn('remove foreground keyword')
-			log.print()
-			print('current foreground keyword(s) :')
-		
-		# print current settings
-		for i, k in enumerate(keys):
-			print('  '+str(i)+'- '+k)
-		
-		choice = input('''what is the keyword to remove? (type corresponding number or 'q' to quit)''').strip().lower()
-		
-		try:
-			if choice in ['q', 'cancel', 'quit']:
-				choice = -1
-			else:
-				choice = int(choice)
-		except ValueError:
-			choice = -2
-		
-		# check user choice
-		if choice == -1:
-			log.write('\033[31mend\033[0m\n')
-			log.menuOut()
-			return False
-		
-		
-		if choice < 0 or choice >= len(keys) :
-			log.write('\033[31munvalid choice : '+str(choice)+' : must be an integer between 0 and '+str(len(keys)-1)+'\033[0m\nretry\n')
-			log.menuOut()
-			return False
-		
-		# remove corresponding keyword
-		log.write(keys.pop(choice)+'\n')
-		log.menuOut()
-		return True
-	
-	
-	
-	
-	
-	def addKeyWords(self, log, keys, noKeys, choice):
-		'''method to add renderlayer name keywords'''
-		os.system('clear')
-		
-		if choice == 3:
-			log.write('add background keyword : ')
-			log.menuIn('add background keyword')
-			log.print()
-			print('current background keyword(s) :')
-		else:
-			log.write('add foreground keyword : ')
-			log.menuIn('add foreground keyword')
-			log.print()
-			print('current foreground keyword(s) :')
-		
-		# print current settings
-		for k in keys:
-			print('  '+k)
-		
-		choice = input('''what is the keyword to add? (type new keyword(s), split by a pipe (|) or empty string to pass)''').strip()
-		
-		# check user choice
-		if choice == '':
-			log.write('\033[31mcanceled\033[0m\n')
-			log.menuOut()
-			return False
-			
-		match = re.search(r'^[-0-9a-zA-Z_]{3,}( *\| *[-0-9a-zA-Z_]{3,})*$', choice)
-		if match is None:
-			log.write('''\033[31munvalid choice : '''+choice+''' : the keyword must only contain letters, numbers or '-' or '_', they can be split by '|' and space\033[0m\nretry\n''')
-			log.menuOut()
-			return False
-		
-		for v in choice:
-			if v in noKeys:
-				log.write('''\033[31munvalid choice : '''+choice+''' : some key word are already in the other keyword list\033[0m\nretry\n''')
-				log.menuOut()
-				return False
-		
-		# split and add new keywords
-		log.write(choice+'\n')
-		choice = choice.split('|')
-		change = False
-		for v in choice:
-			if v not in keys:
-				keys.append(v.strip())
-				change = True
-		log.menuOut()
-		return change
-	
-	
-	
-	
-	
-	def editRenderlayerList(self, log):
-		'''method to choose a renderlayer to edit settings'''
-		change = False
-		log.menuIn('Renderlayers')
-		enable = { True : 'Enabled', False : 'Disabled' }
-		
-		while True:
-			os.system('clear')
-			log.write('edit renderlayer : ')
-			log.print()
-			print('		renderlayer list:\n')
-			print('id- name => z pass => object index pass => activated')
-			
-			for i, layer in enumerate(self.renderLayerList):
-				txt = str(i)+'- '+layer['name']
-				for k in ['z', 'object index', 'use']:
-					txt += ' => '+enable[layer[k]]
-				print(txt)
-			
-			choice = input("id of renderlayer to edit?(or 'q' to quit)").strip().lower()
-			
-			try:
-				if choice in ['q', 'cancel', 'quit']:
-					choice = -1
-				else:
-					choice = int(choice)
-			except ValueError:
-				choice = -2
-			
-			if choice == -1:
-				log.menuOut()
-				log.write('quit\n')
-				return change
-			
-			if choice < 0 or choice > i:
-				log.write('unvalid choice, must be a integer between 0 and '+str(i)+' or q\n')
-				continue
-			
-			change = (self.editRenderlayer(log, choice) or change)
-	
-	
-	
-	
-	
-	def editRenderlayer(self, log, index):
-		'''method to edit a renderlayer settings'''
-		change = False
-		layer = self.renderLayerList[index]
-		log.menuIn(layer['name'])
-		log.write(layer['name']+'\n')
-		enable = { True : 'Disable', False : 'enable' }
-		settings = ['z', 'object index', 'use']
-		
-		while True:
-			os.system('clear')
-			log.print()
-			
-			print('		Edit «'+layer['name']+'» renderlayer settings :')
-			print('1- '+enable[layer['z']]+' renderlayer Z pass')
-			print('2- '+enable[layer['object index']]+' renderlayer object index pass')
-			print('3- '+enable[layer['use']]+' renderlayer')
-			
-			choice = input("action?(corresponding integer or 'q' to quit)").strip().lower()
-			
-			try:
-				if choice in ['q', 'cancel', 'quit']:
-					choice = -1
-				else:
-					choice = int(choice)-1
-			except ValueError:
-				choice = -2
-			
-			if choice == -1:
-				log.menuOut()
-				log.write('quit\n')
-				return change
-			
-			if choice < 0 or choice > 2:
-				log.write('unknow action\n')
-				continue
-			
-			
-			log.write(enable[layer[settings[choice]]])
-			if choice == 2:
-				log.write(' renderlayer\n')
-			else:
-				log.write(' '+settings[choice]+' pass\n')
-			layer[settings[choice]] = not(layer[settings[choice]])
-			change = True
-			
-	
-	
-	
-	
-	
-	def duration(self):
-		'''method to return the render duration in frame(s)'''
-		return (self.end - self.start + 1)
 	
 	
 	
