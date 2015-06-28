@@ -66,6 +66,7 @@ class VersionList:
 			self.print()
 			
 			print('''\n    \033[4mMenu :\033[0m
+1- Add version
 0- Quit
 
 ''')
@@ -84,11 +85,19 @@ class VersionList:
 	
 	
 	
-	def print(self):
+	def print(self, index = False):
 		'''a method to display the Blender version list'''
 		print('\n            \033[4mBlender Version List :\033[0m\n')
-		for k, v in self.list.items():
-			print(k+' :\n    '+v+'\n')
+		
+		keys = list(self.list.keys())
+		keys.sort()
+		
+		if index:
+			for i, k in enumerate(keys):
+				print(str(i)+'- '+k+' :\n    '+self.list[k]+'\n')
+		else:
+			for k in keys:
+				print(k+' :\n    '+self.list[k]+'\n')
 	
 	
 	
