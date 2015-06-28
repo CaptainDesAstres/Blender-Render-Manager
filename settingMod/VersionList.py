@@ -85,12 +85,16 @@ class VersionList:
 	
 	
 	
-	def print(self, index = False):
+	def print(self, index = False, std = True):
 		'''a method to display the Blender version list'''
 		print('\n            \033[4mBlender Version List :\033[0m\n')
 		
 		keys = list(self.list.keys())
 		keys.sort()
+		
+		if not std:
+			# don't display Standard Blender version if std is False
+			keys.remove('Standard Blender')
 		
 		if index:
 			for i, k in enumerate(keys):
