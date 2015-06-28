@@ -1,15 +1,15 @@
 #!/usr/bin/python3.4
 # -*-coding:Utf-8 -*
-'''module containing 'setting' class'''
+'''module containing 'preset' class'''
 import xml.etree.ElementTree as xmlMod
 import os, re
 
-class setting:
-	'''class that contain the script preferences or a rendering task preferences'''
+class preset:
+	'''class of object representing a preset for rendering task'''
 	
 	
 	def __init__(self, xml= None):
-		'''initialize settings object with default value or values extracted from an xml object'''
+		'''initialize preset object with default value or values extracted from an xml object'''
 		# default values of all the attributes
 		# animation and resolution attributes
 		self.X = 1920
@@ -54,9 +54,9 @@ class setting:
 	
 	
 	def fromXml(self,xml):
-		'''extract settings from an xml object'''
+		'''extract preset parameters from an xml object'''
 		
-		# blender absolute path
+		# blender version to use
 		self.blender = xml.find('blender').get('version')
 		
 		# get rendering resolution parameters 
@@ -71,18 +71,18 @@ class setting:
 		self.fps = int(node.get('fps'))
 		self.animation = int(node.get('duration'))
 		
-		# get engine value
+		# get engine parameters
 		node = xml.find('engine')
 		self.renderingEngine = node.get('value')
 		
-		# get cycles parameters
+		# get Cycles parameters
 		self.cyclesSamples = xml.find('cycles').get('samples')
 		self.renderingDevice = xml.find('cycles').find('device').get('value')
 		node = xml.find('cycles').find('film')
 		self.filmExposure = float(node.get('exposure'))
 		self.filmTransparentEnable = node.get('transparent') in ['true', 'True']
 		
-		# get cycles Ligth Path parameters
+		# get Cycles Ligth Path parameters
 		node = xml.find('cycles').find('bouncesSet')
 		self.transparencyBouncesMax = int(node.find('transparency').get('max'))
 		self.transparencyBouncesMin = int(node.find('transparency').get('min'))
@@ -102,8 +102,6 @@ class setting:
 		else:
 			self.simplify = int(node.get('subdiv'))
 		
-		
-		# get main animation parameters
 		node = xml.find('pass')
 		self.zPass = node.get('zPass') in ['true', 'True']
 		self.objectIndexPass = node.get('objectIndexPass') in ['true', 'True']
@@ -117,7 +115,7 @@ class setting:
 	
 	
 	def toXmlStr(self, head=False, root=False):
-		'''export settings to an xml syntaxe string'''
+		'''export preset parameters to an xml syntax string'''
 		txt= ''
 		
 		if head:
@@ -131,21 +129,20 @@ class setting:
 		# export resolution parameters
 		txt += '  <resolution x="'+str(self.X)+'" y="'+str(self.Y)+'" percent="'+str(int(self.percent*100))+'" format="'+self.outputFormat+'" />\n'
 		
-		# export animation parameters depending of settings type
+		# export animation parameters
 		txt+= '  <animation fps="'+str(self.fps)+'" duration="'+str(self.animation)+'" />\n'
 		
 		
 		# export engine parameter
 		txt += '  <engine value="'+self.renderingEngine+'"/>\n'
 		
-		# export Cycles specific  parameters
+		# export Cycles parameters
 		txt += '  <cycles samples="'+str(self.cyclesSamples)+'">\n'
 		txt += '    <device value="'+self.renderingDevice+'"/>\n'
 		txt += '    <film exposure="'+str(self.filmExposure)+'" transparent="'+str(self.filmTransparentEnable)+'" />\n'
 		
 		
-		
-		# export light path Cycles specific  parameters
+		# export lightpath Cycles specific parameters
 		txt += '    <bouncesSet>\n'
 		txt += '      <transparency max="'+str(self.transparencyBouncesMax)+'" min="'+str(self.transparencyBouncesMin)+'" />\n'
 		txt += '      <bounces max="'+str(self.bouncesMax)+'" min="'+str(self.bouncesMin)+'" />\n'
@@ -155,23 +152,19 @@ class setting:
 		txt += '      <volume bounces="'+str(self.volumeBounces)+'" />\n'
 		txt += '    </bouncesSet>\n'
 		
-		
-		
 		txt += '  </cycles>\n'
 		
-
+		
 		# export rendering options
 		txt += '  <compositing enable="'+str(self.compositingEnable)+'" />\n'
 		if self.simplify is not None:
 			txt += '  <simplify subdiv="'+str(self.simplify)+'" />\n'
-		
-		
-		# export animation render layers specific parameters
 		txt += '    <pass z="'+str(self.zPass)+'" objectIndex="'+str(self.objectIndexPass)+'" />\n'
 		
 		
 		if root:
 			txt += '</settings>'
+		
 		return txt
 	
 	
@@ -179,7 +172,7 @@ class setting:
 	
 	
 	def print(self):
-		'''print settings like preferences settings'''
+		'''print preset parameters'''
 		enable = {True:'enabled', False:'Disabled'}
 		
 		print('Blender version :       '+self.blender+'\n')
@@ -191,7 +184,7 @@ class setting:
 		print('Cycles samples : '+str(self.cyclesSamples))
 		
 		# print animation and engine parameters
-		print('Animation rate :           '+str(self.fps)+'fps')
+		print('Animation rate :           '+str(self.fps)+' fps')
 		print('Animation duration :           '+str(self.animation)+' frames')
 		print('Engine :              '+self.renderingEngine.lower()\
 							+'('+self.renderingDevice+')\n')
@@ -230,8 +223,7 @@ class setting:
 	
 	
 	def getClone(self):
-		'''create another settings object with the same attribut values
-		restart/end attributes value with start/end argument values if set'''
+		'''create another preset object with the same attribut values'''
 		
 		return setting( xmlMod.fromstring( self.toXmlStr( head = True, root = True) ) )
 	
@@ -240,15 +232,15 @@ class setting:
 	
 	
 	def see(self, log):
-		'''print settings and let edit or reset it'''
+		'''print preset and let edit or reset it'''
 		change = False
-		log.menuIn('Preferences')
+		log.menuIn('Preset')
 		
 		while True:
-			#print log and preferences
+			#print log and preset
 			os.system('clear')
 			log.print()
-			print('    Settings\n')
+			print('    preset\n')
 			self.print()
 			
 			#treat available actions
@@ -273,41 +265,24 @@ class setting:
 	
 	
 	
-	def edit(self, log, extended = False):
-		'''method to edit settings/preferences'''
+	
+	def edit(self, log):
+		'''method to edit preset'''
 		change = False
-		if extended:
-			log.menuIn('Customize')
-			log.write('Customize task settings\n')
-			menu = '''		customize task settings :
-		0- Blender path
+		
+		log.menuIn('Edit Preset')
+		log.write('Edit preset\n')
+		menu = '''		customize task settings :
+		0- Blender version
 		1- Resolution
 		2- Animation
-		3- Cycles samples
-		4- Engine
-		5- Output
-		6- Tiles
-		7- Ligth path
-		8- OPtions
-		9- Keywords
-		10- Renderlayer settings'''
-		else:
-			log.menuIn('Editing')
-			menu = '''		preferences editing:
-		0- Blender path
-		1- Resolution
-		2- Animation rate
-		3- Cycles samples
-		4- Engine
-		5- Output
-		6- Tiles
-		7- Ligth path
-		8- OPtions
-		9- Keywords'''
+		3- Engine
+		4- Ligth path
+		5- OPtions'''
 		
 		
 		while True:
-			#print log and edit preferences menu
+			#print log and edit preset menu
 			os.system('clear')
 			log.print()
 			
@@ -332,40 +307,22 @@ class setting:
 				return change
 			elif choice == 0:
 				#edit blender path
-				change = (self.editBlenderPath(log) or change)
+				change = (self.editBlenderVersion(log) or change)
 			elif choice == 1:
 				#edit resolution setting
 				change = (self.editResolution(log) or change)
 			elif choice == 2:
-				#edit animation frame rate
-				if extended:
-					change = (self.editAnimation(log) or change)
-				else:
-					change = (self.editAnimationRate(log) or change)
+				#edit animation settings
+				change = (self.editAnimationMenu(log) or change)
 			elif choice == 3:
-				# edit Cycles samples settings
-				change = (self.editSample(log) or change)
-			elif choice == 4:
 				#edit Engine settings
 				change = (self.editEngine(log) or change)
-			elif choice == 5:
-				#edit Output settings
-				change = (self.editOutput(log) or change)
-			elif choice == 6:
-				#edit Tiles settings
-				change = (self.editTiles(log) or change)
-			elif choice == 7:
+			elif choice == 4:
 				#edit Ligth path settings
 				change = (self.editLight(log) or change)
-			elif choice == 8:
+			elif choice == 5:
 				#edit OPtions settings
 				change = (self.editOption(log) or change)
-			elif choice == 9:
-				#edit Keywords settings
-				change = (self.editKeyword(log) or change)
-			elif choice == 10:
-				#edit renderlayer list settings
-				change = (self.editRenderlayerList(log) or change)
 			else:
 				log.write('\033[31munknow request!\033[0m\n')
 	
@@ -374,16 +331,16 @@ class setting:
 	
 	
 	
-	def editBlenderPath(self, log):
-		'''method to change absolute path to the Blender version to use'''
-		#edit blender path
+	def editBlenderVersion(self, log):
+		'''method to change Blender version to use'''
+		
 		change = False
-		#print current blender path and ask a new one
+		#print current blender version and ask a new one
 		os.system('clear')
-		log.menuIn('Blender Path')
-		log.write('blender path editing : ')
+		log.menuIn('Blender Version')
+		log.write('blender version choice : ')
 		log.print()
-		print('current path :'+self.blenderPath+'\n\n')
+		print('current version :'+self.blenderPath+'\n\n')
 		
 		choice = input('''new absolute path ? ( 'blender' '/home/user/Download/blender' for example or 'cancel')''').strip()
 		
