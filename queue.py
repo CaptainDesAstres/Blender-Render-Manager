@@ -1294,7 +1294,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				self.batchEditListAttr(log, 'filmTransparentEnable',\
 							'Transparent Background', pref, select, 13)
 			elif choice == 5: # Exposure
-				log.write('\033[31mNot yet implemented…\033[0m\n')
+				self.batchEditIntAttr(log, 'filmExposure', 'Exposure', pref, select, 17, 0.01)
 			else:
 				log.write('\033[31mUnknow action index!\033[0m\n')
 	
@@ -1400,9 +1400,15 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			
 			# convert input
 			try:
-				choice = int(choice)
+				if attr == 'filmExposure':
+					choice = float(choice)
+				else:
+					choice = int(choice)
 			except ValueError:
-				log.write('\033[31mValueError while batch editing '+label+' setting, must be an integer.\033[0m\n')
+				if attr == 'filmExposure':
+					log.write('\033[31mValueError while batch editing '+label+' setting, must be a number.\033[0m\n')
+				else:
+					log.write('\033[31mValueError while batch editing '+label+' setting, must be an integer.\033[0m\n')
 				continue
 			
 			# test input
