@@ -22,6 +22,8 @@ class VersionList:
 	def defaultInit(self):
 		'''initialize Blender version list with default value'''
 		
+		self.alias = ['Standard Blender']
+		self.path = ['blender']
 	
 	
 	
