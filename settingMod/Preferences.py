@@ -10,7 +10,10 @@ class Preferences:
 	
 	def __init__(self, xml= None):
 		'''initialize preferences object with default value or values extracted from an xml object'''
-		
+		if xml is None:
+			self.defaultInit()
+		else:
+			self.fromXml(xml)
 	
 	
 	
@@ -42,6 +45,7 @@ class Preferences:
 	
 	def see(self, log):
 		'''method to see preferences settings and access edition menu'''
+		
 	
 	
 	
