@@ -22,6 +22,7 @@ class Preferences:
 	def defaultInit(self):
 		'''initialize preferences object with default value'''
 		
+		self.blenderVersionList = VersionList()
 	
 	
 	
