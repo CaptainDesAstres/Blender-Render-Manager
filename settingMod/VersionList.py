@@ -23,6 +23,7 @@ class VersionList:
 		'''initialize Blender version list with default value'''
 		
 		self.list = {'Standard Blender':'blender'}
+		
 	
 	
 	
@@ -30,7 +31,9 @@ class VersionList:
 	
 	def fromXml(self, xml):
 		'''initialize Blender version list with values extracted from an xml object'''
-		
+		self.list = {}
+		for version in xml.findall('version'):
+			self.list[version.get('alias')] = version.get('path')
 	
 	
 	

@@ -32,7 +32,6 @@ class Preferences:
 		'''initialize preferences object with values extracted from an xml object'''
 		
 		self.blenderVersionList = VersionList( xml.find('versionsList') )
-		
 	
 	
 	
