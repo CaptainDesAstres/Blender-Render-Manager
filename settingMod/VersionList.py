@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage list of all know version of Blender in the system'''
 import xml.etree.ElementTree as xmlMod
-
+import os
 
 class VersionList:
 	'''class dedicated to Blender version managing'''
@@ -55,7 +55,28 @@ class VersionList:
 	
 	def see(self, log):
 		'''method to see Blender version list and access edition menu'''
+		change = False
+		log.menuIn('Blender Version List')
 		
+		while True:
+			#print log and preferences
+			os.system('clear')
+			log.print()
+			
+			#self.print()
+			
+			print('''\n    Blender version list\n
+0- Quit''')
+			
+			
+		
+			#treat available actions
+			choice= input('menu?').strip().lower()
+			if choice in ['0', 'q', 'quit', 'cancel']:
+				log.menuOut()# quit preferences menu
+				return change
+			else:
+				log.write('\033[31munknow request\033[0m\n')
 	
 	
 	
