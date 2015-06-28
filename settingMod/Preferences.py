@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage preferences of the script'''
 import xml.etree.ElementTree as xmlMod
-
+from settingMod.VersionList import *
 
 class Preferences:
 	'''class dedicated to script preferences settings'''
@@ -31,6 +31,7 @@ class Preferences:
 	def fromXml(self, xml):
 		'''initialize preferences object with values extracted from an xml object'''
 		
+		self.blenderVersionList = VersionList( xml.find('versionsList') )
 		
 	
 	
