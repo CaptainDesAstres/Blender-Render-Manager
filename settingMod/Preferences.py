@@ -3,6 +3,7 @@
 '''module to manage preferences of the script'''
 import xml.etree.ElementTree as xmlMod
 from settingMod.VersionList import *
+import os
 
 class Preferences:
 	'''class dedicated to script preferences settings'''
@@ -32,6 +33,7 @@ class Preferences:
 		'''initialize preferences object with values extracted from an xml object'''
 		
 		self.blenderVersionList = VersionList( xml.find('versionsList') )
+		
 	
 	
 	
@@ -56,7 +58,28 @@ class Preferences:
 	
 	def see(self, log):
 		'''method to see preferences settings and access edition menu'''
+		change = False
+		log.menuIn('Preferences')
 		
+		while True:
+			#print log and preferences
+			os.system('clear')
+			log.print()
+			print('''    Preferences\n
+1- Blender versions
+0- Save and quit''')
+			
+			
+		
+			#treat available actions
+			choice= input('menu?').strip().lower()
+			if choice in ['0', 'q', 'quit', 'cancel']:
+				log.menuOut()# quit preferences menu
+				return change
+			elif choice == '1':
+				change = (self.blenderVersionList.see(log) or change)
+			else:
+				log.write('\033[31munknow request\033[0m\n')
 	
 	
 	
