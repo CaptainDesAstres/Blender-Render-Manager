@@ -38,7 +38,16 @@ class Preferences:
 	
 	def toXml(self):
 		'''export preferences settings into xml syntaxed string'''
-		return ''
+		xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+		
+		xml += '<preferences>\n'
+		
+		# export blender version list
+		xml += self.blenderVersionList.toXml()
+		
+		xml += '</preferences>\n'
+		
+		return xml
 	
 	
 	
