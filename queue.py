@@ -1255,6 +1255,48 @@ example : '2.5.10' unselect task 2, 5 and 10.
 	
 	def optionMenu(self, log, cols, colSize, header, select, pref):
 		'''display the menu to choose a option settings to change'''
+		log.menuIn('Edit Rendering Options Settings')
+		
+		while True:
+			os.system('clear')
+			log.print()
+		
+			print('Selection :\n')
+			print('\033[4m'+header+'\033[0m')
+			self.printList(cols, colSize, select, True)
+			print('''        Performance settings edition :
+1- Z pass
+2- Object Index pass
+3- Compositing
+4- Transparent background
+5- Exposure
+0- quit\n\n''')
+			choice = input('action?').strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel', '0']:
+				log.menuOut()
+				return
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				choice = -9999
+			
+			if choice == 1: # Z pass
+				self.batchEditListAttr(log, 'zPass', 'Z Pass', pref, select, 14)
+			elif choice == 2: # Object Index pass
+				self.batchEditListAttr(log, 'objectIndexPass',\
+							'Object Index Pass', pref, select, 15)
+			elif choice == 3: # Compositing
+				self.batchEditListAttr(log, 'compositingEnable',\
+							'Compositing', pref, select, 16)
+			elif choice == 4: # Transparent background
+				self.batchEditListAttr(log, 'filmTransparentEnable',\
+							'Transparent Background', pref, select, 13)
+			elif choice == 5: # Exposure
+				log.write('\033[31mNot yet implemented…\033[0m\n')
+			else:
+				log.write('\033[31mUnknow action index!\033[0m\n')
 	
 	
 	
@@ -1415,6 +1457,8 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			options = ['CYCLES', 'BLENDER_RENDER']
 		elif attr == 'renderingDevice':
 			options = ['GPU', 'CPU']
+		else:
+			options = ['Disable', 'Enable']
 		
 		# get list header
 		cols = [0, 1, colId]
@@ -1430,7 +1474,12 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			self.printList(cols, colSize, select, True)
 			
 			# print pref settings
-			print('\nPreference '+label+' settings : '+getattr(pref, attr)+'\n\n' )
+			if type(getattr(pref, attr)) is bool:
+				print('\nPreference '+label+' settings : '\
+						+{True:'Enabled', False:'Disabled'}[getattr(pref, attr)]\
+						+'\n\n' )
+			else:
+				print('\nPreference '+label+' settings : '+getattr(pref, attr)+'\n\n' )
 			
 			# print available value
 			print('Available settings :\n')
@@ -1461,10 +1510,27 @@ example : '2.5.10' unselect task 2, 5 and 10.
 			# apply new settings and quit
 			choice = options[choice]
 			
+			log.write(label+' setting set to '+choice+' for task n°'+('.'.join( str(x) for x in select))+'\n')
+			if choice in ['Disable', 'Enable']:
+				choice = {'Disable':False, 'Enable':True}[choice]
+			
 			for i in select:
 				setattr( self.tasks[i].customSetting, attr, choice)
 			
-			log.write(label+' setting set to '+choice+' for task n°'+('.'.join( str(x) for x in select))+'\n')
+			
+			if attr == 'zPass':
+				for i in select:
+					for layer in self.tasks[i].customSetting.renderLayerList:
+						layer['z'] = choice
+				log.write('Z pass setting applied to all renderlayers\n')
+			
+			if attr == 'objectIndexPass':
+				for i in select:
+					for layer in self.tasks[i].customSetting.renderLayerList:
+						layer['object index'] = choice
+				log.write('Object index pass setting applied to all renderlayers\n')
+			
+			
 			log.menuOut()
 			return
 	
