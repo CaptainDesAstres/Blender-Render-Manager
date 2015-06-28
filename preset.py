@@ -16,11 +16,13 @@ class setting:
 		self.Y = 1080
 		self.percent = 1
 		self.fps = 30
+		self.animation = 0
 		
 		# rendering engine and output attributes
 		self.blender = 'blender'
 		self.renderingDevice = 'GPU'
 		self.renderingEngine = 'CYCLES'
+		self.cyclesSamples = 1500
 		self.outputFormat = 'OPEN_EXR_MULTILAYER'
 		
 		
@@ -32,9 +34,6 @@ class setting:
 		self.filmTransparentEnable = True
 		self.simplify = None
 		
-		# renderlayer parameters attributes
-		self.cyclesSamples = 1500
-		self.animation = 0
 		
 		# Light Path attributes
 		self.transparencyBouncesMin = 4
@@ -57,11 +56,15 @@ class setting:
 	def fromXml(self,xml):
 		'''extract settings from an xml object'''
 		
+		# blender absolute path
+		self.blender = xml.find('blender').get('version')
+		
 		# get rendering resolution parameters 
 		node = xml.find('resolution')
 		self.X = int(node.get('x'))
 		self.Y = int(node.get('y'))
 		self.percent = int(node.get('percent'))/100
+		self.outputFormat = node.get('format')
 		
 		# get animation parameters
 		node = xml.find('animation')
@@ -73,6 +76,7 @@ class setting:
 		self.renderingEngine = node.get('value')
 		
 		# get cycles parameters
+		self.cyclesSamples = xml.find('cycles').get('samples')
 		self.renderingDevice = xml.find('cycles').find('device').get('value')
 		node = xml.find('cycles').find('film')
 		self.filmExposure = float(node.get('exposure'))
@@ -91,6 +95,7 @@ class setting:
 		
 		# get others parameters
 		self.compositingEnable = xml.find('compositing').get('enable') in ['true', 'True']
+		
 		node = xml.find('simplify')
 		if node is None:
 			self.simplify = None
@@ -99,17 +104,11 @@ class setting:
 		
 		
 		# get main animation parameters
-		node = xml.find('renderLayerPreferences').find('main')
+		node = xml.find('pass')
 		self.zPass = node.get('zPass') in ['true', 'True']
 		self.objectIndexPass = node.get('objectIndexPass') in ['true', 'True']
 		
 		
-		# output parameters
-		node = xml.find('output')
-		self.outputFormat = node.get('format')
-		
-		# blender absolute path
-		self.blenderPath = xml.find('blender').get('path')
 		
 	
 	
@@ -126,9 +125,11 @@ class setting:
 		
 		if root:
 			txt += '<settings>\n'
-			
+		
+		txt += '  <blender version="'+self.blender+'" />\n'
+		
 		# export resolution parameters
-		txt += '  <resolution x="'+str(self.X)+'" y="'+str(self.Y)+'" percent="'+str(int(self.percent*100))+'" />\n'
+		txt += '  <resolution x="'+str(self.X)+'" y="'+str(self.Y)+'" percent="'+str(int(self.percent*100))+'" format="'+self.outputFormat+'" />\n'
 		
 		# export animation parameters depending of settings type
 		txt+= '  <animation fps="'+str(self.fps)+'" duration="'+str(self.animation)+'" />\n'
@@ -158,8 +159,6 @@ class setting:
 		
 		txt += '  </cycles>\n'
 		
-		# export Blender Internal engine specific  parameters
-		txt += '  <blenderInternal x="'+str(self.tilesBIX)+'" y="'+str(self.tilesBIY)+'" />\n'
 
 		# export rendering options
 		txt += '  <compositing enable="'+str(self.compositingEnable)+'" />\n'
@@ -170,11 +169,6 @@ class setting:
 		# export animation render layers specific parameters
 		txt += '    <pass z="'+str(self.zPass)+'" objectIndex="'+str(self.objectIndexPass)+'" />\n'
 		
-		
-		# export rendering output parameters
-		txt += '  <output format="'+self.outputFormat+'" '
-		
-		txt += '  <blender version="'+self.blender+'" />\n'
 		
 		if root:
 			txt += '</settings>'
