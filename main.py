@@ -64,7 +64,7 @@ else:
 	log.write('done\n')
 
 
-# check configuration file exist: create it if necessary and open it
+# check Preferences file exist: create it if necessary and open it
 if not os.path.exists(os.getcwd()+'/Preferences'):
 	log.write('no preferences file, create default file:')
 	preferences = Preferences()
@@ -109,6 +109,7 @@ def main():
 			3- Run
 			4- Preferences
 			5- Log
+			6- NEW PREFERENCES IMPLEMENTATION
 			0- Quit
 
 	choice (hit corresponding number) :
@@ -159,6 +160,14 @@ def main():
 				
 		elif choice == 5:
 			log.write('choice : actualy unavailable function,not yet coded\n')
+			
+		elif choice == 6:
+			# acces new prefenences implementation
+			if(preferences.see(log)):
+				# save if there is a setting change
+				savePreferences(preferences)
+				log.write('preferences saved\n')
+				
 		else:
 			log.write('unknow choice: "'+str(choice)+'"\n')
 		

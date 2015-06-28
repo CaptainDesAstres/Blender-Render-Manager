@@ -40,6 +40,8 @@ class Preferences:
 	
 	
 	
+	def see(self, log):
+		'''method to see preferences settings and access edition menu'''
 	
 	
 	
