@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage list of all know version of Blender in the system'''
 import xml.etree.ElementTree as xmlMod
+import re
 import os
 
 class VersionList:
@@ -151,6 +152,12 @@ class VersionList:
 				continue
 			
 			# get blender version from blender path
+			path = choice
+			version = os.popen('"'+path+'" -b -P "'+os.path.realpath(__file__+'/..')+'/getBlenderVersion.py" ').read()
+			version = re.search(r'<\?xml(.|\n)*</root>',version).group(0)
+			version = xmlMod.fromstring(version).find('version').get('version')
+			alias = 'Blender ('+version+')'
+			
 			# get user alias confirmation
 			# add version
 			
