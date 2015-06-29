@@ -3,6 +3,7 @@
 '''module to manage rendering output path'''
 import xml.etree.ElementTree as xmlMod
 import os
+from usefullFunctions import indexPrintList
 
 class Output:
 	'''class to manage rendering output path'''
@@ -51,7 +52,7 @@ class Output:
 	def see(self, log):
 		'''method to see output path and access edition menu'''
 		change = False
-		log.menuIn('Output Path')
+		log.menuIn('Output')
 		
 		while True:
 			os.system('clear')
@@ -71,10 +72,10 @@ class Output:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
-			elif choice == '':
+			elif choice == '1':
 				# edit output path
 				change = (self.editPath(log) or change)
-			elif choice == '':
+			elif choice == '2':
 				# edit output pattern
 				change = (self.editPattern(log) or change)
 			else:
@@ -98,6 +99,7 @@ class Output:
 	
 	def editPath(self, log):
 		'''method to manually edit output path'''
+		return False
 	
 	
 	
@@ -105,6 +107,38 @@ class Output:
 	
 	def editPattern(self, log):
 		'''method to manually edit output pattern'''
+		log.menuIn('Edit Pattern')
+		patterns = [
+					'%N/%S/%L/%F',
+					'%N/%S/%L - %F',
+					'%N - %S/%L/%F',
+					'%N - %S/%L - %F',
+					'%N - %S - %L/%F',
+					
+					'%N/%S/%F/%L',
+					'%N/%S/%F - %L',
+					'%N - %S/%F/%L',
+					'%N - %S/%F - %L',
+					'%N - %S - %F/%L',
+					
+					'%S/%N/%L/%F',
+					'%S/%N/%L - %F',
+					'%S - %N/%L/%F',
+					'%S - %N/%L - %F',
+					'%S - %N - %L/%F'
+					]
+		os.system('clear')
+		log.print()
+		print('\n\n')
+		indexPrintList(patterns)
+		input()
+		log.menuOut()
+		return False
+	
+	
+	
+	
+	
 	
 	
 	
