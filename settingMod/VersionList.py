@@ -59,7 +59,7 @@ class VersionList:
 		log.menuIn('Blender Version List')
 		
 		while True:
-			#print log and preferences
+			# print log and Blender versions list
 			os.system('clear')
 			log.print()
 			
@@ -78,6 +78,8 @@ class VersionList:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()# quit preferences menu
 				return change
+			elif choice == '1':
+				change = (self.add(log) or change)
 			else:
 				log.write('\033[31munknow request\033[0m\n')
 	
@@ -107,6 +109,29 @@ class VersionList:
 	
 	
 	
+	def add(self, log):
+		'''a method to add a Blender version to the list'''
+		confirm = False
+		log.menuIn('Add A Version')
+		
+		while True:
+			# print log 
+			os.system('clear')
+			log.print()
+			
+			# get new version path
+			choice= input('path of the version?').strip().lower()
+			
+			if choice == '':
+				log.menuOut()# quit preferences menu
+				return confirm
+			
+			# check version path
+			# get blender version from blender path
+			# get user alias confirmation
+			# add version
+			
+			log.write('\033[31mnot yet implemented\033[0m\n')
 	
 	
 	
