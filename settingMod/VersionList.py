@@ -69,6 +69,7 @@ class VersionList:
 			print('''\n    \033[4mMenu :\033[0m
 1- Add version
 2- Auto add version
+3- Rename version
 0- Quit
 
 ''')
@@ -84,6 +85,8 @@ class VersionList:
 				change = (self.add(log) or change)
 			elif choice == '2':
 				change = (self.addAuto(log) or change)
+			elif choice == '3':
+				change = (self.rename(log) or change)
 			else:
 				log.write('\033[31munknow request\033[0m\n')
 	
@@ -220,7 +223,7 @@ class VersionList:
 				log.menuOut()
 				return False
 			
-			#remove quote mark and apostrophe in first and last character
+			# remove quote mark and apostrophe in first and last character
 			if choice[0] in ['\'', '"'] and choice[-1] == choice[0]:
 				choice  = choice[1:len(choice)-1]
 			
@@ -245,7 +248,7 @@ class VersionList:
 			subdirectories = os.listdir(path)
 			for sub in subdirectories:
 				
-				#check if ther is a blender version in this directory
+				# check if ther is a blender version in this directory
 				versionPath = path+sub+'/blender'
 				if os.path.isdir(path+sub)\
 						and os.path.exists(versionPath)\
@@ -265,13 +268,24 @@ class VersionList:
 							i+=1
 						alias = alias+'('+str(i)+')'
 					
-					#add to the list
+					# add to the list
 					self.list[alias] = versionPath
 					log.write('('+alias+' : '+versionPath+') Blender version added to list\n')
 			
 			log.menuOut()
 			return True
 			
+	
+	
+	
+	
+	
+	def rename(self, log):
+		'''display a menu to rename version in the list'''
+		return False
+	
+	
+	
 	
 	
 	
