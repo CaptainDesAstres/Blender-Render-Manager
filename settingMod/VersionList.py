@@ -132,22 +132,22 @@ class VersionList:
 			
 			# check that the path is absolute: begin by '/'
 			if choice[0] == '/':
-				loq.write('\033[31mError : the path must be absolute (begin by «/»)!\033[0m\n')
+				log.write('\033[31mError : the path must be absolute (begin by «/»)!\033[0m\n')
 				continue
 			
 			# check path exist 
 			if not os.path.exists(choice):
-				loq.write('\033[31mError : this path correspond to nothing!\033[0m\n')
+				log.write('\033[31mError : this path correspond to nothing!\033[0m\n')
 				continue
 			
 			# check path is a file
 			if not os.path.isfile(choice):
-				loq.write('\033[31mError : this path is not a file!\033[0m\n')
+				log.write('\033[31mError : this path is not a file!\033[0m\n')
 				continue
 			
 			# check path is executable
 			if not os.access(choice, os.X_OK):
-				loq.write('\033[31mError : this file is not executable or you don\'t have the permission to do it!\033[0m\n')
+				log.write('\033[31mError : this file is not executable or you don\'t have the permission to do it!\033[0m\n')
 				continue
 			
 			# get blender version from blender path
