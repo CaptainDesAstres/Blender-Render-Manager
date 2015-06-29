@@ -96,7 +96,15 @@ class Output:
 	
 	
 	
+	def editPath(self, log):
+		'''method to manually edit output path'''
 	
+	
+	
+	
+	
+	def editPattern(self, log):
+		'''method to manually edit output pattern'''
 	
 	
 	
