@@ -111,6 +111,8 @@ class VersionList:
 		else:
 			for k in keys:
 				print(k+' :\n    '+self.list[k]+'\n')
+		
+		return keys
 	
 	
 	
@@ -282,10 +284,41 @@ class VersionList:
 	
 	def rename(self, log):
 		'''display a menu to rename version in the list'''
+		log.write(self.choose(log))
 		return False
 	
 	
 	
+	
+	
+	def choose(self, log):
+		'''display a menu to choose a version to working on'''
+		log.menuIn('choose version')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('\n\n')
+			keys = self.print(True, False)
+			choice = input('\nIndex of the version that you want to rename :')
+			
+			if choice == '':
+				log.menuOut()
+				return None
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.write('\033[31mUnvalid version choice : must be an irteger or an empty string\033[0m\n')
+				continue
+			
+			if choice >= 0 and choice < len(keys):
+				log.menuOut()
+				return keys[choice]
+			else:
+				log.write('\033[31mUnvalid version choice : bad index\033[0m\n')
+				continue
 	
 	
 	
