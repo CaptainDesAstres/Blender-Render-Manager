@@ -79,4 +79,14 @@ class Output:
 	def print(self, index = False, std = True):
 		'''a method to display the output path settings'''
 		
+		print('Output Path :')
+		print('      '+self.path)
+	
+	
+	
+	
+	
+	
+	
+	
 	
