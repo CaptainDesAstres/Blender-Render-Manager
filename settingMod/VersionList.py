@@ -167,6 +167,28 @@ class VersionList:
 			
 			
 			# get user alias confirmation
+			log.menuIn('Choose An Alias')
+			while True:
+				# print log 
+				os.system('clear')
+				log.print()
+				print('\n\n\033[4mRecommanded alias :\033[0m '+alias)
+				
+				# get alias
+				choice= input('\nPress enter to use recommanded alias or type wanted alias :').strip()
+				
+				if choice == '':
+					break
+				elif choice in self.list.keys():
+					log.write('\033[31mError : alias already use for another version!\033[0m\n')
+					continue
+				elif len(choice) < 7:
+					log.write('\033[31mError : too small alias name (7 characters minimal)!\033[0m\n')
+					continue
+				else:
+					alias = choice
+					break
+			
 			# add version
 			
 			log.write('\033[31mnot yet implemented\033[0m\n')
