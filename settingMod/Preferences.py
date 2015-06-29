@@ -3,6 +3,7 @@
 '''module to manage preferences of the script'''
 import xml.etree.ElementTree as xmlMod
 from settingMod.VersionList import *
+from settingMod.Output import *
 import os
 
 class Preferences:
@@ -24,6 +25,7 @@ class Preferences:
 		'''initialize preferences object with default value'''
 		
 		self.blenderVersionList = VersionList()
+		self.output = Output()
 	
 	
 	
@@ -33,6 +35,7 @@ class Preferences:
 		'''initialize preferences object with values extracted from an xml object'''
 		
 		self.blenderVersionList = VersionList( xml.find('versionsList') )
+		self.output = Output( xml.find('output') )
 		
 	
 	
@@ -47,6 +50,9 @@ class Preferences:
 		
 		# export blender version list
 		xml += self.blenderVersionList.toXml()
+		
+		# export output path
+		xml+= self.output.toXml()
 		
 		xml += '</preferences>\n'
 		
@@ -67,6 +73,7 @@ class Preferences:
 			log.print()
 			print('''\n    \033[4mPreferences Menu :\033[0m
 1- Blender versions
+2- Output Path
 0- Save and quit
 
 ''')
@@ -80,6 +87,8 @@ class Preferences:
 				return change
 			elif choice == '1':
 				change = (self.blenderVersionList.see(log) or change)
+			elif choice == '2':
+				change = (self.output.see(log) or change)
 			else:
 				log.write('\033[31munknow request\033[0m\n')
 	
