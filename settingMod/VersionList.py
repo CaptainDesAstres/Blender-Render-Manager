@@ -158,6 +158,14 @@ class VersionList:
 			version = xmlMod.fromstring(version).find('version').get('version')
 			alias = 'Blender ('+version+')'
 			
+			# recommand an unused alias
+			if alias in self.list.keys():
+				i = 0
+				while alias+'('+str(i)+')' in self.list.keys():
+					i+=1
+				alias = alias+'('+str(i)+')'
+			
+			
 			# get user alias confirmation
 			# add version
 			
