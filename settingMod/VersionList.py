@@ -205,7 +205,39 @@ class VersionList:
 	
 	def addAuto(self, log):
 		'''a method to automatically add to the list numerous Blender version that is located in the same directory'''
+		log.menuIn('Automatically Add Versions')
 		
+		while True:
+			# print log 
+			os.system('clear')
+			log.print()
+			print('\n\nAll Blender version directory must be directly in a same directory. Script will not recursivly search for blender version')
+			
+			# get new version path
+			choice= input('\nPath of the main directory?').strip()
+			
+			if choice == '':# quit
+				log.menuOut()
+				return False
+			
+			#remove quote mark and apostrophe in first and last character
+			if choice[0] in ['\'', '"'] and choice[-1] == choice[0]:
+				choice  = choice[1:len(choice)-1]
+			
+			# check that the path is absolute: begin by '/'
+			if choice[0] != '/':
+				log.write('\033[31mError : the path must be absolute (begin by «/»)!\033[0m\n')
+				continue
+			
+			# check path exist 
+			if not os.path.exists(choice):
+				log.write('\033[31mError : this path correspond to nothing!\033[0m\n')
+				continue
+			
+			# check path is a file
+			if not os.path.isdir(choice):
+				log.write('\033[31mError : this path is not a directory!\033[0m\n')
+				continue
 	
 	
 	
