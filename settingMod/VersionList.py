@@ -70,6 +70,7 @@ class VersionList:
 1- Add version
 2- Auto add version
 3- Rename version
+4- Remove version
 0- Quit
 
 ''')
@@ -87,6 +88,8 @@ class VersionList:
 				change = (self.addAuto(log) or change)
 			elif choice == '3':
 				change = (self.rename(log) or change)
+			elif choice == '4':
+				change = (self.remove(log) or change)
 			else:
 				log.write('\033[31munknow request\033[0m\n')
 	
@@ -298,7 +301,7 @@ class VersionList:
 			print('\n\n        \033[4mRename version :\033[0m')
 			print(oldAlias+'\n    '+self.list[oldAlias])
 			
-			choice = input('\nNew name :')
+			choice = input('\nNew name :').strip()
 			
 			if choice == '':
 				log.menuOut()
@@ -328,7 +331,7 @@ class VersionList:
 			
 			print('\n\n')
 			keys = self.print(True, False)
-			choice = input('\nIndex of the version that you want to rename :')
+			choice = input('\nIndex of the version that you want to work on :').strip()
 			
 			if choice == '':
 				log.menuOut()
@@ -347,6 +350,35 @@ class VersionList:
 				log.write('\033[31mUnvalid version choice : bad index\033[0m\n')
 				continue
 	
+	
+	
+	
+	
+	def remove(self, log):
+		'''A method to manually remove version from the list'''
+		log.menuIn('Remove Version')
+		
+		# choose version
+		alias = self.choose(log)
+		if alias is None:
+			log.menuOut()
+			return False
+		
+		os.system('clear')
+		log.print()
+		
+		print('\n\n        \033[4mRemove version :\033[0m')
+		print(alias+'\n    '+self.list[alias])
+		
+		choice = input('\nDo you realy want to erase this version (y)?').strip().lower()
+		
+		if choice in ['y', 'yes']:
+			self.list.pop(alias)
+			log.write('Remove "'+alias+'" version.\n')
+			log.menuOut()
+			return True
+		log.menuOut()
+		return False
 	
 	
 	
