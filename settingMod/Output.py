@@ -48,7 +48,29 @@ class Output:
 	
 	def see(self, log):
 		'''method to see output path and access edition menu'''
+		change = False
+		log.menuIn('Output Path')
 		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('\n')
+			self.print()
+			
+			print('''\n\n        \033[4mMenu :\033[4m
+1- Edit path
+2- Edit patterns
+0- Quit
+
+''')
+			choice = input().strip().lower()
+			
+			if choice in ['0', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return change
+			
+			log.write('\033[31mMenu choice not yet implemented…\033[0m\n')
 	
 	
 	
