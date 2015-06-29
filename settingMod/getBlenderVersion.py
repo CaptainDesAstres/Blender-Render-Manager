@@ -7,5 +7,5 @@ print('<?xml version="1.0" encoding="UTF-8"?>')
 print('<root>')
 version = bpy.app.version
 print('<version version="'+str(version[0])+'.'+str(version[1])+'-'\
-					+str(bpy.app.build_branch)[0]+'" />')
+					+str(bpy.app.version_char)+'" />')
 print('</root>')
