@@ -120,11 +120,21 @@ class VersionList:
 			log.print()
 			
 			# get new version path
-			choice= input('path of the version?').strip().lower()
+			choice= input('\nPath of the new version?').strip().lower()
 			
-			if choice == '':
-				log.menuOut()# quit preferences menu
+			if choice == '':# quit
+				log.menuOut()
 				return confirm
+			
+			#remove quote mark and apostrophe in first and last character
+			if choice[0] in ['\'', '"'] and choice[-1] == choice[0]:
+				choice  = choice[1:len(choice)-1]
+			
+			# check that the path is absolute: begin by '/'
+			if choice[0] == '/':
+				loq.write('\033[31mThe path must be absolute (begin by «/»)!\033[0m\n')
+				continue
+			
 			
 			# check version path
 			# get blender version from blender path
