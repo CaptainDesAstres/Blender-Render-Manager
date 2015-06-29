@@ -120,7 +120,7 @@ class VersionList:
 			log.print()
 			
 			# get new version path
-			choice= input('\nPath of the new version?').strip().lower()
+			choice= input('\nPath of the new version?').strip()
 			
 			if choice == '':# quit
 				log.menuOut()
@@ -131,7 +131,7 @@ class VersionList:
 				choice  = choice[1:len(choice)-1]
 			
 			# check that the path is absolute: begin by '/'
-			if choice[0] == '/':
+			if choice[0] != '/':
 				log.write('\033[31mError : the path must be absolute (begin by «/»)!\033[0m\n')
 				continue
 			
