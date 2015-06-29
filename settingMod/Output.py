@@ -24,7 +24,8 @@ class Output:
 		
 		if not os.path.exists('/home/'+os.getlogin()+'/.BlenderRenderManager/render'):
 			os.mkdir('/home/'+os.getlogin()+'/.BlenderRenderManager/render')
-		self.path = '/home/'+os.getlogin()+'/.BlenderRenderManager/render'
+		self.path = '/home/'+os.getlogin()+'/.BlenderRenderManager/render/'
+		self.pattern = '%N - %S/%L - %F'
 	
 	
 	
@@ -33,6 +34,7 @@ class Output:
 	def fromXml(self, xml):
 		'''initialize output path with values extracted from an xml object'''
 		self.path = xml.get('path')
+		self.pattern = xml.get('pattern')
 	
 	
 	
@@ -40,7 +42,7 @@ class Output:
 	
 	def toXml(self):
 		'''export output path into xml syntaxed string'''
-		return '<output path="'+self.path+'" />\n'
+		return '<output path="'+self.path+'" pattern="'+self.pattern+'" />\n'
 	
 	
 	
@@ -58,7 +60,7 @@ class Output:
 			print('\n')
 			self.print()
 			
-			print('''\n\n        \033[4mMenu :\033[4m
+			print('''\n\n        \033[4mMenu :\033[0m
 1- Edit path
 2- Edit patterns
 0- Quit
@@ -79,8 +81,10 @@ class Output:
 	def print(self, index = False, std = True):
 		'''a method to display the output path settings'''
 		
-		print('Output Path :')
+		print('\033[4mOutput path :\033[0m')
 		print('      '+self.path)
+		print('\n\033[4mOutput pattern :\033[0m')
+		print('      '+self.pattern)
 	
 	
 	
