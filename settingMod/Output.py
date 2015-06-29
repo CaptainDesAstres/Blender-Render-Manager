@@ -71,8 +71,14 @@ class Output:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
-			
-			log.write('\033[31mMenu choice not yet implemented…\033[0m\n')
+			elif choice == '':
+				# edit output path
+				change = (self.editPath(log) or change)
+			elif choice == '':
+				# edit output pattern
+				change = (self.editPattern(log) or change)
+			else:
+				log.write('\033[31mError : unvalid menu index!\033[0m\n')
 	
 	
 	
