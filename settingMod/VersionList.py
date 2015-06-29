@@ -45,8 +45,8 @@ class VersionList:
 		
 		xml = '  <versionsList>\n'
 		for k, v in self.list.items():
-			xml += '    <version alias="'+k+'" path="'+v+'" />'
-		xml = '  </versionsList>\n'
+			xml += '    <version alias="'+k+'" path="'+v+'" />\n'
+		xml += '  </versionsList>\n'
 		
 		return xml
 	
@@ -124,7 +124,7 @@ class VersionList:
 			
 			if choice == '':# quit
 				log.menuOut()
-				return confirm
+				return False
 			
 			#remove quote mark and apostrophe in first and last character
 			if choice[0] in ['\'', '"'] and choice[-1] == choice[0]:
