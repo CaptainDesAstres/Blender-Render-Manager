@@ -99,7 +99,7 @@ class VersionList:
 		print('\n            \033[4mBlender Version List :\033[0m\n')
 		
 		keys = list(self.list.keys())
-		keys.sort()
+		keys.sort(key = str.lower)
 		
 		if not std:
 			# don't display Standard Blender version if std is False
