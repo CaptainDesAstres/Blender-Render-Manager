@@ -2,7 +2,6 @@
 # -*-coding:Utf-8 -*
 '''module to manage rendering output path'''
 import xml.etree.ElementTree as xmlMod
-import re
 import os
 
 class Output:
@@ -23,6 +22,9 @@ class Output:
 	def defaultInit(self):
 		'''initialize output path with default value'''
 		
+		if not os.path.exists('/home/'+os.getlogin()+'/.BlenderRenderManager/render'):
+			os.mkdir('/home/'+os.getlogin()+'/.BlenderRenderManager/render')
+		self.path = '/home/'+os.getlogin()+'/.BlenderRenderManager/render'
 	
 	
 	
