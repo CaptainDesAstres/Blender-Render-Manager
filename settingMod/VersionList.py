@@ -284,8 +284,35 @@ class VersionList:
 	
 	def rename(self, log):
 		'''display a menu to rename version in the list'''
-		log.write(self.choose(log))
-		return False
+		log.menuIn('Rename Version')
+		
+		# choose version
+		oldAlias = self.choose(log)
+		if oldAlias is None:
+			return False
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('\n\n        \033[4mRename version :\033[0m')
+			print(oldAlias+'\n    '+self.list[oldAlias])
+			
+			choice = input('\nNew name :')
+			
+			if choice == '':
+				log.menuOut()
+				return False
+			
+			if choice in self.list.keys():
+				log.write('\033[31mError : this alias name is already use by another version.\033[0m\n')
+				continue
+			
+			self.list[choice] = self.list[oldAlias]
+			self.list.pop(oldAlias)
+			log.write(oldAlias+' version rename in '+choice+'.\n')
+			log.menuOut()
+			return True
 	
 	
 	
