@@ -32,7 +32,7 @@ class Output:
 	
 	def fromXml(self, xml):
 		'''initialize output path with values extracted from an xml object'''
-		
+		self.path = xml.get('path')
 	
 	
 	
