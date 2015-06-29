@@ -112,7 +112,6 @@ class VersionList:
 	
 	def add(self, log):
 		'''a method to add a Blender version to the list'''
-		confirm = False
 		log.menuIn('Add A Version')
 		
 		while True:
@@ -178,6 +177,7 @@ class VersionList:
 				choice= input('\nPress enter to use recommanded alias or type wanted alias :').strip()
 				
 				if choice == '':
+					log.menuOut()
 					break
 				elif choice in self.list.keys():
 					log.write('\033[31mError : alias already use for another version!\033[0m\n')
@@ -187,11 +187,14 @@ class VersionList:
 					continue
 				else:
 					alias = choice
+					log.menuOut()
 					break
 			
 			# add version
-			
-			log.write('\033[31mnot yet implemented\033[0m\n')
+			self.list[alias] = path
+			log.write('('+alias+' : '+path+') Blender version added to list\n')
+			log.menuOut()
+			return True
 	
 	
 	
