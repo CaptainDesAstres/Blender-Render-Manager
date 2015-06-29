@@ -40,7 +40,7 @@ class Output:
 	
 	def toXml(self):
 		'''export output path into xml syntaxed string'''
-		
+		return '<output path="'+self.path+'" />\n'
 	
 	
 	
