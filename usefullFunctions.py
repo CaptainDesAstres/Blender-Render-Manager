@@ -13,3 +13,19 @@ def columnLimit(value, limit, begin = True):
 		return value[0:begin-1]+'…'+value[len(value)-(limit-begin):]+'|'
 	else:
 		return value+(' '*(limit-len(value)))+'|'
+
+
+
+
+
+def indexPrintList(l):
+	'''a function to print a list with element index'''
+	
+	for i, v in enumerate(l):
+		print(str(i)+'- '+str(v))
+	
+
+
+
+
+
