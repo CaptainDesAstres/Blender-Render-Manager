@@ -238,6 +238,40 @@ class VersionList:
 			if not os.path.isdir(choice):
 				log.write('\033[31mError : this path is not a directory!\033[0m\n')
 				continue
+			
+			path = choice
+			if path[-1] != '/':
+				path += '/'
+			subdirectories = os.listdir(path)
+			for sub in subdirectories:
+				
+				#check if ther is a blender version in this directory
+				versionPath = path+sub+'/blender'
+				if os.path.isdir(path+sub)\
+						and os.path.exists(versionPath)\
+						and os.path.isfile(versionPath)\
+						and os.access(versionPath, os.X_OK):
+					
+					# get Blender version
+					version = os.popen('"'+versionPath+'" -b -P "'+os.path.realpath(__file__+'/..')+'/getBlenderVersion.py" ').read()
+					version = re.search(r'<\?xml(.|\n)*</root>',version).group(0)
+					version = xmlMod.fromstring(version).find('version').get('version')
+					
+					# generate an alias
+					alias = 'Blender ('+version+')'
+					if alias in self.list.keys():
+						i = 0
+						while alias+'('+str(i)+')' in self.list.keys():
+							i+=1
+						alias = alias+'('+str(i)+')'
+					
+					#add to the list
+					self.list[alias] = versionPath
+					log.write('('+alias+' : '+versionPath+') Blender version added to list\n')
+			
+			log.menuOut()
+			return True
+			
 	
 	
 	
