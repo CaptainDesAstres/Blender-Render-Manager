@@ -65,14 +65,14 @@ else:
 
 
 # check Preferences file exist: create it if necessary and open it
-if not os.path.exists(os.getcwd()+'/Preferences'):
+if not os.path.exists(os.getcwd()+'/preferences'):
 	log.write('no preferences file, create default file:')
 	preferences = Preferences()
 	savePreferences(preferences)
 	log.write('done\n')
 else:
 	log.write('get saved preferences:')
-	with open(os.getcwd()+'/Preferences','r') as prefFile:
+	with open(os.getcwd()+'/preferences','r') as prefFile:
 		preferences = Preferences( xmlMod.fromstring( (prefFile.read( ) ) ) )
 	log.write('done\n')
 
