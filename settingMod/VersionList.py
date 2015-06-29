@@ -68,6 +68,7 @@ class VersionList:
 			
 			print('''\n    \033[4mMenu :\033[0m
 1- Add version
+2- Auto add version
 0- Quit
 
 ''')
@@ -81,6 +82,8 @@ class VersionList:
 				return change
 			elif choice == '1':
 				change = (self.add(log) or change)
+			elif choice == '2':
+				change = (self.addAuto(log) or change)
 			else:
 				log.write('\033[31munknow request\033[0m\n')
 	
@@ -195,6 +198,16 @@ class VersionList:
 			log.write('('+alias+' : '+path+') Blender version added to list\n')
 			log.menuOut()
 			return True
+	
+	
+	
+	
+	
+	def addAuto(self, log):
+		'''a method to automatically add to the list numerous Blender version that is located in the same directory'''
+		
+	
+	
 	
 	
 	
