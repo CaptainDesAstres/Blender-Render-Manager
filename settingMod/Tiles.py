@@ -80,13 +80,13 @@ class Tiles:
 				return change
 			elif choice == '1':
 				# edit Cycles GPU Tiles Size
-				change = (self.editGPU(log) or change)
+				change = (self.GPU.edit(log, 'Cycles GPU Tiles Size') or change)
 			elif choice == '2':
 				# edit Cycles CPU Tiles Size
-				change = (self.editCPU(log) or change)
+				change = (self.CPU.edit(log, 'Cycles CPU Tiles Size') or change)
 			elif choice == '3':
 				# edit Blender Internal Tiles Size
-				change = (self.editBI(log) or change)
+				change = (self.BI.edit(log, 'Blender Internal Tiles Size') or change)
 			else:
 				log.error('Unvalid menu index!', False)
 	

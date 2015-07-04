@@ -70,7 +70,9 @@ class Tiles:
 	
 	
 	
-	
+	def edit(self, label):
+		'''a method to edit Size object'''
+		
 	
 	
 	
