@@ -55,9 +55,17 @@ class Tiles:
 	
 	
 	
+	def toStr(self):
+		'''A method to export settings in a simple string'''
+		return str(self.X)+'x'+str(self.Y)
+	
+	
+	
+	
+	
 	def print(self):
 		'''a method to display the size settings'''
-		
+		print(self.toStr(), sep='')
 	
 	
 	
