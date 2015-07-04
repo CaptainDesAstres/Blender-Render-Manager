@@ -3,6 +3,7 @@
 '''module to manage tiles sizes'''
 import xml.etree.ElementTree as xmlMod
 import os
+from settingMod.Size import *
 
 class Tiles:
 	'''class to manage tiles sizes'''
@@ -21,7 +22,9 @@ class Tiles:
 	
 	def defaultInit(self):
 		'''initialize tiles sizes with default value'''
-		
+		self.GPU = Size(XYstr = '256x256')
+		self.CPU = Size(XYstr = '32x32')
+		self.BI = Size(XYstr = '256x256')
 		
 	
 	
