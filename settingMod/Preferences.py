@@ -90,7 +90,7 @@ class Preferences:
 			elif choice == '2':
 				change = (self.output.see(log) or change)
 			else:
-				log.error('Unknow request!')
+				log.error('Unknow request!', False)
 	
 	
 	

@@ -91,7 +91,7 @@ class VersionList:
 			elif choice == '4':
 				change = (self.remove(log) or change)
 			else:
-				log.error('Unknow request')
+				log.error('Unknow request', False)
 	
 	
 	

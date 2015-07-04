@@ -79,7 +79,7 @@ class Output:
 				# edit output pattern
 				change = (self.editPattern(log) or change)
 			else:
-				log.error('Unvalid menu index!')
+				log.error('Unvalid menu index!', False)
 	
 	
 	
@@ -220,7 +220,7 @@ Press enter to continue''')
 			
 			# apply new settings and quit
 			self.pattern = patterns[choice]
-			log.write('pattern set to : '+patterns[choice]+'\n')
+			log.write('Pattern set to : '+patterns[choice]+'\n')
 			log.menuOut()
 			return True
 	

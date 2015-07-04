@@ -58,7 +58,7 @@ there is to log:
 	
 	
 	
-	def error(self, err):
+	def error(self, err, log = True):
 		'''Display a error message and add it to the log'''
 		err = '\033[31mError : '+err+'\033[0m\n'
 		os.system('clear')
@@ -67,7 +67,8 @@ there is to log:
 		print('\n\n'+err+'Press enter to continue')
 		input()
 		self.menuOut()
-		self.write(err)
+		if log:
+			self.write(err)
 	
 	
 	
