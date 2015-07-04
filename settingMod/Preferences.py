@@ -90,7 +90,7 @@ class Preferences:
 			elif choice == '2':
 				change = (self.output.see(log) or change)
 			else:
-				log.write('\033[31munknow request\033[0m\n')
+				log.error('Unknow request!')
 	
 	
 	

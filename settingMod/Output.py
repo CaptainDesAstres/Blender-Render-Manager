@@ -79,7 +79,7 @@ class Output:
 				# edit output pattern
 				change = (self.editPattern(log) or change)
 			else:
-				log.write('\033[31mError : unvalid menu index!\033[0m\n')
+				log.error('Unvalid menu index!')
 	
 	
 	
@@ -119,25 +119,29 @@ class Output:
 			
 			# check it's absolute path
 			if choice[0] != '/':
-				log.write('\033[31mError : the path must be absolute (begin by «/»)!\033[0m\n')
+				log.error('The path must be absolute (begin by «/»)!')
 				continue
 			
 			# check path exist 
 			if not os.path.exists(choice):
-				log.write('\033[31mError : this path correspond to nothing!\033[0m\n')
+				log.error('This path correspond to nothing!')
 				continue
 			
 			# check path is a directory
 			if not os.path.isdir(choice):
-				log.write('\033[31mError : this path don\'t correspond to a directory!\033[0m\n')
+				log.error('This path don\'t correspond to a directory!')
 				continue
 			
 			# check path is writable
 			if not os.access(choice, os.W_OK):
-				log.write('\033[31mError : you don\'t have the permission to write in this directory!\033[0m\n')
+				log.error('You don\'t have the permission to write in this directory!')
 				continue
 			
 			# apply path settings and confirm
+			self.path = choice
+			log.write('Output path set to : '+self.path+'\n')
+			log.menuOut()
+			return True
 	
 	
 	
@@ -206,12 +210,12 @@ Press enter to continue''')
 			try:
 				choice = int(choice)
 			except ValueError:
-				log.write('\033[31mError : unvalid pattern choice\033[0m\n')
+				log.error('Unvalid pattern choice')
 				continue
 			
 			# check choice is valid
 			if choice < 0 or choice >= len(patterns):
-				log.write('\033[31mError : out of range pattern choice\033[0m\n')
+				log.error('Out of range pattern choice.')
 				continue
 			
 			# apply new settings and quit

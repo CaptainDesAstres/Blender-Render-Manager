@@ -91,7 +91,7 @@ class VersionList:
 			elif choice == '4':
 				change = (self.remove(log) or change)
 			else:
-				log.write('\033[31munknow request\033[0m\n')
+				log.error('Unknow request')
 	
 	
 	
@@ -143,22 +143,22 @@ class VersionList:
 			
 			# check that the path is absolute: begin by '/'
 			if choice[0] != '/':
-				log.write('\033[31mError : the path must be absolute (begin by «/»)!\033[0m\n')
+				log.error('The path must be absolute (begin by «/»)!')
 				continue
 			
 			# check path exist 
 			if not os.path.exists(choice):
-				log.write('\033[31mError : this path correspond to nothing!\033[0m\n')
+				log.error('This path correspond to nothing!')
 				continue
 			
 			# check path is a file
 			if not os.path.isfile(choice):
-				log.write('\033[31mError : this path is not a file!\033[0m\n')
+				log.error('This path is not a file!')
 				continue
 			
 			# check path is executable
 			if not os.access(choice, os.X_OK):
-				log.write('\033[31mError : this file is not executable or you don\'t have the permission to do it!\033[0m\n')
+				log.error('This file is not executable or you don\'t have the permission to do it!')
 				continue
 			
 			# get blender version from blender path
@@ -191,10 +191,10 @@ class VersionList:
 					log.menuOut()
 					break
 				elif choice in self.list.keys():
-					log.write('\033[31mError : alias already use for another version!\033[0m\n')
+					log.error('Alias already use for another version!')
 					continue
 				elif len(choice) < 7:
-					log.write('\033[31mError : too small alias name (7 characters minimal)!\033[0m\n')
+					log.error('Too small alias name (7 characters minimal)!')
 					continue
 				else:
 					alias = choice
@@ -234,17 +234,17 @@ class VersionList:
 			
 			# check that the path is absolute: begin by '/'
 			if choice[0] != '/':
-				log.write('\033[31mError : the path must be absolute (begin by «/»)!\033[0m\n')
+				log.error('The path must be absolute (begin by «/»)!')
 				continue
 			
 			# check path exist 
 			if not os.path.exists(choice):
-				log.write('\033[31mError : this path correspond to nothing!\033[0m\n')
+				log.error('This path correspond to nothing!')
 				continue
 			
 			# check path is a file
 			if not os.path.isdir(choice):
-				log.write('\033[31mError : this path is not a directory!\033[0m\n')
+				log.error('This path is not a directory!')
 				continue
 			
 			path = choice
@@ -308,7 +308,7 @@ class VersionList:
 				return False
 			
 			if choice in self.list.keys():
-				log.write('\033[31mError : this alias name is already use by another version.\033[0m\n')
+				log.error('This alias name is already use by another version.')
 				continue
 			
 			self.list[choice] = self.list[oldAlias]
@@ -340,14 +340,14 @@ class VersionList:
 			try:
 				choice = int(choice)
 			except ValueError:
-				log.write('\033[31mUnvalid version choice : must be an irteger or an empty string\033[0m\n')
+				log.error('Unvalid version choice : must be an irteger or an empty string')
 				continue
 			
 			if choice >= 0 and choice < len(keys):
 				log.menuOut()
 				return keys[choice]
 			else:
-				log.write('\033[31mUnvalid version choice : bad index\033[0m\n')
+				log.error('Unvalid version choice : bad index.')
 				continue
 	
 	
