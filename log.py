@@ -58,6 +58,20 @@ there is to log:
 	
 	
 	
+	def error(self, err):
+		'''Display a error message and add it to the log'''
+		err = '\033[31mError : '+err+'\033[0m\n'
+		os.system('clear')
+		self.menuIn('Error Message')
+		self.print()
+		print('\n\n'+err+'Press enter to continue')
+		input()
+		self.menuOut()
+		self.write(err)
+	
+	
+	
+	
 	def iadd(self,txt):
 		'''redirect '+=' operator to the write()method'''
 		self.write(self,txt);
