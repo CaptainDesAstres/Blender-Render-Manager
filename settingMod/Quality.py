@@ -45,7 +45,7 @@ class Quality:
 		'''export Quality settings into xml syntaxed string'''
 		txt = '<quality>\n'
 		txt += '<resolution pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />\n'
-		txt += '<samples value="'+str(self.samples)+'">'
+		txt += '<samples value="'+str(self.samples)+'" />\n'
 		txt += '</quality>\n'
 		return txt
 	
