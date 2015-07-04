@@ -56,7 +56,7 @@ class Resolution:
 	
 	def print(self):
 		'''a method to print preset'''
-		
+		print('Resolution : '+self.size.toStr()+'@'+str(self.pourcent))
 	
 	
 	

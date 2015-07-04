@@ -57,7 +57,7 @@ class Preset:
 	
 	def print(self):
 		'''a method to print preset'''
-		
+		self.resolution.print()
 	
 	
 	
