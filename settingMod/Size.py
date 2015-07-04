@@ -21,7 +21,9 @@ class Tiles:
 	
 	def fromStr(self, XYstr):
 		'''initialize tiles sizes with default value'''
-		
+		XYstr = XYstr.split('x')
+		self.X = int(XYstr[0].strip())
+		self.Y = int(XYstr[1].strip())
 		
 	
 	
