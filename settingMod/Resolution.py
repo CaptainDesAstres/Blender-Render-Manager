@@ -22,7 +22,8 @@ class Resolution:
 	
 	def defaultInit(self):
 		'''initialize resolution settings with default value'''
-		
+		self.pourcent = 100
+		self.size = Size('1920x1080')
 	
 	
 	
@@ -30,7 +31,8 @@ class Resolution:
 	
 	def fromXml(self, xml):
 		'''initialize resolution settings with values extracted from an xml object'''
-		
+		self.pourcent = int(xml.get('pourcent'))
+		self.size = Size(xml = xml)
 	
 	
 	
@@ -38,7 +40,7 @@ class Resolution:
 	
 	def toXml(self):
 		'''export resolution settings into xml syntaxed string'''
-		
+		return '<resolution pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />'
 	
 	
 	
