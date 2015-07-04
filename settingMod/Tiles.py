@@ -41,7 +41,9 @@ class Tiles:
 	
 	def toXml(self):
 		'''export tiles sizes into xml syntaxed string'''
-		
+		txt = '<GPU '+self.GPU.toXmlAttr()+' />\n'
+		txt += '<CPU '+self.CPU.toXmlAttr()+' />\n'
+		txt += '<BI '+self.BI.toXmlAttr()+' />\n'
 	
 	
 	
