@@ -31,8 +31,9 @@ class Quality:
 	
 	def fromXml(self, xml):
 		'''initialize Quality settings with values extracted from an xml object'''
-		self.pourcent = int(xml.get('pourcent'))
-		self.size = Size(xml = xml)
+		node = xml.find('resolution')
+		self.pourcent = int(node.get('pourcent'))
+		self.size = Size(xml = node)
 	
 	
 	
@@ -40,7 +41,10 @@ class Quality:
 	
 	def toXml(self):
 		'''export Quality settings into xml syntaxed string'''
-		return '<Quality pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />\n'
+		txt = '<quality>\n'
+		txt += '<resolution pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />\n'
+		txt += '</quality>\n'
+		return txt
 	
 	
 	
@@ -88,7 +92,8 @@ class Quality:
 	
 	
 	
-	def edit (self, log):
+	
+	def edit(self, log):
 		'''A method to edit pourcent setting'''
 		log.menuIn('Edit Resolution Pourcent')
 		

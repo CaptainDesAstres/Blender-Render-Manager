@@ -30,7 +30,7 @@ class Preset:
 	
 	def fromXml(self, xml):
 		'''initialize preset with values extracted from an xml object'''
-		self.quality = Quality(xml.find('Quality'))
+		self.quality = Quality(xml.find('quality'))
 	
 	
 	
