@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage preset'''
 import xml.etree.ElementTree as xmlMod
-from settingMod.Resolution import *
+from settingMod.Quality import *
 import os
 
 class Preset:
@@ -22,7 +22,7 @@ class Preset:
 	
 	def defaultInit(self):
 		'''initialize preset with default value'''
-		self.resolution = Resolution()
+		self.quality = Quality()
 	
 	
 	
@@ -30,7 +30,7 @@ class Preset:
 	
 	def fromXml(self, xml):
 		'''initialize preset with values extracted from an xml object'''
-		self.resolution = Resolution(xml.find('resolution'))
+		self.quality = Quality(xml.find('Quality'))
 	
 	
 	
@@ -39,7 +39,7 @@ class Preset:
 	def toXml(self):
 		'''export preset into xml syntaxed string'''
 		txt = '<preset>\n'
-		txt += self.resolution.toXml()
+		txt += self.quality.toXml()
 		txt += '</preset>\n'
 		return txt
 	
@@ -59,7 +59,7 @@ class Preset:
 			self.print()
 			
 			print('''\n\n        Menu :
-1- Edit Resolution
+1- Edit Quality Settings
 0- Save and quit
 
 ''')
@@ -70,7 +70,7 @@ class Preset:
 				log.menuOut()
 				return change
 			elif choice == '1':
-				change = (self.resolution.see(log) or change)
+				change = (self.quality.see(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -81,7 +81,7 @@ class Preset:
 	
 	def print(self):
 		'''a method to print preset'''
-		self.resolution.print()
+		self.quality.print()
 	
 	
 	

@@ -1,16 +1,16 @@
 #!/usr/bin/python3.4
 # -*-coding:Utf-8 -*
-'''module to manage resolution settings'''
+'''module to manage Quality settings'''
 import xml.etree.ElementTree as xmlMod
 from settingMod.Size import *
 import os
 
-class Resolution:
-	'''class to manage resolution settings'''
+class Quality:
+	'''class to manage Quality settings'''
 	
 	
 	def __init__(self, xml= None):
-		'''initialize resolution settings with default value or values extracted from an xml object'''
+		'''initialize Quality settings with default value or values extracted from an xml object'''
 		if xml is None:
 			self.defaultInit()
 		else:
@@ -21,7 +21,7 @@ class Resolution:
 	
 	
 	def defaultInit(self):
-		'''initialize resolution settings with default value'''
+		'''initialize Quality settings with default value'''
 		self.pourcent = 100
 		self.size = Size('1920x1080')
 	
@@ -30,7 +30,7 @@ class Resolution:
 	
 	
 	def fromXml(self, xml):
-		'''initialize resolution settings with values extracted from an xml object'''
+		'''initialize Quality settings with values extracted from an xml object'''
 		self.pourcent = int(xml.get('pourcent'))
 		self.size = Size(xml = xml)
 	
@@ -39,17 +39,17 @@ class Resolution:
 	
 	
 	def toXml(self):
-		'''export resolution settings into xml syntaxed string'''
-		return '<resolution pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />\n'
+		'''export Quality settings into xml syntaxed string'''
+		return '<Quality pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />\n'
 	
 	
 	
 	
 	
 	def see(self, log):
-		'''menu to explore and edit resolution settings settings'''
+		'''menu to explore and edit Quality settings settings'''
 		change = False
-		log.menuIn('Resolution')
+		log.menuIn('Quality')
 		
 		while True:
 			os.system('clear')
