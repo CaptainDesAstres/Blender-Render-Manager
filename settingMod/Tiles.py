@@ -33,7 +33,9 @@ class Tiles:
 	
 	def fromXml(self, xml):
 		'''initialize tiles sizes with values extracted from an xml object'''
-		
+		self.GPU = Size(xml = xml.find('GPU'))
+		self.CPU = Size(xml = xml.find('CPU'))
+		self.BI = Size(xml = xml.find('BI'))
 	
 	
 	
@@ -41,9 +43,12 @@ class Tiles:
 	
 	def toXml(self):
 		'''export tiles sizes into xml syntaxed string'''
-		txt = '<GPU '+self.GPU.toXmlAttr()+' />\n'
-		txt += '<CPU '+self.CPU.toXmlAttr()+' />\n'
-		txt += '<BI '+self.BI.toXmlAttr()+' />\n'
+		txt = '<tilesSet>\n'
+		txt += '  <GPU '+self.GPU.toXmlAttr()+' />\n'
+		txt += '  <CPU '+self.CPU.toXmlAttr()+' />\n'
+		txt += '  <BI '+self.BI.toXmlAttr()+' />\n'
+		txt += '<tilesSet>\n'
+		return txt
 	
 	
 	
