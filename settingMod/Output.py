@@ -107,15 +107,36 @@ class Output:
 			
 			#print current path and ask the new one
 			print('\nCurrent output path : '+self.path)
-			choice = input('\n\nwhat\'s the path to use (absolute path required)?').strip()
+			choice = input('\n\nwhat\'s the path to use ?(absolute path required, surround path by \' or " if it contains space)').strip()
 			if choice == '':
 				log.menuOut()
 				return False
 			
 			
 			# remove ' and/or "
+			if choice[0] in ['\'', '"'] and choice[-1] == choice[0]:
+				choice  = choice[1:len(choice)-1]
+			
 			# check it's absolute path
-			# check path exist, is a directory and is writable
+			if choice[0] != '/':
+				log.write('\033[31mError : the path must be absolute (begin by «/»)!\033[0m\n')
+				continue
+			
+			# check path exist 
+			if not os.path.exists(choice):
+				log.write('\033[31mError : this path correspond to nothing!\033[0m\n')
+				continue
+			
+			# check path is a directory
+			if not os.path.isdir(choice):
+				log.write('\033[31mError : this path don\'t correspond to a directory!\033[0m\n')
+				continue
+			
+			# check path is writable
+			if not os.access(choice, os.W_OK):
+				log.write('\033[31mError : you don\'t have the permission to write in this directory!\033[0m\n')
+				continue
+			
 			# apply path settings and confirm
 	
 	
