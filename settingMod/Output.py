@@ -147,8 +147,11 @@ class Output:
 			
 			#display help
 			if choice == 'h':
-				print('''        \033[4mPatern Help\033[0m
-				
+				os.system('clear')
+				log.menuIn('Help')
+				log.print()
+				print('''\n        \033[4mPattern Help\033[0m
+
 Choose a pattern for output file naming and directory tree. part separate by '/' will be directory and final part will be the output file name. part separate by '-' will be in the same directory/file name.
 
 %N will be replace by the file name
@@ -158,6 +161,7 @@ Choose a pattern for output file naming and directory tree. part separate by '/'
 
 Press enter to continue''')
 				input()
+				log.menuOut()
 				continue
 			
 			# convert choice in int
