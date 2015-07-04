@@ -24,6 +24,7 @@ class Quality:
 		'''initialize Quality settings with default value'''
 		self.pourcent = 100
 		self.size = Size('1920x1080')
+		self.samples = 1500
 	
 	
 	
@@ -34,6 +35,7 @@ class Quality:
 		node = xml.find('resolution')
 		self.pourcent = int(node.get('pourcent'))
 		self.size = Size(xml = node)
+		self.samples = int(xml.find('samples').get('value'))
 	
 	
 	
@@ -43,6 +45,7 @@ class Quality:
 		'''export Quality settings into xml syntaxed string'''
 		txt = '<quality>\n'
 		txt += '<resolution pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />\n'
+		txt += '<samples value="'+str(self.samples)+'">'
 		txt += '</quality>\n'
 		return txt
 	
@@ -64,6 +67,7 @@ class Quality:
 			print('''\n\n        Menu :
 1- Edit Resolution Size
 2- Edit Pourcent setting
+3- Edit Cycles Samples
 0- Save and quit
 
 ''')
@@ -75,8 +79,8 @@ class Quality:
 				return change
 			elif choice == '1':
 				change = (self.size.edit(log, 'Resolution Size') or change)
-			elif choice == '2':
-				change = (self.edit(log) or change)
+			elif choice in ['2', '3']:
+				change = (self.edit(log, int(choice)) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -88,12 +92,13 @@ class Quality:
 	def print(self):
 		'''a method to print preset'''
 		print('Resolution : '+self.size.toStr()+'@'+str(self.pourcent))
+		print('Cycles Samples : '+str(self.samples))
 	
 	
 	
 	
 	
-	def edit(self, log):
+	def edit(self, log, choice):
 		'''A method to edit pourcent setting'''
 		log.menuIn('Edit Resolution Pourcent')
 		
