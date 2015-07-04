@@ -4,7 +4,7 @@
 import xml.etree.ElementTree as xmlMod
 import os, re
 
-class Tiles:
+class Size:
 	'''class to represent size settings'''
 	
 	
@@ -72,7 +72,28 @@ class Tiles:
 	
 	def edit(self, label):
 		'''a method to edit Size object'''
+		log.menuIn('Edit '+label)
 		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('\n\n        Edit '+label+' :\nCurrent '+label+' :'+self.toStr()+'\n')
+			choice = input('new size (syntaxe: XXXXxYYYY):').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			if Size.check(choice):
+				self.fromStr(choice)
+				log.write(label+' set to : '+choice)
+				log.menuOut()
+				return True
+			else:
+				log.error('Unvalid setting syntaxe, respect the syntaxe XXXXxYYYY, where X and Y are decimal number.')
+				continue
+			
 	
 	
 	
