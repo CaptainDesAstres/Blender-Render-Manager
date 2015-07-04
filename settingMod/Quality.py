@@ -91,8 +91,8 @@ class Quality:
 	
 	def print(self):
 		'''a method to print preset'''
-		print('Resolution : '+self.size.toStr()+'@'+str(self.pourcent))
-		print('Cycles Samples : '+str(self.samples))
+		print('Resolution :       '+self.size.toStr()+'@'+str(self.pourcent))
+		print('Cycles Samples :   '+str(self.samples))
 	
 	
 	
@@ -109,6 +109,7 @@ class Quality:
 			os.system('clear')
 			log.print()
 			
+			# print current setting and get new one
 			if choice == 2:
 				print('\n\n        Edit Pourcent :\nCurrent Pourcent : '+str(self.pourcent)+'\n')
 				choice = input('New pourcent setting?').strip().lower()
@@ -116,11 +117,12 @@ class Quality:
 				print('\n\n        Edit Cycles Samples :\nCurrent Sammples : '+str(self.samples)+'\n')
 				choice = input('New Samples setting?').strip().lower()
 			
-			
+			# exit menu
 			if choice in ['', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return False
 			
+			#check new setting
 			try:
 				choice = int(choice)
 			except ValueError:
@@ -131,13 +133,14 @@ class Quality:
 				log.error('new setting must be a positive integer.')
 				continue
 			
+			# apply new setting and exit
 			if choice == 2:
 				self.pourcent = choice
-				log.write('Resolution pourcent setting is set to : '+str(self.pourcent)+'%\n')
+				log.write('Resolution pourcent setting is set to : '\
+							+str(self.pourcent)+'%\n')
 			else:
 				self.samples = choice
 				log.write('Cycles samples set to : '+str(self.samples)+'%\n')
-			
 			log.menuOut()
 			return True
 		
