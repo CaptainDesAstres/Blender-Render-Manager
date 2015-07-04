@@ -49,6 +49,30 @@ class Preset:
 	
 	def see(self, log):
 		'''menu to explore and edit preset settings'''
+		change = False
+		log.menuIn('Preset')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			self.print()
+			
+			print('''\n\n        Menu :
+1- Edit Resolution
+0- Save and quit
+
+''')
+			
+			choice = input('Action?').strip().lower()
+			
+			if choice in ['0', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return change
+			elif choice == '1':
+				change = (self.resolution.see(log) or change)
+			else:
+				log.error('Unvalid menu choice', False)
 		
 	
 	
