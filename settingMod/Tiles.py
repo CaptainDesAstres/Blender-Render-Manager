@@ -84,7 +84,7 @@ class Tiles:
 	
 	
 	
-	def print(self, index = False, std = True):
+	def print(self):
 		'''a method to display the tiles sizes settings'''
 		
 	

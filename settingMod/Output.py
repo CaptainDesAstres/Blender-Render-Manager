@@ -85,7 +85,7 @@ class Output:
 	
 	
 	
-	def print(self, index = False, std = True):
+	def print(self):
 		'''a method to display the output path settings'''
 		
 		print('\033[4mOutput path :\033[0m')
