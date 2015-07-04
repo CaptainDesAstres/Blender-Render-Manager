@@ -97,6 +97,9 @@ class Tiles:
 	def print(self):
 		'''a method to display the tiles sizes settings'''
 		
+		print('Cycles GPU Tiles Size :        '+self.GPU.toStr())
+		print('Cycles CPU Tiles Size :        '+self.CPU.toStr())
+		print('Blender Internal Tiles Size :  '+self.BI.toStr())
 	
 	
 	
