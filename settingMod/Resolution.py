@@ -88,6 +88,40 @@ class Resolution:
 	
 	
 	
+	def edit (self, log):
+		'''A method to edit pourcent setting'''
+		log.menuIn('Edit Resolution Pourcent')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('\n\n        Edit Pourcent :\nCurrent Pourcent : '+str(self.pourcent)+'\n')
+			
+			choice = input('New pourcent setting?').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('pourcent setting must be an integer.')
+				continue
+			
+			if choice < 0:
+				log.error('pourcent setting must be a positive integer.')
+				continue
+			
+			self.pourcent = choice 
+			log.menuOut()
+			log.write('Resolution pourcent setting is set to : '+str(self.pourcent)+'%\n')
+			return True
+		
+	
+	
+	
 	
 	
 	
