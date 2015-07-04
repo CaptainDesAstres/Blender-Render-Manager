@@ -100,15 +100,22 @@ class Quality:
 	
 	def edit(self, log, choice):
 		'''A method to edit pourcent setting'''
-		log.menuIn('Edit Resolution Pourcent')
+		if choice == 2:
+			log.menuIn('Edit Resolution Pourcent')
+		else:
+			log.menuIn('Edit Cycles Samples')
 		
 		while True:
 			os.system('clear')
 			log.print()
 			
-			print('\n\n        Edit Pourcent :\nCurrent Pourcent : '+str(self.pourcent)+'\n')
+			if choice == 2:
+				print('\n\n        Edit Pourcent :\nCurrent Pourcent : '+str(self.pourcent)+'\n')
+				choice = input('New pourcent setting?').strip().lower()
+			else:
+				print('\n\n        Edit Cycles Samples :\nCurrent Sammples : '+str(self.samples)+'\n')
+				choice = input('New Samples setting?').strip().lower()
 			
-			choice = input('New pourcent setting?').strip().lower()
 			
 			if choice in ['', 'q', 'quit', 'cancel']:
 				log.menuOut()
@@ -117,16 +124,21 @@ class Quality:
 			try:
 				choice = int(choice)
 			except ValueError:
-				log.error('pourcent setting must be an integer.')
+				log.error('new setting must be an integer.')
 				continue
 			
 			if choice < 0:
-				log.error('pourcent setting must be a positive integer.')
+				log.error('new setting must be a positive integer.')
 				continue
 			
-			self.pourcent = choice 
+			if choice == 2:
+				self.pourcent = choice
+				log.write('Resolution pourcent setting is set to : '+str(self.pourcent)+'%\n')
+			else:
+				self.samples = choice
+				log.write('Cycles samples set to : '+str(self.samples)+'%\n')
+			
 			log.menuOut()
-			log.write('Resolution pourcent setting is set to : '+str(self.pourcent)+'%\n')
 			return True
 		
 	
