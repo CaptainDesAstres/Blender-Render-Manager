@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage preset'''
 import xml.etree.ElementTree as xmlMod
+from settingMod.Resolution import *
 import os
 
 class Preset:
