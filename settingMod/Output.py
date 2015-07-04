@@ -108,6 +108,7 @@ class Output:
 	def editPattern(self, log):
 		'''method to manually edit output pattern'''
 		log.menuIn('Edit Pattern')
+		
 		patterns = [
 					'%N/%S/%L/%F',
 					'%N/%S/%L - %F',
@@ -127,13 +128,33 @@ class Output:
 					'%S - %N/%L - %F',
 					'%S - %N - %L/%F'
 					]
-		os.system('clear')
-		log.print()
-		print('\n\n')
-		indexPrintList(patterns)
-		input()
-		log.menuOut()
-		return False
+		
+		
+		while True:
+			os.system('clear')
+			log.print()
+			print('\n\n')
+			indexPrintList(patterns)
+			choice = input('what\'s the pattern to use?').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.write('\033[31mError : unvalid pattern choice\033[0m\n')
+				continue
+			
+			if choice < 0 or choice >= len(patterns):
+				log.write('\033[31mError : out of range pattern choice\033[0m\n')
+				continue
+			
+			self.pattern = patterns[choice]
+			log.write('pattern set to : '+patterns[choice]+'\n')
+			log.menuOut()
+			return True
 	
 	
 	
