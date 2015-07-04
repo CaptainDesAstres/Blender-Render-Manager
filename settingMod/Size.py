@@ -40,7 +40,8 @@ class Tiles:
 	
 	def fromXml(self, xml):
 		'''initialize size with values extracted from an xml object'''
-		
+		self.X = int(xml.get('x'))
+		self.Y = int(xml.get('y'))
 	
 	
 	
@@ -48,7 +49,7 @@ class Tiles:
 	
 	def toXmlAttr(self):
 		'''export size into xml syntaxed attribute string'''
-		
+		return 'x="'+self.X+'" y="'+self.Y+'"'
 	
 	
 	
