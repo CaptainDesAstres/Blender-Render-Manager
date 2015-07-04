@@ -47,7 +47,7 @@ class Tiles:
 		txt += '  <GPU '+self.GPU.toXmlAttr()+' />\n'
 		txt += '  <CPU '+self.CPU.toXmlAttr()+' />\n'
 		txt += '  <BI '+self.BI.toXmlAttr()+' />\n'
-		txt += '<tilesSet>\n'
+		txt += '</tilesSet>\n'
 		return txt
 	
 	
@@ -68,8 +68,8 @@ class Tiles:
 			
 			print('''\n\n        \033[4mMenu :\033[0m
 1- Edit Cycles GPU Tiles Size
-1- Edit Cycles CPU Tiles Size
-1- Edit Blender Internal Tiles Size
+2- Edit Cycles CPU Tiles Size
+3- Edit Blender Internal Tiles Size
 0- Quit
 
 ''')

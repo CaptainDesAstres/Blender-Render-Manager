@@ -49,7 +49,7 @@ class Size:
 	
 	def toXmlAttr(self):
 		'''export size into xml syntaxed attribute string'''
-		return 'x="'+self.X+'" y="'+self.Y+'"'
+		return 'x="'+str(self.X)+'" y="'+str(self.Y)+'"'
 	
 	
 	
@@ -70,7 +70,7 @@ class Size:
 	
 	
 	
-	def edit(self, label):
+	def edit(self, log, label):
 		'''a method to edit Size object'''
 		log.menuIn('Edit '+label)
 		
