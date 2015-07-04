@@ -135,11 +135,26 @@ class Output:
 			log.print()
 			print('\n\n')
 			indexPrintList(patterns)
-			choice = input('what\'s the pattern to use?').strip().lower()
+			
+			choice = input('\n\nwhat\'s the pattern to use?(h for help)').strip().lower()
 			
 			if choice in ['', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return False
+			
+			if choice == 'h':
+				print('''        \033[4mPatern Help\033[0m
+				
+Choose a pattern for output file naming and directory tree. part separate by '/' will be directory and final part will be the output file name. part separate by '-' will be in the same directory/file name.
+
+%N will be replace by the file name
+%S will be replace by the scene name
+%L will be replace by the renderlayer group alias
+%F will be replace by the number of the frame
+
+Press enter to continue''')
+				input()
+				continue
 			
 			try:
 				choice = int(choice)
