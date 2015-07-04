@@ -40,7 +40,7 @@ class Resolution:
 	
 	def toXml(self):
 		'''export resolution settings into xml syntaxed string'''
-		return '<resolution pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />'
+		return '<resolution pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />\n'
 	
 	
 	

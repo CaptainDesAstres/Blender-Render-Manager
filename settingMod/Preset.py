@@ -22,7 +22,7 @@ class Preset:
 	
 	def defaultInit(self):
 		'''initialize preset with default value'''
-		
+		self.resolution = Resolution()
 	
 	
 	
@@ -30,7 +30,7 @@ class Preset:
 	
 	def fromXml(self, xml):
 		'''initialize preset with values extracted from an xml object'''
-		
+		self.resolution = Resolution(xml.find('resolution'))
 	
 	
 	
@@ -38,7 +38,10 @@ class Preset:
 	
 	def toXml(self):
 		'''export preset into xml syntaxed string'''
-		
+		txt = '<preset>\n'
+		txt += self.resolution.toXml()
+		txt += '</preset>\n'
+		return txt
 	
 	
 	
