@@ -4,6 +4,7 @@
 import xml.etree.ElementTree as xmlMod
 from settingMod.VersionList import *
 from settingMod.Output import *
+from settingMod.Tiles import *
 import os
 
 class Preferences:
@@ -26,6 +27,7 @@ class Preferences:
 		
 		self.blenderVersionList = VersionList()
 		self.output = Output()
+		self.tiles = Tiles()
 	
 	
 	
@@ -36,7 +38,7 @@ class Preferences:
 		
 		self.blenderVersionList = VersionList( xml.find('versionsList') )
 		self.output = Output( xml.find('output') )
-		
+		self.tiles = Tiles(xml.find('tilesSet'))
 	
 	
 	
@@ -53,6 +55,9 @@ class Preferences:
 		
 		# export output path
 		xml+= self.output.toXml()
+		
+		# export tiles sizes
+		xml+= self.tiles.toXml()
 		
 		xml += '</preferences>\n'
 		
@@ -74,6 +79,7 @@ class Preferences:
 			print('''\n    \033[4mPreferences Menu :\033[0m
 1- Blender versions
 2- Output Path
+3- Tiles
 0- Save and quit
 
 ''')
@@ -89,6 +95,8 @@ class Preferences:
 				change = (self.blenderVersionList.see(log) or change)
 			elif choice == '2':
 				change = (self.output.see(log) or change)
+			elif choice == '3':
+				change = (self.tiles.see(log) or change)
 			else:
 				log.error('Unknow request!', False)
 	
