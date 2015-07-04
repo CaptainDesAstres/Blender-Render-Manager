@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage size settings representation'''
 import xml.etree.ElementTree as xmlMod
-import os
+import os, re
 
 class Tiles:
 	'''class to represent size settings'''
@@ -24,6 +24,14 @@ class Tiles:
 		XYstr = XYstr.split('x')
 		self.X = int(XYstr[0].strip())
 		self.Y = int(XYstr[1].strip())
+	
+	
+	
+	
+	
+	def check(XYstr):
+		'''class method to check if a string well syntaxed to be used by Size.fromStr()'''
+		return re.search(r'^\d{1,} *x *\d{1,}$',XYstr) is not None
 		
 	
 	
