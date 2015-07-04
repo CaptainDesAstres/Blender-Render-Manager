@@ -99,7 +99,24 @@ class Output:
 	
 	def editPath(self, log):
 		'''method to manually edit output path'''
-		return False
+		log.menuIn('Edit Path')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			#print current path and ask the new one
+			print('\nCurrent output path : '+self.path)
+			choice = input('\n\nwhat\'s the path to use (absolute path required)?').strip()
+			if choice == '':
+				log.menuOut()
+				return False
+			
+			
+			# remove ' and/or "
+			# check it's absolute path
+			# check path exist, is a directory and is writable
+			# apply path settings and confirm
 	
 	
 	
