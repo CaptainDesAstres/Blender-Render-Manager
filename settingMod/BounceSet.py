@@ -22,7 +22,12 @@ class BounceSet:
 	
 	def defaultInit(self):
 		'''initialize bounce settings with default value'''
-		
+		self.bounces = MinMax('3to8')
+		self.transparency = MinMax('4to6')
+		self.diffuse = 4
+		self.glossy = 4
+		self.transmission = 12
+		self.volume = 0
 	
 	
 	
@@ -39,7 +44,6 @@ class BounceSet:
 	def toXml(self):
 		'''export bounce settings into xml syntaxed string'''
 		txt = '<bounceSet>\n'
-		
 		txt += '</bounceSet>\n'
 		return txt
 	
