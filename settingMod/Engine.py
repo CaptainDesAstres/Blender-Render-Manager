@@ -21,7 +21,7 @@ class Preset:
 	
 	def defaultInit(self):
 		'''initialize Engine Settings with default value'''
-		
+		self.version = '[default]'
 	
 	
 	
@@ -29,7 +29,7 @@ class Preset:
 	
 	def fromXml(self, xml):
 		'''initialize Engine Settings with values extracted from an xml object'''
-		
+		self.version = xml.get('version')
 	
 	
 	
@@ -37,9 +37,8 @@ class Preset:
 	
 	def toXml(self):
 		'''export Engine Settings into xml syntaxed string'''
-		txt = '<engine />\n'
+		return '<engine version="'+self.version+'" />\n'
 		
-		return txt
 	
 	
 	
@@ -57,6 +56,7 @@ class Preset:
 			self.print()
 			
 			print('''\n\n        Menu :
+1- Edit Blender Version
 0- Save and quit
 
 ''')
@@ -66,6 +66,8 @@ class Preset:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
+			elif:
+				change = (self.chooseVersion(log, versions) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -76,7 +78,7 @@ class Preset:
 	
 	def print(self):
 		'''a method to print Engine Settings'''
-		
+		print('Blender Version : '+self.version)
 	
 	
 	
