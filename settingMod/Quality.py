@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage Quality settings'''
 import xml.etree.ElementTree as xmlMod
+from usefullFunctions import *
 from settingMod.Size import *
 import os
 
@@ -216,6 +217,50 @@ class Quality:
 			log.menuOut()
 			return True
 		
+	
+	
+	
+	
+	
+	def editFormat(self, log):
+		'''A method to edit format settings'''
+		formats = [
+					'PNG', 
+					'JPEG', 
+					'OPEN_EXR', 
+					'OPEN_EXR_MULTILAYER'
+					]
+		log.menuIn('Choose Output Format')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('\n\n        Edit Output Format :\n\nCurrent format : '+self.format)
+			
+			indexPrintList(formats)
+			
+			choice = input('new format?').strip()
+			
+			if choice.lower() in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('An integer is expected!')
+				continue
+			
+			if choice < 0 or choice >= len(formats):
+				log.error('Out of choice range!')
+				continue
+			
+			self.format = formats[choice]
+			log.write('Output format is set to : '+self.format+'\n')
+			log.menuOut()
+			return True
+	
 	
 	
 	
