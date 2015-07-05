@@ -26,6 +26,7 @@ class Quality:
 		self.size = Size('1920x1080')
 		self.samples = 1500
 		self.simplify = None
+		self.format = 'OPEN_EXR_MULTILAYER'
 	
 	
 	
@@ -41,6 +42,7 @@ class Quality:
 			self.simplify = int(xml.find('simplify').get('value'))
 		else:
 			self.simplify = None
+		self.format = xml.find('format').get('value')
 		
 	
 	
@@ -52,8 +54,11 @@ class Quality:
 		txt = '<quality>\n'
 		txt += '  <resolution pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />\n'
 		txt += '  <samples value="'+str(self.samples)+'" />\n'
+		
 		if self.simplify is not None:
 			txt += '  <simplify value="'+str(self.simplify)+'" />\n'
+		
+		txt += '  <format value="'+self.format+'" />\n'
 		txt += '</quality>\n'
 		return txt
 	
@@ -77,6 +82,7 @@ class Quality:
 2- Edit Pourcent Setting
 3- Edit Cycles Samples
 4- Edit Simplify Setting
+5- Edit Format
 0- Save and quit
 
 ''')
@@ -92,6 +98,8 @@ class Quality:
 				change = (self.edit(log, int(choice)) or change)
 			elif choice == '4':
 				change = (self.editSimplify(log) or change)
+			elif choice == '5':
+				change = (self.editFormat(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -105,6 +113,7 @@ class Quality:
 		print('Resolution :            '+self.size.toStr()+'@'+str(self.pourcent))
 		print('Cycles Samples :        '+str(self.samples))
 		print('Simplify :              '+self.getSimplify())
+		print('Format :                '+self.format)
 	
 	
 	
