@@ -11,6 +11,16 @@ import os
 class Preset:
 	'''class to manage preset'''
 	
+	anim = [
+			'[On Demand]',
+			'All Animation',
+			'Fix (First Frame)',
+			'Loop 1',
+			'Loop 2',
+			'Loop 3',
+			'Loop 4',
+			'Loop 5'
+			]
 	
 	def __init__(self, xml= None):
 		'''initialize preset with default value or values extracted from an xml object'''
@@ -98,6 +108,8 @@ class Preset:
 				change = (self.bounce.see(log) or change)
 			elif choice == '3':
 				change = (self.options.see(log) or change)
+			elif choice == '4':
+				change = (self.editAnimation(log) or change)
 			elif choice == '9':
 				change = (self.engine.see(log, versions) or change)
 			else:
@@ -111,13 +123,14 @@ class Preset:
 	def print(self):
 		'''a method to print preset'''
 		self.quality.print()
-		print('Animation : '+self.getAnimation())
+		print('Animation :             '+Preset.anim[self.animation])
 		print()
 		self.bounce.print()
 		print()
 		self.options.print()
 		print()
 		self.engine.print()
+	
 	
 	
 	
