@@ -119,6 +119,57 @@ class BounceSet:
 	
 	
 	
+	def edit(self, log, choice):
+		'''a method to edit diffuse/glossy/transmission/volume settings'''
+		
+		if choice == 3:
+			log.menuIn('Edit Diffuse Settings')
+			attr = 'diffuse'
+		elif choice == 4:
+			log.menuIn('Edit Glossy Settings')
+			attr = 'glossy'
+		elif choice == 5:
+			log.menuIn('Edit Transmission Settings')
+			attr = 'transmission'
+		elif choice == 6:
+			log.menuIn('Edit Volume Settings')
+			attr = 'volume'
+		
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('\n\n        Edit '+attr.capitalize()\
+					+' :\n\nCurrent Settings : '+str(getattr(self, attr)))
+			
+			choice = input('\nNew settings?').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			#check new setting
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('New setting must be an integer.')
+				continue
+			
+			if choice < 0:
+				log.error('New setting must be a positive integer.')
+				continue
+			
+			# apply new setting and exit
+			setattr(self, attr, choice)
+			log.write(attr.capitalize()+' bounces set to : '+str(getattr(self, attr))\
+					+'\n')
+			log.menuOut()
+			return True
+	
+	
+	
+	
 	
 	
 	

@@ -126,11 +126,11 @@ class Quality:
 			try:
 				choice = int(choice)
 			except ValueError:
-				log.error('new setting must be an integer.')
+				log.error('New setting must be an integer.')
 				continue
 			
 			if choice < 0:
-				log.error('new setting must be a positive integer.')
+				log.error('New setting must be a positive integer.')
 				continue
 			
 			# apply new setting and exit
