@@ -5,6 +5,7 @@ import xml.etree.ElementTree as xmlMod
 from settingMod.Quality import *
 from settingMod.BounceSet import *
 from settingMod.Engine import *
+from settingMod.Options import *
 import os
 
 class Preset:
@@ -27,6 +28,7 @@ class Preset:
 		self.quality = Quality()
 		self.bounce = BounceSet()
 		self.engine = Engine()
+		self.options = Options()
 	
 	
 	
@@ -37,6 +39,7 @@ class Preset:
 		self.quality = Quality(xml.find('quality'))
 		self.bounce = BounceSet(xml.find('bounceSet'))
 		self.engine = Engine(xml.find('engine'))
+		self.options = Options(xml.find('options'))
 	
 	
 	
@@ -51,6 +54,8 @@ class Preset:
 		txt += self.bounce.toXml()
 		
 		txt += self.engine.toXml()
+		
+		txt += self.options.toXml()
 		
 		txt += '</preset>\n'
 		return txt
@@ -73,6 +78,7 @@ class Preset:
 			print('''\n\n        Menu :
 1- Edit Quality Settings
 2- Edit Bounces Settings (Cycles)
+3- Edit Rendering Options
 9- Edit Engine Settings
 0- Save and quit
 
@@ -87,6 +93,8 @@ class Preset:
 				change = (self.quality.see(log) or change)
 			elif choice == '2':
 				change = (self.bounce.see(log) or change)
+			elif choice == '3':
+				change = (self.options.see(log) or change)
 			elif choice == '9':
 				change = (self.engine.see(log, versions) or change)
 			else:
@@ -102,6 +110,8 @@ class Preset:
 		self.quality.print()
 		print()
 		self.bounce.print()
+		print()
+		self.options.print()
 		print()
 		self.engine.print()
 	
