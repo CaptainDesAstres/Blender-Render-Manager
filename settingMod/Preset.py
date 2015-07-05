@@ -25,6 +25,7 @@ class Preset:
 	
 	def defaultInit(self):
 		'''initialize preset with default value'''
+		self.animation = -1
 		self.quality = Quality()
 		self.bounce = BounceSet()
 		self.engine = Engine()
@@ -36,6 +37,7 @@ class Preset:
 	
 	def fromXml(self, xml):
 		'''initialize preset with values extracted from an xml object'''
+		self.animation = int(xml.get('animation'))
 		self.quality = Quality(xml.find('quality'))
 		self.bounce = BounceSet(xml.find('bounceSet'))
 		self.engine = Engine(xml.find('engine'))
@@ -47,7 +49,7 @@ class Preset:
 	
 	def toXml(self):
 		'''export preset into xml syntaxed string'''
-		txt = '<preset>\n'
+		txt = '<preset animation="'+str(self.animation)+'" >\n'
 		
 		txt += self.quality.toXml()
 		
@@ -79,6 +81,7 @@ class Preset:
 1- Edit Quality Settings
 2- Edit Bounces Settings (Cycles)
 3- Edit Rendering Options
+4- Edit Animation Setting
 9- Edit Engine Settings
 0- Save and quit
 
@@ -108,6 +111,7 @@ class Preset:
 	def print(self):
 		'''a method to print preset'''
 		self.quality.print()
+		print('Animation : '+self.getAnimation())
 		print()
 		self.bounce.print()
 		print()
