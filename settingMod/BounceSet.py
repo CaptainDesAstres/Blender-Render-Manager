@@ -89,9 +89,9 @@ class BounceSet:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
-			elif choice = '1':
+			elif choice == '1':
 				change = (self.bounces.edit(log, 'Min/Max Bounces') or change)
-			elif choice = '2':
+			elif choice == '2':
 				change = (self.transparency.edit(log, 'Min/Max Transparency Bounces')\
 								or change)
 			elif choice in ['3', '4', '5', '6']:

@@ -92,6 +92,7 @@ class Preset:
 	def print(self):
 		'''a method to print preset'''
 		self.quality.print()
+		print()
 		self.bounce.print()
 	
 	
