@@ -22,6 +22,7 @@ class Engine:
 	def defaultInit(self):
 		'''initialize Engine Settings with default value'''
 		self.version = '[default]'
+		self.engine = 'CYCLES'
 	
 	
 	
@@ -30,6 +31,7 @@ class Engine:
 	def fromXml(self, xml):
 		'''initialize Engine Settings with values extracted from an xml object'''
 		self.version = xml.get('version')
+		self.engine = xml.get('engine')
 	
 	
 	
@@ -37,7 +39,8 @@ class Engine:
 	
 	def toXml(self):
 		'''export Engine Settings into xml syntaxed string'''
-		return '<engine version="'+self.version+'" />\n'
+		return '<engine version="'+self.version+'" engine="'\
+						+self.engine+'" />\n'
 		
 	
 	
@@ -57,6 +60,8 @@ class Engine:
 			
 			print('''\n\n        Menu :
 1- Edit Blender Version
+2- Switch Engine
+3- Switch Device (for Cycles)
 0- Save and quit
 
 ''')
@@ -68,6 +73,9 @@ class Engine:
 				return change
 			elif choice == '1':
 				change = (self.chooseVersion(log, versions) or change)
+			elif choice in ['2', '3']:
+				self.switch(int(choice))
+				change = True
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -79,6 +87,7 @@ class Engine:
 	def print(self):
 		'''a method to print Engine Settings'''
 		print('Blender Version : '+self.version)
+		print('Engine :          '+self.engine.capitalize())
 	
 	
 	
