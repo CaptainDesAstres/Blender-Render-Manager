@@ -25,6 +25,8 @@ class Options:
 		self.objectIndex = True
 		self.compositing = False
 		self.alpha = True
+		self.exposureC = 1.0
+		self.exposureB = 0.0
 	
 	
 	
@@ -36,6 +38,8 @@ class Options:
 		self.objectIndex = xml.find('objectIndex') is not None
 		self.compositing = xml.find('compositing') is not None
 		self.alpha = xml.find('alpha') is not None
+		self.exposureC = float(xml.find('exposureC').get('value'))
+		self.exposureB = float(xml.find('exposureB').get('value'))
 	
 	
 	
@@ -56,6 +60,9 @@ class Options:
 		
 		if self.alpha:
 			txt += '<alpha />\n'
+		
+		txt += '<exposureB value="'+str(self.exposureB)+'" />'
+		txt += '<exposureC value="'+str(self.exposureC)+'" />'
 		
 		txt += '</options>\n'
 		return txt
@@ -80,6 +87,8 @@ class Options:
 2- Switch Object Index Pass Setting
 3- Switch Compositing Setting
 4- Switch Alpha Background Setting
+5- Edit Cycles Exposure
+6- Edit Blender Internal Exposure
 0- Save and quit
 
 ''')
@@ -97,6 +106,8 @@ class Options:
 				setattr(self, attr, not(getattr(self, attr)))
 				log.write(label+' '+({True:'Ennabled', False:'Disabled'}[getattr(self, attr)])+'\n')
 				change = True
+			elif choice in ['5', '6']:
+				change = (self.editExposure(log, choice == '5') or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -113,12 +124,16 @@ class Options:
 		print('Object index pass :     '+ennable[self.objectIndex])
 		print('Compositing :           '+ennable[self.compositing])
 		print('Alpha Background :      '+ennable[self.alpha])
+		print('Cycles Exposure  :      '+str(self.exposureC))
+		print('Blender Int. Exp.  :    '+str(self.exposureB))
 	
 	
 	
 	
 	
-	
+	def editExposure(self, log, cycles):
+		'''A method to edit rendering exposure'''
+		
 	
 	
 	
