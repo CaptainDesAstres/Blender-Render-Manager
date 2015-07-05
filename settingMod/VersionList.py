@@ -391,7 +391,7 @@ class VersionList:
 		if choice in ['y', 'yes']:
 			self.list.pop(alias)
 			if self.default == alias:
-				self.default == 'Standard Blender'
+				self.default = 'Standard Blender'
 			log.write('Remove "'+alias+'" version.\n')
 			log.menuOut()
 			return True
