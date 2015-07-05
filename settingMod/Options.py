@@ -90,12 +90,12 @@ class Options:
 				log.menuOut()
 				return change
 			elif choice in ['1', '2', '3', '4']:
-				choice = int(choice)
+				choice = int(choice)-1
 				attr = ['z', 'objectIndex', 'compositing', 'alpha'][choice]
 				label = ['Z pass', 'Object index pass', 'Compositing',\
 						 'Alpha background'][choice]
 				setattr(self, attr, not(getattr(self, attr)))
-				log.write(label+' '+({True:'Ennabled', False:'Disabled'}[getattr(self, attr)]))
+				log.write(label+' '+({True:'Ennabled', False:'Disabled'}[getattr(self, attr)])+'\n')
 				change = True
 			else:
 				log.error('Unvalid menu choice', False)
