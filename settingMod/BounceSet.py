@@ -44,12 +44,12 @@ class BounceSet:
 	def toXml(self):
 		'''export bounce settings into xml syntaxed string'''
 		txt = '<bounceSet>\n'
-		txt += '<bounces '+self.bounces.toXmlAttr()+' />'
-		txt += '<transparency '+self.transparency.toXmlAttr()+' />'
-		txt += '<diffuse value="'+str(self.diffuse)+'" />'
-		txt += '<glossy value="'+str(self.glossy)+'" />'
-		txt += '<transmission value="'+str(self.transmission)+'" />'
-		txt += '<volume value="'+str(self.volume)+'" />'
+		txt += '  <bounces '+self.bounces.toXmlAttr()+' />'
+		txt += '  <transparency '+self.transparency.toXmlAttr()+' />'
+		txt += '  <diffuse value="'+str(self.diffuse)+'" />'
+		txt += '  <glossy value="'+str(self.glossy)+'" />'
+		txt += '  <transmission value="'+str(self.transmission)+'" />'
+		txt += '  <volume value="'+str(self.volume)+'" />'
 		txt += '</bounceSet>\n'
 		return txt
 	
