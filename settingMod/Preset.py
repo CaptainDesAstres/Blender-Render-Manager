@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage preset'''
 import xml.etree.ElementTree as xmlMod
+from usefullFunctions import *
 from settingMod.Quality import *
 from settingMod.BounceSet import *
 from settingMod.Engine import *
@@ -35,7 +36,7 @@ class Preset:
 	
 	def defaultInit(self):
 		'''initialize preset with default value'''
-		self.animation = -1
+		self.animation = 1
 		self.quality = Quality()
 		self.bounce = BounceSet()
 		self.engine = Engine()
@@ -130,6 +131,57 @@ class Preset:
 		self.options.print()
 		print()
 		self.engine.print()
+	
+	
+	
+	
+	
+	def editAnimation(self, log):
+		'''A method to edit animation settings'''
+		log.menuIn('Edit Animation Setting')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('\n\n        Edit Animation Setting :\n\n')
+			print('Current setting : '+Preset.anim[self.animation]+'\n\n    Menu :')
+			indexPrintList(Preset.anim)
+			choice = input('New animation settings (h for help) : ').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			elif choice in ['h', 'help']:
+				# print help
+				log.menuIn('Edit Animation Setting')
+				os.system('clear')
+				log.print()
+				print('''\n\n        HELP :
+[On Demand]       : Animation length will be asked for each file
+All Animation     : Animation length will correspond to file animation length
+Fix (First Frame) : Only the first frame will be render (for fixe background)
+Loop 1 to 5       : Animation length will correspond to loop length of the loopset of the file or of the metapreset
+
+''')
+				input('Press enter to continue…')
+				log.menuOut()
+				continue
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('unvalid settings, integer expected!')
+				continue
+			
+			if choice < 0 or choice >= len(Preset.anim):
+				log.error('Choice out of available option range!')
+				continue
+			
+			self.animation = choice
+			log.write('Animation set to : '+Preset.anim[self.animation])
+			log.menuOut()
+			return True
 	
 	
 	
