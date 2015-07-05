@@ -4,6 +4,7 @@
 import xml.etree.ElementTree as xmlMod
 from settingMod.Quality import *
 from settingMod.BounceSet import *
+from settingMod.Engine import *
 import os
 
 class Preset:
@@ -25,6 +26,7 @@ class Preset:
 		'''initialize preset with default value'''
 		self.quality = Quality()
 		self.bounce = BounceSet()
+		self.engine = Engine()
 	
 	
 	
@@ -34,6 +36,7 @@ class Preset:
 		'''initialize preset with values extracted from an xml object'''
 		self.quality = Quality(xml.find('quality'))
 		self.bounce = BounceSet(xml.find('bounceSet'))
+		self.engine = Engine(xml.find('engine'))
 	
 	
 	
@@ -46,6 +49,8 @@ class Preset:
 		txt += self.quality.toXml()
 		
 		txt += self.bounce.toXml()
+		
+		txt += self.engine.toXml()
 		
 		txt += '</preset>\n'
 		return txt
@@ -68,6 +73,7 @@ class Preset:
 			print('''\n\n        Menu :
 1- Edit Quality Settings
 2- Edit Bounces Settings (Cycles)
+9- Edit Engine Settings
 0- Save and quit
 
 ''')
@@ -81,6 +87,8 @@ class Preset:
 				change = (self.quality.see(log) or change)
 			elif choice == '2':
 				change = (self.bounce.see(log) or change)
+			elif choice == '9':
+				change = (self.engine.see(log, versions) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -94,6 +102,8 @@ class Preset:
 		self.quality.print()
 		print()
 		self.bounce.print()
+		print()
+		self.engine.print()
 	
 	
 	
