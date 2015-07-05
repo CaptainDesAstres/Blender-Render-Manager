@@ -198,6 +198,9 @@ class VersionList:
 				if choice == '':
 					log.menuOut()
 					break
+				elif re.search(r'^([-a-zA-Z0-9]| |\(|\)|\.){1,}$', choice) is None:
+					log.error('alias can only contain alphanumeric (unaccented) characters, spaces, parentheses points and -')
+					continue
 				elif choice in self.list.keys():
 					log.error('Alias already use for another version!')
 					continue
