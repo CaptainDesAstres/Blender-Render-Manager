@@ -166,9 +166,11 @@ class Options:
 			if cycles:
 				if choice > 10:
 					choice = 10.0
+				choice = round(choice, 2)
 			else:
 				if choice > 1:
 					choice = 1.0
+				choice = round(choice, 3)
 			
 			setattr(self, attr, choice)
 			log.write(label+' set to : '+str(getattr(self, attr))+'\n')
