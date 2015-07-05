@@ -120,7 +120,7 @@ class VersionList:
 			for k in keys:
 				print(k+' :\n    '+self.list[k]+'\n')
 		
-		if index == False:
+		if not index:
 			print('\n\nDefault version : '+self.default)
 		
 		return keys
@@ -331,7 +331,7 @@ class VersionList:
 	
 	
 	
-	def choose(self, log):
+	def choose(self, log, std = False):
 		'''display a menu to choose a version to working on'''
 		log.menuIn('choose version')
 		
@@ -340,8 +340,8 @@ class VersionList:
 			log.print()
 			
 			print('\n\n')
-			keys = self.print(True, False)
-			choice = input('\nIndex of the version that you want to work on :').strip()
+			keys = self.print(True, std)
+			choice = input('\nIndex of the version that you want to use :').strip()
 			
 			if choice == '':
 				log.menuOut()
@@ -400,8 +400,21 @@ class VersionList:
 	
 	
 	
-	def chooseDefault(log):
+	def chooseDefault(self, log):
 		'''A method to choose the default version to use'''
+		log.menuIn('Choose Default Version')
+		
+		# choose version
+		alias = self.choose(log, True)
+		
+		if alias is None:
+			log.menuOut()
+			return False
+		
+		self.default = alias
+		log.write('Default version set to "'+self.default+'" version.\n')
+		log.menuOut()
+		return True
 	
 	
 	
