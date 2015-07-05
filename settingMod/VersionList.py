@@ -340,7 +340,7 @@ class VersionList:
 	
 	def choose(self, log, std = False, default = False):
 		'''display a menu to choose a version to working on'''
-		log.menuIn('choose version')
+		log.menuIn('Choose Version')
 		
 		while True:
 			os.system('clear')

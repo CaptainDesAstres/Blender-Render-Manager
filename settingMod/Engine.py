@@ -86,7 +86,13 @@ class Engine:
 	
 	def chooseVersion(self, log, versions):
 		'''A method to set the blender version to use with a preset'''
+		choice = versions.choose(log, True, True)
 		
+		if choice is not None:
+			self.version = choice
+			log.write('Version set to : '+self.version)
+			return True
+		return False
 	
 	
 	
