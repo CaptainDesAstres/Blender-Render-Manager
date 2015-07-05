@@ -24,6 +24,7 @@ class VersionList:
 		'''initialize Blender version list with default value'''
 		
 		self.list = {'Standard Blender':'blender'}
+		self.default = 'Standard Blender'
 		
 	
 	
@@ -35,6 +36,7 @@ class VersionList:
 		self.list = {}
 		for version in xml.findall('version'):
 			self.list[version.get('alias')] = version.get('path')
+		self.default = xml.get('default')
 	
 	
 	
@@ -43,7 +45,7 @@ class VersionList:
 	def toXml(self):
 		'''export Blender version list into xml syntaxed string'''
 		
-		xml = '  <versionsList>\n'
+		xml = '  <versionsList default ="'+self.default+'" >\n'
 		for k, v in self.list.items():
 			xml += '    <version alias="'+k+'" path="'+v+'" />\n'
 		xml += '  </versionsList>\n'
@@ -71,6 +73,7 @@ class VersionList:
 2- Auto add version
 3- Rename version
 4- Remove version
+5- Change Default Version
 0- Quit
 
 ''')
@@ -90,6 +93,8 @@ class VersionList:
 				change = (self.rename(log) or change)
 			elif choice == '4':
 				change = (self.remove(log) or change)
+			elif choice == '5':
+				change = (self.chooseDefault(log) or change)
 			else:
 				log.error('Unknow request', False)
 	
@@ -114,6 +119,9 @@ class VersionList:
 		else:
 			for k in keys:
 				print(k+' :\n    '+self.list[k]+'\n')
+		
+		if index == False:
+			print('\n\nDefault version : '+self.default)
 		
 		return keys
 	
@@ -313,6 +321,8 @@ class VersionList:
 			
 			self.list[choice] = self.list[oldAlias]
 			self.list.pop(oldAlias)
+			if self.default == oldAlias:
+				self.default = choice
 			log.write(oldAlias+' version rename in '+choice+'.\n')
 			log.menuOut()
 			return True
@@ -370,15 +380,29 @@ class VersionList:
 		print('\n\n        \033[4mRemove version :\033[0m')
 		print(alias+'\n    '+self.list[alias])
 		
+		
+		if self.default == alias:
+			print('\n\033[31mthis is actually the default version. if you erase it, default version will be set to de blender standard command.\033[0m')
 		choice = input('\nDo you realy want to erase this version (y)?').strip().lower()
 		
 		if choice in ['y', 'yes']:
 			self.list.pop(alias)
+			if self.default == alias:
+				self.default == 'Standard Blender'
 			log.write('Remove "'+alias+'" version.\n')
 			log.menuOut()
 			return True
 		log.menuOut()
 		return False
+	
+	
+	
+	
+	
+	
+	def chooseDefault(log):
+		'''A method to choose the default version to use'''
+	
 	
 	
 	
