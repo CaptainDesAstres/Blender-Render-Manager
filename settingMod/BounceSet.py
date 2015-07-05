@@ -94,6 +94,13 @@ class BounceSet:
 	def print(self):
 		'''a method to print bounce settings'''
 		
+		print('Bounces :               '+self.bounces.toStr())
+		print('Transparency bounces :  '+self.transparency.toStr())
+		print('Diffuse :               '+str(self.diffuse))
+		print('Glossy :                '+str(self.glossy))
+		print('Transmission :          '+str(self.transmission))
+		print('Volume :                '+str(self.volume))
+		
 	
 	
 	
