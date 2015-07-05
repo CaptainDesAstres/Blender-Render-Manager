@@ -26,7 +26,7 @@ class Preferences:
 	def defaultInit(self):
 		'''initialize preferences object with default value'''
 		
-		self.blenderVersionList = VersionList()
+		self.blenderVersion = VersionList()
 		self.output = Output()
 		self.tiles = Tiles()
 		self.preset = Preset()
@@ -38,7 +38,7 @@ class Preferences:
 	def fromXml(self, xml):
 		'''initialize preferences object with values extracted from an xml object'''
 		
-		self.blenderVersionList = VersionList( xml.find('versionsList') )
+		self.blenderVersion = VersionList( xml.find('versionsList') )
 		self.output = Output( xml.find('output') )
 		self.tiles = Tiles(xml.find('tilesSet'))
 		self.preset = Preset(xml.find('preset'))
@@ -54,7 +54,7 @@ class Preferences:
 		xml += '<preferences>\n'
 		
 		# export blender version list
-		xml += self.blenderVersionList.toXml()
+		xml += self.blenderVersion.toXml()
 		
 		# export output path
 		xml+= self.output.toXml()
@@ -99,13 +99,13 @@ class Preferences:
 				log.menuOut()# quit preferences menu
 				return change
 			elif choice == '1':
-				change = (self.blenderVersionList.see(log) or change)
+				change = (self.blenderVersion.see(log) or change)
 			elif choice == '2':
 				change = (self.output.see(log) or change)
 			elif choice == '3':
 				change = (self.tiles.see(log) or change)
 			elif choice == '4':
-				change = (self.preset.see(log) or change)
+				change = (self.preset.see(log, self.blenderVersion) or change)
 			else:
 				log.error('Unknow request!', False)
 	

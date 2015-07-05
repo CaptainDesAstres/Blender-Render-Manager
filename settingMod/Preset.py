@@ -54,7 +54,7 @@ class Preset:
 	
 	
 	
-	def see(self, log):
+	def see(self, log, versions):
 		'''menu to explore and edit preset settings'''
 		change = False
 		log.menuIn('Preset')
