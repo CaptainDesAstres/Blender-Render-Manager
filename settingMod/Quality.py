@@ -115,7 +115,7 @@ class Quality:
 		if self.simplify is None:
 			return 'Disabled'
 		else:
-			return str(self.simplify)
+			return str(self.simplify)+' subdiv'
 	
 	
 	
@@ -167,6 +167,46 @@ class Quality:
 			return True
 		
 	
+	
+	
+	
+	
+	def editSimplify(self, log):
+		'''A method to Edit Simplify settings'''
+		log.menuIn('Edit Simplify settings')
+		
+		while True:
+			os.system('clear')
+			log.print()
+			
+			# print current setting and get new one
+			print('\n\n        Edit Simplify Settings :\nCurrent settings : '+self.getSimplify()+'\n')
+			choice = input('New setting?').strip().lower()
+			
+			# exit menu
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			#check new setting
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('New setting must be an integer.')
+				continue
+			
+			if choice < 0:
+				log.error('New setting must be a positive integer.')
+				continue
+			
+			if choice < 11:
+				self.simplify = choice
+			else:
+				self.simplify = None
+			log.write('Simplify set to : '+self.getSimplify()+'\n')
+			log.menuOut()
+			return True
+		
 	
 	
 	
