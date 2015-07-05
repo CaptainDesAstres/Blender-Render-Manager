@@ -24,6 +24,9 @@ class MinMax:
 		mMstr = mMstr.split('to')
 		self.min = int(mMstr[0].strip())
 		self.max = int(mMstr[1].strip())
+		
+		if self.min > self.max:
+			self.min = self.max
 	
 	
 	
@@ -42,9 +45,6 @@ class MinMax:
 		'''initialize MinMax with values extracted from an xml object'''
 		self.min = int(xml.get('min'))
 		self.max = int(xml.get('max'))
-		
-		if self.min > self.max:
-			self.min = self.max
 	
 	
 	
