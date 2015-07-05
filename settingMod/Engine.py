@@ -90,9 +90,9 @@ class Engine:
 	
 	def print(self):
 		'''a method to print Engine Settings'''
-		print('Blender Version : '+self.version)
-		print('Engine :          '+self.engine.capitalize())
-		print('Cycles Device :   '+self.device)
+		print('Blender Version :       '+self.version)
+		print('Engine :                '+self.engine.capitalize())
+		print('Cycles Device :         '+self.device)
 	
 	
 	
