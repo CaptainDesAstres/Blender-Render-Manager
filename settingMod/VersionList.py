@@ -102,7 +102,7 @@ class VersionList:
 	
 	
 	
-	def print(self, index = False, std = True):
+	def print(self, index = False, std = True, default = False):
 		'''a method to display the Blender version list'''
 		print('\n            \033[4mBlender Version List :\033[0m\n')
 		
@@ -119,6 +119,10 @@ class VersionList:
 		else:
 			for k in keys:
 				print(k+' :\n    '+self.list[k]+'\n')
+		
+		if default and index:
+			print(str(i+1)+'- [default] \n')
+			keys.append('[default]')
 		
 		if not index:
 			print('\n\nDefault version : '+self.default)
@@ -334,7 +338,7 @@ class VersionList:
 	
 	
 	
-	def choose(self, log, std = False):
+	def choose(self, log, std = False, default = False):
 		'''display a menu to choose a version to working on'''
 		log.menuIn('choose version')
 		
@@ -343,7 +347,7 @@ class VersionList:
 			log.print()
 			
 			print('\n\n')
-			keys = self.print(True, std)
+			keys = self.print(True, std, default)
 			choice = input('\nIndex of the version that you want to use :').strip()
 			
 			if choice == '':

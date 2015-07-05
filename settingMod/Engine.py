@@ -84,6 +84,12 @@ class Engine:
 	
 	
 	
+	def chooseVersion(self, log, versions):
+		'''A method to set the blender version to use with a preset'''
+		
+	
+	
+	
 	
 	
 	
