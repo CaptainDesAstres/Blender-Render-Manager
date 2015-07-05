@@ -21,7 +21,10 @@ class Options:
 	
 	def defaultInit(self):
 		'''initialize Rendering Options with default value'''
-		
+		self.z = True
+		self.objectIndex = True
+		self.compositing = False
+		self.alpha = True
 	
 	
 	
@@ -29,7 +32,10 @@ class Options:
 	
 	def fromXml(self, xml):
 		'''initialize Rendering Options with values extracted from an xml object'''
-		
+		self.z = xml.find('z') is not None
+		self.objectIndex = xml.find('objectIndex') is not None
+		self.compositing = xml.find('compositing') is not None
+		self.alpha = xml.find('alpha') is not None
 	
 	
 	
@@ -38,6 +44,18 @@ class Options:
 	def toXml(self):
 		'''export Rendering Options into xml syntaxed string'''
 		txt = '<options>\n'
+		
+		if self.z:
+			txt += '<z />\n'
+		
+		if self.objectIndex:
+			txt += '<objectIndex />\n'
+		
+		if self.compositing:
+			txt += '<compositing />\n'
+		
+		if self.alpha:
+			txt += '<alpha />\n'
 		
 		txt += '</options>\n'
 		return txt
