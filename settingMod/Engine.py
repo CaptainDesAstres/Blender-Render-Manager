@@ -23,6 +23,7 @@ class Engine:
 		'''initialize Engine Settings with default value'''
 		self.version = '[default]'
 		self.engine = 'CYCLES'
+		self.device = 'GPU'
 	
 	
 	
@@ -32,6 +33,8 @@ class Engine:
 		'''initialize Engine Settings with values extracted from an xml object'''
 		self.version = xml.get('version')
 		self.engine = xml.get('engine')
+		self.device = xml.get('device')
+	
 	
 	
 	
@@ -39,8 +42,9 @@ class Engine:
 	
 	def toXml(self):
 		'''export Engine Settings into xml syntaxed string'''
-		return '<engine version="'+self.version+'" engine="'\
-						+self.engine+'" />\n'
+		return '<engine version="'+self.version\
+					+'" engine="'+self.engine\
+					+'" device="'+self.device+'" />\n'
 		
 	
 	
@@ -74,7 +78,7 @@ class Engine:
 			elif choice == '1':
 				change = (self.chooseVersion(log, versions) or change)
 			elif choice in ['2', '3']:
-				self.switch(int(choice))
+				self.switch(log, choice == '2')
 				change = True
 			else:
 				log.error('Unvalid menu choice', False)
@@ -88,6 +92,7 @@ class Engine:
 		'''a method to print Engine Settings'''
 		print('Blender Version : '+self.version)
 		print('Engine :          '+self.engine.capitalize())
+		print('Cycles Device :   '+self.device)
 	
 	
 	
@@ -102,6 +107,30 @@ class Engine:
 			log.write('Version set to : '+self.version)
 			return True
 		return False
+	
+	
+	
+	
+	
+	def switch(self, log, engine):
+		'''A method to switch between available settings for engine and device'''
+		
+		if engine:
+			# switch engine
+			if self.engine == 'CYCLES':
+				self.engine = 'BLENDER_RENDER'
+			else:
+				self.engine = 'CYCLES'
+			log.write('Engine set to '+self.engine+'\n')
+		else:
+			# switch device
+			if self.device == 'GPU':
+				self.device = 'CPU'
+			else:
+				self.device = 'GPU'
+			log.write('Cycles rendering device set to '+self.device+'\n')
+			
+	
 	
 	
 	
