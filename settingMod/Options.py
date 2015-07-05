@@ -164,14 +164,14 @@ class Options:
 			if choice < 0:
 				choice = 0.0
 			if cycles:
-				choice > 10:
+				if choice > 10:
 					choice = 10.0
 			else:
 				if choice > 1:
 					choice = 1.0
 			
 			setattr(self, attr, choice)
-			log.write(label+' set to : '+str(getattr(self, attr)))
+			log.write(label+' set to : '+str(getattr(self, attr))+'\n')
 			log.menuOut()
 			return True
 			
