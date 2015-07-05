@@ -76,6 +76,10 @@ class Options:
 			self.print()
 			
 			print('''\n\n        Menu :
+1- Switch Z Pass Setting
+2- Switch Object Index Pass Setting
+3- Switch Compositing Setting
+4- Switch Alpha Background Setting
 0- Save and quit
 
 ''')
@@ -85,6 +89,14 @@ class Options:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
+			elif choice in ['1', '2', '3', '4']:
+				choice = int(choice)
+				attr = ['z', 'objectIndex', 'compositing', 'alpha'][choice]
+				label = ['Z pass', 'Object index pass', 'Compositing',\
+						 'Alpha background'][choice]
+				setattr(self, attr, not(getattr(self, attr)))
+				log.write(label+' '+({True:'Ennabled', False:'Disabled'}[getattr(self, attr)]))
+				change = True
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -95,7 +107,7 @@ class Options:
 	
 	def print(self):
 		'''a method to print Rendering Options'''
-		ennable = {True:'Ennable', False:'Disabled'}
+		ennable = {True:'Ennabled', False:'Disabled'}
 		
 		print('Z pass :              '+ennable[self.z])
 		print('Object index pass :   '+ennable[self.objectIndex])
