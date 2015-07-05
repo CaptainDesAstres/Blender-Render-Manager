@@ -109,10 +109,10 @@ class Options:
 		'''a method to print Rendering Options'''
 		ennable = {True:'Ennabled', False:'Disabled'}
 		
-		print('Z pass :              '+ennable[self.z])
-		print('Object index pass :   '+ennable[self.objectIndex])
-		print('Compositing :         '+ennable[self.compositing])
-		print('Alpha Background :    '+ennable[self.alpha])
+		print('Z pass :                '+ennable[self.z])
+		print('Object index pass :     '+ennable[self.objectIndex])
+		print('Compositing :           '+ennable[self.compositing])
+		print('Alpha Background :      '+ennable[self.alpha])
 	
 	
 	
