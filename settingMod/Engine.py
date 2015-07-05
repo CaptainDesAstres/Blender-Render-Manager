@@ -4,7 +4,7 @@
 import xml.etree.ElementTree as xmlMod
 import os
 
-class Preset:
+class Engine:
 	'''class to manage Engine Settings'''
 	
 	
@@ -66,7 +66,7 @@ class Preset:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
-			elif:
+			elif choice == '1':
 				change = (self.chooseVersion(log, versions) or change)
 			else:
 				log.error('Unvalid menu choice', False)
