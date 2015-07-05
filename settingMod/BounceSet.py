@@ -35,8 +35,8 @@ class BounceSet:
 	
 	def fromXml(self, xml):
 		'''initialize bounce settings with values extracted from an xml object'''
-		self.bounces = MinMax(xml.find('bounces'))
-		self.transparency = MinMax(xml.find('transparency'))
+		self.bounces = MinMax(xml = xml.find('bounces'))
+		self.transparency = MinMax(xml = xml.find('transparency'))
 		self.diffuse = int(xml.find('diffuse').get('value'))
 		self.glossy = int(xml.find('glossy').get('value'))
 		self.transmission = int(xml.find('transmission').get('value'))
