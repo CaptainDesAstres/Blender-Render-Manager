@@ -94,7 +94,7 @@ class MinMax:
 				log.menuOut()
 				return True
 			else:
-				log.error('Unvalid setting syntaxe, respect the syntaxe «MIN to Max», where MIN and MAX are decimal number.')
+				log.error('Unvalid setting syntax, respect the syntaxe «MIN to Max», where MIN and MAX are decimal number.')
 				continue
 			
 	

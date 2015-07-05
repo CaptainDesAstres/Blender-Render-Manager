@@ -25,6 +25,7 @@ class Quality:
 		self.pourcent = 100
 		self.size = Size('1920x1080')
 		self.samples = 1500
+		self.simplify = None
 	
 	
 	
@@ -36,6 +37,11 @@ class Quality:
 		self.pourcent = int(node.get('pourcent'))
 		self.size = Size(xml = node)
 		self.samples = int(xml.find('samples').get('value'))
+		if xml.find('simplify') is not None:
+			self.simplify = int(xml.find('simplify').get('value'))
+		else:
+			self.simplify = None
+		
 	
 	
 	
@@ -44,8 +50,10 @@ class Quality:
 	def toXml(self):
 		'''export Quality settings into xml syntaxed string'''
 		txt = '<quality>\n'
-		txt += '<resolution pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />\n'
-		txt += '<samples value="'+str(self.samples)+'" />\n'
+		txt += '  <resolution pourcent="'+str(self.pourcent)+'" '+self.size.toXmlAttr()+' />\n'
+		txt += '  <samples value="'+str(self.samples)+'" />\n'
+		if self.simplify is not None:
+			txt += '  <simplify value="'+str(self.simplify)+'" />\n'
 		txt += '</quality>\n'
 		return txt
 	
@@ -66,8 +74,9 @@ class Quality:
 			
 			print('''\n\n        Menu :
 1- Edit Resolution Size
-2- Edit Pourcent setting
+2- Edit Pourcent Setting
 3- Edit Cycles Samples
+4- Edit Simplify Setting
 0- Save and quit
 
 ''')
@@ -81,6 +90,8 @@ class Quality:
 				change = (self.size.edit(log, 'Resolution Size') or change)
 			elif choice in ['2', '3']:
 				change = (self.edit(log, int(choice)) or change)
+			elif choice == '4':
+				change = (self.editSimplify(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -93,7 +104,18 @@ class Quality:
 		'''a method to print preset'''
 		print('Resolution :            '+self.size.toStr()+'@'+str(self.pourcent))
 		print('Cycles Samples :        '+str(self.samples))
+		print('Simplify :              '+self.getSimplify())
 	
+	
+	
+	
+	
+	def getSimplify(self):
+		'''A method to get simplify setting'''
+		if self.simplify is None:
+			return 'Disabled'
+		else:
+			return str(self.simplify)
 	
 	
 	
