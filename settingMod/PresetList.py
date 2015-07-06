@@ -87,9 +87,9 @@ class PresetList:
 			elif choice == '4':
 				change = (self.createFrom(log, versions) or change)
 			elif choice == '5':
-				change = (self.remove(log, self.choose(log)) or change)
+				change = (self.remove(log) or change)
 			elif choice == '6':
-				change = (self.setDefault(log, self.choose(log)) or change)
+				change = (self.setDefault(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -260,6 +260,27 @@ class PresetList:
 	
 	
 	
+	def remove(self, log):
+		'''A method to remove a preset from the list'''
+		
+		log.menuIn('Remove A Preset')
+		
+		log.menuIn('Target Choice')
+		target = self.choose(log)
+		log.menuOut()
+		if target is None:
+			log.menuOut()
+			return False
+		
+		choice = input('Do you really want to erase «'+target+'» preset?(y)').strip().lower()
+		
+		if choice == 'y':
+			self.presets.pop(target)
+			log.write('«'+target+'» preset erased.\n')
+			log.menuOut()
+			return True
+		log.menuOut()
+		return False
 	
 	
 	
