@@ -274,7 +274,7 @@ class renderingTask:
 		green = '\033[32m'
 		
 		while True:
-			os.system('clear')
+			
 			log.write('Task settings menu : ')
 			log.print()
 			
@@ -314,7 +314,7 @@ action?''').strip()
 				log.write(green+'switch references settings to original file settings\n'+rest)
 			elif choice == 4:
 				# overwrite task settings with preferences
-				os.system('clear')
+				
 				log.menuIn('Overwrite With Preference Settings')
 				log.write('overwrite with preference settings : ')
 				log.print()
@@ -332,7 +332,7 @@ action?''').strip()
 				
 			elif choice == 5:
 				# overwrite task settings with original blender file settings
-				os.system('clear')
+				
 				log.menuIn('Overwrite With Original Blender File Settings')
 				log.write('overwrite with original Blender file settings : ')
 				log.print()

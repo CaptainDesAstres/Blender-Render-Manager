@@ -57,7 +57,7 @@ class Engine:
 		log.menuIn('Engine')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			self.print()

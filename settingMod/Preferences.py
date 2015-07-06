@@ -80,7 +80,7 @@ class Preferences:
 		
 		while True:
 			#print log and preferences
-			os.system('clear')
+			
 			log.print()
 			print('''\n    \033[4mPreferences Menu :\033[0m
 1- Blender versions

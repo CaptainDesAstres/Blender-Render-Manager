@@ -78,7 +78,7 @@ class MinMax:
 		log.menuIn('Edit '+label)
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n\n        Edit '+label+' :\n\nCurrent '+label+' :'+self.toStr()+'\n')

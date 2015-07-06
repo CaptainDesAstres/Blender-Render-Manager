@@ -60,7 +60,7 @@ class Tiles:
 		log.menuIn('Tiles Sizes')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n')

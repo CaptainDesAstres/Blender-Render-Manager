@@ -155,7 +155,7 @@ class queue:
 		header, colSize = self.getListHeader(cols)
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('	Render list :\n')
@@ -253,7 +253,7 @@ class queue:
 				#saveQueue(self)
 				
 			elif choice == -9998:
-				os.system('clear')
+				
 				log.menuIn('Help')
 				log.print()
 				print('''        \033[4mRender Queue Help:\033[0m
@@ -338,7 +338,7 @@ b =>	Move selected task to the bottom of the list
 	
 	def attrListChoice(self, log, cols):
 		'''a method to choose the attribut to display in the list'''
-		os.system('clear')
+		
 		log.menuIn('list attribute choice')
 		log.print()
 		
@@ -414,7 +414,7 @@ b =>	Move selected task to the bottom of the list
 		log.menuIn('Give File Path')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			path = input("Add File\n  ABSOLUTE path of the blender file (or 'cancel')").strip()
 			
@@ -460,7 +460,7 @@ b =>	Move selected task to the bottom of the list
 			
 			prefXml = re.search(r'<\?xml(.|\n)*</preferences>',prefXml).group(0)
 			prefXml = xmlMod.fromstring(prefXml).findall('scene')
-			os.system('clear')
+			
 			log.menuIn('Scene Choice')
 			log.print()
 			
@@ -558,7 +558,7 @@ b =>	Move selected task to the bottom of the list
 		log.menuIn('Action Choice')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('Selection :\n')
@@ -613,7 +613,7 @@ b =>	Move selected task to the bottom of the list
 			selected = []
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('Multiple selection :\n')
@@ -623,7 +623,7 @@ b =>	Move selected task to the bottom of the list
 			choice = input('add? (\'h\' for help)').strip().lower()
 			
 			if choice in ['h', 'help', 'man', 'manual']:
-				os.system('clear')
+				
 				log.menuIn('Help')
 				log.print()
 				
@@ -692,7 +692,7 @@ example : '2.5.10' select task 2, 5 and 10.
 			selected = []
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('Multiple unselection :\n(only selected task are display)\n')
@@ -702,7 +702,7 @@ example : '2.5.10' select task 2, 5 and 10.
 			choice = input('remove? (\'h\' for help)').strip().lower()
 			
 			if choice in ['h', 'help', 'man', 'manual']:
-				os.system('clear')
+				
 				log.menuIn('Help')
 				log.print()
 				
@@ -767,7 +767,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		log.menuIn('Edit Queue Composition')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 		
 			print('Selection :\n')
@@ -934,7 +934,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		log.menuIn('Settings Choice')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('	selection :\n')
@@ -998,7 +998,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		log.menuIn('Confirmation')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('	selection :\n')
@@ -1058,7 +1058,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		log.menuIn('Edit Quality Settings')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 		
 			print('Selection :\n')
@@ -1124,7 +1124,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		log.menuIn('Edit animation Settings')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 		
 			print('Selection :\n')
@@ -1177,7 +1177,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		log.menuIn('Edit Performance Settings')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 		
 			print('Selection :\n')
@@ -1258,7 +1258,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		log.menuIn('Edit Rendering Options Settings')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 		
 			print('Selection :\n')
@@ -1307,7 +1307,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		log.menuIn('Edit Cycles Lightpath Settings')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 		
 			print('Selection :\n')
@@ -1373,7 +1373,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		header, colSize = self.getListHeader(cols, False)
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			# print list
@@ -1471,7 +1471,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		header, colSize = self.getListHeader(cols, False)
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			# print list
@@ -1552,7 +1552,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 				 'foreground' : 'foregroundLayersKeywords'}[ground]
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			# print list
@@ -1654,7 +1654,7 @@ example : '2.5.10' unselect task 2, 5 and 10.
 		
 		
 		# print list
-		os.system('clear')
+		
 		log.print()
 		inventory = self.printListKeywords(select, pref, attr, ground)
 		

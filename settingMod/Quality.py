@@ -73,7 +73,7 @@ class Quality:
 		log.menuIn('Quality')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			self.print()
@@ -138,7 +138,7 @@ class Quality:
 			log.menuIn('Edit Cycles Samples')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			# print current setting and get new one
@@ -186,7 +186,7 @@ class Quality:
 		log.menuIn('Edit Simplify settings')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			# print current setting and get new one
@@ -233,7 +233,7 @@ class Quality:
 		log.menuIn('Choose Output Format')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n\n        Edit Output Format :\n\nCurrent format : '+self.format)

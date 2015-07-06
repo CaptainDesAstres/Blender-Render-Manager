@@ -57,7 +57,7 @@ class PresetList:
 		log.menuIn('Preferences Preset/Metapreset')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('''\n\n        Menu :
@@ -127,7 +127,7 @@ class PresetList:
 			return None
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n\n        Choose The Preset To Use :')

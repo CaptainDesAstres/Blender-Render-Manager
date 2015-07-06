@@ -63,7 +63,7 @@ class VersionList:
 		
 		while True:
 			# print log and Blender versions list
-			os.system('clear')
+			
 			log.print()
 			
 			self.print()
@@ -139,7 +139,7 @@ class VersionList:
 		
 		while True:
 			# print log 
-			os.system('clear')
+			
 			log.print()
 			
 			# get new version path
@@ -192,7 +192,7 @@ class VersionList:
 			log.menuIn('Choose An Alias')
 			while True:
 				# print log 
-				os.system('clear')
+				
 				log.print()
 				print('\n\n\033[4mRecommanded alias :\033[0m '+alias)
 				
@@ -232,7 +232,7 @@ class VersionList:
 		
 		while True:
 			# print log 
-			os.system('clear')
+			
 			log.print()
 			print('\n\nAll Blender version directory must be directly in a same directory. Script will not recursivly search for blender version')
 			
@@ -310,7 +310,7 @@ class VersionList:
 			return False
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n\n        \033[4mRename version :\033[0m')
@@ -343,7 +343,7 @@ class VersionList:
 		log.menuIn('Choose Version')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n\n')
@@ -381,7 +381,7 @@ class VersionList:
 			log.menuOut()
 			return False
 		
-		os.system('clear')
+		
 		log.print()
 		
 		print('\n\n        \033[4mRemove version :\033[0m')

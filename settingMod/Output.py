@@ -55,7 +55,7 @@ class Output:
 		log.menuIn('Output')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n')
@@ -102,7 +102,7 @@ class Output:
 		log.menuIn('Edit Path')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			#print current path and ask the new one
@@ -173,7 +173,7 @@ class Output:
 		
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			print('\n\n')
 			
@@ -189,7 +189,7 @@ class Output:
 			
 			#display help
 			if choice == 'h':
-				os.system('clear')
+				
 				log.menuIn('Help')
 				log.print()
 				print('''\n        \033[4mPattern Help\033[0m

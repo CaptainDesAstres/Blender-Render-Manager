@@ -75,7 +75,7 @@ class Size:
 		log.menuIn('Edit '+label)
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n\n        Edit '+label+' :\nCurrent '+label+' :'+self.toStr()+'\n')

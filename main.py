@@ -96,7 +96,7 @@ def main():
 	'''main function to execute'''
 	global log, renderQueue, scriptSetting
 	#clear standart output
-	os.system('clear')
+	
 	
 	
 	while True:
@@ -144,7 +144,7 @@ def main():
 				# save if there is a setting change
 				saveSettings(scriptSetting)
 				log.write('preferences saved\n')
-				os.system('clear')
+				
 				log.menuIn('Apply Preferences To All Task')
 				log.print()
 				choice = input('preferences have been changed. Do you want to apply preferences to all task in queue? (\'y\')').strip().lower()
@@ -171,7 +171,7 @@ def main():
 		else:
 			log.write('unknow choice: "'+str(choice)+'"\n')
 		
-		os.system('clear')
+		
 
 
 

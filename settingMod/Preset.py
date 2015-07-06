@@ -83,7 +83,7 @@ class Preset:
 		log.menuIn('Preset')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			self.print()
@@ -141,7 +141,7 @@ class Preset:
 		log.menuIn('Edit Animation Setting')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n\n        Edit Animation Setting :\n\n')
@@ -155,7 +155,7 @@ class Preset:
 			elif choice in ['h', 'help']:
 				# print help
 				log.menuIn('Edit Animation Setting')
-				os.system('clear')
+				
 				log.print()
 				print('''\n\n        HELP :
 [On Demand]       : Animation length will be asked for each file

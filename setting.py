@@ -396,7 +396,7 @@ class setting:
 		log.menuIn('Preferences')
 		while True:
 			#print log and preferences
-			os.system('clear')
+			
 			log.print()
 			print('    Settings\n')
 			self.print()
@@ -458,7 +458,7 @@ class setting:
 		
 		while True:
 			#print log and edit preferences menu
-			os.system('clear')
+			
 			log.print()
 			
 			
@@ -529,7 +529,7 @@ class setting:
 		#edit blender path
 		change = False
 		#print current blender path and ask a new one
-		os.system('clear')
+		
 		log.menuIn('Blender Path')
 		log.write('blender path editing : ')
 		log.print()
@@ -575,7 +575,7 @@ class setting:
 		'''method to edit the render resolution to use'''
 		#edit resolution setting
 		#print current resolution settings and ask new settings
-		os.system('clear')
+		
 		log.write('resolution editing: ')
 		log.menuIn('Resolution')
 		log.print()
@@ -613,7 +613,7 @@ class setting:
 		log.menuIn('Animation Settings')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('		Edit animation setting :')
@@ -722,7 +722,7 @@ class setting:
 		'''method to use to change the animation rate of the render'''
 		#edit animation frame rate
 		#print log and current animation settings and ask new settings
-		os.system('clear')
+		
 		log.write('edit animation rate : ')
 		log.menuIn('Animation Rate')
 		log.print()
@@ -763,7 +763,7 @@ class setting:
 		log.menuIn('Cycles Samples')
 		# print current settings
 		while True:
-			os.system('clear')
+			
 			log.write('edit Cycles sample settings : ')
 			log.print()
 			print('current Cycles sample settings: '\
@@ -800,7 +800,7 @@ class setting:
 					str(self.foregroundCyclesSamples)][choice-1]
 			
 			# print current setting
-			os.system('clear')
+			
 			log.menuIn(name.capitalize())
 			log.write(name+' : ')
 			log.print()
@@ -852,7 +852,7 @@ class setting:
 		log.menuIn('Engine')
 		# print old settings
 		while True:
-			os.system('clear')
+			
 			log.write('change default engine Settings : ')
 			log.print()
 			print('current engine : '+self.renderingEngine\
@@ -904,7 +904,7 @@ class setting:
 		change = False
 		log.menuIn('Output Settings')
 		while True:
-			os.system('clear')
+			
 			log.write('change output Settings : ')
 			log.print()
 			
@@ -954,7 +954,7 @@ class setting:
 		# edit output path
 		log.write('edit main output path:')
 		log.menuIn('Main Output Path')
-		os.system('clear')
+		
 		log.print()
 		print('current output path : '+str(self.outputPath)) 
 		new = input('\nnew path (must already exist and be absolute path):').strip()
@@ -999,7 +999,7 @@ class setting:
 		# write old settings
 		log.write('edit output subpath :')
 		log.menuIn('Output Subpath')
-		os.system('clear')
+		
 		log.print()
 		print('current output subpath : '+self.outputSubPath) 
 		new = input('\nnew subpath (%N will be replaced by the task file name and %S by the scene name):').strip()
@@ -1039,7 +1039,7 @@ class setting:
 		# edit output naming
 		log.write('edit output naming :')
 		log.menuIn('output naming')
-		os.system('clear')
+		
 		log.print()
 		print('current output naming : '+self.outputName) 
 		
@@ -1085,7 +1085,7 @@ new naming :').strip()
 		# print old setting
 		log.write('edit output format :')
 		log.menuIn('Output Format')
-		os.system('clear')
+		
 		log.print()
 		print('current output format : '+self.outputFormat) 
 		new = input('new format (available: png / jpeg / open_exr / open_exr_multilayer):').strip().upper()
@@ -1111,7 +1111,7 @@ new naming :').strip()
 		change = False
 		
 		while True:
-			os.system('clear')
+			
 			log.write('change tiles size : ')
 			log.print()
 			# print old settings
@@ -1195,7 +1195,7 @@ new naming :').strip()
 		log.menuIn('Light Path')
 		
 		while True:
-			os.system('clear')
+			
 			log.write('change Light path settings : ')
 			log.print()
 			# get current settings
@@ -1314,7 +1314,7 @@ new naming :').strip()
 		enable = { True : 'Enabled' , False : 'Disabled' }
 		
 		while True:
-			os.system('clear')
+			
 			log.write('change rendering option : ')
 			log.print()
 			
@@ -1443,7 +1443,7 @@ new naming :').strip()
 		log.menuIn('Renderlayers Keywords')
 		
 		while True:
-			os.system('clear')
+			
 			log.write('edit renderlayer keywords : ')
 			log.print()
 			
@@ -1499,7 +1499,7 @@ new naming :').strip()
 	
 	def removeKeyWords(self, log, keys, noKeys, choice):
 		'''method to remove renderlayer name keyword '''
-		os.system('clear')
+		
 		
 		if choice == 1:
 			log.write('remove background keyword : ')
@@ -1549,7 +1549,7 @@ new naming :').strip()
 	
 	def addKeyWords(self, log, keys, noKeys, choice):
 		'''method to add renderlayer name keywords'''
-		os.system('clear')
+		
 		
 		if choice == 3:
 			log.write('add background keyword : ')
@@ -1608,7 +1608,7 @@ new naming :').strip()
 		enable = { True : 'Enabled', False : 'Disabled' }
 		
 		while True:
-			os.system('clear')
+			
 			log.write('edit renderlayer : ')
 			log.print()
 			print('		renderlayer list:\n')
@@ -1655,7 +1655,7 @@ new naming :').strip()
 		settings = ['z', 'object index', 'use']
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('		Edit «'+layer['name']+'» renderlayer settings :')

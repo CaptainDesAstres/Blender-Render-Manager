@@ -77,7 +77,7 @@ class Options:
 		log.menuIn('Rendering Options')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			self.print()
@@ -143,7 +143,7 @@ class Options:
 			label = 'Blender Internal exposure'
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n\n        Edit '+label.capitalize()+' :')

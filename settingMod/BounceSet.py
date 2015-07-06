@@ -68,7 +68,7 @@ class BounceSet:
 		log.menuIn('Bounces Settings')
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			self.print()
@@ -137,7 +137,7 @@ class BounceSet:
 		
 		
 		while True:
-			os.system('clear')
+			
 			log.print()
 			
 			print('\n\n        Edit '+attr.capitalize()\
