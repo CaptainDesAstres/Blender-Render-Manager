@@ -88,7 +88,19 @@ class PresetList:
 	
 	
 	
-	
+	def presetsList(self, index = False):
+		'''A method to list preset'''
+		keys = list(self.presets.keys())
+		keys.sort(key = str.lower)
+		
+		if index:
+			for i,k in enumerate(keys):
+				print(i+'- '+k)
+		else:
+			for k in keys:
+				print(k)
+		
+		return keys
 	
 	
 	
