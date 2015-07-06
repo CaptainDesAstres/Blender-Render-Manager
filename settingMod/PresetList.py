@@ -77,17 +77,17 @@ class PresetList:
 				log.menuOut()
 				return change
 			elif choice == '1':
-				change = (self.edit(log, self.choose()) or change)
+				change = (self.edit(log, self.choose(log)) or change)
 			elif choice == '2':
-				change = (self.rename(log, self.choose()) or change)
+				change = (self.rename(log, self.choose(log)) or change)
 			elif choice == '3':
 				change = (self.create(log) or change)
 			elif choice == '4':
-				change = (self.createFrom(log, self.choose()) or change)
+				change = (self.createFrom(log, self.choose(log)) or change)
 			elif choice == '5':
-				change = (self.remove(log, self.choose()) or change)
+				change = (self.remove(log, self.choose(log)) or change)
 			elif choice == '6':
-				change = (self.setDefault(log, self.choose()) or change)
+				change = (self.setDefault(log, self.choose(log)) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -114,7 +114,31 @@ class PresetList:
 	
 	
 	
-	
+	def choose(self, log):
+		'''A method to choose a preset in the list'''
+		while True:
+			os.system('clear')
+			log.print()
+			
+			print('\n\n        Choose The Preset To Use :')
+			presets = self.presetsList(True)
+			
+			choice = input('what\' the preset to use?').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				return None
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('integer value expected')
+				continue
+			
+			if choice < 0 or choice >= len(presets)
+				log.error('out of available choice range')
+				continue
+			
+			return presets[choice]
 	
 	
 	
