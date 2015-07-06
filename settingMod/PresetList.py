@@ -77,7 +77,7 @@ class PresetList:
 				log.menuOut()
 				return change
 			elif choice == '1':
-				change = (self.edit(log, self.choose(log)) or change)
+				change = (self.preset[self.choose(log)].see(log) or change)
 			elif choice == '2':
 				change = (self.rename(log, self.choose(log)) or change)
 			elif choice == '3':
@@ -139,6 +139,27 @@ class PresetList:
 				continue
 			
 			return presets[choice]
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
