@@ -225,6 +225,7 @@ class PresetList:
 		self.presets[name] = Preset()
 		log.write('Create new preset named «'+name+'»\n')
 		self.presets[name].see(log, name, versions)
+		log.menuOut()
 		return True
 	
 	
@@ -249,7 +250,11 @@ class PresetList:
 			log.menuOut()
 			return False
 		
-		test = self.presets[old].copy()
+		self.presets[new] = self.presets[old].copy()
+		log.write('«'+new+'» preset create on «'+old+'» preset base.\n')
+		self.presets[new].see(log, new, versions)
+		log.menuOut()
+		return True
 	
 	
 	
