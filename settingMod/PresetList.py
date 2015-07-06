@@ -249,7 +249,7 @@ class PresetList:
 			log.menuOut()
 			return False
 		
-		
+		test = self.presets[old].copy()
 	
 	
 	

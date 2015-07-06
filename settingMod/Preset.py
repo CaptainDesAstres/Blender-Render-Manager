@@ -187,6 +187,13 @@ Loop 1 to 5       : Animation length will correspond to loop length of the loops
 	
 	
 	
+	def copy(self):
+		'''A method to get a copy of current object'''
+		xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+		xml += self.toXml('')
+		xml = xmlMod.fromstring(xml)
+		return Preset(xml)
+		
 	
 	
 	
