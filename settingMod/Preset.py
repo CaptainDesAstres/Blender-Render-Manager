@@ -58,9 +58,9 @@ class Preset:
 	
 	
 	
-	def toXml(self):
+	def toXml(self, alias):
 		'''export preset into xml syntaxed string'''
-		txt = '<preset animation="'+str(self.animation)+'" >\n'
+		txt = '<preset animation="'+str(self.animation)+'" alias="'+alias+'" >\n'
 		
 		txt += self.quality.toXml()
 		

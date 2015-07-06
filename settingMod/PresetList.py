@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage preset list'''
 import xml.etree.ElementTree as xmlMod
+from settingMod.Preset import *
 import os
 
 class PresetList:
@@ -21,6 +22,7 @@ class PresetList:
 	
 	def defaultInit(self):
 		'''initialize preset list with default value'''
+		self.presets = {'Factory Preset':Preset()}
 	
 	
 	
@@ -28,7 +30,9 @@ class PresetList:
 	
 	def fromXml(self, xml):
 		'''initialize preset list with values extracted from an xml object'''
-		
+		self.presets = {}
+		for node in xml.findall('preset'):
+			self.presets[node.get('alias')] = Preset(node)
 	
 	
 	
@@ -37,7 +41,9 @@ class PresetList:
 	def toXml(self):
 		'''export preset list into xml syntaxed string'''
 		txt = '<presetList>\n'
-		
+		presets = self.presets.keys()
+		for p in presets:
+			txt += self.presets[p].toXml(p)
 		txt += '</presetList>\n'
 		return txt
 	
