@@ -83,7 +83,7 @@ class PresetList:
 			elif choice == '2':
 				change = (self.rename(log) or change)
 			elif choice == '3':
-				change = (self.create(log) or change)
+				change = (self.create(log, versions) or change)
 			elif choice == '4':
 				change = (self.createFrom(log, self.choose(log)) or change)
 			elif choice == '5':
@@ -206,6 +206,26 @@ class PresetList:
 		log.write('«'+old+'» preset rename to «'+new+'»\n')
 		return True
 	
+	
+	
+	
+	
+	def create(self, log, versions):
+		'''A method to create a new Preset'''
+		log.menuIn('Create New Preset')
+		
+		log.menuIn('Preset Name Choice')
+		name = self.newAlias(log)
+		log.menuOut()
+		
+		if name is None:
+			log.menuOut()
+			return False
+		
+		self.presets[name] = Preset()
+		log.write('Create new preset named «'+name+'»\n')
+		self.presets[name].see(log, versions)
+		return True
 	
 	
 	
