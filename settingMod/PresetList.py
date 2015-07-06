@@ -116,6 +116,11 @@ class PresetList:
 	
 	def choose(self, log):
 		'''A method to choose a preset in the list'''
+		
+		if len(self.presets) == 0:
+			log.error('There is no available preset!')
+			return None
+		
 		while True:
 			os.system('clear')
 			log.print()
