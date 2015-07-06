@@ -67,6 +67,8 @@ class PresetList:
 			
 			log.print()
 			
+			print('\n\nDefault preset : «'+self.default+'»')
+			
 			print('''\n\n        Menu :
 1- See/Edit Preset
 2- Rename Preset
@@ -288,6 +290,30 @@ class PresetList:
 			return True
 		log.menuOut()
 		return False
+	
+	
+	
+	
+	
+	def setDefault(self, log):
+		'''A method to change default Preset'''
+		
+		log.menuIn('Choose Default Preset')
+		
+		choice = self.choose(log)
+		log.menuOut()
+		
+		if choice is None:
+			return False
+		
+		self.default = choice
+		log.write('Default preset set to «'+choice+'»\n')
+		return True
+	
+	
+	
+	
+	
 	
 	
 	
