@@ -61,10 +61,13 @@ class PresetList:
 			log.print()
 			
 			print('''\n\n        Menu :
-1- Manage Preset
-2- Manage Metapreset
-3- choose Default Preset/Metapreset
-0- Save and quit
+1- See/Edit Preset
+2- Rename Preset
+3- Create New Preset
+4- Create New Preset From Existing
+5- Remove Preset
+6- Use By Default
+0- Save And Quit
 
 ''')
 			
@@ -74,11 +77,17 @@ class PresetList:
 				log.menuOut()
 				return change
 			elif choice == '1':
-				change = (self.presetMenu(log) or change)
+				change = (self.edit(log, self.choose()) or change)
 			elif choice == '2':
-				change = (self.metapresetMenu(log) or change)
+				change = (self.rename(log, self.choose()) or change)
 			elif choice == '3':
-				change = (self.chooseDefault(log) or change)
+				change = (self.create(log) or change)
+			elif choice == '4':
+				change = (self.createFrom(log, self.choose()) or change)
+			elif choice == '5':
+				change = (self.remove(log, self.choose()) or change)
+			elif choice == '6':
+				change = (self.setDefault(log, self.choose()) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -100,37 +109,6 @@ class PresetList:
 				print(k)
 		
 		return keys
-	
-	
-	
-	
-	
-	def presetMenu(self, log):
-		'''A method to manage preset list'''
-		print('not yet implement')
-		input('press enter to continue')
-	
-	
-	
-	
-	
-	def metapresetMenu(self, log):
-		'''A method to manage metapreset list'''
-		print('not yet implement')
-		input('press enter to continue')
-	
-	
-	
-	
-	
-	def chooseDefault(self, log):
-		'''A method to choose the default preset or metapreset'''
-		print('not yet implement')
-		input('press enter to continue')
-	
-	
-	
-	
 	
 	
 	
