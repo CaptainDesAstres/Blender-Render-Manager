@@ -5,7 +5,7 @@ import xml.etree.ElementTree as xmlMod
 from settingMod.VersionList import *
 from settingMod.Output import *
 from settingMod.Tiles import *
-from settingMod.Preset import *
+from settingMod.PresetList import *
 import os
 
 class Preferences:
@@ -29,7 +29,7 @@ class Preferences:
 		self.blenderVersion = VersionList()
 		self.output = Output()
 		self.tiles = Tiles()
-		self.preset = Preset()
+		self.presets = PresetList()
 	
 	
 	
@@ -41,7 +41,7 @@ class Preferences:
 		self.blenderVersion = VersionList( xml.find('versionsList') )
 		self.output = Output( xml.find('output') )
 		self.tiles = Tiles(xml.find('tilesSet'))
-		self.preset = Preset(xml.find('preset'))
+		self.presets = PresetList(xml.find('presetList'))
 	
 	
 	
@@ -63,7 +63,7 @@ class Preferences:
 		xml+= self.tiles.toXml()
 		
 		# export preset settings
-		xml+= self.preset.toXml()
+		xml+= self.presets.toXml()
 		
 		xml += '</preferences>\n'
 		
@@ -86,7 +86,7 @@ class Preferences:
 1- Blender versions
 2- Output Path
 3- Tiles
-4- Preset
+4- Presets
 0- Save and quit
 
 ''')
@@ -105,7 +105,7 @@ class Preferences:
 			elif choice == '3':
 				change = (self.tiles.see(log) or change)
 			elif choice == '4':
-				change = (self.preset.see(log, self.blenderVersion) or change)
+				change = (self.presets.see(log, self.blenderVersion) or change)
 			else:
 				log.error('Unknow request!', False)
 	
