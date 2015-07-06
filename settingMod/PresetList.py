@@ -23,6 +23,7 @@ class PresetList:
 	def defaultInit(self):
 		'''initialize preset list with default value'''
 		self.presets = {'Factory Preset':Preset()}
+		self.default = 'Factory Preset'
 	
 	
 	
@@ -33,6 +34,8 @@ class PresetList:
 		self.presets = {}
 		for node in xml.findall('preset'):
 			self.presets[node.get('alias')] = Preset(node)
+		
+		self.default = xml.get('default')
 	
 	
 	
@@ -40,7 +43,11 @@ class PresetList:
 	
 	def toXml(self):
 		'''export preset list into xml syntaxed string'''
-		txt = '<presetList>\n'
+		if self.default is not None:
+			txt = '<presetList default="'+self.default+'" >\n'
+		else:
+			txt = '<presetList>\n'
+		
 		presets = self.presets.keys()
 		for p in presets:
 			txt += self.presets[p].toXml(p)
