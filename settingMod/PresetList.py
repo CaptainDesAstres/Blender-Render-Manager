@@ -95,7 +95,7 @@ class PresetList:
 		
 		if index:
 			for i,k in enumerate(keys):
-				print(i+'- '+k)
+				print(str(i)+'- '+k)
 		else:
 			for k in keys:
 				print(k)
