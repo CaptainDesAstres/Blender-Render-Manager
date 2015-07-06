@@ -3,7 +3,7 @@
 '''module to manage preset list'''
 import xml.etree.ElementTree as xmlMod
 from settingMod.Preset import *
-import os. re
+import os, re
 
 class PresetList:
 	'''class to manage preset list'''
@@ -81,10 +81,7 @@ class PresetList:
 				if alias is not None:
 					change = (self.presets[alias].see(log, versions) or change)
 			elif choice == '2':
-				change = (self.rename(log, \
-										self.choose(log),\
-										self.newAlias(log)
-										) or change)
+				change = (self.rename(log) or change)
 			elif choice == '3':
 				change = (self.create(log) or change)
 			elif choice == '4':
@@ -186,7 +183,28 @@ class PresetList:
 	
 	
 	
-	
+	def rename(self, log):
+		'''A method to rename Preset'''
+		log.menuIn('Rename Preset')
+		
+		log.menuIn('Choose Preset')
+		old = self.choose(log)
+		if old is None:
+			return False
+		log.menuOut()
+		log.menuOut()
+		log.menuIn('Rename «'+old+'» Preset')
+		
+		log.menuIn('New Preset Name')
+		new = self.newAlias(log)
+		if new is None:
+			return False
+		log.menuOut()
+		log.menuOut()
+		
+		self.presets[new] = self.presets.pop(old)
+		log.write('«'+old+'» preset rename to «'+new+'»\n')
+		return True
 	
 	
 	
