@@ -134,7 +134,7 @@ class PresetList:
 				log.error('integer value expected')
 				continue
 			
-			if choice < 0 or choice >= len(presets)
+			if choice < 0 or choice >= len(presets):
 				log.error('out of available choice range')
 				continue
 			
