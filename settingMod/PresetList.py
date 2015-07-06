@@ -85,7 +85,7 @@ class PresetList:
 			elif choice == '3':
 				change = (self.create(log, versions) or change)
 			elif choice == '4':
-				change = (self.createFrom(log, self.choose(log)) or change)
+				change = (self.createFrom(log, versions) or change)
 			elif choice == '5':
 				change = (self.remove(log, self.choose(log)) or change)
 			elif choice == '6':
@@ -227,6 +227,29 @@ class PresetList:
 		self.presets[name].see(log, name, versions)
 		return True
 	
+	
+	
+	
+	
+	def createFrom(self, log, versions):
+		'''A method to create a new preset by copying a old one'''
+		log.menuIn('Copy Then Edit Preset')
+		
+		log.menuIn('Original Preset Choice')
+		old = self.choose(log)
+		log.menuOut()
+		if old is None:
+			log.menuOut()
+			return False
+		
+		log.menuIn('Name Choice')
+		new = self.newAlias(log)
+		log.menuOut()
+		if new is None:
+			log.menuOut()
+			return False
+		
+		
 	
 	
 	
