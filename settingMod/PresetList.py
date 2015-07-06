@@ -3,7 +3,7 @@
 '''module to manage preset list'''
 import xml.etree.ElementTree as xmlMod
 from settingMod.Preset import *
-import os
+import os. re
 
 class PresetList:
 	'''class to manage preset list'''
@@ -156,7 +156,31 @@ class PresetList:
 	
 	def newAlias(self, log):
 		'''A method to get user new alias for a preset'''
-		
+		while True:
+			log.print()
+			
+			print('\n\n        Name Choice :')
+			choice = input('What\'s the wanted Name').strip()
+			
+			if choice == '':
+				return None
+			
+			# check size
+			if len(choice)<4:
+				log.error('4 minimal chars is expected for a valid preset Name')
+				continue
+			
+			# check char
+			if re.search(r'^([-a-zA-Z0-9]| |\(|\)|\.){1,}$', choice) is None:
+				log.error('unvalid characters. Preset name can only contain alphanumeric (unaccentuated) characters, spaces, parentheses points and "-"')
+				continue
+			
+			# check used
+			if choice in self.presets.keys():
+				log.error('Name Already used by another preset')
+				continue
+			
+			return choice
 	
 	
 	
