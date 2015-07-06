@@ -77,9 +77,14 @@ class PresetList:
 				log.menuOut()
 				return change
 			elif choice == '1':
-				change = (self.presets[self.choose(log)].see(log, versions) or change)
+				alias = self.choose(log)
+				if alias is not None:
+					change = (self.presets[alias].see(log, versions) or change)
 			elif choice == '2':
-				change = (self.rename(log, self.choose(log)) or change)
+				change = (self.rename(log, \
+										self.choose(log),\
+										self.newAlias(log)
+										) or change)
 			elif choice == '3':
 				change = (self.create(log) or change)
 			elif choice == '4':
@@ -149,8 +154,9 @@ class PresetList:
 	
 	
 	
-	
-	
+	def newAlias(self, log):
+		'''A method to get user new alias for a preset'''
+		
 	
 	
 	
