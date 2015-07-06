@@ -77,10 +77,10 @@ class Preset:
 	
 	
 	
-	def see(self, log, versions):
+	def see(self, log, alias, versions):
 		'''menu to explore and edit preset settings'''
 		change = False
-		log.menuIn('Preset')
+		log.menuIn(alias+' Preset')
 		
 		while True:
 			

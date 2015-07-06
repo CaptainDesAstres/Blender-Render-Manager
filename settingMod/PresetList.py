@@ -79,7 +79,7 @@ class PresetList:
 			elif choice == '1':
 				alias = self.choose(log)
 				if alias is not None:
-					change = (self.presets[alias].see(log, versions) or change)
+					change = (self.presets[alias].see(log, alias, versions) or change)
 			elif choice == '2':
 				change = (self.rename(log) or change)
 			elif choice == '3':
@@ -157,7 +157,7 @@ class PresetList:
 			log.print()
 			
 			print('\n\n        Name Choice :')
-			choice = input('What\'s the wanted Name').strip()
+			choice = input('What\'s the wanted Name : ').strip()
 			
 			if choice == '':
 				return None
@@ -224,7 +224,7 @@ class PresetList:
 		
 		self.presets[name] = Preset()
 		log.write('Create new preset named «'+name+'»\n')
-		self.presets[name].see(log, versions)
+		self.presets[name].see(log, name, versions)
 		return True
 	
 	
