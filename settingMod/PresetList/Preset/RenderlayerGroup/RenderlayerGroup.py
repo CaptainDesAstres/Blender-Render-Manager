@@ -233,7 +233,6 @@ class RLGroup:
 		RLGlist.groups[new] = self
 		RLGlist.groups.pop(name)
 		log.write('«'+name+'» group rename in «'+new+'»\n')
-		log.menuOut()
 		return True, new
 	
 	

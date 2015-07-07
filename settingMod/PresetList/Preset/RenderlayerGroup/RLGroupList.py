@@ -188,9 +188,20 @@ class RLGroupList:
 	
 	
 	
-	def create(self, log, versions):
+	def create(self, log):
 		'''A method to create a new Renderlayer Group'''
+		log.menuIn('Create A New Group')
 		
+		name = self.newGroupName(log)
+		if name is not None:
+			self.groups[name] = RLGroup([])
+			log.write('create «'+name+'» new renderlayer group\n')
+			self.groups[name].see(log, self, name)
+			log.menuOut()
+			return True
+		else:
+			log.menuOut()
+			return False
 	
 	
 	
