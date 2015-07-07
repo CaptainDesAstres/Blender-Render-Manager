@@ -105,7 +105,17 @@ class RLGroupList:
 	
 	def list(self, index = False):
 		'''A method to list Renderlayer Group'''
+		groups = self.groups.keys()
+		groups.sort(key = str.lower)
 		
+		if index:
+			for i, g in enumerate(groups):
+				print(str(i)+'- '+g)
+		else:
+			for g in groups:
+				print(g+' :\n    '+','.join(self.groups[g]))
+		
+		return groups
 	
 	
 	
