@@ -87,6 +87,7 @@ class RLGroup:
 				change = (confirm or change)
 			elif choice == '4':
 				if self.erase(log, RLGlist, name):
+					log.menuOut()
 					return True
 			else:
 				log.error('Unvalid menu choice', False)
@@ -119,7 +120,7 @@ class RLGroup:
 			
 			print('\n\n        Keywords Choice')
 			
-			self.print(True)
+			self.list(True)
 			
 			choice = input('\n\nkeywords Choice').strip().lower()
 			
