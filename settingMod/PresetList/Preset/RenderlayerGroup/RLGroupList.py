@@ -61,16 +61,14 @@ class RLGroupList:
 		log.menuIn('')
 		
 		while True:
-			
 			log.print()
 			
-			
+			print('\n\n        Manage Renderlayer Group :\n')
+			log.list()
 			
 			print('''\n\n        Menu :
-1- See/Edit Group
-2- Rename Group
-3- Create New Group
-4- Remove Group
+1- Edit Group
+2- Create New Group
 0- Save And Quit
 
 ''')
@@ -101,7 +99,7 @@ class RLGroupList:
 	
 	
 	
-	def groupList(self, index = False):
+	def list(self, index = False):
 		'''A method to list Renderlayer Group'''
 		
 	
@@ -117,22 +115,6 @@ class RLGroupList:
 	
 	
 	
-	def newGroupName(self, log):
-		'''A method to get user new alias for a Renderlayer Group'''
-		
-	
-	
-	
-	
-	
-	def rename(self, log):
-		'''A method to rename Renderlayer Group'''
-		
-	
-	
-	
-	
-	
 	def create(self, log, versions):
 		'''A method to create a new Renderlayer Group'''
 		
@@ -141,9 +123,7 @@ class RLGroupList:
 	
 	
 	
-	def remove(self, log):
-		'''A method to remove a Renderlayer Group from the list'''
-		
+	
 	
 	
 	
