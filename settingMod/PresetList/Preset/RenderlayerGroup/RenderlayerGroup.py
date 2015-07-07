@@ -136,7 +136,7 @@ class RLGroup:
 	
 	
 	def search(self, key):
-		'''A method to add a new keyword'''
+		'''A method to check if a keyword is used by the group'''
 		return key in self.keywords
 	
 	
@@ -146,7 +146,48 @@ class RLGroup:
 	
 	def add(self, log, RLGlist):
 		'''A method to add a new keyword'''
+		log.menuIn('Add Keywords')
 		
+		while True:
+			log.print()
+			
+			print('\n\n        Add Keyword :\n\n')
+			
+			keys = input('Type keywords to add (separed by ";") : ').strip()
+			
+			if keys.lower() in ['', 'q']:
+				log.menuOut()
+				return False
+			
+			keys = keys.split(';')
+			for i,k in enumerate(keys):
+				keys[i] = keys[i].strip()
+			
+			error = ''
+			for k in keys[0:]:
+				if len(k) < 3:
+					error += '«'+k+'» will not be added because it\'s to short!\n'
+					keys.remove(k)
+				elif re.search(r'^([a-zA-Z0-9_]){1,}$', k) is None:
+					error += '«'+k+'» will not be added because contained unvalid characters (only unaccentuated alphanumeric characters and _ are accept)!\n'
+					keys.remove(k)
+				elif RLGlist.usedKey(k):
+					error += '«'+k+'» will not be added because it already set for another group!\n'
+					keys.remove(k)
+			
+			
+			error = error.strip()
+			if error > 0:
+				log.error(error, False)
+			
+			if len(keys) == 0:
+				continue
+			
+			self.keywords += keys
+			log.write('«'+'», «'.join(keys)+'» have been added to the group keywords\n')
+			log.menuOut()
+			return True
+			
 	
 	
 	
