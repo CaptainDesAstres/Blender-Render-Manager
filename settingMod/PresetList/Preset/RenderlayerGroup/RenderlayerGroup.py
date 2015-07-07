@@ -78,7 +78,8 @@ class RLGroup:
 				confirm, name = self.rename(log, RLGlist, name)
 				change = (confirm or change)
 			elif choice == '4':
-				change = (self.erase(log, RLGlist, name) or change)
+				if self.erase(log, RLGlist, name):
+					return True
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -212,7 +213,7 @@ class RLGroup:
 	
 	
 	def rename(self, log, RLGlist, name):
-		'''A method to remove a keyword'''
+		'''A method to rename the group'''
 		log.menuIn('Rename «'+name+'» Renderlayer Group')
 		
 		while True:
@@ -249,8 +250,19 @@ class RLGroup:
 	
 	
 	def erase(self, log, RLGlist, name):
-		'''A method to remove a keyword'''
+		'''A method to erase the group'''
+		log.menuIn('Erase «'+name+'» renderlayer group')
 		
+		log.print()
+		print('\n\n        Erase «'+name+'» renderlayer group')
+		confirm = input('Do you realy want to erase this group?(y)').strip().lower() == 'y'
+		
+		log.menuOut()
+		if confirm:
+			RLGlist.groups.pop(name)
+			return True
+		else:
+			return False
 	
 	
 	
