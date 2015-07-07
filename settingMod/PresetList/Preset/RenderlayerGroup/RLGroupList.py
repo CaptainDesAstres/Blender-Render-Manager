@@ -154,6 +154,40 @@ class RLGroupList:
 	
 	
 	
+	def newGroupName(self, log, name = None):
+		'''a name to create a new group name'''
+		log.menuIn('Name Choice')
+		
+		while True:
+			log.print()
+			
+			print('\n\n        New Group Name Choice :')
+			
+			new = input('type new group name :').strip()
+			
+			if new.lower() in ['', 'q', 'quit', 'cancel', name]:
+				log.menuOut()
+				return None
+			
+			if len(new) < 6:
+				log.error('the name must have 6 or more characters!')
+				continue
+			
+			if re.search(r'^[-0-9a-zA-Z_ ()]{1,}$') is None:
+				log.error('Unvalid characters : accepted characters are unaccentuated aplhanumeric character, -, _, parenteses and spaces!')
+				continue
+			
+			if new in self.groups.keys():
+				log.error('This name is already use by another group!')
+				continue
+			
+			log.menuOut()
+			return new
+	
+	
+	
+	
+	
 	def create(self, log, versions):
 		'''A method to create a new Renderlayer Group'''
 		
