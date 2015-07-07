@@ -173,6 +173,12 @@ class RLGroup:
 			for i,k in enumerate(keys):
 				keys[i] = keys[i].strip()
 			
+			unique = []
+			for k in keys:
+				if k not in unique:
+					unique.append(k)
+			keys = unique
+			
 			error = ''
 			for k in keys[0:]:
 				if len(k) < 3:
