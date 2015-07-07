@@ -3,6 +3,7 @@
 '''module to manage preset list'''
 import xml.etree.ElementTree as xmlMod
 from settingMod.PresetList.Preset.Preset import *
+from settingMod.PresetList.RenderlayerGroup.RLGroupList import *
 import os, re
 
 class PresetList:
@@ -24,6 +25,7 @@ class PresetList:
 		'''initialize preset list with default value'''
 		self.presets = {'Factory Preset':Preset()}
 		self.default = 'Factory Preset'
+		self.renderlayers = RLGroupList()
 	
 	
 	
@@ -36,6 +38,8 @@ class PresetList:
 			self.presets[node.get('alias')] = Preset(node)
 		
 		self.default = xml.get('default')
+		
+		self.renderlayers = RLGroupList(xml.find('RLGroupList'))
 	
 	
 	
@@ -51,6 +55,9 @@ class PresetList:
 		presets = self.presets.keys()
 		for p in presets:
 			txt += self.presets[p].toXml(p)
+		
+		txt += self.renderlayers.toXml()
+		
 		txt += '</presetList>\n'
 		return txt
 	
@@ -76,6 +83,7 @@ class PresetList:
 4- Create New Preset From Existing
 5- Remove Preset
 6- Use By Default
+7- Manage Renderlayer Group
 0- Save And Quit
 
 ''')
@@ -99,6 +107,8 @@ class PresetList:
 				change = (self.remove(log) or change)
 			elif choice == '6':
 				change = (self.setDefault(log) or change)
+			elif choice == '7':
+				change = (self.renderlayers.see(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
