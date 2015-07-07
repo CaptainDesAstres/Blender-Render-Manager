@@ -47,7 +47,7 @@ class RLGroupList:
 	
 	
 	
-	def see(self, log, versions):
+	def see(self, log):
 		'''menu to explore and edit Renderlayer list settings'''
 		change = False
 		log.menuIn('')

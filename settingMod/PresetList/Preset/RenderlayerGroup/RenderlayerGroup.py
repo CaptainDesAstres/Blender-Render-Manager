@@ -8,10 +8,10 @@ class RLGroupList:
 	'''class to manage Renderlayer group'''
 	
 	
-	def __init__(self, xml= None):
+	def __init__(self, keywords = None, xml= None):
 		'''initialize Renderlayer group with default value or values extracted from an xml object'''
-		if xml is None:
-			self.defaultInit()
+		if keywords is not None:
+			self.defaultInit(keywords)
 		else:
 			self.fromXml(xml)
 	
@@ -19,9 +19,9 @@ class RLGroupList:
 	
 	
 	
-	def defaultInit(self):
+	def defaultInit(self, keywords):
 		'''initialize Renderlayer group with default value'''
-		
+		self.keywords = keywords
 	
 	
 	
@@ -29,7 +29,7 @@ class RLGroupList:
 	
 	def fromXml(self, xml):
 		'''initialize Renderlayer group with values extracted from an xml object'''
-		
+		self.keywords = xml.get('keywords').split(';')
 	
 	
 	
@@ -37,7 +37,7 @@ class RLGroupList:
 	
 	def toXml(self):
 		'''export Renderlayer group into xml syntaxed string'''
-		txt = '<RenderlayerGroup />\n'
+		txt = '<RenderlayerGroup keywords="'+';'.join(self.keywords)+'"/>\n'
 		
 		return txt
 	
@@ -45,18 +45,21 @@ class RLGroupList:
 	
 	
 	
-	def see(self, log, versions):
+	def see(self, log, RLGlist, name):
 		'''menu to explore and edit Renderlayer group settings'''
 		change = False
-		log.menuIn('')
+		log.menuIn('«'+name+'» Renderlayer Group')
 		
 		while True:
-			
 			log.print()
 			
-			
+			self.list()
 			
 			print('''\n\n        Menu :
+1- Add Keywords
+2- Remove Keywords
+3- Rename Group
+4- Erase Group
 0- Save And Quit
 
 ''')
@@ -66,6 +69,14 @@ class RLGroupList:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
+			elif choice == '1':
+				change = (self.add(log) or change)
+			elif choice == '2':
+				change = (self.remove(log) or change)
+			elif choice == '3':
+				change = (self.rename(log, RLGlist, name) or change)
+			elif choice == '4':
+				change = (self.erase(log, RLGlist, name) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -100,6 +111,22 @@ class RLGroupList:
 	
 	
 	def remove(self, log):
+		'''A method to remove a keyword'''
+		
+	
+	
+	
+	
+	
+	def rename(self, log):
+		'''A method to remove a keyword'''
+		
+	
+	
+	
+	
+	
+	def erase(self, log):
 		'''A method to remove a keyword'''
 		
 	
