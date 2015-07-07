@@ -5,7 +5,7 @@ import xml.etree.ElementTree as xmlMod
 from settingMod.VersionList import *
 from settingMod.Output import *
 from settingMod.Tiles import *
-from settingMod.PresetList import *
+from settingMod.PresetList.PresetList import *
 import os
 
 class Preferences:

@@ -175,7 +175,7 @@ class VersionList:
 			
 			# get blender version from blender path
 			path = choice
-			version = os.popen('"'+path+'" -b -P "'+os.path.realpath(__file__+'/..')+'/getBlenderVersion.py" ').read()
+			version = os.popen('"'+path+'" -b -P "'+os.path.realpath(__file__+'/..')+'/getter/getBlenderVersion.py" ').read()
 			version = re.search(r'<\?xml(.|\n)*</root>',version).group(0)
 			version = xmlMod.fromstring(version).find('version').get('version')
 			alias = 'Blender ('+version+')'
@@ -276,7 +276,7 @@ class VersionList:
 						and os.access(versionPath, os.X_OK):
 					
 					# get Blender version
-					version = os.popen('"'+versionPath+'" -b -P "'+os.path.realpath(__file__+'/..')+'/getBlenderVersion.py" ').read()
+					version = os.popen('"'+versionPath+'" -b -P "'+os.path.realpath(__file__+'/..')+'/getter/getBlenderVersion.py" ').read()
 					version = re.search(r'<\?xml(.|\n)*</root>',version).group(0)
 					version = xmlMod.fromstring(version).find('version').get('version')
 					

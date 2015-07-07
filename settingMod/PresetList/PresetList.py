@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage preset list'''
 import xml.etree.ElementTree as xmlMod
-from settingMod.Preset import *
+from settingMod.PresetList.Preset.Preset import *
 import os, re
 
 class PresetList:

@@ -3,10 +3,10 @@
 '''module to manage preset'''
 import xml.etree.ElementTree as xmlMod
 from usefullFunctions import *
-from settingMod.Quality import *
-from settingMod.BounceSet import *
-from settingMod.Engine import *
-from settingMod.Options import *
+from settingMod.PresetList.Preset.Quality import *
+from settingMod.PresetList.Preset.BounceSet import *
+from settingMod.PresetList.Preset.Engine import *
+from settingMod.PresetList.Preset.Options import *
 import os
 
 class Preset:

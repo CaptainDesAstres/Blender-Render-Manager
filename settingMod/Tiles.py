@@ -3,7 +3,7 @@
 '''module to manage tiles sizes'''
 import xml.etree.ElementTree as xmlMod
 import os
-from settingMod.Size import *
+from settingMod.PresetList.Preset.ValueType.Size import *
 
 class Tiles:
 	'''class to manage tiles sizes'''
