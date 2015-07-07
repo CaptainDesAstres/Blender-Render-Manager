@@ -53,6 +53,7 @@ class RLGroupList:
 		while True:
 			log.print()
 			
+			print('\n\n        «'+name+'» Renderlayer Group :\n')
 			self.list()
 			
 			print('''\n\n        Menu :
@@ -101,7 +102,30 @@ class RLGroupList:
 	
 	def choose(self, log):
 		'''A method to choose a keyword'''
+		log.menuIn('Keywords Choice')
 		
+		while True:
+			log.print()
+			
+			print('\n\n        Keywords Choice')
+			
+			self.print(True)
+			
+			choice = input('\n\nkeywords Choice').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return None
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('Integer value expected!')
+				continue
+			
+			if choice < 0 or choice >= len(self.keywords)
+				log.error('No keywords corresponding to this index number!')
+				continue
 	
 	
 	
