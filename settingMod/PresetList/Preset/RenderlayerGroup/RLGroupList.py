@@ -88,6 +88,19 @@ class RLGroupList:
 	
 	
 	
+	def usedKey(self, key):
+		'''A method to check if a keyword is used by one of the group'''
+		used = False
+		
+		for group in self.groups:
+			used = (used or group.search(key))
+		
+		return used
+	
+	
+	
+	
+	
 	def groupList(self, index = False):
 		'''A method to list Renderlayer Group'''
 		
