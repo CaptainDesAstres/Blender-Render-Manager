@@ -68,6 +68,14 @@ class RLGroup:
 			choice = input('Action?').strip().lower()
 			
 			if choice in ['0', 'q', 'quit', 'cancel']:
+				if len(self.keywords) == 0:
+					log.print()
+					if input('\033[31mWarning: the group have no keyword. If you quit now, it will be erase! confirm (y) : \033[0m').strip().lower() == 'y':
+						RLGlist.groups.pop(name)
+						log.write('«'+name+'» group erased because he don\'t have keyword\n')
+					else:
+						continue
+				
 				log.menuOut()
 				return change
 			elif choice == '1':
@@ -260,6 +268,7 @@ class RLGroup:
 		log.menuOut()
 		if confirm:
 			RLGlist.groups.pop(name)
+			log.write('«'+name+'» group erased\n')
 			return True
 		else:
 			return False
