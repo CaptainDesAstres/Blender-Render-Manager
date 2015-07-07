@@ -73,7 +73,7 @@ class RLGroupList:
 			elif choice == '1':
 				change = (self.add(log) or change)
 			elif choice == '2':
-				change = (self.remove(log) or change)
+				change = (self.remove(log, name) or change)
 			elif choice == '3':
 				change = (self.rename(log, RLGlist, name) or change)
 			elif choice == '4':
@@ -126,6 +126,9 @@ class RLGroupList:
 			if choice < 0 or choice >= len(self.keywords)
 				log.error('No keywords corresponding to this index number!')
 				continue
+			
+			log.menuOut()
+			return choice
 	
 	
 	
@@ -140,9 +143,18 @@ class RLGroupList:
 	
 	
 	
-	def remove(self, log):
+	def remove(self, log, name):
 		'''A method to remove a keyword'''
+		log.menuIn('Remove Keyword')
 		
+		target = self.choose(log)
+		log.menuOut()
+		if target is None:
+			return False
+		
+		target = self.keywords.pop(target)
+		log.write('«'+target+'» keyword remove from «'+name+'» renderlayer group\n')
+		return True
 	
 	
 	
