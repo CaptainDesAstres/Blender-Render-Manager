@@ -123,7 +123,32 @@ class RLGroupList:
 	
 	def choose(self, log):
 		'''A method to choose a Renderlayer Group in the list'''
+		log.menuIn('Group Choice')
 		
+		while True:
+			log.print()
+			print('\n\n        Group Choice :\n\n')
+			
+			groups = self.list(True)
+			
+			choice = input('group to use : ').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return None
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('expect integer value')
+				continue
+			
+			if choice < 0 or choice >= len(groups):
+				log.error('out of available choices range!')
+				continue
+			
+			log.menuOut()
+			return groups[choice]
 	
 	
 	
