@@ -78,6 +78,10 @@ class RLGroupList:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
+			elif choice == '1':
+				change = (self.edit(log) or change)
+			elif choice == '2':
+				change = (self.create(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
