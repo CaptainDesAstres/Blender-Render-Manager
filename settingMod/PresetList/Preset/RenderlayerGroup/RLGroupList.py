@@ -154,6 +154,21 @@ class RLGroupList:
 	
 	
 	
+	def edit(log):
+		'''A method to edit renderlayer group'''
+		log.menuIn('Edit Renderlayer Group')
+		target = self.choose(log)
+		
+		log.menuOut()
+		if target is None:
+			return False
+		
+		return self.groups[target].see(log, self, target)
+	
+	
+	
+	
+	
 	def newGroupName(self, log, name = None):
 		'''a name to create a new group name'''
 		log.menuIn('Name Choice')
