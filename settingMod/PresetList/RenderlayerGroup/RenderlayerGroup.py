@@ -133,7 +133,7 @@ class RLGroup:
 				log.error('Integer value expected!')
 				continue
 			
-			if choice < 0 or choice >= len(self.keywords)
+			if choice < 0 or choice >= len(self.keywords):
 				log.error('No keywords corresponding to this index number!')
 				continue
 			
@@ -187,7 +187,7 @@ class RLGroup:
 			
 			
 			error = error.strip()
-			if error > 0:
+			if len(error) > 0:
 				log.error(error, False)
 			
 			if len(keys) == 0:

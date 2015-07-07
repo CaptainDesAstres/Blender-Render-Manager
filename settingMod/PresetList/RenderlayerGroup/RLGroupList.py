@@ -58,13 +58,13 @@ class RLGroupList:
 	def see(self, log):
 		'''menu to explore and edit Renderlayer list settings'''
 		change = False
-		log.menuIn('')
+		log.menuIn('Group List Management')
 		
 		while True:
 			log.print()
 			
 			print('\n\n        Manage Renderlayer Group :\n')
-			log.list()
+			self.list()
 			
 			print('''\n\n        Menu :
 1- Edit Group
@@ -98,7 +98,7 @@ class RLGroupList:
 		'''A method to check if a keyword is used by one of the group'''
 		used = False
 		
-		for group in self.groups:
+		for group in self.groups.values():
 			used = (used or group.search(key))
 		
 		return used
@@ -109,7 +109,7 @@ class RLGroupList:
 	
 	def list(self, index = False):
 		'''A method to list Renderlayer Group'''
-		groups = self.groups.keys()
+		groups = list(self.groups.keys())
 		groups.sort(key = str.lower)
 		
 		if index:
@@ -117,7 +117,7 @@ class RLGroupList:
 				print(str(i)+'- '+g)
 		else:
 			for g in groups:
-				print(g+' :\n    '+','.join(self.groups[g]))
+				print(g+' :\n    '+','.join(self.groups[g].keywords))
 		
 		return groups
 	
@@ -158,7 +158,7 @@ class RLGroupList:
 	
 	
 	
-	def edit(log):
+	def edit(self, log):
 		'''A method to edit renderlayer group'''
 		log.menuIn('Edit Renderlayer Group')
 		target = self.choose(log)
@@ -192,7 +192,7 @@ class RLGroupList:
 				log.error('the name must have 6 or more characters!')
 				continue
 			
-			if re.search(r'^[-0-9a-zA-Z_ ()]{1,}$') is None:
+			if re.search(r'^[-0-9a-zA-Z_ ()]{1,}$', new) is None:
 				log.error('Unvalid characters : accepted characters are unaccentuated aplhanumeric character, -, _, parenteses and spaces!')
 				continue
 			
