@@ -4,7 +4,7 @@
 import xml.etree.ElementTree as xmlMod
 import os, re
 
-class RLGroupList:
+class RLGroup:
 	'''class to manage Renderlayer group'''
 	
 	
@@ -35,9 +35,9 @@ class RLGroupList:
 	
 	
 	
-	def toXml(self):
+	def toXml(self, name):
 		'''export Renderlayer group into xml syntaxed string'''
-		txt = '<RenderlayerGroup keywords="'+';'.join(self.keywords)+'"/>\n'
+		txt = '<RenderlayerGroup keywords="'+';'.join(self.keywords)+'" name="'+name+'" />\n'
 		
 		return txt
 	

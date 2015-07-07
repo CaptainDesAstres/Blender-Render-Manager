@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage Renderlayer list'''
 import xml.etree.ElementTree as xmlMod
+from settingMod.PresetList.Preset.RenderlayerGroup.RenderlayerGroup import *
 import os, re
 
 class RLGroupList:
@@ -21,7 +22,10 @@ class RLGroupList:
 	
 	def defaultInit(self):
 		'''initialize Renderlayer list with default value'''
-		
+		self.groups = {
+						'Background':RLGroup(['bck', 'background']),
+						'Foreground':RLGroup(['fgd', 'foreground'])
+						}
 	
 	
 	
@@ -29,7 +33,9 @@ class RLGroupList:
 	
 	def fromXml(self, xml):
 		'''initialize Renderlayer list with values extracted from an xml object'''
-		
+		self.groups = {}
+		for node in xml.findall('RenderlayerGroup'):
+			self.groups[node.get('name')] = RLGroup(xml = node)
 	
 	
 	
@@ -39,6 +45,8 @@ class RLGroupList:
 		'''export Renderlayer list into xml syntaxed string'''
 		txt = '<RLGroupList>\n'
 		
+		for group in self.groups.keys():
+			txt += self.groups[group].toXml(group)
 		
 		txt += '</RLGroupList>\n'
 		return txt
