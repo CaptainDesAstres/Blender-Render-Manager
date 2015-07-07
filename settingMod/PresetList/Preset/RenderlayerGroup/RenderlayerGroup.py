@@ -75,7 +75,8 @@ class RLGroup:
 			elif choice == '2':
 				change = (self.remove(log, name) or change)
 			elif choice == '3':
-				change = (self.rename(log, RLGlist, name) or change)
+				confirm, name = self.rename(log, RLGlist, name)
+				change = (confirm or change)
 			elif choice == '4':
 				change = (self.erase(log, RLGlist, name) or change)
 			else:
@@ -210,15 +211,44 @@ class RLGroup:
 	
 	
 	
-	def rename(self, log):
+	def rename(self, log, RLGlist, name):
 		'''A method to remove a keyword'''
+		log.menuIn('Rename «'+name+'» Renderlayer Group')
 		
+		while True:
+			log.print()
+			
+			print('\n\n        Rename «'+name+'» Renderlayer Group :')
+			
+			new = input('type new group name :').strip()
+			
+			if new.lower() in ['', 'q', 'quit', 'cancel', name]:
+				log.menuOut()
+				return False, name
+			
+			if len(new) < 6:
+				log.error('the name must have 6 or more characters!')
+				continue
+			
+			if re.search(r'^[-0-9a-zA-Z_ ()]{1,}$') is None:
+				log.error('Unvalid characters : accepted characters are unaccentuated aplhanumeric character, -, _, parenteses and spaces!')
+				continue
+			
+			if new in RLGlist.groups.keys():
+				log.error('This name is already use by another group!')
+				continue
+			
+			RLGlist.groups[new] = self
+			RLGlist.groups.pop(name)
+			log.write('«'+name+'» group rename in «'+new+'»\n')
+			log.menuOut()
+			return True, new
 	
 	
 	
 	
 	
-	def erase(self, log):
+	def erase(self, log, RLGlist, name):
 		'''A method to remove a keyword'''
 		
 	
