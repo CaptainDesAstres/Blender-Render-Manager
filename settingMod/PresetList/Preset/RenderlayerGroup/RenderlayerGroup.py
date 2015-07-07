@@ -88,8 +88,12 @@ class RLGroupList:
 	def list(self, index = False):
 		'''A method to list keyword of the Renderlayer Group'''
 		print('Group Keywords :')
-		for k in self.keywords:
-			print('    '+k)
+		if index:
+			for i, k in enumerate(self.keywords):
+				print('  '+str(i)+'- '+k)
+		else:
+			for k in self.keywords:
+				print('    '+k)
 	
 	
 	
