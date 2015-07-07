@@ -79,6 +79,10 @@ class RLGroupList:
 				log.menuOut()
 				return change
 			elif choice == '1':
+				if len(self.groups) == 0:
+					log.error('Empty group list! Create group before thinking to edit it')
+					continue
+				
 				change = (self.edit(log) or change)
 			elif choice == '2':
 				change = (self.create(log) or change)
