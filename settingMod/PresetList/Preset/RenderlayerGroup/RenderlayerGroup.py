@@ -71,7 +71,7 @@ class RLGroupList:
 				log.menuOut()
 				return change
 			elif choice == '1':
-				change = (self.add(log) or change)
+				change = (self.add(log, RLGlist) or change)
 			elif choice == '2':
 				change = (self.remove(log, name) or change)
 			elif choice == '3':
@@ -135,7 +135,16 @@ class RLGroupList:
 	
 	
 	
-	def add(self, log, versions):
+	def search(self, key):
+		'''A method to add a new keyword'''
+		return key in self.keywords
+	
+	
+	
+	
+	
+	
+	def add(self, log, RLGlist):
 		'''A method to add a new keyword'''
 		
 	
