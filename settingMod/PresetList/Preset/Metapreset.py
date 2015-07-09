@@ -58,18 +58,23 @@ class Metapreset:
 	
 	
 	
-	def see(self, log):
+	def see(self, log, alias, groups, presets):
 		'''menu to explore and edit metapreset settings'''
 		change = False
 		log.menuIn(alias+' Metapreset')
 		
 		while True:
-			
 			log.print()
+			
+			print('\n\n        «'+alias+'» Metapreset')
 			
 			self.print()
 			
 			print('''\n\n        Menu :
+1- Add Group
+2- Edit Group
+3- Remove Group
+4- Set Default Preset
 0- Save and quit
 
 ''')
@@ -79,6 +84,14 @@ class Metapreset:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
+			elif choice == '1':
+				change = (self.add(log, alias, groups, presets) or change)
+			elif choice == '2':
+				change = (self.edit(log, alias, presets) or change)
+			elif choice == '3':
+				change = (self.remove(log, alias) or change)
+			elif choice == '4':
+				change = (self.setDefault(log, alias, presets) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -109,6 +122,45 @@ class Metapreset:
 		xml = xmlMod.fromstring(xml)
 		return Metapreset(xml)
 		
+	
+	
+	
+	
+	
+	
+	
+	def add(self, log, alias, groups, presets):
+		'''Method to add a group to the metapreset'''
+		
+	
+	
+	
+	
+	
+	
+	def edit(self, log, alias, presets):
+		'''Method to the preset associated with a renderlayer group'''
+		
+	
+	
+	
+	
+	
+	def remove(self, log, alias):
+		'''a method to remove a group from the metapreset'''
+		
+	
+	
+	
+	
+	
+	def setDefault(self, log, alias, presets):
+		'''a method to set the default preset'''
+	
+	
+	
+	
+	
 	
 	
 	
