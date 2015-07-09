@@ -117,10 +117,16 @@ class PresetList:
 	
 	
 	
-	def presetsList(self, index = False):
+	def presetsList(self, index = False, meta = True):
 		'''A method to list preset'''
 		keys = list(self.presets.keys())
 		keys.sort(key = str.lower)
+		
+		if not meta:
+			for k in keys[0:]:
+				if type(self.presets[k]) is Metapreset:
+					keys.remove()
+		
 		
 		if index:
 			for i,k in enumerate(keys):
