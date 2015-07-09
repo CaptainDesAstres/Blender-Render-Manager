@@ -94,7 +94,24 @@ class Metapreset:
 				change = (self.setDefault(log, alias, presets) or change)
 			else:
 				log.error('Unvalid menu choice', False)
+	
+	
+	
+	
+	
+	def list(self, index = False):
+		'''a method to list all the group of the metapreset'''
+		keys = list(self.groups.keys())
+		keys.sort(key = str.lower)
 		
+		if index:
+			for i,k in enumerate(keys):
+				print(str(i)+'- '+k)
+		else:
+			for k in keys:
+				print(k)
+		
+		return keys
 	
 	
 	
