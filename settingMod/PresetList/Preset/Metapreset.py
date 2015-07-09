@@ -89,7 +89,14 @@ class Metapreset:
 	
 	def print(self):
 		'''a method to print Metapreset'''
+		if self.default is None:
+			print('Default Preset : \033[31mnot set!\033[0m')
+		else:
+			print('Default Preset : '+self.default)
+		print()
 		
+		for group, preset in self.groups.items():
+			print(columnLimit(group, 25, sep = ''),' : ',columnLimit(preset, 25, sep = ''))
 	
 	
 	
