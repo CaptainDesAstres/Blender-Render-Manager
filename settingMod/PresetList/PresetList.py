@@ -125,7 +125,7 @@ class PresetList:
 		if not meta:
 			for k in keys[0:]:
 				if type(self.presets[k]) is Metapreset:
-					keys.remove()
+					keys.remove(k)
 		
 		
 		if index:
@@ -141,7 +141,7 @@ class PresetList:
 	
 	
 	
-	def choose(self, log):
+	def choose(self, log, meta = True):
 		'''A method to choose a preset in the list'''
 		
 		if len(self.presets) == 0:
@@ -153,7 +153,7 @@ class PresetList:
 			log.print()
 			
 			print('\n\n        Choose The Preset To Use :')
-			presets = self.presetsList(True)
+			presets = self.presetsList(True, meta, exclude)
 			
 			choice = input('what\' the preset to use?').strip().lower()
 			

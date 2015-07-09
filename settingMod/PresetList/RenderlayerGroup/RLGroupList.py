@@ -107,10 +107,14 @@ class RLGroupList:
 	
 	
 	
-	def list(self, index = False):
+	def list(self, index = False, exclude = []):
 		'''A method to list Renderlayer Group'''
 		groups = list(self.groups.keys())
 		groups.sort(key = str.lower)
+		
+		for k in groups[0:]:
+			if k in exclude:
+				groups.remove(k)
 		
 		if index:
 			for i, g in enumerate(groups):
@@ -125,7 +129,7 @@ class RLGroupList:
 	
 	
 	
-	def choose(self, log):
+	def choose(self, log, exclude = []):
 		'''A method to choose a Renderlayer Group in the list'''
 		log.menuIn('Group Choice')
 		
@@ -133,7 +137,7 @@ class RLGroupList:
 			log.print()
 			print('\n\n        Group Choice :\n\n')
 			
-			groups = self.list(True)
+			groups = self.list(True, exclude)
 			
 			choice = input('group to use : ').strip().lower()
 			

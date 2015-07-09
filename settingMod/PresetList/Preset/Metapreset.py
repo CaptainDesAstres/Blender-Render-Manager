@@ -58,7 +58,7 @@ class Metapreset:
 	
 	
 	
-	def see(self, log, alias, groups, presets):
+	def see(self, log, alias, presets):
 		'''menu to explore and edit metapreset settings'''
 		change = False
 		log.menuIn(alias+' Metapreset')
@@ -129,9 +129,27 @@ class Metapreset:
 	
 	
 	
-	def add(self, log, alias, groups, presets):
+	def add(self, log, alias, presets):
 		'''Method to add a group to the metapreset'''
+		log.menuIn('Add renderlayer group to metapreset')
 		
+		
+		group = presets.renderlayers.choose(log, list(self.groups.keys()))
+		
+		if group is None:
+			log.menuOut()
+			return False
+		
+		preset = presets.choose(log, False)
+		
+		if preset is None:
+			log.menuOut()
+			return False
+		
+		log.menuOut()
+		self.groups[group] = preset
+		log.write('add «'+group+'» renderlayer group  to «'+alias+'» metapreset, set it to «'+preset+'» preset\n')
+		return True
 	
 	
 	
