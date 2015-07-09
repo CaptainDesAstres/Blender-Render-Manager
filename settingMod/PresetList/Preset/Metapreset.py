@@ -21,7 +21,8 @@ class Metapreset:
 	
 	def defaultInit(self):
 		'''initialize metapreset with default value'''
-		
+		self.default = None
+		self.groups = {}
 	
 	
 	
@@ -29,6 +30,11 @@ class Metapreset:
 	
 	def fromXml(self, xml):
 		'''initialize metapreset with values extracted from an xml object'''
+		self.default = xml.get('default')
+		
+		self.groups = {}
+		for node in xml.findall('group'):
+			self.groups[node.get('name')] = node.get('preset')
 		
 	
 	
@@ -37,7 +43,13 @@ class Metapreset:
 	
 	def toXml(self, alias):
 		'''export metapreset into xml syntaxed string'''
-		txt = '<metapreset alias="'+alias+'" >\n'
+		if self.default is None:
+			txt = '<metapreset alias="'+alias+'" >\n'
+		else:
+			txt = '<metapreset alias="'+alias+'" default="'+self.default+'" >\n'
+		
+		for group, preset in self.groups.items():
+			print('  <group name="'+group+'" preset="'+preset+'" />')
 		
 		txt += '</metapreset>\n'
 		return txt
