@@ -268,6 +268,20 @@ class Metapreset:
 	
 	def setDefault(self, log, alias, presets):
 		'''a method to set the default preset'''
+		log.menuIn('Default Preset')
+		
+		log.menuIn('Preset Choice')
+		preset = presets.choose(log, False)
+		log.menuOut()
+		
+		log.menuOut()
+		
+		if preset is None:
+			return False
+		
+		self.default = preset
+		log.write('«'+alias+'» default preset set to «'+preset+'»\n')
+		return True
 	
 	
 	
