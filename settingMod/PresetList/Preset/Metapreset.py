@@ -73,7 +73,7 @@ class Metapreset:
 			print('''\n\n        Menu :
 1- Add Group
 2- Edit Group
-3- Remove Group
+3- Unset/Remove Group
 4- Set Default Preset
 0- Save and quit
 
@@ -238,7 +238,29 @@ class Metapreset:
 	
 	def remove(self, log, alias):
 		'''a method to remove a group from the metapreset'''
+		log.menuIn('Remove A Group')
 		
+		log.menuIn('Group Choice')
+		group = self.choose(log)
+		log.menuOut()
+		
+		if group is None:
+			log.menuOut()
+			return False
+		
+		log.menuIn('Remove Group Confirmation')
+		log.print()
+		confirm = input('Do you really want to remove/unset «'+group+'» renderlayer group of «'+alias+'» metapreset?(y)').strip().lower()
+		log.menuOut()
+		
+		log.menuOut()
+		if confirm == 'y':
+			self.groups.pop(group)
+			log.write('«'+group+'» Renderlayer group removed from «'+alias+'» metapreset\n')
+			return True
+		
+		
+		return False
 	
 	
 	
