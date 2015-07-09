@@ -117,6 +117,40 @@ class Metapreset:
 	
 	
 	
+	def choose(self):
+		'''a method to choose a group of the metapreset'''
+		if len(self.groups) == 0:
+			log.error('There is no group in the metapreset!')
+			return None
+		
+		while True:
+			
+			log.print()
+			
+			print('\n\n        Choose The Target Group :')
+			groups = self.list(True)
+			
+			choice = input('what\' the targeted group?').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				return None
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('integer value expected')
+				continue
+			
+			if choice < 0 or choice >= len(presets):
+				log.error('out of available choice range')
+				continue
+			
+			return groups[choice]
+	
+	
+	
+	
+	
 	def print(self):
 		'''a method to print Metapreset'''
 		if self.default is None:
