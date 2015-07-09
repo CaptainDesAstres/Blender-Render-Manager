@@ -117,7 +117,7 @@ class Metapreset:
 	
 	
 	
-	def choose(self):
+	def choose(self, log):
 		'''a method to choose a group of the metapreset'''
 		if len(self.groups) == 0:
 			log.error('There is no group in the metapreset!')
@@ -199,7 +199,7 @@ class Metapreset:
 		
 		log.menuOut()
 		self.groups[group] = preset
-		log.write('add «'+group+'» renderlayer group  to «'+alias+'» metapreset, set it to «'+preset+'» preset\n')
+		log.write('add «'+group+'» renderlayer group to «'+alias+'» metapreset, set it to «'+preset+'» preset\n')
 		return True
 	
 	
@@ -209,7 +209,28 @@ class Metapreset:
 	
 	def edit(self, log, alias, presets):
 		'''Method to the preset associated with a renderlayer group'''
+		log.menuIn('Editing Of Group')
 		
+		log.menuIn('Group Choice')
+		group = self.choose(log)
+		log.menuOut()
+		
+		if group is None:
+			log.menuOut()
+			return False
+		
+		log.menuIn('Preset Choice')
+		preset = presets.choose(log, False)
+		log.menuOut()
+		
+		if preset is None:
+			log.menuOut()
+			return False
+		
+		log.menuOut()
+		self.groups[group] = preset
+		log.write('«'+group+'» renderlayer group of «'+alias+'» metapreset set to «'+preset+'» preset\n')
+		return True
 	
 	
 	
