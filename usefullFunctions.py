@@ -1,7 +1,7 @@
 #!/usr/bin/python3.4
 # -*-coding:Utf-8 -*
 
-def columnLimit(value, limit, begin = True):
+def columnLimit(value, limit, begin = True, sep = '|'):
 	'''function to make sure to have a good column size'''
 	if type(value) is not str:
 		value = str(value)
@@ -10,9 +10,9 @@ def columnLimit(value, limit, begin = True):
 		begin = limit
 	
 	if len(value) > limit:
-		return value[0:begin-1]+'…'+value[len(value)-(limit-begin):]+'|'
+		return value[0:begin-1]+'…'+value[len(value)-(limit-begin):]+sep
 	else:
-		return value+(' '*(limit-len(value)))+'|'
+		return value+(' '*(limit-len(value)))+sep
 
 
 
