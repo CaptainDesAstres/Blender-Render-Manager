@@ -304,3 +304,20 @@ class Metapreset:
 	
 	
 	
+	def renameGroup(self, old, new):
+		'''rename group if used'''
+		if self.useGroup(old):
+			self.groups[new] = self.groups[old]
+			self.groups.pop(old)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

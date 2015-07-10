@@ -400,6 +400,16 @@ class PresetList:
 	
 	
 	
+	def renameGroup(self, old, new):
+		'''rename a group in all metapreset that use it'''
+		for preset in self.presets.values():
+			if type(preset) is Metapreset:
+				preset.renameGroup(old,new)
+		
+	
+	
+	
+	
 	
 	
 	

@@ -84,7 +84,7 @@ class RLGroup:
 			elif choice == '2':
 				change = (self.remove(log, name) or change)
 			elif choice == '3':
-				confirm, name = self.rename(log, RLGlist, name)
+				confirm, name = self.rename(log, RLGlist, name, presetList)
 				change = (confirm or change)
 			elif choice == '4':
 				if self.erase(log, RLGlist, name, presetList):
@@ -228,7 +228,7 @@ class RLGroup:
 	
 	
 	
-	def rename(self, log, RLGlist, name):
+	def rename(self, log, RLGlist, name, presetList):
 		'''A method to rename the group'''
 		log.menuIn('Rename «'+name+'» Renderlayer Group')
 		
@@ -240,6 +240,7 @@ class RLGroup:
 		
 		RLGlist.groups[new] = self
 		RLGlist.groups.pop(name)
+		presetList.renameGroup(name, new)
 		log.write('«'+name+'» group rename in «'+new+'»\n')
 		return True, new
 	
