@@ -49,7 +49,7 @@ class Metapreset:
 			txt = '<metapreset alias="'+alias+'" default="'+self.default+'" >\n'
 		
 		for group, preset in self.groups.items():
-			txt = '  <group name="'+group+'" preset="'+preset+'" />'
+			txt += '  <group name="'+group+'" preset="'+preset+'" />\n'
 		
 		txt += '</metapreset>\n'
 		return txt
