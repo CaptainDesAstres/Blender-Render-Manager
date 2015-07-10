@@ -3,6 +3,7 @@
 '''module to manage preset list'''
 import xml.etree.ElementTree as xmlMod
 from settingMod.PresetList.Preset.Preset import *
+from settingMod.PresetList.Preset.Metapreset import *
 from settingMod.PresetList.RenderlayerGroup.RLGroupList import *
 import os, re
 
@@ -36,6 +37,9 @@ class PresetList:
 		self.presets = {}
 		for node in xml.findall('preset'):
 			self.presets[node.get('alias')] = Preset(node)
+		
+		for node in xml.findall('metapreset'):
+			self.presets[node.get('alias')] = Metapreset(node)
 		
 		self.default = xml.get('default')
 		
