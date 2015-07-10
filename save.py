@@ -3,10 +3,6 @@
 '''functions to save config file and queue file '''
 import os
 
-def saveSettings(s):
-	'''function that save preferences 's' in a configuration file'''
-	with open(os.getcwd()+'/settings','w') as setFile:
-		setFile.write(s.toXmlStr(True, True))
 
 def savePreferences(s):
 	'''function that save preferences 's' in a preferences file'''
