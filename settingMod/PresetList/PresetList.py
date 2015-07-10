@@ -381,8 +381,7 @@ class PresetList:
 	
 	def checkGroupUse(self, group):
 		'''check if a group is used by one of the metapreset of the list'''
-		
-		for preset in self.presets:
+		for preset in self.presets.values():
 			if type(preset) is Metapreset and preset.useGroup(group):
 				return True
 		return False
