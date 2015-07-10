@@ -234,7 +234,17 @@ class PresetList:
 		log.menuOut()
 		log.menuOut()
 		
+		
 		self.presets[new] = self.presets.pop(old)
+		
+		if self.default == old:
+			self.default = new
+		
+		if type(self.presets[new]) is Preset:
+			for preset in self.presets:
+				if type(preset) is Metapreset:
+					preset.renamePreset(old, new)
+		
 		log.write('«'+old+'» preset rename to «'+new+'»\n')
 		return True
 	

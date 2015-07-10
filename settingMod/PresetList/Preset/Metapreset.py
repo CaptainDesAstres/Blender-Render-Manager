@@ -314,6 +314,22 @@ class Metapreset:
 	
 	
 	
+	def renamePreset(self, old, new):
+		'''rename preset if it is used'''
+		
+		if self.default == old:
+			self.default = new
+		
+		for g in self.groups.keys():
+			if self.groups[g] == old:
+				self.groups[g] = new
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
