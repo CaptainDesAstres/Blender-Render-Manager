@@ -241,7 +241,7 @@ class PresetList:
 			self.default = new
 		
 		if type(self.presets[new]) is Preset:
-			for preset in self.presets:
+			for preset in self.presets.values():
 				if type(preset) is Metapreset:
 					preset.renamePreset(old, new)
 		
