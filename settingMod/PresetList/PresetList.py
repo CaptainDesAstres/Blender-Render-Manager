@@ -78,7 +78,10 @@ class PresetList:
 			
 			log.print()
 			
-			print('\n\nDefault preset : «'+self.default+'»')
+			if self.default is None:
+				print('\n\n\033[31mDefault preset is not set!\033[0m')
+			else:
+				print('\n\nDefault preset : «'+self.default+'»')
 			
 			print('''\n\n        Menu :
 1- See/Edit Preset
@@ -95,6 +98,9 @@ class PresetList:
 			choice = input('Action?').strip().lower()
 			
 			if choice in ['0', 'q', 'quit', 'cancel']:
+				if self.default is None:
+					loq.error('you must set a default preset before quit!')
+					continue
 				log.menuOut()
 				return change
 			elif choice == '1':
@@ -356,13 +362,25 @@ class PresetList:
 			log.menuOut()
 			return False
 		
+		print('\033[31mIf preset is used in other metapreset or as default preset, this will be unset\033[0m\n')
 		choice = input('Do you really want to erase «'+target+'» preset?(y)').strip().lower()
 		
 		if choice == 'y':
-			self.presets.pop(target)
+			old = self.presets.pop(target)
 			log.write('«'+target+'» preset erased.\n')
+			
+			if self.default == target:
+				self.default = None
+			
+			if type(old) is Preset:
+				for preset in self.presets.values():
+					if type(preset) is Metapreset:
+						preset.unsetPreset(target)
+			
 			log.menuOut()
 			return True
+		
+		
 		log.menuOut()
 		return False
 	

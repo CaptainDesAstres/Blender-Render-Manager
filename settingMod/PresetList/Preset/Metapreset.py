@@ -328,6 +328,15 @@ class Metapreset:
 	
 	
 	
+	def unsetPreset(self, preset):
+		'''unset group that use preset'''
+		for group in list(self.groups.keys()):
+			if self.groups[group] == preset:
+				self.groups.pop(group)
+	
+	
+	
+	
 	
 	
 	
