@@ -239,6 +239,35 @@ class PresetList:
 		'''A method to create a new Preset'''
 		log.menuIn('Create New Preset')
 		
+		log.menuIn('Preset Or Metapreset Choice')
+		while True:
+			log.print()
+			
+			print('''\n\n        Preset Type Choice :
+1- Preset
+2- Metapreset
+0- Cancel''')
+			Ptype = input('What kind of preset do you want to create? ').strip().lower()
+			
+			if Ptype in ['q', 'quit', 'cancel']:
+				Ptype = 0
+			else:
+				try:
+					Ptype = int(Ptype)
+				except ValueError:
+					log.error('expect integer value')
+					continue
+			
+			# check range
+			if Ptype < 0 or Ptype > 2:
+				log.error('this is not a valid choice!')
+				continue
+		log.menuOut()
+		
+		if Ptype == 0:
+			log.menuOut()
+			return False
+		
 		log.menuIn('Preset Name Choice')
 		name = self.newAlias(log)
 		log.menuOut()
@@ -247,8 +276,15 @@ class PresetList:
 			log.menuOut()
 			return False
 		
-		self.presets[name] = Preset()
-		log.write('Create new preset named «'+name+'»\n')
+		
+		if Ptype == 1:
+			self.presets[name] = Preset()
+			log.write('Create new preset named «'+name+'»\n')
+		else:
+			self.presets[name] = Metapreset()
+			log.write('Create new metapreset named «'+name+'»\n')
+		
+		
 		self.presets[name].see(log, name, versions)
 		log.menuOut()
 		return True
@@ -276,7 +312,10 @@ class PresetList:
 			return False
 		
 		self.presets[new] = self.presets[old].copy()
-		log.write('«'+new+'» preset create on «'+old+'» preset base.\n')
+		if type(self.presets[new]) is Preset:
+			log.write('«'+new+'» preset create on «'+old+'» preset base.\n')
+		else:
+			log.write('«'+new+'» metapreset create on «'+old+'» metapreset base.\n')
 		self.presets[new].see(log, new, versions)
 		log.menuOut()
 		return True
