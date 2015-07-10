@@ -96,12 +96,25 @@ class RLGroupList:
 	
 	def usedKey(self, key):
 		'''A method to check if a keyword is used by one of the group'''
-		used = False
+		
 		
 		for group in self.groups.values():
-			used = (used or group.search(key))
+			if group.search(key):
+				return True
 		
-		return used
+		return False
+	
+	
+	
+	
+	
+	def collideKey(self, k):
+		'''A method to check that a keyword don't collide with already existing keywords'''
+		for group in self.groups.keys():
+			key = self.groups[group].collide(k)
+			if key is not None:
+				return key
+		return None
 	
 	
 	

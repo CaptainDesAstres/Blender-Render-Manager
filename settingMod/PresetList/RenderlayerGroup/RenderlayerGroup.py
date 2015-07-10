@@ -192,6 +192,11 @@ class RLGroup:
 				elif RLGlist.usedKey(k):
 					error += '«'+k+'» will not be added because it already set for another group!\n'
 					keys.remove(k)
+				else:
+					collide = RLGlist.collideKey(k)
+					if collide is not None:
+						error += '«'+k+'» will not be added because it collide with already set keyword «'+collide+'» of another group!\n'
+						keys.remove(k)
 			
 			
 			error = error.strip()
@@ -279,6 +284,16 @@ class RLGroup:
 			return True
 		return False
 	
+	
+	
+	
+	
+	def collide(self, key):
+		'''check if key collide with keyword used by the group'''
+		for keyword in self.keywords:
+			if keyword.count(key) + key.count(keyword) > 0:
+				return keyword
+		return None
 	
 	
 	
