@@ -292,7 +292,7 @@ class PresetList:
 		else:
 			self.presets[name] = Metapreset()
 			log.write('Create new metapreset named «'+name+'»\n')
-			self.presets[name].see(log, name, self.presets)
+			self.presets[name].see(log, name, self)
 		
 		
 		log.menuOut()
@@ -326,7 +326,7 @@ class PresetList:
 			self.presets[new].see(log, new, versions)
 		else:
 			log.write('«'+new+'» metapreset create on «'+old+'» metapreset base.\n')
-			self.presets[new].see(log, new, self.presets)
+			self.presets[new].see(log, new, self)
 		log.menuOut()
 		return True
 	

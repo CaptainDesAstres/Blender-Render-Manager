@@ -87,7 +87,7 @@ class RLGroup:
 				confirm, name = self.rename(log, RLGlist, name)
 				change = (confirm or change)
 			elif choice == '4':
-				if self.erase(log, RLGlist, name):
+				if self.erase(log, RLGlist, name, presetList):
 					log.menuOut()
 					return True
 			else:
@@ -247,7 +247,7 @@ class RLGroup:
 	
 	
 	
-	def erase(self, log, RLGlist, name):
+	def erase(self, log, RLGlist, name, presetList):
 		'''A method to erase the group'''
 		log.menuIn('Erase «'+name+'» renderlayer group')
 		
@@ -270,7 +270,7 @@ class RLGroup:
 	def eraseGroupUseTest(self, log, name, presetList):
 		'''check if the group is used before to erase it'''
 		if not presetList.checkGroupUse(name):
-			return True:
+			return True
 		
 		log.print()
 		if input('\n\nRender Layer Group «'+name+'» is used by some metapreset. if you erase it, it will be unset for all this metapreset… confirm (y)').strip().lower() == 'y':
