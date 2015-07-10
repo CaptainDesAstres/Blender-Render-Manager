@@ -287,7 +287,18 @@ class Metapreset:
 	
 	
 	
+	def useGroup(self, group):
+		'''check if group is used by the metapreset'''
+		return group in self.groups.keys()
 	
+	
+	
+	
+	
+	def unsetGroup(self, group):
+		'''unset group if it's set for the metapreset'''
+		if self.useGroup(group):
+			self.groups.pop(group)
 	
 	
 	
