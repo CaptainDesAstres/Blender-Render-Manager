@@ -55,7 +55,7 @@ class RLGroupList:
 	
 	
 	
-	def see(self, log):
+	def see(self, log, presetList):
 		'''menu to explore and edit Renderlayer list settings'''
 		change = False
 		log.menuIn('Group List Management')
@@ -83,9 +83,9 @@ class RLGroupList:
 					log.error('Empty group list! Create group before thinking to edit it')
 					continue
 				
-				change = (self.edit(log) or change)
+				change = (self.edit(log, presetList) or change)
 			elif choice == '2':
-				change = (self.create(log) or change)
+				change = (self.create(log, presetList) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -162,7 +162,7 @@ class RLGroupList:
 	
 	
 	
-	def edit(self, log):
+	def edit(self, log, presetList):
 		'''A method to edit renderlayer group'''
 		log.menuIn('Edit Renderlayer Group')
 		target = self.choose(log)
@@ -171,7 +171,7 @@ class RLGroupList:
 		if target is None:
 			return False
 		
-		return self.groups[target].see(log, self, target)
+		return self.groups[target].see(log, self, target, presetList)
 	
 	
 	
@@ -211,7 +211,7 @@ class RLGroupList:
 	
 	
 	
-	def create(self, log):
+	def create(self, log, presetList):
 		'''A method to create a new Renderlayer Group'''
 		log.menuIn('Create A New Group')
 		
@@ -219,7 +219,7 @@ class RLGroupList:
 		if name is not None:
 			self.groups[name] = RLGroup([])
 			log.write('create «'+name+'» new renderlayer group\n')
-			self.groups[name].see(log, self, name)
+			self.groups[name].see(log, self, name, presetList)
 			log.menuOut()
 			return True
 		else:

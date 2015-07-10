@@ -45,7 +45,7 @@ class RLGroup:
 	
 	
 	
-	def see(self, log, RLGlist, name):
+	def see(self, log, RLGlist, name, presetList):
 		'''menu to explore and edit Renderlayer group settings'''
 		change = False
 		log.menuIn('«'+name+'» Renderlayer Group')
@@ -70,7 +70,8 @@ class RLGroup:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				if len(self.keywords) == 0:
 					log.print()
-					if input('\033[31mWarning: the group have no keyword. If you quit now, it will be erase! confirm (y) : \033[0m').strip().lower() == 'y':
+					if input('\033[31mWarning: the group have no keyword. If you quit now, it will be erase! confirm (y) : \033[0m').strip().lower() == 'y' and self.eraseGroupUseTest(log, name, presetList):
+						
 						RLGlist.groups.pop(name)
 						log.write('«'+name+'» group erased because he don\'t have keyword\n')
 					else:
@@ -255,12 +256,27 @@ class RLGroup:
 		confirm = input('Do you realy want to erase this group?(y)').strip().lower() == 'y'
 		
 		log.menuOut()
-		if confirm:
+		if confirm and self.eraseGroupUseTest(log, name, presetList):
 			RLGlist.groups.pop(name)
 			log.write('«'+name+'» group erased\n')
 			return True
 		else:
 			return False
+	
+	
+	
+	
+	
+	def eraseGroupUseTest(self, log, name, presetList):
+		'''check if the group is used before to erase it'''
+		if not presetList.checkGroupUse(name):
+			return True:
+		
+		log.print()
+		if input('\n\nRender Layer Group «'+name+'» is used by some metapreset. if you erase it, it will be unset for all this metapreset… confirm (y)').strip().lower() == 'y':
+			presetList.eraseGroup(name)
+			return True
+		return False
 	
 	
 	

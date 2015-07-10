@@ -115,7 +115,7 @@ class PresetList:
 			elif choice == '6':
 				change = (self.setDefault(log) or change)
 			elif choice == '7':
-				change = (self.renderlayers.see(log) or change)
+				change = (self.renderlayers.see(log, self) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -387,6 +387,14 @@ class PresetList:
 				return True
 		return False
 	
+	
+	
+	
+	
+	def eraseGroup(self, group):
+		'''unset group for all metapreset'''
+		for preset in self.presets:
+			preset.unsetGroup(group)
 	
 	
 	
