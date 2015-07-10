@@ -392,8 +392,9 @@ class PresetList:
 	
 	def eraseGroup(self, group):
 		'''unset group for all metapreset'''
-		for preset in self.presets:
-			preset.unsetGroup(group)
+		for preset in self.presets.values():
+			if type(preset) is Metapreset:
+				preset.unsetGroup(group)
 	
 	
 	
