@@ -85,7 +85,7 @@ class Metapreset:
 				log.menuOut()
 				return change
 			elif choice == '1':
-				change = (self.add(log, alias, groups, presets) or change)
+				change = (self.add(log, alias, presets) or change)
 			elif choice == '2':
 				change = (self.edit(log, alias, presets) or change)
 			elif choice == '3':
@@ -141,7 +141,7 @@ class Metapreset:
 				log.error('integer value expected')
 				continue
 			
-			if choice < 0 or choice >= len(presets):
+			if choice < 0 or choice >= len(groups):
 				log.error('out of available choice range')
 				continue
 			

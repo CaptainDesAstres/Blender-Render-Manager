@@ -100,7 +100,10 @@ class PresetList:
 			elif choice == '1':
 				alias = self.choose(log)
 				if alias is not None:
-					change = (self.presets[alias].see(log, alias, versions) or change)
+					if type(self.presets[alias]) is Preset:
+						change = (self.presets[alias].see(log, alias, versions) or change)
+					else:
+						change = (self.presets[alias].see(log, alias, self) or change)
 			elif choice == '2':
 				change = (self.rename(log) or change)
 			elif choice == '3':
@@ -157,7 +160,7 @@ class PresetList:
 			log.print()
 			
 			print('\n\n        Choose The Preset To Use :')
-			presets = self.presetsList(True, meta, exclude)
+			presets = self.presetsList(True, meta)
 			
 			choice = input('what\' the preset to use?').strip().lower()
 			
@@ -266,6 +269,7 @@ class PresetList:
 			if Ptype < 0 or Ptype > 2:
 				log.error('this is not a valid choice!')
 				continue
+			break
 		log.menuOut()
 		
 		if Ptype == 0:
@@ -284,12 +288,13 @@ class PresetList:
 		if Ptype == 1:
 			self.presets[name] = Preset()
 			log.write('Create new preset named «'+name+'»\n')
+			self.presets[name].see(log, name, versions)
 		else:
 			self.presets[name] = Metapreset()
 			log.write('Create new metapreset named «'+name+'»\n')
+			self.presets[name].see(log, name, self.presets)
 		
 		
-		self.presets[name].see(log, name, versions)
 		log.menuOut()
 		return True
 	
@@ -318,9 +323,10 @@ class PresetList:
 		self.presets[new] = self.presets[old].copy()
 		if type(self.presets[new]) is Preset:
 			log.write('«'+new+'» preset create on «'+old+'» preset base.\n')
+			self.presets[new].see(log, new, versions)
 		else:
 			log.write('«'+new+'» metapreset create on «'+old+'» metapreset base.\n')
-		self.presets[new].see(log, new, versions)
+			self.presets[new].see(log, new, self.presets)
 		log.menuOut()
 		return True
 	
