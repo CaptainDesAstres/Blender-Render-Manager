@@ -56,7 +56,7 @@ class VersionList:
 	
 	
 	
-	def see(self, log):
+	def menu(self, log):
 		'''method to see Blender version list and access edition menu'''
 		change = False
 		log.menuIn('Blender Version List')

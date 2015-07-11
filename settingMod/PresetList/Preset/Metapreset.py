@@ -58,7 +58,7 @@ class Metapreset:
 	
 	
 	
-	def see(self, log, alias, presets):
+	def menu(self, log, alias, presets):
 		'''menu to explore and edit metapreset settings'''
 		change = False
 		log.menuIn(alias+' Metapreset')

@@ -45,7 +45,7 @@ class RLGroup:
 	
 	
 	
-	def see(self, log, RLGlist, name, presetList):
+	def menu(self, log, RLGlist, name, presetList):
 		'''menu to explore and edit Renderlayer group settings'''
 		change = False
 		log.menuIn('«'+name+'» Renderlayer Group')

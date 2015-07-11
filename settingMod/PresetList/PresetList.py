@@ -69,7 +69,7 @@ class PresetList:
 	
 	
 	
-	def see(self, log, versions):
+	def menu(self, log, versions):
 		'''menu to explore and edit preset list settings'''
 		change = False
 		log.menuIn('Preferences Preset/Metapreset')
@@ -107,9 +107,9 @@ class PresetList:
 				alias = self.choose(log)
 				if alias is not None:
 					if type(self.presets[alias]) is Preset:
-						change = (self.presets[alias].see(log, alias, versions) or change)
+						change = (self.presets[alias].menu(log, alias, versions) or change)
 					else:
-						change = (self.presets[alias].see(log, alias, self) or change)
+						change = (self.presets[alias].menu(log, alias, self) or change)
 			elif choice == '2':
 				change = (self.rename(log) or change)
 			elif choice == '3':
@@ -121,7 +121,7 @@ class PresetList:
 			elif choice == '6':
 				change = (self.setDefault(log) or change)
 			elif choice == '7':
-				change = (self.renderlayers.see(log, self) or change)
+				change = (self.renderlayers.menu(log, self) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -304,11 +304,11 @@ class PresetList:
 		if Ptype == 1:
 			self.presets[name] = Preset()
 			log.write('Create new preset named «'+name+'»\n')
-			self.presets[name].see(log, name, versions)
+			self.presets[name].menu(log, name, versions)
 		else:
 			self.presets[name] = Metapreset()
 			log.write('Create new metapreset named «'+name+'»\n')
-			self.presets[name].see(log, name, self)
+			self.presets[name].menu(log, name, self)
 		
 		
 		log.menuOut()
@@ -339,10 +339,10 @@ class PresetList:
 		self.presets[new] = self.presets[old].copy()
 		if type(self.presets[new]) is Preset:
 			log.write('«'+new+'» preset create on «'+old+'» preset base.\n')
-			self.presets[new].see(log, new, versions)
+			self.presets[new].menu(log, new, versions)
 		else:
 			log.write('«'+new+'» metapreset create on «'+old+'» metapreset base.\n')
-			self.presets[new].see(log, new, self)
+			self.presets[new].menu(log, new, self)
 		log.menuOut()
 		return True
 	

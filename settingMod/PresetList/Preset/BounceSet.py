@@ -62,7 +62,7 @@ class BounceSet:
 	
 	
 	
-	def see(self, log):
+	def menu(self, log):
 		'''menu to explore and edit bounce settings settings'''
 		change = False
 		log.menuIn('Bounces Settings')

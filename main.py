@@ -91,7 +91,7 @@ def main():
 			return
 		elif choice == '9':
 			# acces new prefenences implementation
-			if(preferences.see(log)):
+			if(preferences.menu(log)):
 				# save if there is a setting change
 				savePreferences(preferences)
 				log.write('preferences saved\n')

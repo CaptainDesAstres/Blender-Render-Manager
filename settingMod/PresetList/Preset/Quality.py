@@ -67,7 +67,7 @@ class Quality:
 	
 	
 	
-	def see(self, log):
+	def menu(self, log):
 		'''menu to explore and edit Quality settings settings'''
 		change = False
 		log.menuIn('Quality')

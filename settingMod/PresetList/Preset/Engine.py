@@ -51,7 +51,7 @@ class Engine:
 	
 	
 	
-	def see(self, log, versions):
+	def menu(self, log, versions):
 		'''menu to explore and edit Engine Settings settings'''
 		change = False
 		log.menuIn('Engine')

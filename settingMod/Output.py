@@ -49,7 +49,7 @@ class Output:
 	
 	
 	
-	def see(self, log):
+	def menu(self, log):
 		'''method to see output path and access edition menu'''
 		change = False
 		log.menuIn('Output')

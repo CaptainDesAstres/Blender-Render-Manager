@@ -55,7 +55,7 @@ class RLGroupList:
 	
 	
 	
-	def see(self, log, presetList):
+	def menu(self, log, presetList):
 		'''menu to explore and edit Renderlayer list settings'''
 		change = False
 		log.menuIn('Group List Management')
@@ -184,7 +184,7 @@ class RLGroupList:
 		if target is None:
 			return False
 		
-		return self.groups[target].see(log, self, target, presetList)
+		return self.groups[target].menu(log, self, target, presetList)
 	
 	
 	
@@ -232,7 +232,7 @@ class RLGroupList:
 		if name is not None:
 			self.groups[name] = RLGroup([])
 			log.write('create «'+name+'» new renderlayer group\n')
-			self.groups[name].see(log, self, name, presetList)
+			self.groups[name].menu(log, self, name, presetList)
 			log.menuOut()
 			return True
 		else:

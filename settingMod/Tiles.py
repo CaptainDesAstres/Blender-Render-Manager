@@ -54,7 +54,7 @@ class Tiles:
 	
 	
 	
-	def see(self, log):
+	def menu(self, log):
 		'''method to see tiles sizes and access edition menu'''
 		change = False
 		log.menuIn('Tiles Sizes')

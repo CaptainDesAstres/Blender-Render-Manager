@@ -48,7 +48,7 @@ class TaskList:
 	
 	
 	
-	def see(self, log):
+	def menu(self, log):
 		'''method to see task list and manage it'''
 		log.menuIn('Task List')
 		

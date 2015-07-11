@@ -73,7 +73,7 @@ class Preferences:
 	
 	
 	
-	def see(self, log):
+	def menu(self, log):
 		'''method to see preferences settings and access edition menu'''
 		change = False
 		log.menuIn('Preferences')
@@ -99,13 +99,13 @@ class Preferences:
 				log.menuOut()# quit preferences menu
 				return change
 			elif choice == '1':
-				change = (self.blenderVersion.see(log) or change)
+				change = (self.blenderVersion.menu(log) or change)
 			elif choice == '2':
-				change = (self.output.see(log) or change)
+				change = (self.output.menu(log) or change)
 			elif choice == '3':
-				change = (self.tiles.see(log) or change)
+				change = (self.tiles.menu(log) or change)
 			elif choice == '4':
-				change = (self.presets.see(log, self.blenderVersion) or change)
+				change = (self.presets.menu(log, self.blenderVersion) or change)
 			else:
 				log.error('Unknow request!', False)
 	

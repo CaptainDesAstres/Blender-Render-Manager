@@ -48,7 +48,7 @@ class Task:
 	
 	
 	
-	def see(self, log, index):
+	def menu(self, log, index):
 		'''method to edit task settings'''
 		log.menuIn('task n°'+str(index))
 		

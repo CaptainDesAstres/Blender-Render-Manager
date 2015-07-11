@@ -77,7 +77,7 @@ class Preset:
 	
 	
 	
-	def see(self, log, alias, versions):
+	def menu(self, log, alias, versions):
 		'''menu to explore and edit preset settings'''
 		change = False
 		log.menuIn(alias+' Preset')
@@ -104,15 +104,15 @@ class Preset:
 				log.menuOut()
 				return change
 			elif choice == '1':
-				change = (self.quality.see(log) or change)
+				change = (self.quality.menu(log) or change)
 			elif choice == '2':
-				change = (self.bounce.see(log) or change)
+				change = (self.bounce.menu(log) or change)
 			elif choice == '3':
-				change = (self.options.see(log) or change)
+				change = (self.options.menu(log) or change)
 			elif choice == '4':
 				change = (self.editAnimation(log) or change)
 			elif choice == '9':
-				change = (self.engine.see(log, versions) or change)
+				change = (self.engine.menu(log, versions) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		

@@ -71,7 +71,7 @@ class Options:
 	
 	
 	
-	def see(self, log):
+	def menu(self, log):
 		'''menu to explore and edit Rendering Options settings'''
 		change = False
 		log.menuIn('Rendering Options')
