@@ -55,10 +55,34 @@ class TaskList:
 		while True:
 			log.print()
 			
-			choice= input('no action yet implement (q tou quit):').strip().lower()
-			if choice in ['0', 'q', 'quit', 'cancel']:
+			choice= input('action (h for help):').strip().lower()
+			if choice in ['q', 'quit']:
 				log.menuOut()
 				return
+			elif choice in ['h', 'help']:
+				log.menuIn('Help')
+				log.print()
+				
+				print('''\n\n        \033[4mHELP :\033[0m
+
+Help : h or help
+quit : q or quit
+Not Yet Implement :
+##
+##
+##Preferences access : p or pref or preferences
+##Add task : a or add or +
+##Edit/inspect task : type the index of the task
+##Batch task editing : b or batch
+##See previous sessions logs : l or log
+##Run tasks : r or run
+##
+##
+
+''')
+				
+				input('Press enter to continue')
+				log.menuOut()
 			else:
 				log.error('Unknow request!', False)
 	
