@@ -5,6 +5,7 @@ import xml.etree.ElementTree as xmlMod
 import os, re
 from save import *
 from TaskList.Task import *
+from TaskList.FileInfo.FileInfo import *
 
 class TaskList:
 	'''class to manage task list'''

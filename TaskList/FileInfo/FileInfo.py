@@ -18,7 +18,13 @@ class FileInfo:
 	
 	def fromXml(self, xml):
 		'''initialize blender file info with savedd settings'''
+		xml = '<fileInfo>'
 		
+		for scene in self.scenes:
+			xml += scene.toXml()
+		
+		xml += '</fileInfo>'
+		return xml
 	
 	
 	
