@@ -69,7 +69,7 @@ there is to log:
 		input()
 		self.menuOut()
 		if log:
-			self.write(err)
+			self.write(err, '')
 	
 	
 	

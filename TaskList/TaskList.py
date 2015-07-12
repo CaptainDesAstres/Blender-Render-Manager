@@ -3,6 +3,8 @@
 '''module to manage task list'''
 import xml.etree.ElementTree as xmlMod
 import os
+from save import *
+from TaskList.Task import *
 
 class TaskList:
 	'''class to manage task list'''
@@ -53,7 +55,7 @@ class TaskList:
 	
 	
 	
-	def menu(self, log, preferences, tasks):
+	def menu(self, log, preferences):
 		'''method to see task list and manage it'''
 		log.menuIn('Task List')
 		
@@ -66,19 +68,22 @@ class TaskList:
 				return
 			elif choice in ['p', 'pref', 'preferences']:
 				preferences.menu(log)
+			elif choice in ['a', 'add', '+']:
+				if (self.add(log, preferences)):
+					saveTasks(self)
 			elif choice in ['h', 'help']:
 				log.menuIn('Help')
 				log.print()
 				
 				print('''\n\n        \033[4mHELP :\033[0m
 
+Add task : a or add or +
 Help : h or help
 Quit : q or quit
 Preferences access : p or pref or preferences
 Not Yet Implement :
 ##
 ##
-##Add task : a or add or +
 ##Edit/inspect task : type the index of the task to edit
 ##Batch task editing : b or batch
 ##See previous sessions logs : l or log
@@ -97,6 +102,59 @@ Not Yet Implement :
 	
 	
 	
+	def add(self, log, preferences):
+		log.menuIn('Add Task')
+		
+		log.menuIn('File Path')
+		while True:
+			log.print()
+			
+			print('\n\n        Add File :')
+			
+			path = input("\n\nWhat's the absolute path of the file to add (empty input to quit)").strip()
+			
+			if path.lower() in ['', 'cancel', 'quit', 'q']:
+				# cancel action
+				log.menuOut()# quit Add Task
+				log.menuOut()# quit Give File Path
+				return False
+			
+			
+			if path[0] in ['\'', '"'] and path[-1] == path[0]:
+				# remove quote mark and apostrophe in first and last character
+				path = path[1:len(path)-1]
+			
+			if path[0] != '/':
+				# check if path is absolute (begin by '/')
+				log.error('"'+path+'" path is not absolute (need to begin by "/").')
+				continue
+			elif len(path) < 7 or path[len(path)-6:] !='.blend':
+				# check if path point to a .blend file
+				log.error('"'+path+'" path don\'t seemed to be a blender file (need .blend extension).')
+				continue
+			elif not os.path.exists(path) or not os.path.isfile(path) or not os.access(path, os.R_OK):
+				# check if the file exist
+				log.error('"'+path+'" didn\'t exist, is not a file or is not readable!')
+				continue 
+			log.menuOut()
+			break
+		
+		# open the file and get settings
+		log.write('Try to add "'+path+'" task:')
+		
+		### not yet coded:
+		# try to open file and get infos
+		# scene choice
+		# preset choice
+		
+		# add the task 
+		task = Task()
+		task.path = path
+		task.scene = 'scene'
+		self.tasks.append(task)
+		log.write('  Task added')
+		log.menuOut()
+		return True
 	
 	
 	

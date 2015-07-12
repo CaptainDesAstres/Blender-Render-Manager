@@ -39,8 +39,8 @@ class Task:
 	
 	def toXml(self):
 		'''export task settings into xml syntaxed string'''
-		xml = '<task path="'+self.path+'" scene="'+self.scene+'" />\n'
-		return xml
+		return '<task path="'+self.path+'" scene="'+self.scene+'" />\n'
+		
 	
 	
 	

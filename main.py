@@ -60,14 +60,14 @@ else:
 
 
 # check task list file exist: create it if necessary and open it
-if not os.path.exists(os.getcwd()+'/taskList'):
+if not os.path.exists(os.getcwd()+'/Tasks'):
 	log.write('no task list file, create default file empty file : ', '')
 	tasks = TaskList()
 	saveTasks(tasks)
 	log.write('done')
 else:
-	log.write('get saved preferences : ', '')
-	with open(os.getcwd()+'/taskList','r') as tasksFile:
+	log.write('get saved tasks list : ', '')
+	with open(os.getcwd()+'/Tasks','r') as tasksFile:
 		tasks = TaskList( xmlMod.fromstring( (tasksFile.read( ) ) ) )
 	log.write('done')
 
@@ -76,4 +76,4 @@ else:
 
 
 
-tasks.menu(log, preferences, tasks)
+tasks.menu(log, preferences)
