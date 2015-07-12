@@ -429,7 +429,10 @@ class VersionList:
 	
 	def getDefaultPath(self):
 		''' a method to get the path of the default version'''
-		return self.list[self.default]
+		path = self.list[self.default]
+		if path != 'blender':
+			path = '"'+path+'"'
+		return path
 	
 	
 	

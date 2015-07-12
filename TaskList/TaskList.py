@@ -142,8 +142,19 @@ Not Yet Implement :
 		# open the file and get settings
 		log.write('Try to add "'+path+'" task:')
 		
-		### not yet coded:
 		# try to open file and get infos
+		info = os.popen('('+preferences.blenderVersion.getDefaultPath()\
+			+' -b "'+path+'" -P "'\
+			+os.path.realpath(__file__+'/..')+'/getter/getFileTaskInfos.py") || echo \'BlenderVersionError\' ').read()
+		
+		log.error(info)
+		
+		if info.count('BlenderVersionError') != 0:
+			log.error('Blender version call error! Try to verified the path of default blender version!', False)
+			log.menuOut()
+			log.write('  Blender Version Error : abort task adding')
+			return False
+		### not yet coded:
 		# scene choice
 		# preset choice
 		
