@@ -154,8 +154,9 @@ Not Yet Implement :
 			log.write('  Blender Version Error : abort task adding')
 			return False
 		
-		info = re.search(r'<\?xml(.|\n)*</fileInfo>',prefXml).group(0)
+		info = re.search(r'<\?xml(.|\n)*</fileInfo>',info).group(0)
 		info = xmlMod.fromstring(info)
+		info = FileInfo(info)
 		
 		### not yet coded:
 		# scene choice
