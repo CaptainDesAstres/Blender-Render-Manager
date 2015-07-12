@@ -9,8 +9,8 @@ def savePreferences(s):
 	with open(os.getcwd()+'/preferences','w') as prefFile:
 		prefFile.write(s.toXml())
 
-def saveQueue(q):
-	'''function that save queue 'q' in queue xml file'''
-	with open(os.getcwd()+'/queue','w') as queueFile:
-		queueFile.write(q.toXmlStr(True))
+def saveTasks(t):
+	'''function that save Tasks List in xml file'''
+	with open(os.getcwd()+'/Tasks','w') as tasksFile:
+		tasksFile.write(t.toXml())
 

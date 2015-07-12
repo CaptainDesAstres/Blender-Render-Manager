@@ -6,6 +6,7 @@ import xml.etree.ElementTree as xmlMod
 from log import *
 from save import *
 from settingMod.Preferences import *
+from TaskList.TaskList import *
 
 
 
@@ -54,6 +55,20 @@ else:
 	log.write('get saved preferences:')
 	with open(os.getcwd()+'/preferences','r') as prefFile:
 		preferences = Preferences( xmlMod.fromstring( (prefFile.read( ) ) ) )
+	log.write('done\n')
+
+
+
+# check task list file exist: create it if necessary and open it
+if not os.path.exists(os.getcwd()+'/taskList'):
+	log.write('no task list file, create default file empty file:')
+	tasks = TaskList()
+	saveTasks(tasks)
+	log.write('done\n')
+else:
+	log.write('get saved preferences:')
+	with open(os.getcwd()+'/taskList','r') as tasksFile:
+		tasks = TaskList( xmlMod.fromstring( (tasksFile.read( ) ) ) )
 	log.write('done\n')
 
 
