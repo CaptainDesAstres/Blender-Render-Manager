@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task list'''
 import xml.etree.ElementTree as xmlMod
-import os
+import os, re
 from save import *
 from TaskList.Task import *
 
@@ -147,13 +147,15 @@ Not Yet Implement :
 			+' -b "'+path+'" -P "'\
 			+os.path.realpath(__file__+'/..')+'/getter/getFileTaskInfos.py") || echo \'BlenderVersionError\' ').read()
 		
-		log.error(info)
-		
 		if info.count('BlenderVersionError') != 0:
 			log.error('Blender version call error! Try to verified the path of default blender version!', False)
 			log.menuOut()
 			log.write('  Blender Version Error : abort task adding')
 			return False
+		
+		info = re.search(r'<\?xml(.|\n)*</fileInfo>',prefXml).group(0)
+		info = xmlMod.fromstring(info)
+		
 		### not yet coded:
 		# scene choice
 		# preset choice
