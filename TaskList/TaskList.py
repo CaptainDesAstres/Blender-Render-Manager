@@ -22,6 +22,7 @@ class TaskList:
 	def defaultInit(self):
 		'''initialize empty task list object'''
 		
+		self.tasks = []
 	
 	
 	
@@ -29,7 +30,9 @@ class TaskList:
 	
 	def fromXml(self, xml):
 		'''initialize task list object with saved task'''
-		
+		self.tasks = []
+		for node in xml.findall('task'):
+			self.tasks.append(Task(node))
 	
 	
 	
@@ -40,8 +43,10 @@ class TaskList:
 		xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
 		xml += '<tasks>\n'
 		
-		xml += '</tasks>\n'
+		for task in self.tasks:
+			xml += task.toXml()
 		
+		xml += '</tasks>\n'
 		return xml
 	
 	
@@ -68,13 +73,13 @@ class TaskList:
 				print('''\n\n        \033[4mHELP :\033[0m
 
 Help : h or help
-quit : q or quit
+Quit : q or quit
+Preferences access : p or pref or preferences
 Not Yet Implement :
 ##
 ##
-##Preferences access : p or pref or preferences
 ##Add task : a or add or +
-##Edit/inspect task : type the index of the task
+##Edit/inspect task : type the index of the task to edit
 ##Batch task editing : b or batch
 ##See previous sessions logs : l or log
 ##Run tasks : r or run
