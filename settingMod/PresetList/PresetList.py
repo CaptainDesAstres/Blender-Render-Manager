@@ -251,7 +251,7 @@ class PresetList:
 				if type(preset) is Metapreset:
 					preset.renamePreset(old, new)
 		
-		log.write('«'+old+'» preset rename to «'+new+'»\n')
+		log.write('«'+old+'» preset rename to «'+new+'»')
 		return True
 	
 	
@@ -303,11 +303,11 @@ class PresetList:
 		
 		if Ptype == 1:
 			self.presets[name] = Preset()
-			log.write('Create new preset named «'+name+'»\n')
+			log.write('Create new preset named «'+name+'»')
 			self.presets[name].menu(log, name, versions)
 		else:
 			self.presets[name] = Metapreset()
-			log.write('Create new metapreset named «'+name+'»\n')
+			log.write('Create new metapreset named «'+name+'»')
 			self.presets[name].menu(log, name, self)
 		
 		
@@ -338,10 +338,10 @@ class PresetList:
 		
 		self.presets[new] = self.presets[old].copy()
 		if type(self.presets[new]) is Preset:
-			log.write('«'+new+'» preset create on «'+old+'» preset base.\n')
+			log.write('«'+new+'» preset create on «'+old+'» preset base.')
 			self.presets[new].menu(log, new, versions)
 		else:
-			log.write('«'+new+'» metapreset create on «'+old+'» metapreset base.\n')
+			log.write('«'+new+'» metapreset create on «'+old+'» metapreset base.')
 			self.presets[new].menu(log, new, self)
 		log.menuOut()
 		return True
@@ -367,7 +367,7 @@ class PresetList:
 		
 		if choice == 'y':
 			old = self.presets.pop(target)
-			log.write('«'+target+'» preset erased.\n')
+			log.write('«'+target+'» preset erased.')
 			
 			if self.default == target:
 				self.default = None
@@ -400,7 +400,7 @@ class PresetList:
 			return False
 		
 		self.default = choice
-		log.write('Default preset set to «'+choice+'»\n')
+		log.write('Default preset set to «'+choice+'»')
 		return True
 	
 	

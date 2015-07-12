@@ -51,10 +51,10 @@ there is to log:
 	
 	
 	
-	def write(self, txt):
+	def write(self, txt, sep = '\n'):
 		'''add lines to the log'''
-		self.logFile.write(txt)
-		self.log += txt
+		self.logFile.write(txt+sep)
+		self.log += txt+sep
 	
 	
 	

@@ -112,7 +112,7 @@ class Preferences:
 			if change:
 				change = False
 				savePreferences(self)
-				log.write('New preferences saved\n')
+				log.write('New preferences saved')
 	
 	
 	

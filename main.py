@@ -47,29 +47,29 @@ log = Log(start,log)
 
 # check Preferences file exist: create it if necessary and open it
 if not os.path.exists(os.getcwd()+'/preferences'):
-	log.write('no preferences file, create default file:')
+	log.write('no preferences file, create default file : ', '')
 	preferences = Preferences()
 	savePreferences(preferences)
-	log.write('done\n')
+	log.write('done')
 else:
-	log.write('get saved preferences:')
+	log.write('get saved preferences : ', '')
 	with open(os.getcwd()+'/preferences','r') as prefFile:
 		preferences = Preferences( xmlMod.fromstring( (prefFile.read( ) ) ) )
-	log.write('done\n')
+	log.write('done')
 
 
 
 # check task list file exist: create it if necessary and open it
 if not os.path.exists(os.getcwd()+'/taskList'):
-	log.write('no task list file, create default file empty file:')
+	log.write('no task list file, create default file empty file : ', '')
 	tasks = TaskList()
 	saveTasks(tasks)
-	log.write('done\n')
+	log.write('done')
 else:
-	log.write('get saved preferences:')
+	log.write('get saved preferences : ', '')
 	with open(os.getcwd()+'/taskList','r') as tasksFile:
 		tasks = TaskList( xmlMod.fromstring( (tasksFile.read( ) ) ) )
-	log.write('done\n')
+	log.write('done')
 
 
 

@@ -169,10 +169,10 @@ class Quality:
 			if choice == 2:
 				self.pourcent = choice
 				log.write('Resolution pourcent setting is set to : '\
-							+str(self.pourcent)+'%\n')
+							+str(self.pourcent)+'%')
 			else:
 				self.samples = choice
-				log.write('Cycles samples set to : '+str(self.samples)+'%\n')
+				log.write('Cycles samples set to : '+str(self.samples)+'%')
 			log.menuOut()
 			return True
 		
@@ -213,7 +213,7 @@ class Quality:
 				self.simplify = choice
 			else:
 				self.simplify = None
-			log.write('Simplify set to : '+self.getSimplify()+'\n')
+			log.write('Simplify set to : '+self.getSimplify())
 			log.menuOut()
 			return True
 		
@@ -257,7 +257,7 @@ class Quality:
 				continue
 			
 			self.format = formats[choice]
-			log.write('Output format is set to : '+self.format+'\n')
+			log.write('Output format is set to : '+self.format)
 			log.menuOut()
 			return True
 	

@@ -231,7 +231,7 @@ class RLGroupList:
 		name = self.newGroupName(log)
 		if name is not None:
 			self.groups[name] = RLGroup([])
-			log.write('create «'+name+'» new renderlayer group\n')
+			log.write('create «'+name+'» new renderlayer group')
 			self.groups[name].menu(log, self, name, presetList)
 			log.menuOut()
 			return True

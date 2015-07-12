@@ -90,7 +90,7 @@ class MinMax:
 			
 			if MinMax.check(choice):
 				self.fromStr(choice)
-				log.write(label+' set to : '+choice+'\n')
+				log.write(label+' set to : '+choice)
 				log.menuOut()
 				return True
 			else:

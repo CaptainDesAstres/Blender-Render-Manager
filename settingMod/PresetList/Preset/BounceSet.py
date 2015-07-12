@@ -162,8 +162,7 @@ class BounceSet:
 			
 			# apply new setting and exit
 			setattr(self, attr, choice)
-			log.write(attr.capitalize()+' bounces set to : '+str(getattr(self, attr))\
-					+'\n')
+			log.write(attr.capitalize()+' bounces set to : '+str(getattr(self, attr)))
 			log.menuOut()
 			return True
 	

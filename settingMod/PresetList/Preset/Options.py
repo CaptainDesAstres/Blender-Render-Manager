@@ -104,7 +104,7 @@ class Options:
 				label = ['Z pass', 'Object index pass', 'Compositing',\
 						 'Alpha background'][choice]
 				setattr(self, attr, not(getattr(self, attr)))
-				log.write(label+' '+({True:'Ennabled', False:'Disabled'}[getattr(self, attr)])+'\n')
+				log.write(label+' '+({True:'Ennabled', False:'Disabled'}[getattr(self, attr)]))
 				change = True
 			elif choice in ['5', '6']:
 				change = (self.editExposure(log, choice == '5') or change)
@@ -173,7 +173,7 @@ class Options:
 				choice = round(choice, 3)
 			
 			setattr(self, attr, choice)
-			log.write(label+' set to : '+str(getattr(self, attr))+'\n')
+			log.write(label+' set to : '+str(getattr(self, attr)))
 			log.menuOut()
 			return True
 			

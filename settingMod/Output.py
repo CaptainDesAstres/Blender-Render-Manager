@@ -139,7 +139,7 @@ class Output:
 			
 			# apply path settings and confirm
 			self.path = choice
-			log.write('Output path set to : '+self.path+'\n')
+			log.write('Output path set to : '+self.path)
 			log.menuOut()
 			return True
 	
@@ -220,7 +220,7 @@ Press enter to continue''')
 			
 			# apply new settings and quit
 			self.pattern = patterns[choice]
-			log.write('Pattern set to : '+patterns[choice]+'\n')
+			log.write('Pattern set to : '+patterns[choice])
 			log.menuOut()
 			return True
 	

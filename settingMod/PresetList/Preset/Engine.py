@@ -121,14 +121,14 @@ class Engine:
 				self.engine = 'BLENDER_RENDER'
 			else:
 				self.engine = 'CYCLES'
-			log.write('Engine set to '+self.engine+'\n')
+			log.write('Engine set to '+self.engine)
 		else:
 			# switch device
 			if self.device == 'GPU':
 				self.device = 'CPU'
 			else:
 				self.device = 'GPU'
-			log.write('Cycles rendering device set to '+self.device+'\n')
+			log.write('Cycles rendering device set to '+self.device)
 			
 	
 	

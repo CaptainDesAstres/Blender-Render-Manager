@@ -199,7 +199,7 @@ class Metapreset:
 		
 		log.menuOut()
 		self.groups[group] = preset
-		log.write('add «'+group+'» renderlayer group to «'+alias+'» metapreset, set it to «'+preset+'» preset\n')
+		log.write('add «'+group+'» renderlayer group to «'+alias+'» metapreset, set it to «'+preset+'» preset')
 		return True
 	
 	
@@ -229,7 +229,7 @@ class Metapreset:
 		
 		log.menuOut()
 		self.groups[group] = preset
-		log.write('«'+group+'» renderlayer group of «'+alias+'» metapreset set to «'+preset+'» preset\n')
+		log.write('«'+group+'» renderlayer group of «'+alias+'» metapreset set to «'+preset+'» preset')
 		return True
 	
 	
@@ -256,7 +256,7 @@ class Metapreset:
 		log.menuOut()
 		if confirm == 'y':
 			self.groups.pop(group)
-			log.write('«'+group+'» Renderlayer group removed from «'+alias+'» metapreset\n')
+			log.write('«'+group+'» Renderlayer group removed from «'+alias+'» metapreset')
 			return True
 		
 		
@@ -280,7 +280,7 @@ class Metapreset:
 			return False
 		
 		self.default = preset
-		log.write('«'+alias+'» default preset set to «'+preset+'»\n')
+		log.write('«'+alias+'» default preset set to «'+preset+'»')
 		return True
 	
 	

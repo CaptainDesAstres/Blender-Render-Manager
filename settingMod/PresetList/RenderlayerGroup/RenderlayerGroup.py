@@ -73,7 +73,7 @@ class RLGroup:
 					if input('\033[31mWarning: the group have no keyword. If you quit now, it will be erase! confirm (y) : \033[0m').strip().lower() == 'y' and self.eraseGroupUseTest(log, name, presetList):
 						
 						RLGlist.groups.pop(name)
-						log.write('«'+name+'» group erased because he don\'t have keyword\n')
+						log.write('«'+name+'» group erased because he don\'t have keyword')
 					else:
 						continue
 				
@@ -207,7 +207,7 @@ class RLGroup:
 				continue
 			
 			self.keywords += keys
-			log.write('«'+'», «'.join(keys)+'» have been added to the group keywords\n')
+			log.write('«'+'», «'.join(keys)+'» have been added to the group keywords')
 			log.menuOut()
 			return True
 			
@@ -226,7 +226,7 @@ class RLGroup:
 			return False
 		
 		target = self.keywords.pop(target)
-		log.write('«'+target+'» keyword remove from «'+name+'» renderlayer group\n')
+		log.write('«'+target+'» keyword remove from «'+name+'» renderlayer group')
 		return True
 	
 	
@@ -246,7 +246,7 @@ class RLGroup:
 		RLGlist.groups[new] = self
 		RLGlist.groups.pop(name)
 		presetList.renameGroup(name, new)
-		log.write('«'+name+'» group rename in «'+new+'»\n')
+		log.write('«'+name+'» group rename in «'+new+'»')
 		return True, new
 	
 	
@@ -264,7 +264,7 @@ class RLGroup:
 		log.menuOut()
 		if confirm and self.eraseGroupUseTest(log, name, presetList):
 			RLGlist.groups.pop(name)
-			log.write('«'+name+'» group erased\n')
+			log.write('«'+name+'» group erased')
 			return True
 		else:
 			return False

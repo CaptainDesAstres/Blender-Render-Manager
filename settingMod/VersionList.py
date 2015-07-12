@@ -218,7 +218,7 @@ class VersionList:
 			
 			# add version
 			self.list[alias] = path
-			log.write('('+alias+' : '+path+') Blender version added to list\n')
+			log.write('('+alias+' : '+path+') Blender version added to list')
 			log.menuOut()
 			return True
 	
@@ -290,7 +290,7 @@ class VersionList:
 					
 					# add to the list
 					self.list[alias] = versionPath
-					log.write('('+alias+' : '+versionPath+') Blender version added to list\n')
+					log.write('('+alias+' : '+versionPath+') Blender version added to list')
 			
 			log.menuOut()
 			return True
@@ -330,7 +330,7 @@ class VersionList:
 			self.list.pop(oldAlias)
 			if self.default == oldAlias:
 				self.default = choice
-			log.write(oldAlias+' version rename in '+choice+'.\n')
+			log.write(oldAlias+' version rename in '+choice+'.')
 			log.menuOut()
 			return True
 	
@@ -396,7 +396,7 @@ class VersionList:
 			self.list.pop(alias)
 			if self.default == alias:
 				self.default = 'Standard Blender'
-			log.write('Remove "'+alias+'" version.\n')
+			log.write('Remove "'+alias+'" version.')
 			log.menuOut()
 			return True
 		log.menuOut()
@@ -419,7 +419,7 @@ class VersionList:
 			return False
 		
 		self.default = alias
-		log.write('Default version set to "'+self.default+'" version.\n')
+		log.write('Default version set to "'+self.default+'" version.')
 		log.menuOut()
 		return True
 	
