@@ -11,10 +11,10 @@ for name in bpy.data.scenes.keys():
 	scene = bpy.data.scenes[name]
 	
 	print('  <scene name="'+name+'" start="'+str(scene.frame_start)\
-			+'" end="'+str(scene.frame_end)+'" fps="'+scene.render.fps+'" >')
+			+'" end="'+str(scene.frame_end)+'" fps="'+str(scene.render.fps)+'" >')
 	
 	for renderlayer in scene.render.layers.keys():
-		print('    <renderlayer name="'+renderlayer+'" use="'+str(scene.render.layers[name].use)+'" />')
+		print('    <renderlayer name="'+renderlayer+'" use="'+str(scene.render.layers[renderlayer].use)+'" />')
 	
 	print('  </scene>')
 
