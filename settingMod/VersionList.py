@@ -427,5 +427,13 @@ class VersionList:
 	
 	
 	
+	def getDefaultPath(self):
+		''' a method to get the path of the default version'''
+		return self.list[self.default]
+	
+	
+	
+	
+	
 	
 	
