@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage blender file info'''
 import xml.etree.ElementTree as xmlMod
+from TaskList.FileInfo.Scene import *
 import os
 
 class FileInfo:
@@ -18,7 +19,9 @@ class FileInfo:
 	
 	def fromXml(self, xml):
 		'''initialize blender file info with savedd settings'''
-		
+		self.scenes = {}
+		for scene in xml.findall('scene'):
+			self.scenes[scene.get('name')] = Scene(scene)
 	
 	
 	
