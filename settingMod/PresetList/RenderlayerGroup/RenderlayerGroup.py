@@ -61,7 +61,7 @@ class RLGroup:
 2- Remove Keywords
 3- Rename Group
 4- Erase Group
-0- Save And Quit
+0- Quit
 
 ''')
 			

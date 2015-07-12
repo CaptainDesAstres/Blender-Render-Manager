@@ -70,7 +70,7 @@ class Tiles:
 1- Edit Cycles GPU Tiles Size
 2- Edit Cycles CPU Tiles Size
 3- Edit Blender Internal Tiles Size
-0- Quit
+0- Save And Quit
 
 ''')
 			choice = input().strip().lower()

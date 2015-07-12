@@ -64,7 +64,7 @@ class Output:
 			print('''\n\n        \033[4mMenu :\033[0m
 1- Edit path
 2- Edit patterns
-0- Quit
+0- Save And Quit
 
 ''')
 			choice = input().strip().lower()

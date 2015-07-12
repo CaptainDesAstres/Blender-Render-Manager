@@ -66,7 +66,7 @@ class Engine:
 1- Edit Blender Version
 2- Switch Engine
 3- Switch Device (for Cycles)
-0- Save and quit
+0- Quit
 
 ''')
 			

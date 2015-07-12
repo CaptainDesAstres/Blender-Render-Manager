@@ -89,7 +89,7 @@ class Options:
 4- Switch Alpha Background Setting
 5- Edit Cycles Exposure
 6- Edit Blender Internal Exposure
-0- Save and quit
+0- Quit
 
 ''')
 			

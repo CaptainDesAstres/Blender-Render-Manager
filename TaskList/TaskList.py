@@ -59,6 +59,8 @@ class TaskList:
 			if choice in ['q', 'quit']:
 				log.menuOut()
 				return
+			elif choice in ['p', 'pref', 'preferences']:
+				preferences.menu(log)
 			elif choice in ['h', 'help']:
 				log.menuIn('Help')
 				log.print()

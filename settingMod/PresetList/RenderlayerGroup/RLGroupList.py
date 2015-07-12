@@ -69,7 +69,7 @@ class RLGroupList:
 			print('''\n\n        Menu :
 1- Edit Group
 2- Create New Group
-0- Save And Quit
+0- Quit
 
 ''')
 			

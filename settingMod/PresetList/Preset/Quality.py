@@ -84,7 +84,7 @@ class Quality:
 3- Edit Cycles Samples
 4- Edit Simplify Setting
 5- Edit Format
-0- Save and quit
+0- Quit
 
 ''')
 			

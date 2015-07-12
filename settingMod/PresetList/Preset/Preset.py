@@ -94,7 +94,7 @@ class Preset:
 3- Edit Rendering Options
 4- Edit Animation Setting
 9- Edit Engine Settings
-0- Save and quit
+0- Quit
 
 ''')
 			

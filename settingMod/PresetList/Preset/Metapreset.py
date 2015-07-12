@@ -75,7 +75,7 @@ class Metapreset:
 2- Edit Group
 3- Unset/Remove Group
 4- Set Default Preset
-0- Save and quit
+0- Quit
 
 ''')
 			

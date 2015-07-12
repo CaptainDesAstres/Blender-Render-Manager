@@ -80,7 +80,7 @@ class BounceSet:
 4- Edit Glossy Bounces
 5- Edit Transmission Bounces
 6- Edit Volume Bounces
-0- Save and quit
+0- Quit
 
 ''')
 			

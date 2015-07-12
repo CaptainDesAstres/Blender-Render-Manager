@@ -74,7 +74,7 @@ class VersionList:
 3- Rename version
 4- Remove version
 5- Change Default Version
-0- Quit
+0- Save And Quit
 
 ''')
 			

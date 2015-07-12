@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage preferences of the script'''
 import xml.etree.ElementTree as xmlMod
+from save import *
 from settingMod.VersionList import *
 from settingMod.Output import *
 from settingMod.Tiles import *
@@ -75,7 +76,6 @@ class Preferences:
 	
 	def menu(self, log):
 		'''method to see preferences settings and access edition menu'''
-		change = False
 		log.menuIn('Preferences')
 		
 		while True:
@@ -99,15 +99,20 @@ class Preferences:
 				log.menuOut()# quit preferences menu
 				return change
 			elif choice == '1':
-				change = (self.blenderVersion.menu(log) or change)
+				change = self.blenderVersion.menu(log)
 			elif choice == '2':
-				change = (self.output.menu(log) or change)
+				change = self.output.menu(log)
 			elif choice == '3':
-				change = (self.tiles.menu(log) or change)
+				change = self.tiles.menu(log)
 			elif choice == '4':
-				change = (self.presets.menu(log, self.blenderVersion) or change)
+				change = self.presets.menu(log, self.blenderVersion)
 			else:
 				log.error('Unknow request!', False)
+			
+			if change:
+				change = False
+				savePreferences(self)
+				log.write('New preferences saved\n')
 	
 	
 	
