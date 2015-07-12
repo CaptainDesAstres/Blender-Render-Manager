@@ -31,7 +31,7 @@ class FileInfo:
 		'''export blender file info into xml syntaxed string'''
 		xml = '<fileInfo>'
 		
-		for scene in self.scenes:
+		for scene in self.scenes.values():
 			xml += scene.toXml()
 		
 		xml += '</fileInfo>'
