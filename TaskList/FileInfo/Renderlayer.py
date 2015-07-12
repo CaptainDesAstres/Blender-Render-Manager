@@ -18,7 +18,8 @@ class Renderlayer:
 	
 	def fromXml(self, xml):
 		'''initialize blender Renderlayer info with savedd settings'''
-		
+		self.name = xml.get('name')
+		self.use = {'True':True, 'False':False}[xml.get('use')]
 	
 	
 	
@@ -26,7 +27,7 @@ class Renderlayer:
 	
 	def toXml(self):
 		'''export blender Renderlayer info into xml syntaxed string'''
-		return '<renderlayer />'
+		return '<renderlayer name="'+self.name+'" use="'+str(self.use)+'" />'
 	
 	
 	
