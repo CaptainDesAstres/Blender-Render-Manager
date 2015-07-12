@@ -100,7 +100,7 @@ there is to log:
 		bar = '=========================='
 		print(bar)
 		if len(self.menu) == 0 :
-			print('Main menu\n'+bar)
+			print('⁻⁼=####MENU ERROR####=⁼⁻\n'+bar)
 		else:
 			for i,m in enumerate(self.menu):
 				if i == 0:

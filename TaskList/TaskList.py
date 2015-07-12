@@ -48,7 +48,7 @@ class TaskList:
 	
 	
 	
-	def menu(self, log):
+	def menu(self, log, preferences, tasks):
 		'''method to see task list and manage it'''
 		log.menuIn('Task List')
 		
