@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage blender scene info'''
 import xml.etree.ElementTree as xmlMod
+from TaskList.FileInfo.Renderlayer import *
 import os
 
 class Scene:
@@ -18,7 +19,14 @@ class Scene:
 	
 	def fromXml(self, xml):
 		'''initialize blender scene info with savedd settings'''
+		self.name = xml.get('name')
+		self.start = xml.get('start')
+		self.end = xml.get('end')
+		self.fps = xml.get('fps')
 		
+		self.renderlayers = {}
+		for RL in xml.findall('renderlayer'):
+			self.renderlayers[RL.get('name')] = Renderlayer(RL)
 	
 	
 	
