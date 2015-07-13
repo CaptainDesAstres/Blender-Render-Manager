@@ -8,10 +8,10 @@ class Task:
 	'''class to manage task settings'''
 	
 	
-	def __init__(self, xml= None):
+	def __init__(self, path = None, scene = None, preset = None, xml= None):
 		'''initialize task object with default settings or saved settings'''
 		if xml is None:
-			self.defaultInit()
+			self.defaultInit(path, scene, preset)
 		else:
 			self.fromXml(xml)
 	
@@ -19,10 +19,11 @@ class Task:
 	
 	
 	
-	def defaultInit(self):
+	def defaultInit(self, path, scene, preset):
 		'''initialize Task object with default settings'''
-		self.path = None
-		self.scene = None
+		self.path = path
+		self.scene = scene
+		self.preset = preset
 	
 	
 	
@@ -32,6 +33,7 @@ class Task:
 		'''initialize Task object with savedd settings'''
 		self.path = xml.get('path')
 		self.scene = xml.get('scene')
+		self.preset = xml.get('preset')
 	
 	
 	
@@ -39,7 +41,8 @@ class Task:
 	
 	def toXml(self):
 		'''export task settings into xml syntaxed string'''
-		return '<task path="'+self.path+'" scene="'+self.scene+'" />\n'
+		return '<task path="'+self.path+'" scene="'+self.scene+'" preset="'\
+				+self.preset+'" />\n'
 		
 	
 	
