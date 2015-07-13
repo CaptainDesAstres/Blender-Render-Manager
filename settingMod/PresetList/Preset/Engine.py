@@ -135,6 +135,15 @@ class Engine:
 	
 	
 	
+	def renameBlenderVersion(self, old, new):
+		'''rename a blender Version if used'''
+		if self.version == old:
+			self.version = new
+	
+	
+	
+	
+	
 	
 	
 	

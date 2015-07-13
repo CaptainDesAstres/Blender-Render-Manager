@@ -199,4 +199,12 @@ Loop 1 to 5       : Animation length will correspond to loop length of the loops
 	
 	
 	
+	def renameBlenderVersion(self, old, new):
+		'''rename a blender Version if used'''
+		self.engine.renameBlenderVersion(old, new)
+		
+	
+	
+	
+	
 	

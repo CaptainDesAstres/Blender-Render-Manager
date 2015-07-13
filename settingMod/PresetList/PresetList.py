@@ -439,6 +439,17 @@ class PresetList:
 	
 	
 	
+	def renameBlenderVersion(self, old, new):
+		'''rename a blender Version in all preset that use it'''
+		for preset in self.presets.values():
+			if type(preset) is Preset:
+				preset.renameBlenderVersion(old,new)
+		
+	
+	
+	
+	
+	
 	
 	
 	

@@ -99,7 +99,7 @@ class Preferences:
 				log.menuOut()# quit preferences menu
 				return change
 			elif choice == '1':
-				change = self.blenderVersion.menu(log)
+				change = self.blenderVersion.menu(log, self)
 			elif choice == '2':
 				change = self.output.menu(log)
 			elif choice == '3':

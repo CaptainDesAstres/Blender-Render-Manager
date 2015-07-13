@@ -56,7 +56,7 @@ class VersionList:
 	
 	
 	
-	def menu(self, log):
+	def menu(self, log, preferences):
 		'''method to see Blender version list and access edition menu'''
 		change = False
 		log.menuIn('Blender Version List')
@@ -90,9 +90,9 @@ class VersionList:
 			elif choice == '2':
 				change = (self.addAuto(log) or change)
 			elif choice == '3':
-				change = (self.rename(log) or change)
+				change = (self.rename(log, preferences) or change)
 			elif choice == '4':
-				change = (self.remove(log) or change)
+				change = (self.remove(log, preferences) or change)
 			elif choice == '5':
 				change = (self.chooseDefault(log) or change)
 			else:
@@ -300,7 +300,7 @@ class VersionList:
 	
 	
 	
-	def rename(self, log):
+	def rename(self, log, preferences):
 		'''display a menu to rename version in the list'''
 		log.menuIn('Rename Version')
 		
@@ -330,6 +330,9 @@ class VersionList:
 			self.list.pop(oldAlias)
 			if self.default == oldAlias:
 				self.default = choice
+			
+			preferences.presets.renameBlenderVersion( oldAlias, choice)
+			
 			log.write(oldAlias+' version rename in '+choice+'.')
 			log.menuOut()
 			return True
@@ -371,7 +374,7 @@ class VersionList:
 	
 	
 	
-	def remove(self, log):
+	def remove(self, log, preferences):
 		'''A method to manually remove version from the list'''
 		log.menuIn('Remove Version')
 		
