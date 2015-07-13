@@ -68,7 +68,7 @@ class TaskList:
 				log.menuOut()
 				return
 			elif choice in ['p', 'pref', 'preferences']:
-				preferences.menu(log)
+				preferences.menu(log, self)
 			elif choice in ['a', 'add', '+']:
 				if (self.add(log, preferences)):
 					saveTasks(self)
@@ -172,7 +172,7 @@ Not Yet Implement :
 		confirm = input('Use «'+preferences.presets.default+'» default preset? (type anything else that y or yes to choose another one)')
 		
 		if confirm in ['', 'y', 'yes']:
-			preset = preferences.presets.default
+			preset = '[default]'
 		else:
 			preset = preferences.presets.choose(log)
 		log.menuOut()
@@ -204,6 +204,29 @@ Not Yet Implement :
 	
 	
 	
+	def renamePreset(self, old, new):
+		'''a method to rename used preset'''
+		for task in self.tasks:
+			task.renamePreset(old, new)
+	
+	
+	
+	
+	
+	
+	def erasePreset(self, preset):
+		'''a method to stop using preset'''
+		for task in self.tasks:
+			task.erasePreset(preset)
+	
+	
+	
+	
+	
+	def save(self):
+		'''A method to save Tasks list'''
+		saveTasks(self)
+		
 	
 	
 	

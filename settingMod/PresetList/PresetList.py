@@ -69,7 +69,7 @@ class PresetList:
 	
 	
 	
-	def menu(self, log, versions):
+	def menu(self, log, versions, tasks):
 		'''menu to explore and edit preset list settings'''
 		change = False
 		log.menuIn('Preferences Preset/Metapreset')
@@ -99,7 +99,7 @@ class PresetList:
 			
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				if self.default is None:
-					loq.error('you must set a default preset before quit!')
+					log.error('you must set a default preset before quit!')
 					continue
 				log.menuOut()
 				return change
@@ -111,13 +111,13 @@ class PresetList:
 					else:
 						change = (self.presets[alias].menu(log, alias, self) or change)
 			elif choice == '2':
-				change = (self.rename(log) or change)
+				change = (self.rename(log, tasks) or change)
 			elif choice == '3':
 				change = (self.create(log, versions) or change)
 			elif choice == '4':
 				change = (self.createFrom(log, versions) or change)
 			elif choice == '5':
-				change = (self.remove(log) or change)
+				change = (self.remove(log, tasks) or change)
 			elif choice == '6':
 				change = (self.setDefault(log) or change)
 			elif choice == '7':
@@ -221,7 +221,7 @@ class PresetList:
 	
 	
 	
-	def rename(self, log):
+	def rename(self, log, tasks):
 		'''A method to rename Preset'''
 		log.menuIn('Rename Preset')
 		
@@ -245,6 +245,9 @@ class PresetList:
 		
 		if self.default == old:
 			self.default = new
+		
+		tasks.renamePreset(old, new)
+		tasks.save()
 		
 		if type(self.presets[new]) is Preset:
 			for preset in self.presets.values():
@@ -350,7 +353,7 @@ class PresetList:
 	
 	
 	
-	def remove(self, log):
+	def remove(self, log, tasks):
 		'''A method to remove a preset from the list'''
 		
 		log.menuIn('Remove A Preset')
@@ -363,6 +366,7 @@ class PresetList:
 			return False
 		
 		print('\033[31mIf preset is used in other metapreset or as default preset, this will be unset\033[0m\n')
+		print('\033[31mIf preset is used by a task, the task will be set to use default preset\033[0m\n')
 		choice = input('Do you really want to erase «'+target+'» preset?(y)').strip().lower()
 		
 		if choice == 'y':
@@ -376,6 +380,9 @@ class PresetList:
 				for preset in self.presets.values():
 					if type(preset) is Metapreset:
 						preset.unsetPreset(target)
+			
+			tasks.erasePreset(target)
+			tasks.save()
 			
 			log.menuOut()
 			return True

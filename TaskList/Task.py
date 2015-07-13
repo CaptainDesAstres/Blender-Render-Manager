@@ -73,6 +73,24 @@ class Task:
 	
 	
 	
+	def renamePreset(self, old, new):
+		'''a method to rename used preset'''
+		if self.preset == old:
+			self.preset = new
+	
+	
+	
+	
+	
+	
+	def erasePreset(self, preset):
+		'''a method to stop using preset'''
+		if self.preset == preset:
+			self.preset = '[default]'
+	
+	
+	
+	
 	
 	
 	

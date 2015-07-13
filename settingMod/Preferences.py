@@ -74,7 +74,7 @@ class Preferences:
 	
 	
 	
-	def menu(self, log):
+	def menu(self, log, tasks):
 		'''method to see preferences settings and access edition menu'''
 		log.menuIn('Preferences')
 		
@@ -105,7 +105,7 @@ class Preferences:
 			elif choice == '3':
 				change = self.tiles.menu(log)
 			elif choice == '4':
-				change = self.presets.menu(log, self.blenderVersion)
+				change = self.presets.menu(log, self.blenderVersion, tasks)
 			else:
 				log.error('Unknow request!', False)
 			
