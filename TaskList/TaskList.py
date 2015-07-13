@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task list'''
 import xml.etree.ElementTree as xmlMod
-import os, re
+import os, re, math
 from usefullFunctions import *
 from save import *
 from TaskList.Task import *
@@ -76,6 +76,14 @@ class TaskList:
 			elif choice in ['a', 'add', '+']:
 				if (self.add(log, preferences)):
 					saveTasks(self)
+			elif choice in ['d', '>', '']:
+				if page < math.floor((len(self.tasks)-1)/25):
+					page += 1
+				elif choice == '':
+					page = 0
+			elif choice in ['u', '<']:
+				if page > 0:
+					page -= 1
 			elif choice in ['h', 'help']:
 				log.menuIn('Help')
 				log.print()
@@ -83,6 +91,8 @@ class TaskList:
 				print('''\n\n        \033[4mHELP :\033[0m
 
 Add task : a or add or +
+Scroll up the list : u or <
+Scroll down the list : d or > or just type enter
 Help : h or help
 Quit : q or quit
 Preferences access : p or pref or preferences
