@@ -160,9 +160,31 @@ Not Yet Implement :
 		
 		# scene choice
 		scenes = info.sceneChoice(log)
+		if scenes is None:
+			log.menuOut()
+			return False
 		
-		### not yet coded:
+		
 		# preset choice
+		log.menuIn('Preset Choice')
+		log.print()
+		print('\n\n        \033[4mPreset Choice :\033[0m\n\n')
+		confirm = input('Use «'+preferences.presets.default+'» default preset? (type anything else that y or yes to choose another one)')
+		
+		if confirm in ['', 'y', 'yes']:
+			preset = preferences.presets.default
+		else:
+			preset = preferences.presets.choose(log)
+		log.menuOut()
+		
+		if preset is None:
+			log.menuOut()
+			log.write('  No preset choose, abort')
+			return False
+		
+		log.write('  Use «'+preset+'» preset')
+		
+		# blender Version Choice
 		
 		# add the task 
 		task = Task()
