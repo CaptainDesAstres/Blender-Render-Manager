@@ -110,11 +110,11 @@ Not Yet Implement :
 	def print(self, page):
 		'''A method to print the list of the task'''
 		print('''
-ID |  File Path              |  Scene                  |  Preset                 |''')
+\033[4mID |  File Name              |  Scene                  |  Preset                 |\033[0m''')
 		if page > 0:
 			print('▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|')
 		for i,task in enumerate(self.tasks[page*25:(page+1)*25]):
-			row = columnLimit( (page*25+i), 3, False)
+			row = columnLimit( (page*25+i), 3, 0)
 			row += task.getRow()
 			print(row)
 		if (page+1)*25 <= len(self.tasks):

@@ -95,9 +95,10 @@ class Task:
 	
 	def getRow(self):
 		'''A method to get row to print task list'''
-		return columnLimit(self.path, 25)\
-				+columnLimit(self.scene, 25)\
-				+columnLimit(self.preset, 25)
+		name = self.path.split('/').pop()
+		return columnLimit('  '+name, 25, 5)\
+				+columnLimit('  '+self.scene, 25, 5)\
+				+columnLimit('  '+self.preset, 25, 5)
 	
 	
 	
