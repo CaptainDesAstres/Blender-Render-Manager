@@ -3,6 +3,7 @@
 '''module to manage task settings'''
 import xml.etree.ElementTree as xmlMod
 import os
+from usefullFunctions import *
 from TaskList.FileInfo.FileInfo import *
 
 class Task:
@@ -87,6 +88,17 @@ class Task:
 		'''a method to stop using preset'''
 		if self.preset == preset:
 			self.preset = '[default]'
+	
+	
+	
+	
+	
+	def getRow(self):
+		'''A method to get row to print task list'''
+		return columnLimit(self.path, 25)\
+				+columnLimit(self.scene, 25)\
+				+columnLimit(self.preset, 25)
+	
 	
 	
 	

@@ -3,6 +3,7 @@
 '''module to manage task list'''
 import xml.etree.ElementTree as xmlMod
 import os, re
+from usefullFunctions import *
 from save import *
 from TaskList.Task import *
 from TaskList.FileInfo.FileInfo import *
@@ -59,9 +60,12 @@ class TaskList:
 	def menu(self, log, preferences):
 		'''method to see task list and manage it'''
 		log.menuIn('Task List')
+		page = 0
 		
 		while True:
 			log.print()
+			
+			self.print(page)
 			
 			choice= input('action (h for help):').strip().lower()
 			if choice in ['q', 'quit']:
@@ -98,6 +102,23 @@ Not Yet Implement :
 				log.menuOut()
 			else:
 				log.error('Unknow request!', False)
+	
+	
+	
+	
+	
+	def print(self, page):
+		'''A method to print the list of the task'''
+		print('''
+ID |  File Path              |  Scene                  |  Preset                 |''')
+		if page > 0:
+			print('▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|')
+		for i,task in enumerate(self.tasks[page*25:(page+1)*25]):
+			row = columnLimit( (page*25+i), 3, False)
+			row += task.getRow()
+			print(row)
+		if (page+1)*25 <= len(self.tasks):
+			print('▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|')
 	
 	
 	
