@@ -34,13 +34,13 @@ class Scene:
 	
 	def toXml(self):
 		'''export blender scene info into xml syntaxed string'''
-		xml = '<scene name="'+self.name+'" start="'+str(self.start)\
-			+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" >'
+		xml = '    <scene name="'+self.name+'" start="'+str(self.start)\
+			+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" >\n'
 		
 		for RL in self.renderlayers.values():
 			xml += RL.toXml()
 		
-		xml += '</scene>'
+		xml += '    </scene>\n'
 		return xml
 	
 	

@@ -27,7 +27,7 @@ class Renderlayer:
 	
 	def toXml(self):
 		'''export blender Renderlayer info into xml syntaxed string'''
-		return '<renderlayer name="'+self.name+'" use="'+str(self.use)+'" />'
+		return '      <renderlayer name="'+self.name+'" use="'+str(self.use)+'" />\n'
 	
 	
 	

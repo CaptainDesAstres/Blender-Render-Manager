@@ -29,12 +29,12 @@ class FileInfo:
 	
 	def toXml(self):
 		'''export blender file info into xml syntaxed string'''
-		xml = '<fileInfo>'
+		xml = '  <fileInfo>\n'
 		
 		for scene in self.scenes.values():
 			xml += scene.toXml()
 		
-		xml += '</fileInfo>'
+		xml += '  </fileInfo>\n'
 		return xml
 	
 	
