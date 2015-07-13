@@ -189,7 +189,8 @@ Not Yet Implement :
 			self.tasks.append( Task(
 								path = path,
 								scene = scene,
-								preset = preset
+								preset = preset,
+								fileInfo = info
 								) )
 		if len(scenes) == 1:
 			log.write('  Task added')

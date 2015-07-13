@@ -3,15 +3,17 @@
 '''module to manage task settings'''
 import xml.etree.ElementTree as xmlMod
 import os
+from TaskList.FileInfo.FileInfo import *
 
 class Task:
 	'''class to manage task settings'''
 	
 	
-	def __init__(self, path = None, scene = None, preset = None, xml= None):
+	def __init__(self, path = None, scene = None, preset = None,\
+					fileInfo = None, xml= None):
 		'''initialize task object with default settings or saved settings'''
 		if xml is None:
-			self.defaultInit(path, scene, preset)
+			self.defaultInit(path, scene, preset, fileInfo)
 		else:
 			self.fromXml(xml)
 	
@@ -19,11 +21,12 @@ class Task:
 	
 	
 	
-	def defaultInit(self, path, scene, preset):
+	def defaultInit(self, path, scene, preset, fileInfo):
 		'''initialize Task object with default settings'''
 		self.path = path
 		self.scene = scene
 		self.preset = preset
+		self.info = fileInfo
 	
 	
 	
@@ -34,6 +37,7 @@ class Task:
 		self.path = xml.get('path')
 		self.scene = xml.get('scene')
 		self.preset = xml.get('preset')
+		self.info = FileInfo(xml.find('fileInfo'))
 	
 	
 	
@@ -42,7 +46,9 @@ class Task:
 	def toXml(self):
 		'''export task settings into xml syntaxed string'''
 		return '<task path="'+self.path+'" scene="'+self.scene+'" preset="'\
-				+self.preset+'" />\n'
+				+self.preset+'" >\n'\
+				+self.info.toXml()\
+				+'</task>\n'
 		
 	
 	
