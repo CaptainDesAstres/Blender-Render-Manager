@@ -144,6 +144,24 @@ class Engine:
 	
 	
 	
+	def useBlenderVersion(self, name):
+		'''check blender Version is used'''
+		return self.version == name
+	
+	
+	
+	
+	
+	
+	def eraseBlenderVersion(self, name):
+		'''erase blender version in preset who use it'''
+		if self.version == name:
+			self.version = '[default]'
+	
+	
+	
+	
+	
 	
 	
 	

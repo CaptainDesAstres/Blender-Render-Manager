@@ -450,6 +450,25 @@ class PresetList:
 	
 	
 	
+	def useBlenderVersion(self, name):
+		'''check if blender version is used by some preset'''
+		for preset in self.presets.values():
+			if type(preset) is Preset and preset.useBlenderVersion(name):
+				return True
+		return False
+	
+	
+	
+	
+	
+	
+	def eraseBlenderVersion(self, name):
+		'''erase blender version in preset who use it'''
+		for preset in self.presets.values():
+			if type(preset) is Preset:
+				preset.eraseBlenderVersion(name)
+	
+	
 	
 	
 	

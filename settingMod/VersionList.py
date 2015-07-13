@@ -393,12 +393,19 @@ class VersionList:
 		
 		if self.default == alias:
 			print('\n\033[31mthis is actually the default version. if you erase it, default version will be set to de blender standard command.\033[0m')
+		versionUsed = preferences.presets.useBlenderVersion(alias)
+		if versionUsed:
+			print('\n\033[31mThis version is actually used by some preset. If you erase it, the preset will automatically be changed to use default version.\033[0m')
 		choice = input('\nDo you realy want to erase this version (y)?').strip().lower()
+		
+		
 		
 		if choice in ['y', 'yes']:
 			self.list.pop(alias)
 			if self.default == alias:
 				self.default = 'Standard Blender'
+			if versionUsed:
+				preferences.presets.eraseBlenderVersion(alias)
 			log.write('Remove "'+alias+'" version.')
 			log.menuOut()
 			return True

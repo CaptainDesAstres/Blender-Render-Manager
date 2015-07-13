@@ -208,3 +208,21 @@ Loop 1 to 5       : Animation length will correspond to loop length of the loops
 	
 	
 	
+	
+	def useBlenderVersion(self, name):
+		'''check if blender version is used by this preset'''
+		return self.engine.useBlenderVersion(name)
+	
+	
+	
+	
+	
+	
+	def eraseBlenderVersion(self, name):
+		'''erase blender version in preset who use it'''
+		self.engine.eraseBlenderVersion(name)
+	
+	
+	
+	
+	
