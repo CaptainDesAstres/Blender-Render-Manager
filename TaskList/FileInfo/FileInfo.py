@@ -51,8 +51,8 @@ class FileInfo:
 			return None
 		
 		if len(scenes) == 1:
-			log.write('  Only one scene in file. Use «'+scene[0]+'» scene.')
-			return [ scene[0] ]
+			log.write('  Only one scene in file. Use «'+scenes[0]+'» scene.')
+			return [ scenes[0] ]
 		
 		log.menuIn('Scene Choice')
 		while True:

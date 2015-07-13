@@ -129,7 +129,7 @@ Not Yet Implement :
 				# check if path is absolute (begin by '/')
 				log.error('"'+path+'" path is not absolute (need to begin by "/").')
 				continue
-			elif len(path) < 7 or path[len(path)-6:] !='.blend':
+			elif len(path) < 7 or re.search(r'.blend\d{0,10}$', path) is None:
 				# check if path point to a .blend file
 				log.error('"'+path+'" path don\'t seemed to be a blender file (need .blend extension).')
 				continue
@@ -158,10 +158,10 @@ Not Yet Implement :
 		info = xmlMod.fromstring(info)
 		info = FileInfo(info)
 		
-		### not yet coded:
 		# scene choice
 		scenes = info.sceneChoice(log)
-		log.error(str(scenes))
+		
+		### not yet coded:
 		# preset choice
 		
 		# add the task 
