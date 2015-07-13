@@ -35,7 +35,7 @@ class TaskList:
 		'''initialize task list object with saved task'''
 		self.tasks = []
 		for node in xml.findall('task'):
-			self.tasks.append(Task(node))
+			self.tasks.append(Task(xml = node))
 	
 	
 	
@@ -184,14 +184,18 @@ Not Yet Implement :
 		
 		log.write('  Use «'+preset+'» preset')
 		
-		# blender Version Choice
+		# add the task(s)
+		for scene in scenes:
+			self.tasks.append( Task(
+								path = path,
+								scene = scene,
+								preset = preset
+								) )
+		if len(scenes) == 1:
+			log.write('  Task added')
+		else:
+			log.write('  '+str(len(scenes))+' tasks added')
 		
-		# add the task 
-		task = Task()
-		task.path = path
-		task.scene = 'scene'
-		self.tasks.append(task)
-		log.write('  Task added')
 		log.menuOut()
 		return True
 	
