@@ -160,6 +160,8 @@ Not Yet Implement :
 		
 		### not yet coded:
 		# scene choice
+		scenes = info.sceneChoice(log)
+		log.error(str(scenes))
 		# preset choice
 		
 		# add the task 
