@@ -84,21 +84,37 @@ class Task:
 				log.menuOut()# quit preferences menu
 				return change
 			elif choice == '1':
+				
 				scene = self.info.sceneChoice(log, allChoice = False)[0]
 				if scene is not None:
 					self.scene = scene
-					log.write('Scene of task n°'+str(index)+' set to «'+self.scene+'»')
+					log.write('Task n°'+str(index)+' : Scene set to «'+self.scene+'»')
 					change = True
+				
 			elif choice == '2':
-				change = (self.presetChoice(log) or change)
+				
+				preset = Task.presetChoice(log, preferences)
+				if preset is not None :
+					self.preset = preset
+					log.write('Task n°'+str(index)+' : Preset set to «'+self.preset+'»')
+					change = True
+				
 			elif choice == '3':
+				
 				change = (preferences.presets.presets[self.preset].menu(log) or change)
+				
 			elif choice == '4':
+				
 				change = (self.info.scene[self.scene].renderlayerActivator(log) or change)
+				
 			elif choice == '5':
+				
 				change = (tasks.move(log, [index]) or change)
+				
 			elif choice == '6':
+				
 				change = (tasks.remove(log, [index]) or change)
+				
 			else:
 				log.error('Unknow request!', False)
 	
@@ -150,7 +166,22 @@ class Task:
 	
 	
 	
-	
+	def presetChoice(log, preferences):
+		'''A method to choose a preset'''
+		# preset choice
+		log.menuIn('Preset Choice')
+		log.print()
+		print('\n\n        \033[4mPreset Choice :\033[0m\n\n')
+		confirm = input('Use «'+preferences.presets.default+'» default preset? (type anything else that y or yes to choose another one)')
+		
+		
+		if confirm in ['', 'y', 'yes']:
+			log.menuOut()
+			return '[default]'
+		else:
+			preset = preferences.presets.choose(log)
+			log.menuOut()
+			return preset
 	
 	
 	
