@@ -114,7 +114,10 @@ class Task:
 				
 			elif choice == '5':
 				
-				change = (tasks.move(log, [index]) or change)
+				confirm, select = tasks.move(log, [index])
+				if confirm:
+					change = True
+					index = select[0]
 				
 			elif choice == '6':
 				
