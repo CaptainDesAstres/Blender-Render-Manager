@@ -124,7 +124,7 @@ Not Yet Implement :
 					log.error('There is no task n°'+str(choice)+'!', False)
 					continue
 				
-				if(self.tasks[choice].menu(log, choice, self.tasks, preferences)):
+				if(self.tasks[choice].menu(log, choice, self, preferences)):
 					self.save()
 	
 	
@@ -140,13 +140,15 @@ Not Yet Implement :
 		
 		if selection is None:
 			selected = self.tasks[page*25:(page+1)*25]
+			index = list(range(page*25, (page+1)*25))
 		else:
 			selection.sort()
+			index = selection
 			selected = []
 			for i in selection:
 				selected.append(self.tasks[i])
-		for i,task in enumerate(self.tasks[page*25:(page+1)*25]):
-			row = columnLimit( (page*25+i), 3, 0)
+		for i,task in enumerate(selected):
+			row = columnLimit( index[i], 3, 0)
 			row += task.getRow()
 			print(row)
 		
@@ -274,6 +276,31 @@ Not Yet Implement :
 		'''A method to save Tasks list'''
 		saveTasks(self)
 		
+	
+	
+	
+	
+	
+	def remove(self, log, selected):
+		'''A method to remove task from the list'''
+		log.menuIn('Task(s) Removing')
+		log.print()
+		print('\n\n        Removing Selected Task :\n')
+		self.print(0, selected)
+		
+		confirm = input('Do you realy want to erase this task?(y) ').strip().lower()
+		
+		log.menuOut()
+		if confirm == 'y':
+			selected.sort(reverse = True)
+			for i in selected:
+				self.tasks.pop(i)
+			return True
+		else:
+			return False
+	
+	
+	
 	
 	
 	
