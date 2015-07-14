@@ -303,6 +303,46 @@ Not Yet Implement :
 	
 	
 	
+	def move(self, log, selected):
+		'''A method to move tasks into the list'''
+		log.menuIn('Task(s) Moving')
+		change = False
+		while True:
+			log.print()
+			print('\n\n        Moving Selected Task :\n')
+			self.print(0, selected)
+			
+			choice = input('how to move selected task : (h for help) ').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return change
+			elif choice in ['h', 'help']:
+				log.menuIn('Help')
+				log.print()
+				input('''
+
+        Help :
+
+Move to
+    Top of list :          t or top
+    First selected task :  f or first
+    Last selected task :   l or last
+    Bottom of the list :   b or bottom
+    Give row position :    Type the number of the row you want 
+Save and quit :            empty string or q or quit or cancel
+Help :                     h or help
+
+Press enter to continue
+''')
+			elif re.search(r'^(t|f|l|b|(top)|(first)|(last)|(bottom)|(\d+))$', choice):
+				print()
+			else:
+				log.error('Unvalid action', False)
+	
+	
+	
+	
 	
 	
 	
