@@ -90,17 +90,20 @@ class TaskList:
 				
 				print('''\n\n        \033[4mHELP :\033[0m
 
-Add task : a or add or +
 Scroll up the list : u or <
 Scroll down the list : d or > or just type enter
+
+Add task : a or add or +
+Edit/inspect a task : type the index of the task
+
+Preferences access : p or pref or preferences
 Help : h or help
 Quit : q or quit
-Preferences access : p or pref or preferences
+
 Not Yet Implement :
 ##
 ##
-##Edit/inspect task : type the index of the task to edit
-##Batch task editing : b or batch
+##Batch preset choice : b or batch
 ##See previous sessions logs : l or log
 ##Run tasks : r or run
 ##
@@ -111,7 +114,17 @@ Not Yet Implement :
 				input('Press enter to continue')
 				log.menuOut()
 			else:
-				log.error('Unknow request!', False)
+				try:
+					choice = int(choice)
+				except:
+					log.error('Unknow request!', False)
+					continue
+				
+				if choice < 0 or choice >= len(self.tasks):
+					log.error('There is no task n°'+str(choice)+'!', False)
+					continue
+				
+				self.tasks[choice].menu(log, choice, self.tasks, preferences)
 	
 	
 	

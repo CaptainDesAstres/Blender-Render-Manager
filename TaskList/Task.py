@@ -56,17 +56,17 @@ class Task:
 	
 	
 	
-	def menu(self, log, index):
+	def menu(self, log, index, tasks, preferences):
 		'''method to edit task settings'''
 		log.menuIn('task n°'+str(index))
 		
 		while True:
 			log.print()
 			
-			choice= input('no action yet implement?').strip().lower()
+			choice= input('no action yet implemented').strip().lower()
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()# quit preferences menu
-				return change
+				return
 			else:
 				log.error('Unknow request!', False)
 	
