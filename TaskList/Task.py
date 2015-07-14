@@ -83,7 +83,7 @@ class Task:
 			
 			choice= input('action : ').strip().lower()
 			if choice in ['0', 'q', 'quit', 'cancel']:
-				log.menuOut()# quit preferences menu
+				log.menuOut()
 				return change
 			elif choice == '1':
 				
@@ -118,7 +118,10 @@ class Task:
 				
 			elif choice == '6':
 				
-				change = (tasks.remove(log, [index]) or change)
+				if tasks.remove(log, [index]):
+					log.menuOut()
+					log.write('Task n°'+str(index)+' removed')
+					return True
 				
 			else:
 				log.error('Unknow request!', False)
