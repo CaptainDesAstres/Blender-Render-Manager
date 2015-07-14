@@ -106,7 +106,7 @@ class Output:
 		print('\n\033[4mOutput pattern :\033[0m')
 		print('      '+self.pattern)
 		print('\n\033[4mOverwriting :\033[0m')
-		print('      '+{True:'enabled', False:'backup'}self.overwrite)
+		print('      '+{True:'enabled', False:'backup'}[self.overwrite])
 		if not self.overwrite:
 			print('\n\033[4mBackup limit :\033[0m')
 			if self.backup == 0:
