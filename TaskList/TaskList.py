@@ -355,6 +355,7 @@ Press enter to continue
 				
 				selected = self.moveTo(log, selected, choice)
 				
+				# correct task index in menu
 				log.menuOut()
 				log.menuOut()
 				log.menuIn('Task n°'+','.join(str(x) for x in selected))
