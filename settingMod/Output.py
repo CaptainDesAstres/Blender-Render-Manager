@@ -27,6 +27,8 @@ class Output:
 			os.mkdir('/home/'+os.getlogin()+'/.BlenderRenderManager/render')
 		self.path = '/home/'+os.getlogin()+'/.BlenderRenderManager/render/'
 		self.pattern = '%N - %S/%L - %F'
+		self.overwrite = False
+		self.backup = 5
 	
 	
 	
@@ -36,6 +38,8 @@ class Output:
 		'''initialize output path with values extracted from an xml object'''
 		self.path = xml.get('path')
 		self.pattern = xml.get('pattern')
+		self.overwrite = {'True':True, 'False':False}[xml.get('overwrite')]
+		self.backup = int(xml.get('backup'))
 	
 	
 	
@@ -43,7 +47,8 @@ class Output:
 	
 	def toXml(self):
 		'''export output path into xml syntaxed string'''
-		return '<output path="'+self.path+'" pattern="'+self.pattern+'" />\n'
+		return '<output path="'+self.path+'" pattern="'+self.pattern\
+			+'" overwrite="'+str(self.overwrite)+'" backup="'+str(self.backup)+'" />\n'
 	
 	
 	
@@ -92,6 +97,14 @@ class Output:
 		print('      '+self.path)
 		print('\n\033[4mOutput pattern :\033[0m')
 		print('      '+self.pattern)
+		print('\n\033[4mOverwriting :\033[0m')
+		print('      '+{True:'enabled', False:'backup'}self.overwrite)
+		if not self.overwrite:
+			print('\n\033[4mBackup limit :\033[0m')
+			if self.backup == 0:
+				print('      No limit')
+			else:
+				print('      '+str(self.backup))
 	
 	
 	
