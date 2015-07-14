@@ -107,7 +107,10 @@ class Task:
 				
 			elif choice == '4':
 				
-				change = (self.info.scene[self.scene].renderlayerActivator(log) or change)
+				confirm = self.info.scenes[self.scene].renderlayerActivator(log)
+				if confirm:
+					log.write('change task n°'+str(index)+' active renderlayer')
+					change = True
 				
 			elif choice == '5':
 				
@@ -191,7 +194,8 @@ class Task:
 	
 	
 	def editPreset(self, log, preferences):
-		log.error('Warning : all change made to the preset will be effectiv for all task that use it…')
+		'''A method to edit the preset used by the task'''
+		log.error('Warning : all change made to the preset will be effective for all task that use it…')
 		
 		if self.preset == '[default]' :
 			name = preferences.presets.default

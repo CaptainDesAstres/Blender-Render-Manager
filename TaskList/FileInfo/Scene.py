@@ -57,6 +57,75 @@ class Scene:
 	
 	
 	
+	def printRenderlayer(self):
+		'''A method to list all renderlayer'''
+		renderlayers = list(self.renderlayers.keys())
+		renderlayers.sort(key = str.lower)
+		
+		for i, RL in enumerate(renderlayers):
+			if self.renderlayers[RL].use:
+				print(str(i)+'- '+RL)
+			else:
+				print(str(i)+'- \033[31m'+RL+'(DISABLED)\033[0m')
+		return renderlayers
+	
+	
+	
+	
+	
+	def renderlayerActivator(self, log):
+		'''A method to activate/desactivate renderlayer'''
+		log.menuIn('Task Renderlayer Activation')
+		change = False
+		
+		while True:
+			log.print()
+			print('\n\n        Renderlayer Activation :\n')
+			
+			renderlayers = self.printRenderlayer()
+			
+			choice = input('''
+
+Type "a" to activate All renderlayer
+Type "n" to desactivate All renderlayer
+Type "s" to switch All renderlayer
+Type the number of a renderlayer to switch his state
+Type "q" to confirm and quit
+
+action : ''').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return change
+			
+			if choice == 'a' or choice == 'n':
+				use = {'a':True,'n':False}[choice]
+				for RL in self.renderlayers.values():
+					RL.use = use
+				change = True
+			elif choice == 's':
+				for RL in self.renderlayers.values():
+					RL.use = not RL.use
+				change = True
+			else:
+				try:
+					choice = int(choice)
+				except ValueError:
+					log.error('unvalid choice, expect a integer or a/s/n/q character.')
+					continue
+				
+				if choice < 0 or choice >= len(renderlayers):
+					log.error('the number you give correspond to nothing!')
+					continue
+				
+				self.renderlayers[renderlayers[choice]].use = not self.renderlayers[renderlayers[choice]].use
+				change = True
+	
+	
+	
+	
+	
+	
 	
 	
 	
