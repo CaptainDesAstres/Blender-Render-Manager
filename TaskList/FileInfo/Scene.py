@@ -47,6 +47,16 @@ class Scene:
 	
 	
 	
+	def printActiveRenderlayer(self):
+		'''A method to print scene renderlayer'''
+		for RL in self.renderlayers.values():
+			if RL.use:
+				print('    '+RL.name)
+	
+	
+	
+	
+	
 	
 	
 	

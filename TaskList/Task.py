@@ -58,10 +58,13 @@ class Task:
 	
 	def menu(self, log, index, tasks, preferences):
 		'''method to edit task settings'''
-		log.menuIn('task n°'+str(index))
+		log.menuIn('Task n°'+str(index))
 		
 		while True:
 			log.print()
+			
+			print('\n        Edit Task n°'+str(index)+' :')
+			self.print()
 			
 			choice= input('no action yet implemented').strip().lower()
 			if choice in ['0', 'q', 'quit', 'cancel']:
@@ -69,6 +72,20 @@ class Task:
 				return
 			else:
 				log.error('Unknow request!', False)
+	
+	
+	
+	
+	
+	def print(self):
+		'''A method to print task information'''
+		print('\n\nPath :          '+self.path)
+		print('File Name :     '+self.path.split('/').pop())
+		print('Scene :         '+self.scene)
+		print('Preset :        '+self.preset+'\n')
+		print('\033[4mActive Renderlayer :\033[0m')
+		self.info.scenes[self.scene].printActiveRenderlayer()
+		print('\n')
 	
 	
 	
