@@ -251,7 +251,9 @@ Press enter to continue''')
 	
 	def switchOverwrite(self, log):
 		'''A method to switch Overwrite settings'''
-		return False
+		self.overwrite = not self.overwrite
+		log.write('Overwrite mode set to '+{True:'enabled', False:'backup'}[self.overwrite])
+		return True
 	
 	
 	
