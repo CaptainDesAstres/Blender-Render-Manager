@@ -69,6 +69,8 @@ class Output:
 			print('''\n\n        \033[4mMenu :\033[0m
 1- Edit path
 2- Edit patterns
+3- Switch overwrite mode
+4- Change backup limit (only in «backup» overwriting mode)
 0- Save And Quit
 
 ''')
@@ -83,6 +85,12 @@ class Output:
 			elif choice == '2':
 				# edit output pattern
 				change = (self.editPattern(log) or change)
+			elif choice == '3':
+				# switch overwriting mode
+				change = (self.switchOverwrite(log) or change)
+			elif choice == '4':
+				# edit backup limit
+				change = (self.editBackupLimit(log) or change)
 			else:
 				log.error('Unvalid menu index!', False)
 	
@@ -236,6 +244,23 @@ Press enter to continue''')
 			log.write('Pattern set to : '+patterns[choice])
 			log.menuOut()
 			return True
+	
+	
+	
+	
+	
+	def switchOverwrite(self, log):
+		'''A method to switch Overwrite settings'''
+		return False
+	
+	
+	
+	
+	
+	def editBackupLimit(self, log):
+		'''A method to edit Backup limit'''
+		return False
+	
 	
 	
 	
