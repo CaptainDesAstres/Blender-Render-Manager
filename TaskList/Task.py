@@ -3,7 +3,9 @@
 '''module to manage task settings'''
 import xml.etree.ElementTree as xmlMod
 import os
+from save import *
 from usefullFunctions import *
+from settingMod.PresetList.Preset.Preset import *
 from TaskList.FileInfo.FileInfo import *
 
 class Task:
@@ -101,7 +103,7 @@ class Task:
 				
 			elif choice == '3':
 				
-				change = (preferences.presets.presets[self.preset].menu(log) or change)
+				self.editPreset(log, preferences)
 				
 			elif choice == '4':
 				
@@ -184,6 +186,28 @@ class Task:
 			return preset
 	
 	
+	
+	
+	
+	
+	def editPreset(self, log, preferences):
+		log.error('Warning : all change made to the preset will be effectiv for all task that use it…')
+		
+		if self.preset == '[default]' :
+			name = preferences.presets.default
+			preset = preferences.presets.presets[name]
+		else:
+			name = self.preset
+			preset = preferences.presets.presets[name]
+		
+		if type(preset) is Preset:
+			confirm = preset.menu(log, name, preferences.blenderVersion)
+		else:
+			confirm = preset.menu(log, name, preferences.presets)
+		
+		if confirm:
+			savePreferences(preferences)
+
 	
 	
 	
