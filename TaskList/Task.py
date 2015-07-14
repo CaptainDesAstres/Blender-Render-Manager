@@ -59,17 +59,42 @@ class Task:
 	def menu(self, log, index, tasks, preferences):
 		'''method to edit task settings'''
 		log.menuIn('Task n°'+str(index))
+		change = False
 		
 		while True:
 			log.print()
 			
 			print('\n        Edit Task n°'+str(index)+' :')
 			self.print()
+			print('\n')
+			print('''    Menu :
+1- Change scene
+2- Change preset
+3- Edit preset
+4- Active/desactive Renderlayer
+5- Change list row
+6- Erase task
+0- Quit and save
+
+''')
 			
-			choice= input('no action yet implemented').strip().lower()
+			
+			choice= input('action : ').strip().lower()
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()# quit preferences menu
-				return
+				return change
+			elif choice == '1':
+				change = (self.sceneChoice(log) or change)
+			elif choice == '2':
+				change = (self.presetChoice(log) or change)
+			elif choice == '3':
+				change = (preferences.presets.presets[self.preset].menu(log) or change)
+			elif choice == '4':
+				change = (self.info.scene[self.scene].renderlayerActivator(log) or change)
+			elif choice == '5':
+				change = (tasks.move(log, [index]) or change)
+			elif choice == '6':
+				change = (tasks.remove(log, [index]) or change)
 			else:
 				log.error('Unknow request!', False)
 	

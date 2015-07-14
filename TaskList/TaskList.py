@@ -124,7 +124,8 @@ Not Yet Implement :
 					log.error('There is no task n°'+str(choice)+'!', False)
 					continue
 				
-				self.tasks[choice].menu(log, choice, self.tasks, preferences)
+				if(self.tasks[choice].menu(log, choice, self.tasks, preferences)):
+					self.save()
 	
 	
 	
