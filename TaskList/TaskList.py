@@ -307,6 +307,8 @@ Not Yet Implement :
 		'''A method to move tasks into the list'''
 		log.menuIn('Task(s) Moving')
 		change = False
+		selected.sort()
+		
 		while True:
 			log.print()
 			print('\n\n        Moving Selected Task :\n')
@@ -316,7 +318,7 @@ Not Yet Implement :
 			
 			if choice in ['', 'q', 'quit', 'cancel']:
 				log.menuOut()
-				return change
+				return change, selected
 			elif choice in ['h', 'help']:
 				log.menuIn('Help')
 				log.print()
@@ -336,9 +338,64 @@ Help :                     h or help
 Press enter to continue
 ''')
 			elif re.search(r'^(t|f|l|b|(top)|(first)|(last)|(bottom)|(\d+))$', choice):
-				print()
+				if choice in ['t', 'top']:
+					choice = -1
+				elif choice in ['f', 'first']:
+					choice = selected[0]
+				elif choice in ['l', 'last']:
+					choice = selected[-1]
+				elif choice in ['b', 'bottom']:
+					choice = len(self.tasks)
+				else:
+					try:
+						choice = int(choice)
+					except ValueError:
+						log.error('Unvalid action', False)
+						continue
+				
+				selected = self.moveTo(log, selected, choice)
+				
+				log.menuOut()
+				log.menuOut()
+				log.menuIn('Task n°'+','.join(str(x) for x in selected))
+				log.menuIn('Task(s) Moving')
+				
+				change = True
 			else:
 				log.error('Unvalid action', False)
+	
+	
+	
+	
+	
+	def moveTo(self, log, selected, row):
+		'''A method to move selected task to a position in the list'''
+		selected.sort(reverse = True)
+		selection = []
+		
+		for index in selected:
+			selection.append(self.tasks.pop(index))
+			if row > index:
+				row -= 1
+		selection.reverse()
+		
+		if row <= 0:
+			self.tasks = selection + self.tasks
+			log.write('Task n°«'+','.join(str(x) for x in selected)+'» moved on top of the list')
+			selected = list(range(0, len(selected)))
+		elif row >= len(selection) + len(self.tasks):
+			self.tasks += selection
+			log.write('Task n°«'+','.join(str(x) for x in selected)+'» moved on bottom of the list')
+			selected = list(range(len(self.tasks)-len(selected)-1 , len(self.tasks)))
+		else:
+			self.tasks = self.tasks[0:row]+selection+self.tasks[row:]
+			log.write('Task n°«'+','.join(str(x) for x in selected)+'» moved on row '+str(row)+' of the list')
+			selected = list(range(row, row + len(selected)))
+		
+		return selected
+	
+	
+	
 	
 	
 	
