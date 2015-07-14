@@ -131,17 +131,28 @@ Not Yet Implement :
 	
 	
 	
-	def print(self, page):
+	def print(self, page, selection = None):
 		'''A method to print the list of the task'''
 		print('''
 \033[4mID |  File Name              |  Scene                  |  Preset                 |\033[0m''')
 		if page > 0:
 			print('▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|')
+		
+		if selection is None:
+			selected = self.tasks[page*25:(page+1)*25]
+		else:
+			selection.sort()
+			selected = []
+			for i in selection:
+				selected.append(self.tasks[i])
 		for i,task in enumerate(self.tasks[page*25:(page+1)*25]):
 			row = columnLimit( (page*25+i), 3, 0)
 			row += task.getRow()
 			print(row)
-		if (page+1)*25 <= len(self.tasks):
+		
+		
+		if selection is not None and (page+1)*25 <= len(selected)\
+			or selection is None and (page+1)*25 <= len(self.tasks):
 			print('▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|')
 	
 	
