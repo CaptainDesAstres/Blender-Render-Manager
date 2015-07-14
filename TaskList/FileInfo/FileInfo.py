@@ -41,7 +41,7 @@ class FileInfo:
 	
 	
 	
-	def sceneChoice(self, log):
+	def sceneChoice(self, log, allChoice = True):
 		'''a methode to choose a scene, return None or a list of one or more scenes'''
 		scenes = list(self.scenes.keys())
 		scenes.sort(key = str.lower)
@@ -54,10 +54,15 @@ class FileInfo:
 			log.write('  Only one scene in file. Use «'+scenes[0]+'» scene.')
 			return [ scenes[0] ]
 		
+		if allChoice:
+			allChoice = '\nA- All scene (a task will be create with each scene)'
+		else:
+			allChoice = ''
+		
 		log.menuIn('Scene Choice')
 		while True:
 			log.print()
-			print('\n\n        \033[4mScene Choice :\033[0m\n\nChoice :\nA- All scene (a task will be create with each scene)')
+			print('\n\n        \033[4mScene Choice :\033[0m\n\nChoice :'+allChoice)
 			for i, scene in enumerate(scenes):
 				print(str(i)+'- '+scene)
 			
@@ -68,7 +73,7 @@ class FileInfo:
 				log.write('  Abort at scene choice')
 				return None
 			
-			if choice == 'a':
+			if choice == 'a' and allChoice != '':
 				log.menuOut()
 				log.write('  Add all scenes')
 				return scenes

@@ -84,7 +84,11 @@ class Task:
 				log.menuOut()# quit preferences menu
 				return change
 			elif choice == '1':
-				change = (self.sceneChoice(log) or change)
+				scene = self.info.sceneChoice(log, allChoice = False)[0]
+				if scene is not None:
+					self.scene = scene
+					log.write('Scene of task n°'+str(index)+' set to «'+self.scene+'»')
+					change = True
 			elif choice == '2':
 				change = (self.presetChoice(log) or change)
 			elif choice == '3':
