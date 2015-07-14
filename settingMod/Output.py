@@ -261,7 +261,29 @@ Press enter to continue''')
 	
 	def editBackupLimit(self, log):
 		'''A method to edit Backup limit'''
-		return False
+		log.print()
+		
+		print('\n\n        Backup limit :\n\n')
+		print('Current Backup Limit : '+str(self.backup))
+		print('\n\nThis setting define the maximal number of backup to keep when overwrite mode is set to backup. Type the limit you want or 0 for no limit. If you really want no backup at all, switch to overwrite «enabled» mode.\n\n')
+		limit = input('new limit :').strip().lower()
+		
+		try:
+			limit = int(limit)
+		except ValueError:
+			log.error('Integer value expected!', False)
+			return False
+		
+		if limit < 0:
+			log.error('Positive value expected!', False)
+			return False
+		
+		self.backup = limit
+		if self.backup == 0:
+			log.write('Backup limit disabled')
+		else:
+			log.write('Backup limit set to '+str(self.backup))
+		return True
 	
 	
 	
