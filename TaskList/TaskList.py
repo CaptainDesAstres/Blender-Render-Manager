@@ -404,6 +404,16 @@ Press enter to continue
 	
 	
 	
+	def batchEdit(self, log, preferences):
+		'''A method to batch edit task'''
+		
+		return False
+	
+	
+	
+	
+	
+	
 	
 	
 	
