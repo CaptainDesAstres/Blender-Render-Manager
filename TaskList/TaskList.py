@@ -336,22 +336,26 @@ Move to
     First selected task :  f or first
     Last selected task :   l or last
     Bottom of the list :   b or bottom
-    Give row position :    Type the number of the row you want 
+    Give row position :    Type the number of the row you want
+Reverse order (if the task is not contiguous, they will be regroup after the first selected)
+                           i or inverse or r or reverse
 Save and quit :            empty string or q or quit or cancel
 Help :                     h or help
 
 Press enter to continue
 ''')
-			elif re.search(r'^(t|f|l|b|(top)|(first)|(last)|(bottom)|(\d+))$', choice):
+			elif re.search(r'^(t|f|l|b|(top)|(first)|(last)|(bottom)|(r)|(i)|(reverse)|(inverse)|(\d+))$', choice):
+				reverse = choice in ['r', 'i', 'inverse', 'reverse']
 				if choice in ['t', 'top']:
 					choice = -1
-				elif choice in ['f', 'first']:
+				elif reverse or choice in ['f', 'first']:
 					choice = selected[0]
 				elif choice in ['l', 'last']:
 					choice = selected[-1]
 				elif choice in ['b', 'bottom']:
 					choice = len(self.tasks)
 				else:
+					
 					try:
 						choice = int(choice)
 					except ValueError:
@@ -359,6 +363,12 @@ Press enter to continue
 						continue
 				
 				selected = self.moveTo(log, selected, choice)
+				
+				if reverse:
+					reorder = self.tasks[selected[0]: selected[-1]+1]
+					reorder.reverse()
+					self.tasks = self.tasks[0: selected[0] ] + reorder \
+								+self.tasks[selected[-1]+1:]
 				
 				# correct task index in menu
 				log.menuOut()
@@ -414,6 +424,7 @@ Press enter to continue
 			log.menuOut()
 			return False
 		
+		log.menuIn('Task n°'+','.join(str(x) for x in select))
 		change = False
 		while True:
 			log.print()
@@ -431,6 +442,7 @@ Press enter to continue
 			
 			if choice in ['q', 'quit', 'cancel', '0']:
 				log.menuOut()
+				log.menuOut()
 				return change
 			elif choice == '1':
 				change = (self.applyPreset(log, select, preferences) or change)
@@ -444,7 +456,9 @@ Press enter to continue
 			elif choice == '4':
 				self.remove(log, select)
 			elif choice == '9':
+				log.menuOut()
 				select = self.batchSelect(log, select)
+				log.menuIn('Task n°'+','.join(str(x) for x in select))
 			else:
 				log.error('Unvalid request',False)
 	
