@@ -84,6 +84,9 @@ class TaskList:
 			elif choice in ['u', '<']:
 				if page > 0:
 					page -= 1
+			elif choice in ['a', 'batch']:
+				if(self.batchEdit(log, preferences)):
+					self.save()
 			elif choice in ['h', 'help']:
 				log.menuIn('Help')
 				log.print()
@@ -95,6 +98,7 @@ Scroll down the list : d or > or just type enter
 
 Add task : a or add or +
 Edit/inspect a task : type the index of the task
+Batch editing : b or batch
 
 Preferences access : p or pref or preferences
 Help : h or help
@@ -103,7 +107,6 @@ Quit : q or quit
 Not Yet Implement :
 ##
 ##
-##Batch preset choice : b or batch
 ##See previous sessions logs : l or log
 ##Run tasks : r or run
 ##
