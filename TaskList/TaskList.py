@@ -431,11 +431,11 @@ Press enter to continue
 				log.menuOut()
 				return change
 			elif choice == '1':
-				self.applyPreset(log, select, preferences)
+				change = (self.applyPreset(log, select, preferences) or change)
 			elif choice == '2':
-				self.copyTasks(log, select, preferences)
+				change = (self.copyTasks(log, select, preferences) or change)
 			elif choice == '3':
-				self.move(log, select)
+				change = (self.move(log, select) or change)
 			elif choice == '4':
 				self.remove(log, select)
 			elif choice == '9':
@@ -574,7 +574,14 @@ Quit : q or quit
 	
 	def applyPreset(self, log, select, preferences):
 		'''A method to apply a preset to multiple tasks'''
+		preset = Task.presetChoice(log, preferences)
 		
+		if preset is not None :
+			for i in select:
+				self.tasks[i].preset = preset
+			log.write('Task n°«'+','.join(str(x) for x in select)+'» : Preset set to «'+preset+'»')
+			return True
+		return False
 	
 	
 	
