@@ -406,8 +406,10 @@ Press enter to continue
 	
 	def batchEdit(self, log, preferences):
 		'''A method to batch edit task'''
+		log.menuIn('Batch Editing')
 		select = self.batchSelect(log)
 		if len(select) == 0 :
+			log.menuOut()
 			return False
 		
 		change = False
@@ -426,6 +428,7 @@ Press enter to continue
 ''')
 			
 			if choice in ['q', 'quit', 'cancel', '0']:
+				log.menuOut()
 				return change
 			elif choice == '1':
 				self.applyPreset(log, select, preferences)
@@ -446,6 +449,7 @@ Press enter to continue
 	
 	def batchSelect(self, log, select = None):
 		'''A method to select multiple task'''
+		log.menuIn('Multiple Task Selecting')
 		if select is None:
 			select = []
 		page = 0
@@ -460,6 +464,7 @@ Press enter to continue
 			choice = input(msg).strip().lower()
 			
 			if choice in ['quit', 'q', 'cancel']:
+				log.menuOut()
 				return select
 			if choice in ['h', 'help']:
 				log.menuIn('Help')
@@ -575,7 +580,7 @@ Quit : q or quit
 	
 	
 	
-	def copyTasks(self, log, select, preferences)
+	def copyTasks(self, log, select, preferences):
 		'''A method to copy a selection of task to apply them another preset'''
 		
 	
