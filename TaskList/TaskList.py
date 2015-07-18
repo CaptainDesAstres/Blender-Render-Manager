@@ -623,6 +623,9 @@ Quit : q or quit
 		for i in select:
 			copies.append(self.tasks[i].copy())
 		
+		for t in copies:
+			t.preset = preset
+		
 		
 		
 		log.menuOut()
