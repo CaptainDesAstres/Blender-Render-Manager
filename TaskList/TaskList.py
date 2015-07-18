@@ -567,6 +567,20 @@ Quit : q or quit
 	
 	
 	
+	def applyPreset(self, log, select, preferences):
+		'''A method to apply a preset to multiple tasks'''
+		
+	
+	
+	
+	
+	
+	def copyTasks(self, log, select, preferences)
+		'''A method to copy a selection of task to apply them another preset'''
+		
+	
+	
+	
 	
 	
 	
