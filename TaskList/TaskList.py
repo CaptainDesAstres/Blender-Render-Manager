@@ -489,8 +489,8 @@ Quit : q or quit
 			elif choice.count('-') == 1:
 				try:
 					choice = choice.split('-')
-					last = min(int(choice.pop()), len(self.tasks)-1)
-					first = max(int(choice.pop()), 0)
+					last = min(int(choice.pop().strip()), len(self.tasks)-1)
+					first = max(int(choice.pop().strip()), 0)
 				except (ValueError, IndexError):
 					log.error('your request is unvalid', False)
 					continue
@@ -514,7 +514,23 @@ Quit : q or quit
 							select.append(i)
 					select.sort()
 			else:
-				print()
+				try:
+					choice = int(choice)
+				except ValueError:
+					log.error('your request ('+choice+') is unvalid', False)
+					continue
+				
+				if mode == 'ADD' and choice not in select:
+					select.append(choice)
+					select.sort()
+				elif mode == 'SUB' and choice in select:
+					select.remove(choice)
+				elif mode == 'SWT':
+					if choice in select:
+						select.remove(choice)
+					else:
+						select.append(choice)
+						select.sort()
 	
 	
 	
