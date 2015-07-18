@@ -433,7 +433,10 @@ Press enter to continue
 			elif choice == '1':
 				change = (self.applyPreset(log, select, preferences) or change)
 			elif choice == '2':
-				change = (self.copyTasks(log, select, preferences) or change)
+				new, confirm = self.copyTasks(log, select, preferences)
+				if confirm:
+					select = new
+					change = True
 			elif choice == '3':
 				change = (self.move(log, select) or change)
 			elif choice == '4':
@@ -600,7 +603,7 @@ Quit : q or quit
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				log.menuOut()
-				return False
+				return select, False
 			
 			if choice in ['1', '2']:
 				row = int(choice)
@@ -613,11 +616,14 @@ Quit : q or quit
 		preset = Task.presetChoice(log, preferences)
 		if preset is None :
 			log.menuOut()
-			return False
+			return select, False
 		
 		copies = []
+		select.sort()
 		for i in select:
 			copies.append(self.tasks[i].copy())
+		
+		
 		
 		log.menuOut()
 		return False
