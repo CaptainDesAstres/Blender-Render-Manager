@@ -419,7 +419,7 @@ Press enter to continue
 			select = []
 		page = 0
 		mode = 'ADD'
-		msg = 'What task to select [additive mode] : '
+		msg = 'What task to select [ADD mode] : '
 		
 		while True:
 			log.print()
@@ -443,9 +443,9 @@ Scroll down the list : d or > or just type enter
 
 Additive (ADD) mode : a or add or +
 Subtractive (SUB) mode : s or sub or -
-Switch (SWT) mode : switch
+Switch (SWT) mode : switch or swt
 
-In ADD mode, you select task by giving them number. in SUB mode, you unselect them the same way. in SWT mode, the same action will select those who are unselect and reciprocally.
+In ADD mode, you select task by giving them number. In SUB mode, you unselect them the same way. In SWT mode, the same action will select those who are unselect and reciprocally.
 
 \033[4mEnumerating :\033[0m
 
@@ -458,6 +458,27 @@ Quit : q or quit
 				
 				input('Press enter to continue')
 				log.menuOut()
+			elif choice  in ['u', '<']:
+				if page > 0:
+					page -= 1
+			elif choice  in ['d', '>', '']:
+				if page < math.floor((len(self.tasks)-1)/25):
+					page += 1
+				elif choice == '':
+					page = 0
+			elif choice  in ['a', 'add', '+']:
+				mode = 'ADD'
+				msg = 'What task to select [ADD mode] : '
+			elif choice  in ['s', 'sub', '-']:
+				mode = 'SUB'
+				msg = 'What task to unselect [SUB mode] : '
+			elif choice  in ['switch', 'swt']:
+				mode = 'SWT'
+				msg = 'What task to switch selecting [SWT mode] : '
+			elif choice  in ['all']:
+				
+			else:
+				
 	
 	
 	
