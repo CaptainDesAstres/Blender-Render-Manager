@@ -454,7 +454,10 @@ Press enter to continue
 			elif choice == '3':
 				change = (self.move(log, select) or change)
 			elif choice == '4':
-				self.remove(log, select)
+				if self.remove(log, select):
+					log.menuOut()
+					log.menuOut()
+					return True
 			elif choice == '9':
 				log.menuOut()
 				select = self.batchSelect(log, select)
