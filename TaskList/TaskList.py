@@ -424,12 +424,40 @@ Press enter to continue
 		while True:
 			log.print()
 			print('\n\n        Multiple Selection :\n')
-			self.print(page, selection = select, whole = True)
+			self.print(page, select, True)
 			
 			choice = input(msg).strip().lower()
-			break
-		
-		return select
+			
+			if choice in ['quit', 'q', 'cancel']:
+				return select
+			if choice in ['h', 'help']:
+				log.menuIn('Help')
+				log.print()
+				
+				print('''\n\n        \033[4mHELP :\033[0m
+
+Scroll up the list : u or <
+Scroll down the list : d or > or just type enter
+
+\033[4mMode :\033[0m
+
+Additive (ADD) mode : a or add or +
+Subtractive (SUB) mode : s or sub or -
+Switch (SWT) mode : switch
+
+In ADD mode, you select task by giving them number. in SUB mode, you unselect them the same way. in SWT mode, the same action will select those who are unselect and reciprocally.
+
+\033[4mEnumerating :\033[0m
+
+You can select task one by one by typing them number or select a range of task: 1-5 will select task 1 to 5 include. You can select all by typing all.
+
+Help : h or help
+Quit : q or quit
+
+''')
+				
+				input('Press enter to continue')
+				log.menuOut()
 	
 	
 	
