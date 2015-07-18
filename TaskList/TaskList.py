@@ -610,6 +610,12 @@ Quit : q or quit
 				continue
 		log.menuOut()
 		
+		preset = Task.presetChoice(log, preferences)
+		if preset is None :
+			log.menuOut()
+			return False
+		
+		
 		log.menuOut()
 		return False
 	
