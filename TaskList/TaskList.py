@@ -615,6 +615,9 @@ Quit : q or quit
 			log.menuOut()
 			return False
 		
+		copies = []
+		for i in select:
+			copies.append(self.tasks[i].copy())
 		
 		log.menuOut()
 		return False

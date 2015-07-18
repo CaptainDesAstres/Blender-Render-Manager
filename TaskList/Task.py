@@ -217,8 +217,16 @@ class Task:
 		
 		if confirm:
 			savePreferences(preferences)
-
 	
+	
+	
+	
+	
+	def copy(self):
+		xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+		xml += self.toXml()
+		xml = xmlMod.fromstring(xml)
+		return Task(xml = xml)
 	
 	
 	
