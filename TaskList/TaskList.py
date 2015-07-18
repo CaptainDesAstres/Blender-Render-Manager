@@ -84,7 +84,7 @@ class TaskList:
 			elif choice in ['u', '<']:
 				if page > 0:
 					page -= 1
-			elif choice in ['a', 'batch']:
+			elif choice in ['b', 'batch']:
 				if(self.batchEdit(log, preferences)):
 					self.save()
 			elif choice in ['h', 'help']:
