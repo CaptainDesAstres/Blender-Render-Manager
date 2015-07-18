@@ -131,14 +131,14 @@ Not Yet Implement :
 	
 	
 	
-	def print(self, page, selection = None):
+	def print(self, page, selection = None, whole = False):
 		'''A method to print the list of the task'''
 		print('''
 \033[4mID |  File Name              |  Scene                  |  Preset                 |\033[0m''')
 		if page > 0:
 			print('▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|')
 		
-		if selection is None:
+		if selection is None or whole:
 			selected = self.tasks[page*25:(page+1)*25]
 			index = list(range(page*25, (page+1)*25))
 		else:
@@ -150,6 +150,8 @@ Not Yet Implement :
 		for i,task in enumerate(selected):
 			row = columnLimit( index[i], 3, 0)
 			row += task.getRow()
+			if whole and index[i] in selection:
+				row = '\033[7m'+row+'\033[0m'
 			print(row)
 		
 		
