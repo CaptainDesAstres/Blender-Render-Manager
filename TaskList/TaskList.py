@@ -476,9 +476,18 @@ Quit : q or quit
 				mode = 'SWT'
 				msg = 'What task to switch selecting [SWT mode] : '
 			elif choice  in ['all']:
-				
+				if mode == 'ADD':
+					select = list(range(0, len(self.tasks)))
+				elif mode == 'SUB':
+					select = []
+				else:
+					for i in range(0, len(self.tasks)):
+						if i in select:
+							select.remove(i)
+						else:
+							select.append(i)
 			else:
-				
+				print()
 	
 	
 	
