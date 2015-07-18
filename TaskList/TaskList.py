@@ -417,6 +417,17 @@ Press enter to continue
 		'''A method to select multiple task'''
 		if select is None:
 			select = []
+		page = 0
+		mode = 'ADD'
+		msg = 'What task to select [additive mode] : '
+		
+		while True:
+			log.print()
+			print('\n\n        Multiple Selection :\n')
+			self.print(page, selection = select, whole = True)
+			
+			choice = input(msg).strip().lower()
+			break
 		
 		return select
 	
