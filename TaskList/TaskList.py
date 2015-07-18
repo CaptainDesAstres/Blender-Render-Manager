@@ -629,15 +629,19 @@ Quit : q or quit
 		if row == 2:
 			newSelect = list(range(len(self.tasks),len(self.tasks) + len(copies)))
 			self.tasks += copies
-			log.write('Task n°«'+','.join(str(x) for x in select)+'» copied to row n°'+str(newSelect[0])+' to '+str(newSelect[-1])+' with '+preset+' preset')
+			log.write('Task n°«'+','.join(str(x) for x in select)+'» copied to row n°'+str(newSelect[0])+' to '+str(newSelect[-1])+' with «'+preset+'» preset')
 			log.menuOut()
 			return newSelect, True
 		else:
-			print()
-		
-		
-		log.menuOut()
-		return select, False
+			newSelect = []
+			gap = 0
+			for i in select:
+				newSelect.append(i+1+gap)
+				gap += 1
+				self.tasks.insert(newSelect[-1], copies.pop(0))
+			log.write('Task n°«'+','.join(str(x) for x in select)+'» copied to row n°'+','.join(str(x) for x in newSelect)+' with «'+preset+'» preset')
+			log.menuOut()
+			return newSelect, True
 	
 	
 	
