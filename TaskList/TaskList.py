@@ -406,9 +406,19 @@ Press enter to continue
 	
 	def batchEdit(self, log, preferences):
 		'''A method to batch edit task'''
-		
+		select = self.batchSelect(log)
 		return False
 	
+	
+	
+	
+	
+	def batchSelect(self, log, select = None):
+		'''A method to select multiple task'''
+		if select is None:
+			select = []
+		
+		return select
 	
 	
 	
