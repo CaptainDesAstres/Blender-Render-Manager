@@ -317,7 +317,7 @@ Not Yet Implement :
 		while True:
 			log.print()
 			print('\n\n        Moving Selected Task :\n')
-			self.print(0, selected)
+			self.print(0, selected, True)
 			
 			choice = input('how to move selected task : (h for help) ').strip().lower()
 			
@@ -376,12 +376,14 @@ Press enter to continue
 	
 	def moveTo(self, log, selected, row):
 		'''A method to move selected task to a position in the list'''
-		selected.sort(reverse = True)
+		selected.sort()
+		isRange = selected == list(range(selected[0], selected[-1]+1))
+		selected.reverse()
 		selection = []
 		
 		for index in selected:
 			selection.append(self.tasks.pop(index))
-			if row > index:
+			if not isRange and row > index:
 				row -= 1
 		selection.reverse()
 		
