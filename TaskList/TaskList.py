@@ -486,6 +486,33 @@ Quit : q or quit
 							select.remove(i)
 						else:
 							select.append(i)
+			elif choice.count('-') == 1:
+				try:
+					choice = choice.split('-')
+					last = min(int(choice.pop()), len(self.tasks)-1)
+					first = max(int(choice.pop()), 0)
+				except (ValueError, IndexError):
+					log.error('your request is unvalid', False)
+					continue
+				
+				inter = list(range(first, last+1))
+				
+				if mode == 'ADD':
+					for i in inter:
+						if i not in select:
+							select.append(i)
+					select.sort()
+				elif mode == 'SUB':
+					for i in inter:
+						if i in select:
+							select.remove(i)
+				else:
+					for i in inter:
+						if i in select:
+							select.remove(i)
+						else:
+							select.append(i)
+					select.sort()
 			else:
 				print()
 	
