@@ -407,7 +407,25 @@ Press enter to continue
 	def batchEdit(self, log, preferences):
 		'''A method to batch edit task'''
 		select = self.batchSelect(log)
-		return False
+		if len(select) == 0 :
+			return False
+		
+		change = False
+		while True:
+			log.print()
+			print('\n\n        Batch Edit :\n')
+			
+			self.print(0, select)
+			choice = input('''\nMenu :
+1- Apply Preset
+2- Copy With Other Preset
+3- Regroup And Move
+4- Remove
+0- Quit
+''')
+			
+			if choice in ['q', 'quit', 'cancel', '0']:
+				return change
 	
 	
 	
