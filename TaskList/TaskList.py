@@ -417,15 +417,28 @@ Press enter to continue
 			
 			self.print(0, select)
 			choice = input('''\nMenu :
-1- Apply Preset
-2- Copy With Other Preset
+1- Apply A Preset
+2- Copy And Apply A Preset
 3- Regroup And Move
 4- Remove
+9- Change Selection
 0- Quit
 ''')
 			
 			if choice in ['q', 'quit', 'cancel', '0']:
 				return change
+			elif choice == '1':
+				self.applyPreset(log, select, preferences)
+			elif choice == '2':
+				self.copyTasks(log, select, preferences)
+			elif choice == '3':
+				self.move(log, select)
+			elif choice == '4':
+				self.remove(log, select)
+			elif choice == '9':
+				select = self.batchSelect(log, select)
+			else:
+				log.error('Unvalid request',False)
 	
 	
 	
