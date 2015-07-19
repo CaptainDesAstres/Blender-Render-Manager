@@ -218,12 +218,45 @@ class Metapreset:
 			log.menuOut()
 			return False
 		
+		anim = Metapreset.animChoice(log)
+		if anim is None:
+			anim = 0
+		
 		log.menuOut()
 		self.groups[group] = preset
-		self.animation[group] = 0
-		log.write('add «'+group+'» renderlayer group to «'+alias+'» metapreset, set it to «'+preset+'» preset')
+		self.animation[group] = anim
+		log.write('add «'+group+'» renderlayer group to «'+alias+'» metapreset, set it to «'+preset+'» preset and '+self.getAnim(group)+'.')
 		return True
 	
+	
+	
+	
+	
+	def animChoice(log):
+		'''A method to choose a animation settings for a group'''
+		log.menuIn('Set Animation')
+		while True:
+			log.print()
+			print('\n\n        Set Animation :\n\n')
+			
+			anim = input('animation choice in frames (or 0 for all animation) :')
+			
+			if anim in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return None
+			
+			try:
+				anim = int(anim)
+			except ValueError:
+				log.error('expect an integer value', False)
+				continue
+			
+			if anim < 0:
+				log.error('expect a positive value', False)
+				continue
+			
+			log.menuOut()
+			return anim
 	
 	
 	
