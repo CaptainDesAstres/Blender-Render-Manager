@@ -181,7 +181,7 @@ class Metapreset:
 		for group, preset in self.groups.items():
 			print(columnLimit(group, 25, sep = ''),' : ',\
 					columnLimit(preset, 25, sep = ''),' : ',\
-					columnLimit(self.animation[group]+'fr', 6, sep = ''))
+					columnLimit(self.getAnim(group), 12, sep = ''))
 	
 	
 	
