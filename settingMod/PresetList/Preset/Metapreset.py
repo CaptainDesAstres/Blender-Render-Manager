@@ -114,12 +114,23 @@ class Metapreset:
 		
 		if index:
 			for i,k in enumerate(keys):
-				print(str(i)+'- '+k)
+				print(str(i)+'- '+k+' ('+self.getAnim(k)+')')
 		else:
 			for k in keys:
 				print(k)
 		
 		return keys
+	
+	
+	
+	
+	
+	def getAnim(self, group):
+		'''A method to return animation value'''
+		if self.animation[group] == 0:
+			return 'All Frames'
+		else:
+			return str(self.animation[group])+'f'
 	
 	
 	
