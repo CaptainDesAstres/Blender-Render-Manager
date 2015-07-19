@@ -81,6 +81,7 @@ class Metapreset:
 3- Set Group Animation
 4- Unset/Remove Group
 5- Set Default Preset
+9- Unset Default Preset
 0- Quit
 
 ''')
@@ -100,6 +101,10 @@ class Metapreset:
 				change = (self.remove(log, alias) or change)
 			elif choice == '5':
 				change = (self.setDefault(log, alias, presets) or change)
+			elif choice == '9':
+				if input('Do you really want to unset default preset (y) :').strip().lower() in ['y', 'yes']:
+					change = True
+					self.default = None
 			else:
 				log.error('Unvalid menu choice', False)
 	
@@ -239,7 +244,7 @@ class Metapreset:
 			log.print()
 			print('\n\n        Set Animation :\n\n')
 			
-			anim = input('animation choice in frames (or 0 for all animation) :')
+			anim = input('animation choice in frames (or 0 for all animation) :').strip().lower()
 			
 			if anim in ['', 'q', 'quit', 'cancel']:
 				log.menuOut()
