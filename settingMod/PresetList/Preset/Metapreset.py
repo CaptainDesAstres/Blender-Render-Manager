@@ -130,7 +130,7 @@ class Metapreset:
 		if self.animation[group] == 0:
 			return 'All Frames'
 		else:
-			return str(self.animation[group])+'f'
+			return str(self.animation[group])+' Frames'
 	
 	
 	
@@ -355,6 +355,7 @@ class Metapreset:
 		'''unset group if it's set for the metapreset'''
 		if self.useGroup(group):
 			self.groups.pop(group)
+			self.animation.pop(group)
 	
 	
 	
@@ -365,6 +366,8 @@ class Metapreset:
 		if self.useGroup(old):
 			self.groups[new] = self.groups[old]
 			self.groups.pop(old)
+			self.animation[new] = self.animation[old]
+			self.animation.pop(old)
 	
 	
 	
@@ -389,6 +392,7 @@ class Metapreset:
 		for group in list(self.groups.keys()):
 			if self.groups[group] == preset:
 				self.groups.pop(group)
+				self.animation.pop(group)
 	
 	
 	
