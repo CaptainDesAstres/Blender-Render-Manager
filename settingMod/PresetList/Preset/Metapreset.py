@@ -23,6 +23,8 @@ class Metapreset:
 		'''initialize metapreset with default value'''
 		self.default = None
 		self.groups = {}
+		self.animation = {}
+		
 	
 	
 	
@@ -33,8 +35,10 @@ class Metapreset:
 		self.default = xml.get('default')
 		
 		self.groups = {}
+		self.animation = {}
 		for node in xml.findall('group'):
 			self.groups[node.get('name')] = node.get('preset')
+			self.animation[node.get('name')] = int(node.get('animation', 0))
 		
 	
 	
@@ -49,7 +53,8 @@ class Metapreset:
 			txt = '<metapreset alias="'+alias+'" default="'+self.default+'" >\n'
 		
 		for group, preset in self.groups.items():
-			txt += '  <group name="'+group+'" preset="'+preset+'" />\n'
+			txt += '  <group name="'+group+'" preset="'+preset\
+					+'" animation="'+str(self.animation[group])+'" />\n'
 		
 		txt += '</metapreset>\n'
 		return txt
@@ -160,7 +165,9 @@ class Metapreset:
 		print()
 		
 		for group, preset in self.groups.items():
-			print(columnLimit(group, 25, sep = ''),' : ',columnLimit(preset, 25, sep = ''))
+			print(columnLimit(group, 25, sep = ''),' : ',\
+					columnLimit(preset, 25, sep = ''),' : ',\
+					columnLimit(self.animation[group]+'fr', 6, sep = ''))
 	
 	
 	
@@ -199,6 +206,7 @@ class Metapreset:
 		
 		log.menuOut()
 		self.groups[group] = preset
+		self.animation[group] = 0
 		log.write('add «'+group+'» renderlayer group to «'+alias+'» metapreset, set it to «'+preset+'» preset')
 		return True
 	
@@ -256,6 +264,7 @@ class Metapreset:
 		log.menuOut()
 		if confirm == 'y':
 			self.groups.pop(group)
+			self.animation.pop(group)
 			log.write('«'+group+'» Renderlayer group removed from «'+alias+'» metapreset')
 			return True
 		
@@ -338,7 +347,52 @@ class Metapreset:
 	
 	
 	
-	
+	def editAnimation(self, log):
+		'''A method to edit animation settings'''
+		log.menuIn('Edit Animation Setting')
+		
+		while True:
+			
+			log.print()
+			
+			print('\n\n        Edit Animation Setting :\n\n')
+			print('Current setting : '+Preset.anim[self.animation]+'\n\n    Menu :')
+			indexPrintList(Preset.anim)
+			choice = input('New animation settings (h for help) : ').strip().lower()
+			
+			if choice in ['', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			elif choice in ['h', 'help']:
+				# print help
+				log.menuIn('Edit Animation Setting')
+				
+				log.print()
+				print('''\n\n        HELP :
+[On Demand]       : Animation length will be asked for each file
+All Animation     : Animation length will correspond to file animation length
+Fix (First Frame) : Only the first frame will be render (for fixe background)
+Loop 1 to 5       : Animation length will correspond to loop length of the loopset of the file or of the metapreset
+
+''')
+				input('Press enter to continue…')
+				log.menuOut()
+				continue
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('unvalid settings, integer expected!')
+				continue
+			
+			if choice < 0 or choice >= len(Preset.anim):
+				log.error('Choice out of available option range!')
+				continue
+			
+			self.animation = choice
+			log.write('Animation set to : '+Preset.anim[self.animation])
+			log.menuOut()
+			return True
 	
 	
 	

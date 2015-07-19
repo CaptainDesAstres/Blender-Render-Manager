@@ -12,17 +12,6 @@ import os
 class Preset:
 	'''class to manage preset'''
 	
-	anim = [
-			'[On Demand]',
-			'All Animation',
-			'Fix (First Frame)',
-			'Loop 1',
-			'Loop 2',
-			'Loop 3',
-			'Loop 4',
-			'Loop 5'
-			]
-	
 	def __init__(self, xml= None):
 		'''initialize preset with default value or values extracted from an xml object'''
 		if xml is None:
@@ -36,7 +25,6 @@ class Preset:
 	
 	def defaultInit(self):
 		'''initialize preset with default value'''
-		self.animation = 1
 		self.quality = Quality()
 		self.bounce = BounceSet()
 		self.engine = Engine()
@@ -48,7 +36,6 @@ class Preset:
 	
 	def fromXml(self, xml):
 		'''initialize preset with values extracted from an xml object'''
-		self.animation = int(xml.get('animation'))
 		self.quality = Quality(xml.find('quality'))
 		self.bounce = BounceSet(xml.find('bounceSet'))
 		self.engine = Engine(xml.find('engine'))
@@ -60,7 +47,7 @@ class Preset:
 	
 	def toXml(self, alias):
 		'''export preset into xml syntaxed string'''
-		txt = '<preset animation="'+str(self.animation)+'" alias="'+alias+'" >\n'
+		txt = '<preset alias="'+alias+'" >\n'
 		
 		txt += self.quality.toXml()
 		
@@ -92,7 +79,6 @@ class Preset:
 1- Edit Quality Settings
 2- Edit Bounces Settings (Cycles)
 3- Edit Rendering Options
-4- Edit Animation Setting
 9- Edit Engine Settings
 0- Quit
 
@@ -109,8 +95,6 @@ class Preset:
 				change = (self.bounce.menu(log) or change)
 			elif choice == '3':
 				change = (self.options.menu(log) or change)
-			elif choice == '4':
-				change = (self.editAnimation(log) or change)
 			elif choice == '9':
 				change = (self.engine.menu(log, versions) or change)
 			else:
@@ -124,64 +108,12 @@ class Preset:
 	def print(self):
 		'''a method to print preset'''
 		self.quality.print()
-		print('Animation :             '+Preset.anim[self.animation])
 		print()
 		self.bounce.print()
 		print()
 		self.options.print()
 		print()
 		self.engine.print()
-	
-	
-	
-	
-	
-	def editAnimation(self, log):
-		'''A method to edit animation settings'''
-		log.menuIn('Edit Animation Setting')
-		
-		while True:
-			
-			log.print()
-			
-			print('\n\n        Edit Animation Setting :\n\n')
-			print('Current setting : '+Preset.anim[self.animation]+'\n\n    Menu :')
-			indexPrintList(Preset.anim)
-			choice = input('New animation settings (h for help) : ').strip().lower()
-			
-			if choice in ['', 'q', 'quit', 'cancel']:
-				log.menuOut()
-				return False
-			elif choice in ['h', 'help']:
-				# print help
-				log.menuIn('Edit Animation Setting')
-				
-				log.print()
-				print('''\n\n        HELP :
-[On Demand]       : Animation length will be asked for each file
-All Animation     : Animation length will correspond to file animation length
-Fix (First Frame) : Only the first frame will be render (for fixe background)
-Loop 1 to 5       : Animation length will correspond to loop length of the loopset of the file or of the metapreset
-
-''')
-				input('Press enter to continue…')
-				log.menuOut()
-				continue
-			
-			try:
-				choice = int(choice)
-			except ValueError:
-				log.error('unvalid settings, integer expected!')
-				continue
-			
-			if choice < 0 or choice >= len(Preset.anim):
-				log.error('Choice out of available option range!')
-				continue
-			
-			self.animation = choice
-			log.write('Animation set to : '+Preset.anim[self.animation])
-			log.menuOut()
-			return True
 	
 	
 	
