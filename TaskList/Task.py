@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task settings'''
 import xml.etree.ElementTree as xmlMod
-import os
+import os, uuid
 from save import *
 from usefullFunctions import *
 from settingMod.PresetList.Preset.Preset import *
@@ -30,6 +30,7 @@ class Task:
 		self.scene = scene
 		self.preset = preset
 		self.info = fileInfo
+		self.uid = uuid.uuid4().hex
 	
 	
 	
@@ -40,6 +41,7 @@ class Task:
 		self.path = xml.get('path')
 		self.scene = xml.get('scene')
 		self.preset = xml.get('preset')
+		self.uid = xml.get('uid', uuid.uuid4().hex)
 		self.info = FileInfo(xml.find('fileInfo'))
 	
 	
@@ -49,7 +51,7 @@ class Task:
 	def toXml(self):
 		'''export task settings into xml syntaxed string'''
 		return '<task path="'+self.path+'" scene="'+self.scene+'" preset="'\
-				+self.preset+'" >\n'\
+				+self.preset+'" uid="'+self.uid+'">\n'\
 				+self.info.toXml()\
 				+'</task>\n'
 		
@@ -226,7 +228,9 @@ class Task:
 		xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
 		xml += self.toXml()
 		xml = xmlMod.fromstring(xml)
-		return Task(xml = xml)
+		copy = Task(xml = xml)
+		copy.uid = uuid.uuid4().hex
+		return copy
 	
 	
 	
