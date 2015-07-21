@@ -113,6 +113,8 @@ class Preferences:
 				change = self.tiles.menu(log)
 			elif choice == '4':
 				change = self.presets.menu(log, self.blenderVersion, tasks)
+			elif choice == '9':
+				change = self.editPort(log)
 			else:
 				log.error('Unknow request!', False)
 			
@@ -122,6 +124,12 @@ class Preferences:
 				log.write('New preferences saved')
 	
 	
+	
+	
+	
+	def editPort(self, log):
+		'''A method to change the net port to communicate with blender instance'''
+		
 	
 	
 	
