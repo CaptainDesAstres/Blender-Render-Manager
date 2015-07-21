@@ -77,6 +77,7 @@ class Preferences:
 	def menu(self, log, tasks):
 		'''method to see preferences settings and access edition menu'''
 		log.menuIn('Preferences')
+		change = False
 		
 		while True:
 			#print log and preferences
@@ -97,7 +98,7 @@ class Preferences:
 			choice= input('menu?').strip().lower()
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()# quit preferences menu
-				return change
+				return
 			elif choice == '1':
 				change = self.blenderVersion.menu(log, self)
 			elif choice == '2':
