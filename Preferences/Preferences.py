@@ -129,7 +129,52 @@ class Preferences:
 	
 	def editPort(self, log):
 		'''A method to change the net port to communicate with blender instance'''
-		
+		log.menuIn('Edit Net Port')
+		while True:
+			log.print()
+			
+			choice = input('''
+
+        Edit Net Port :
+
+Current port :'''+str(self.port)+'''
+
+Type the wanted port between 1024 and 65535 or q to quit or h for help :''').strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			if choice in ['h', 'help']:
+				log.menuIn('Help')
+				log.print()
+				input('''
+
+        Help :
+When Blender Render Manager is running blender to render a picture, it communicate with Blender via a web socket to stay informed of the status. This setting is the port that the script use for the socket. be sure to use a port who is not used by another process.
+
+enter to continue
+''')
+				log.menuOut()
+				continue
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('integer value expected!',False)
+				continue
+			
+			if choice < 1024 or choice > 65535:
+				log.error('the port value must be between 1024 and 65535!',False)
+				continue
+			
+			self.port = choice
+			log.write('the socket port is set to '+str(self.port))
+			log.menuOut()
+			return True
+			
+			
+			
 	
 	
 	
