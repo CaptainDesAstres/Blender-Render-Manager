@@ -31,6 +31,7 @@ class Preferences:
 		self.output = Output()
 		self.tiles = Tiles()
 		self.presets = PresetList()
+		self.port = 55814
 	
 	
 	
@@ -43,6 +44,8 @@ class Preferences:
 		self.output = Output( xml.find('output') )
 		self.tiles = Tiles(xml.find('tilesSet'))
 		self.presets = PresetList(xml.find('presetList'))
+		
+		self.port = int(xml.find('port').get('value'))
 	
 	
 	
@@ -66,6 +69,8 @@ class Preferences:
 		# export preset settings
 		xml+= self.presets.toXml()
 		
+		xml+= '<port value="'+str(self.port)+'" />'
+		
 		xml += '</preferences>\n'
 		
 		return xml
@@ -88,6 +93,7 @@ class Preferences:
 2- Output Path
 3- Tiles
 4- Presets
+9- Change Net Port
 0- Save and quit
 
 ''')
