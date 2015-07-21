@@ -26,6 +26,7 @@ class TaskList:
 	def __del__(self):
 		'''Erase lock file in case of crash'''
 		eraseLockFile()
+		del(self.tasks)
 	
 	
 	
@@ -78,7 +79,6 @@ class TaskList:
 			choice= input('action (h for help):').strip().lower()
 			if choice in ['q', 'quit']:
 				log.menuOut()
-				eraseLockFile()
 				return
 			elif choice in ['p', 'pref', 'preferences']:
 				preferences.menu(log, self)
