@@ -5,7 +5,7 @@ import xml.etree.ElementTree as xmlMod
 import os, uuid
 from save import *
 from usefullFunctions import *
-from settingMod.PresetList.Preset.Preset import *
+from Preferences.PresetList.Preset.Preset import *
 from TaskList.FileInfo.FileInfo import *
 
 class Task:

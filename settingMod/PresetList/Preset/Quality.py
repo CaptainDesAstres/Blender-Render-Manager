@@ -3,7 +3,7 @@
 '''module to manage Quality settings'''
 import xml.etree.ElementTree as xmlMod
 from usefullFunctions import *
-from settingMod.PresetList.Preset.ValueType.Size import *
+from Preferences.PresetList.Preset.ValueType.Size import *
 import os
 
 class Quality:

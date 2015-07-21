@@ -2,9 +2,9 @@
 # -*-coding:Utf-8 -*
 '''module to manage preset list'''
 import xml.etree.ElementTree as xmlMod
-from settingMod.PresetList.Preset.Preset import *
-from settingMod.PresetList.Preset.Metapreset import *
-from settingMod.PresetList.RenderlayerGroup.RLGroupList import *
+from Preferences.PresetList.Preset.Preset import *
+from Preferences.PresetList.Preset.Metapreset import *
+from Preferences.PresetList.RenderlayerGroup.RLGroupList import *
 import os, re
 
 class PresetList:

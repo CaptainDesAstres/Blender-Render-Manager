@@ -3,10 +3,10 @@
 '''module to manage preferences of the script'''
 import xml.etree.ElementTree as xmlMod
 from save import *
-from settingMod.VersionList import *
-from settingMod.Output import *
-from settingMod.Tiles import *
-from settingMod.PresetList.PresetList import *
+from Preferences.VersionList import *
+from Preferences.Output import *
+from Preferences.Tiles import *
+from Preferences.PresetList.PresetList import *
 import os
 
 class Preferences:

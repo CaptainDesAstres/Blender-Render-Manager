@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage Renderlayer list'''
 import xml.etree.ElementTree as xmlMod
-from settingMod.PresetList.RenderlayerGroup.RenderlayerGroup import *
+from Preferences.PresetList.RenderlayerGroup.RenderlayerGroup import *
 import os, re
 
 class RLGroupList:

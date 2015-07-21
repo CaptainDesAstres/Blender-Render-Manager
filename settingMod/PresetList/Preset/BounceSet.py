@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage bounce settings'''
 import xml.etree.ElementTree as xmlMod
-from settingMod.PresetList.Preset.ValueType.MinMax import *
+from Preferences.PresetList.Preset.ValueType.MinMax import *
 import os
 
 class BounceSet:

@@ -5,7 +5,7 @@ import time, os, sys
 import xml.etree.ElementTree as xmlMod
 from log import *
 from save import *
-from settingMod.Preferences import *
+from Preferences.Preferences import *
 from TaskList.TaskList import *
 
 
