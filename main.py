@@ -24,7 +24,7 @@ start = now(False)
 
 
 log = 'openning of Blender Render Manager\n'+start+' session\n'
-
+scriptPath = os.path.realpath(__file__+'/..')
 
 # check if configuration directorie exist, otherwise create it 
 if not os.path.exists('/home/'+os.getlogin()+'/.BlenderRenderManager/'):
@@ -35,6 +35,43 @@ else:
 	log += 'Find configuration directorie\n'
 os.chdir('/home/'+os.getlogin()+'/.BlenderRenderManager')
 settingPath = os.getcwd()
+
+
+
+# check if lock file exist
+if os.path.exists(os.getcwd()+'/lock'):
+	log += 'Lock file exist, check it:\n'
+	with open(os.getcwd()+'/lock','r') as lockFile:
+		PID = lockFile.read( )
+	log += 'Lock PID : '+PID+'\n'
+	
+	# check there is a process with corresponding PID and check this process corespond to the script:
+	if os.path.exists('/proc/'+PID+'/'):
+		log += 'There is a process for this PID, check it:\n'
+		
+		with open('/proc/'+PID+'/environ','r') as lockFile:
+			PWD = lockFile.read( )
+		if PWD.count('PWD='+scriptPath) > 0:
+			log += '''The process seem to connespond to a Blender-Render-Manager session! Quit this new Session!
+
+\033[31mBlender-Render-Manager is already running : check the process with '''+PID+''' PID and stop it!\033[0m
+
+
+'''
+			print(log)
+			quit()
+		else:
+			log += 'the process don\'t correspond apparently to a Blender-Render-Manager, lock file ignored.\n'
+		
+	else:
+		log += 'there is no process corresponding to this PID, lock file ignored.\n'
+else:
+	log += 'No lock file exist, check it:\n'
+
+# create a lock file to prevent multiple call to the script
+log += 'create lock file'
+createLockFile(str(os.getpid()))
+
 
 
 # check if log directorie exist, otherwise create it and create a log file anyway
