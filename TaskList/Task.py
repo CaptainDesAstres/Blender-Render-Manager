@@ -238,14 +238,14 @@ class Task:
 	
 	def run(self, index, count, log, preferences):
 		'''A method to execute the task'''
-		preset = preferences.presets.getPreset(self.preset)
+		metapreset = preferences.presets.getPreset(self.preset)
 		
-		if type(preset) is Preset:
-			versionPath = preferences.blenderVersion.getVersionPath(preset.engine.version) 
+		if type(metapreset) is Preset:
+			versionPath = preferences.blenderVersion.getVersionPath(metapreset.engine.version) 
 			versions = {}
-			versions[versionPath] = [ ( '[default]', preset ) ]
+			versions[versionPath] = [ ( '[default]', metapreset ) ]
 		else:
-			versions = preset.getGroupsByBlenderVersion()
+			versions = metapreset.getGroupsByBlenderVersion()
 	
 	
 	
