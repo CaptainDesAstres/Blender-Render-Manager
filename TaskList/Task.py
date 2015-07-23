@@ -248,7 +248,9 @@ class Task:
 		else:
 			versions = metapreset.getGroupsByBlenderVersion()
 		
+		run = ( input(versions).strip().lower() == '' )
 		log.menuOut()
+		return run
 	
 	
 	
