@@ -680,12 +680,14 @@ Quit : q or quit
 	
 	def run(self, log, preferences):
 		'''A method to run the task of the list'''
+		log.menuIn('Run Tasks')
 		run = True
 		length = len(self.tasks)
 		for i,task in enumerate(self.tasks):
 			run = task.run(i+1, length, log, preferences)
 			if not run:
 				break
+		log.menuOut()
 	
 	
 	
