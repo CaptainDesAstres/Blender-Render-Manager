@@ -433,6 +433,13 @@ class Metapreset:
 			version = preferences.blenderVersion.getVersionPath(preset.engine.version)
 			versions[ version ] = [ ('[default]',preset) ]
 		
+		for group, preset in self.groups.items():
+			version = preferences.blenderVersion.getVersionPath(preset.engine.version)
+			if version in versions.keys():
+				versions[version].append( (group, preset) )
+			else:
+				versions[version] = [ (group, preset) ]
+		
 		return versions
 	
 	
