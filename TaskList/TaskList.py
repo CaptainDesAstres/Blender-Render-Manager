@@ -82,6 +82,9 @@ class TaskList:
 				return
 			elif choice in ['p', 'pref', 'preferences']:
 				preferences.menu(log, self)
+			elif choice in ['r', 'run']:
+				self.run(log, preferences)
+				saveTasks(self)
 			elif choice in ['a', 'add', '+']:
 				if (self.add(log, preferences)):
 					saveTasks(self)
@@ -108,6 +111,7 @@ Scroll down the list : d or > or just type enter
 Add task : a or add or +
 Edit/inspect a task : type the index of the task
 Batch editing : b or batch
+Run tasks : r or run
 
 Preferences access : p or pref or preferences
 Help : h or help
@@ -117,7 +121,6 @@ Not Yet Implement :
 ##
 ##
 ##See previous sessions logs : l or log
-##Run tasks : r or run
 ##
 ##
 
@@ -671,6 +674,18 @@ Quit : q or quit
 			log.menuOut()
 			return newSelect, True
 	
+	
+	
+	
+	
+	def run(self, log, preferences):
+		'''A method to run the task of the list'''
+		run = True
+		length = len(self.tasks)
+		for i,task in enumerate(self.tasks):
+			run = task.run(i, length, log, preferences)
+			if not run:
+				break
 	
 	
 	
