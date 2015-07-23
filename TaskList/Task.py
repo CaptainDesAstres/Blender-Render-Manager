@@ -238,6 +238,7 @@ class Task:
 	
 	def run(self, index, count, log, preferences):
 		'''A method to execute the task'''
+		log.menuIn('run Task '+str(index)+' sur '+str(count))
 		metapreset = preferences.presets.getPreset(self.preset)
 		
 		if type(metapreset) is Preset:
@@ -246,6 +247,8 @@ class Task:
 			versions[versionPath] = [ ( '[default]', metapreset ) ]
 		else:
 			versions = metapreset.getGroupsByBlenderVersion()
+		
+		log.menuOut()
 	
 	
 	
