@@ -236,5 +236,12 @@ class Task:
 	
 	
 	
+	def run(self, index, count, log, preferences):
+		'''A method to execute the task'''
+		preset = preferences.presets.getPreset(self.preset)
+	
+	
+	
+	
 	
 	
