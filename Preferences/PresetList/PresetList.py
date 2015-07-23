@@ -482,9 +482,9 @@ class PresetList:
 	def getPreset(self, presetName):
 		'''A method to get a preset'''
 		if presetName == '[default]':
-			self.getPreset(self.default)
+			return self.getPreset(self.default)
 		else:
-			self.presets[presetName]
+			return self.presets[presetName]
 	
 	
 	
