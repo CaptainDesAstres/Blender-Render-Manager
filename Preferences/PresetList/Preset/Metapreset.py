@@ -426,7 +426,14 @@ class Metapreset:
 	
 	def getGroupsByBlenderVersion(self):
 		'''A method to get the group sort by blender version'''
+		versions = {}
 		
+		if self.default is not None:
+			preset = preferences.presets.getPreset(self.default)
+			version = preferences.blenderVersion.getVersionPath(preset.engine.version)
+			versions[ version ] = [ ('[default]',preset) ]
+		
+		return versions
 	
 	
 	
