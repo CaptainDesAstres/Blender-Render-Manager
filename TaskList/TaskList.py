@@ -683,7 +683,7 @@ Quit : q or quit
 		run = True
 		length = len(self.tasks)
 		for i,task in enumerate(self.tasks):
-			run = task.run(i, length, log, preferences)
+			run = task.run(i+1, length, log, preferences)
 			if not run:
 				break
 	
