@@ -244,7 +244,7 @@ class Task:
 		if type(metapreset) is Preset:
 			versionPath = preferences.blenderVersion.getVersionPath(metapreset.engine.version) 
 			versions = {}
-			versions[versionPath] = [ ( '[default]', metapreset ) ]
+			versions[versionPath] = [ '[default]' ]
 		else:
 			versions = metapreset.getGroupsByBlenderVersion()
 		

@@ -431,14 +431,14 @@ class Metapreset:
 		if self.default is not None:
 			preset = preferences.presets.getPreset(self.default)
 			version = preferences.blenderVersion.getVersionPath(preset.engine.version)
-			versions[ version ] = [ ('[default]',preset) ]
+			versions[ version ] = [ '[default]' ]
 		
 		for group, preset in self.groups.items():
 			version = preferences.blenderVersion.getVersionPath(preset.engine.version)
 			if version in versions.keys():
-				versions[version].append( (group, preset) )
+				versions[version].append( group )
 			else:
-				versions[version] = [ (group, preset) ]
+				versions[version] = [ group ]
 		
 		return versions
 	
