@@ -240,13 +240,19 @@ class Task:
 		'''A method to execute the task'''
 		preset = preferences.presets.getPreset(self.preset)
 		if type(preset) is Preset:
-			presets = [preset]
-			blenderVersions = [
-						preferences.blenderVersion.getVersionPath\
-							(preset.engine.version)
-								]
+			versions = {
+				preferences.blenderVersion.getVersionPath\
+					(preset.engine.version) :\
+						[
+							(
+								'[default]',
+								preset
+							)
+						]
+							
+					}
 		else:
-			presets, blenderVersions = preset.getGroupsByBlenderVersion()
+			versions = preset.getGroupsByBlenderVersion()
 	
 	
 	
