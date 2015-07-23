@@ -42,7 +42,9 @@ settingPath = os.getcwd()
 if os.path.exists(os.getcwd()+'/lock'):
 	log += 'Lock file exist, check it:\n'
 	with open(os.getcwd()+'/lock','r') as lockFile:
-		PID = lockFile.read( )
+		processInfo = lockFile.read( ).split('\n')
+	PID = processInfo[0]
+	PWD = processInfo[1]
 	log += 'Lock PID : '+PID+'\n'
 	
 	# check there is a process with corresponding PID and check this process corespond to the script:
@@ -50,8 +52,8 @@ if os.path.exists(os.getcwd()+'/lock'):
 		log += 'There is a process for this PID, check it:\n'
 		
 		with open('/proc/'+PID+'/environ','r') as lockFile:
-			PWD = lockFile.read( )
-		if PWD.count('PWD='+scriptPath) > 0:
+			PWDCount = lockFile.read( ).count('PWD='+PWD)
+		if PWDCount > 0:
 			log += '''The process seem to connespond to a Blender-Render-Manager session! Quit this new Session!
 
 \033[31mBlender-Render-Manager is already running : check the process with '''+PID+''' PID and stop it!\033[0m
@@ -70,7 +72,7 @@ else:
 
 # create a lock file to prevent multiple call to the script
 log += 'create lock file'
-createLockFile(str(os.getpid()))
+createLockFile(str(os.getpid())+'\n'+scriptPath)
 
 
 

@@ -14,10 +14,10 @@ def saveTasks(t):
 	with open(os.getcwd()+'/Tasks','w') as tasksFile:
 		tasksFile.write(t.toXml())
 
-def createLockFile(pid):
+def createLockFile(processInfo):
 	'''Function to create lock file'''
 	with open(os.getcwd()+'/lock','w') as lockFile:
-		lockFile.write(pid)
+		lockFile.write(processInfo)
 
 def eraseLockFile():
 	'''Function to erase lock file'''
