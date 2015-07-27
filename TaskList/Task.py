@@ -264,6 +264,10 @@ class Task:
 # -*-coding:Utf-8 -*
 ''\'module to manage metapreset''\'
 import xml.etree.ElementTree as xmlMod
+from Preferences.Preferences import *
+from Preferences.PresetList.Preset.Preset import *
+from Preferences.PresetList.Preset.Metapreset import *
+form RenderingTask.RenderingTask import *
 
 preferences = Preferences( xml = xmlMod.fromstring(''\''''+preferences.toXml()+'''''\') )
 preset = '''
@@ -277,7 +281,7 @@ preset = '''
 				+preset.toXml()+"''') )\n"
 		
 		
-		end = '\nJustDoIt(preferences, groups, preset)'
+		end = '\nRenderingTask(preferences, groups, preset)'
 		
 		for v, g in versions.items():
 			script = start\
