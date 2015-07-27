@@ -263,12 +263,13 @@ class Task:
 		start = '''#!/usr/bin/python3.4
 # -*-coding:Utf-8 -*
 ''\'module to manage metapreset''\'
+import sys
 sys.path.append("'''+scriptPath+'''")
 import xml.etree.ElementTree as xmlMod
 from Preferences.Preferences import *
 from Preferences.PresetList.Preset.Preset import *
 from Preferences.PresetList.Preset.Metapreset import *
-form RenderingTask.RenderingTask import *
+from TaskList.RenderingTask.RenderingTask import *
 
 preferences = Preferences( xml = xmlMod.fromstring(''\''''+preferences.toXml()+'''''\') )
 preset = '''
@@ -290,6 +291,8 @@ preset = '''
 					+'groups = ["'+('", "'.join(g) )+'"]\n'\
 					+end
 			paths[v] = scriptPath+'/TaskList/RenderingTask/TaskScripts/'+self.uid+'-'+v+'.py'
+			with open(paths[v],'w') as taskScriptFile:
+				taskScriptFile.write( script )
 		
 		return paths
 	
