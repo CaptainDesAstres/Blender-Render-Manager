@@ -238,7 +238,7 @@ class Task:
 	
 	def run(self, index, count, log, preferences):
 		'''A method to execute the task'''
-		log.menuIn('run Task '+str(index)+' sur '+str(count))
+		log.menuIn('run Task '+str(index)+' from '+str(count))
 		metapreset = preferences.presets.getPreset(self.preset)
 		
 		if type(metapreset) is Preset:
@@ -248,9 +248,18 @@ class Task:
 		else:
 			versions = metapreset.getGroupsByBlenderVersion()
 		
+		scripts = self.createTaskScript(preferences, versions) 
 		run = ( input(versions).strip().lower() == '' )
 		log.menuOut()
 		return run
+	
+	
+	
+	
+	
+	def createTaskScript(self, preferences, versions):
+		'''create a script for each blender versions to run tfhe task'''
+		
 	
 	
 	
