@@ -248,7 +248,7 @@ class Task:
 		else:
 			versions = metapreset.getGroupsByBlenderVersion()
 		
-		scripts = self.createTaskScript(preferences, versions) 
+		scripts = self.createTaskScript(preferences, versions, metapreset) 
 		run = ( input(versions).strip().lower() == '' )
 		log.menuOut()
 		return run
@@ -257,9 +257,29 @@ class Task:
 	
 	
 	
-	def createTaskScript(self, preferences, versions):
+	def createTaskScript(self, preferences, versions, preset):
 		'''create a script for each blender versions to run tfhe task'''
 		
+		start = '''#!/usr/bin/python3.4
+# -*-coding:Utf-8 -*
+''\'module to manage metapreset''\'
+import xml.etree.ElementTree as xmlMod
+
+preferences = Preferences( xml = xmlMod.fromstring(''\''''+preferences.toXml()+'''''\') )
+preset = '''
+		
+		if type(preset) is Preset:
+			start += "Preset ( xml = xmlMod.fromstring('''"
+		else:
+			start += "Metapreset ( xml = xmlMod.fromstring('''"
+		
+		start += '<?xml version="1.0" encoding="UTF-8"?>\n'\
+				+preset.toXml()+"''') )"
+		
+		
+		end = '\nJustDoIt(preferences, groups, preset)'
+		
+		for
 	
 	
 	
