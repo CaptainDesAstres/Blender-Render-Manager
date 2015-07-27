@@ -424,7 +424,7 @@ class Metapreset:
 	
 	
 	
-	def getGroupsByBlenderVersion(self):
+	def getGroupsByBlenderVersion(self, preferences):
 		'''A method to get the group sort by blender version'''
 		versions = {}
 		

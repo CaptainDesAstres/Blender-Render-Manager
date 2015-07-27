@@ -246,7 +246,7 @@ class Task:
 			versions = {}
 			versions[version] = [ '[default]' ]
 		else:
-			versions = metapreset.getGroupsByBlenderVersion()
+			versions = metapreset.getGroupsByBlenderVersion(preferences)
 		
 		scripts = self.createTaskScript(scriptPath, preferences, versions, metapreset) 
 		run = ( input(scripts).strip().lower() == '' )
