@@ -115,4 +115,4 @@ else:
 
 
 
-tasks.menu(log, preferences)
+tasks.menu(scriptPath, log, preferences)

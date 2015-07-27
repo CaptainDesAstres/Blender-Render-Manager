@@ -66,7 +66,7 @@ class TaskList:
 	
 	
 	
-	def menu(self, log, preferences):
+	def menu(self, scriptPath, log, preferences):
 		'''method to see task list and manage it'''
 		log.menuIn('Task List')
 		page = 0
@@ -83,7 +83,7 @@ class TaskList:
 			elif choice in ['p', 'pref', 'preferences']:
 				preferences.menu(log, self)
 			elif choice in ['r', 'run']:
-				self.run(log, preferences)
+				self.run(scriptPath, log, preferences)
 				saveTasks(self)
 			elif choice in ['a', 'add', '+']:
 				if (self.add(log, preferences)):
@@ -678,13 +678,13 @@ Quit : q or quit
 	
 	
 	
-	def run(self, log, preferences):
+	def run(self, scriptPath, log, preferences):
 		'''A method to run the task of the list'''
 		log.menuIn('Run Tasks')
 		run = True
 		length = len(self.tasks)
 		for i,task in enumerate(self.tasks):
-			run = task.run(i+1, length, log, preferences)
+			run = task.run(i+1, length, scriptPath, log, preferences)
 			if not run:
 				break
 		log.menuOut()

@@ -236,7 +236,7 @@ class Task:
 	
 	
 	
-	def run(self, index, count, log, preferences):
+	def run(self, index, count, scriptPath, log, preferences):
 		'''A method to execute the task'''
 		log.menuIn('run Task '+str(index)+' from '+str(count))
 		metapreset = preferences.presets.getPreset(self.preset)
@@ -248,7 +248,7 @@ class Task:
 		else:
 			versions = metapreset.getGroupsByBlenderVersion()
 		
-		scripts = self.createTaskScript(preferences, versions, metapreset) 
+		scripts = self.createTaskScript(scriptPath, preferences, versions, metapreset) 
 		run = ( input(versions).strip().lower() == '' )
 		log.menuOut()
 		return run
@@ -257,12 +257,13 @@ class Task:
 	
 	
 	
-	def createTaskScript(self, preferences, versions, preset):
+	def createTaskScript(self, scriptPath, preferences, versions, preset):
 		'''create a script for each blender versions to run tfhe task'''
 		
 		start = '''#!/usr/bin/python3.4
 # -*-coding:Utf-8 -*
 ''\'module to manage metapreset''\'
+sys.path.append("'''+scriptPath+'''")
 import xml.etree.ElementTree as xmlMod
 from Preferences.Preferences import *
 from Preferences.PresetList.Preset.Preset import *
