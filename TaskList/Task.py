@@ -249,7 +249,7 @@ class Task:
 			versions = metapreset.getGroupsByBlenderVersion()
 		
 		scripts = self.createTaskScript(scriptPath, preferences, versions, metapreset) 
-		run = ( input(versions).strip().lower() == '' )
+		run = ( input(scripts).strip().lower() == '' )
 		log.menuOut()
 		return run
 	
@@ -284,12 +284,14 @@ preset = '''
 		
 		end = '\nRenderingTask(preferences, groups, preset)'
 		
+		paths = {}
 		for v, g in versions.items():
 			script = start\
 					+'groups = ["'+('", "'.join(g) )+'"]\n'\
 					+end
-			path = scriptPath+'/TaskList/RenderingTask/TaskScripts/'+self.uid+'-'+v+'.py'
-			
+			paths[v] = scriptPath+'/TaskList/RenderingTask/TaskScripts/'+self.uid+'-'+v+'.py'
+		
+		return paths
 	
 	
 	
