@@ -288,7 +288,7 @@ preset = '''
 			script = start\
 					+'groups = ["'+('", "'.join(g) )+'"]\n'\
 					+end
-			name = 'taskScript-'+self.uid+'-'+v+'.py'
+			path = scriptPath+'/TaskList/RenderingTask/TaskScripts/'+self.uid+'-'+v+'.py'
 			
 	
 	
