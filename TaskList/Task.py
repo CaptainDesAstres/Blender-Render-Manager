@@ -274,12 +274,17 @@ preset = '''
 			start += "Metapreset ( xml = xmlMod.fromstring('''"
 		
 		start += '<?xml version="1.0" encoding="UTF-8"?>\n'\
-				+preset.toXml()+"''') )"
+				+preset.toXml()+"''') )\n"
 		
 		
 		end = '\nJustDoIt(preferences, groups, preset)'
 		
-		for
+		for v, g in versions.items():
+			script = start\
+					+'groups = ["'+('", "'.join(g) )+'"]\n'\
+					+end
+			name = 'taskScript-'+self.uid+'-'+v+'.py'
+			
 	
 	
 	
