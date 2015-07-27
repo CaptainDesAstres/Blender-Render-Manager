@@ -45,7 +45,7 @@ class Preset:
 	
 	
 	
-	def toXml(self, alias):
+	def toXml(self, alias = ''):
 		'''export preset into xml syntaxed string'''
 		txt = '<preset alias="'+alias+'" >\n'
 		

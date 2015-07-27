@@ -45,7 +45,7 @@ class Metapreset:
 	
 	
 	
-	def toXml(self, alias):
+	def toXml(self, alias = ''):
 		'''export metapreset into xml syntaxed string'''
 		if self.default is None:
 			txt = '<metapreset alias="'+alias+'" >\n'
