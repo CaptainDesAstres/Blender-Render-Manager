@@ -242,13 +242,14 @@ class Task:
 		metapreset = preferences.presets.getPreset(self.preset)
 		
 		if type(metapreset) is Preset:
-			version = metapreset.engine.version
-			versions = {}
-			versions[version] = [ '[default]' ]
+			versions = { metapreset.engine.version : '[default]' }
 		else:
 			versions = metapreset.getGroupsByBlenderVersion(preferences)
 		
-		scripts = self.createTaskScript(scriptPath, preferences, versions, metapreset) 
+		scripts = self.createTaskScript(scriptPath, preferences, versions, metapreset)
+		
+		
+		
 		run = ( input(scripts).strip().lower() == '' )
 		log.menuOut()
 		return run
