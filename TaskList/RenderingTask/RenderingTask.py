@@ -3,3 +3,4 @@ import bpy
 
 def RenderingTask(task, preferences, groups, preset):
 	scene = bpy.data.scenes[task.scene]
+	bpy.context.screen.scene = scene
