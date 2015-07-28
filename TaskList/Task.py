@@ -251,12 +251,12 @@ class Task:
 		for version in versions.keys():
 			result = os.popen('('+preferences.blenderVersion.getVersionPath(version)\
 					+' -b "'+self.path+'" -P "'\
-			+scripts[version]+'") || echo \'BlenderVersionError\' ').read()
+					+scripts[version]+'") || echo \'BlenderVersionError\' ').read()
+			
+			if result.count('BlenderVersionError') != 0:
+				log.error('Task n°'+str(index)+' : Blender version call error! Try to verified the path of default blender version!')
 		
-		if result.count('BlenderVersionError') != 0:
-			log.error('Task n°'+str(index)+' : Blender version call error! Try to verified the path of default blender version!')
-			log.menuOut()
-			return False
+		
 		
 		run = ( input(scripts).strip().lower() == '' )
 		log.menuOut()
