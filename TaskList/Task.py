@@ -293,6 +293,7 @@ from Preferences.PresetList.Preset.Metapreset import *
 from TaskList.RenderingTask.RenderingTask import *
 
 preferences = Preferences( xml = xmlMod.fromstring(''\''''+preferences.toXml()+'''''\') )
+uid = "'''+self.uid+'''"
 preset = '''
 		
 		if type(preset) is Preset:
@@ -304,7 +305,7 @@ preset = '''
 				+preset.toXml()+"''') )\n"
 		
 		
-		end = '\nRenderingTask(preferences, groups, preset)'
+		end = '\nRenderingTask(uid, preferences, groups, preset)'
 		
 		paths = {}
 		for v, g in versions.items():
