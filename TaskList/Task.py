@@ -256,7 +256,7 @@ class Task:
 			if result.count('BlenderVersionError') != 0:
 				log.error('Task n°'+str(index)+' : Blender version call error! Try to verified the path of default blender version!')
 		
-		
+		self.eraseTaskScript(scripts)
 		
 		run = ( input(scripts).strip().lower() == '' )
 		log.menuOut()
@@ -304,6 +304,18 @@ preset = '''
 				taskScriptFile.write( script )
 		
 		return paths
+	
+	
+	
+	
+	
+	def eraseTaskScript(self, scripts):
+		'''erase Task Script files'''
+		
+		for path in scripts.values():
+			os.remove(path)
+	
+	
 	
 	
 	
