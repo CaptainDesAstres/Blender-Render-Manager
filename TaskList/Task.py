@@ -252,6 +252,7 @@ class Task:
 		
 		scripts = self.createTaskScript(scriptPath, preferences, versions, metapreset)
 		
+		results = ''
 		for version in versions.keys():
 			try:
 				result = subprocess.Popen(\
@@ -262,13 +263,14 @@ class Task:
 							stdout = subprocess.PIPE,\
 							stdin = subprocess.PIPE,\
 							stderr = subprocess.PIPE).communicate()
+				results += result[0].decode()+result[1].decode()+'\n\n\n'
 			except FileNotFoundError:
 				log.write('\033[31mTask n°'+str(index)+' : Blender version call error! Try to verified the path of «'+version+'» blender version!\033[0m')
 				pass
 		
 		self.eraseTaskScript(scripts)
 		
-		run = ( input(scripts).strip().lower() == '' )
+		run = ( input(results).strip().lower() == '' )
 		log.menuOut()
 		return run
 	
