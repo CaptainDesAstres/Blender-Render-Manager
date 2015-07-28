@@ -3,4 +3,3 @@ import bpy
 
 def RenderingTask(task, preferences, groups, preset):
 	scene = bpy.data.scenes[task.scene]
-	

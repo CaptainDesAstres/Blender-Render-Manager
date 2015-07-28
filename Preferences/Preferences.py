@@ -51,14 +51,15 @@ class Preferences:
 	
 	
 	
-	def toXml(self):
+	def toXml(self, preset = None):
 		'''export preferences settings into xml syntaxed string'''
 		xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
 		
 		xml += '<preferences>\n'
 		
-		# export blender version list
-		xml += self.blenderVersion.toXml()
+		if preset is None:
+			# export blender version list
+			xml += self.blenderVersion.toXml()
 		
 		# export output path
 		xml+= self.output.toXml()
@@ -67,7 +68,7 @@ class Preferences:
 		xml+= self.tiles.toXml()
 		
 		# export preset settings
-		xml+= self.presets.toXml()
+		xml+= self.presets.toXml(preset)
 		
 		xml+= '<port value="'+str(self.port)+'" />'
 		
