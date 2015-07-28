@@ -1,5 +1,6 @@
 '''A module to manage task rendering in blender'''
 import bpy
 
-def RenderingTask(uid, preferences, groups, preset):
-	print('Task Script is running!')
+def RenderingTask(task, preferences, groups, preset):
+	scene = bpy.data.scenes[task.scene]
+	
