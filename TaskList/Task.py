@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task settings'''
 import xml.etree.ElementTree as xmlMod
-import os, uuid
+import os, uuid, subprocess, shlex
 from save import *
 from usefullFunctions import *
 from Preferences.PresetList.Preset.Preset import *
@@ -249,12 +249,18 @@ class Task:
 		scripts = self.createTaskScript(scriptPath, preferences, versions, metapreset)
 		
 		for version in versions.keys():
-			result = os.popen('('+preferences.blenderVersion.getVersionPath(version)\
-					+' -b "'+self.path+'" -P "'\
-					+scripts[version]+'") || echo \'BlenderVersionError\' ').read()
-			
-			if result.count('BlenderVersionError') != 0:
-				log.error('Task n°'+str(index)+' : Blender version call error! Try to verified the path of default blender version!')
+			try:
+				result = subprocess.Popen(\
+							shlex.split(\
+								preferences.blenderVersion.getVersionPath(version)\
+								+' -b "'+self.path+'" -P "'\
+								+scripts[version]+'"'),\
+							stdout = subprocess.PIPE,\
+							stdin = subprocess.PIPE,\
+							stderr = subprocess.PIPE).communicate()
+			except FileNotFoundError:
+				log.write('\033[31mTask n°'+str(index)+' : Blender version call error! Try to verified the path of «'+version+'» blender version!\033[0m')
+				pass
 		
 		self.eraseTaskScript(scripts)
 		
