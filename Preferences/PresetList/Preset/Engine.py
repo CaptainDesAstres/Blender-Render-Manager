@@ -164,6 +164,7 @@ class Engine:
 	
 	def apply(self, scene, preferences):
 		'''apply settings to a blender scene object'''
+		import bpy
 		r = scene.render
 		
 		if self.engine == 'BLENDER_RENDER':
