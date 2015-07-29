@@ -265,7 +265,7 @@ class Quality:
 	
 	
 	
-	def apply(self, scene, preferences):
+	def apply(self, scene):
 		'''apply settings to a blender scene object'''
 		scene.render.resolution_percentage = self.pourcent
 		scene.render.resolution_x = self.size.X

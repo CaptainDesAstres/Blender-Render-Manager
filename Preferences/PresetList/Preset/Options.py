@@ -183,7 +183,7 @@ class Options:
 	
 	
 	
-	def apply(self, scene, preferences):
+	def apply(self, scene):
 		'''apply settings to a blender scene object'''
 		for RL in scene.render.layers.values():
 			RL.use_pass_z = self.z

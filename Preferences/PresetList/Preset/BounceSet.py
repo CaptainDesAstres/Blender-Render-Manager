@@ -170,7 +170,7 @@ class BounceSet:
 	
 	
 	
-	def apply(self, scene, preferences):
+	def apply(self, scene):
 		'''apply settings to a blender scene object'''
 		c = scene.cycles
 		

@@ -160,10 +160,10 @@ class Preset:
 	
 	def applyAndRun(self, scene, task, preferences, groups):
 		'''apply settings to a blender scene object and render it, frame by frame'''
-		self.quality.apply(scene, preferences)
-		self.bounce.apply(scene, preferences)
+		self.quality.apply(scene)
+		self.bounce.apply(scene)
 		self.engine.apply(scene, preferences)
-		self.options.apply(scene, preferences)
+		self.options.apply(scene)
 		
 	
 	
