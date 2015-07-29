@@ -198,7 +198,7 @@ class Options:
 		
 		scene.cycles.film_transparent = self.alpha
 		scene.render.alpha_mode = { True : 'TRANSPARENT' , False : 'SKY' }[self.alpha]
-		if self.alpha
+		if self.alpha:
 			scene.render.image_settings.color_mode = 'RGBA'
 		
 	

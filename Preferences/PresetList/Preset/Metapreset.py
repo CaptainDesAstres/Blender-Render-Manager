@@ -460,7 +460,7 @@ class Metapreset:
 		for group in groups:
 			if group != '[default]':
 				scene.frame_start = sceneInfo.start
-				if self.animation[group] > 0
+				if self.animation[group] > 0:
 					scene.frame_end = sceneInfo.start + self.animation[group] - 1
 				else: 
 					scene.frame_end = sceneInfo.end

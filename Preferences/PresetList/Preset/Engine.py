@@ -172,7 +172,7 @@ class Engine:
 			r.tile_y = preferences.tiles.BI.Y
 		else:
 			r.engine = 'CYCLES'
-			if self.device = 'CPU':
+			if self.device == 'CPU':
 				scene.cycles.device = 'CPU'
 				r.tile_x = preferences.tiles.CPU.X
 				r.tile_y = preferences.tiles.CPU.Y
