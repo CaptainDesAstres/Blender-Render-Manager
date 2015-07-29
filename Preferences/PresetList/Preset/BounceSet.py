@@ -170,6 +170,23 @@ class BounceSet:
 	
 	
 	
+	def apply(self, scene, preferences):
+		'''apply settings to a blender scene object'''
+		c = scene.cycles
+		
+		c.transparent_max_bounces = self.transparency.max
+		c.transparent_min_bounces = self.transparency.min
+		c.max_bounces = self.bounces.max
+		c.min_bounces = self.bounces.min
+		c.diffuse_bounces = self.diffuse
+		c.glossy_bounces = self.glossy
+		c.transmission_bounces = self.transmission
+		c.volume_bounces = self.volume
+	
+	
+	
+	
+	
 	
 	
 	
