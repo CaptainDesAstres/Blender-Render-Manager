@@ -1,5 +1,7 @@
 '''A module to manage task rendering in blender'''
-import bpy
+import bpy, sys
+sys.path.append("'''+scriptPath+'''")
+
 
 def RenderingTask(task, preferences, groups, preset):
 	scene = bpy.data.scenes[task.scene]
