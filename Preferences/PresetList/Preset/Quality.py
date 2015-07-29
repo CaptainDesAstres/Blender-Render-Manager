@@ -265,6 +265,28 @@ class Quality:
 	
 	
 	
+	def apply(self, scene, preferences):
+		'''apply settings to a blender scene object'''
+		scene.render.resolution_percentage = self.pourcent
+		scene.render.resolution_x = self.size.X
+		scene.render.resolution_y = self.size.Y
+		
+		scene.cycles.use_square_samples = False
+		scene.cycles.samples = self.samples
+		
+		if self.simplify is None:
+			scene.render.use_simplify = False
+		else:
+			scene.render.use_simplify = True
+			scene.render.simplify_subdivision_render
+		
+		scene.render.image_settings.file_format = self.format
+		
+	
+	
+	
+	
+	
 	
 	
 	
