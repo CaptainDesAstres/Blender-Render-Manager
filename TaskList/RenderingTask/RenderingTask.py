@@ -14,10 +14,7 @@ def RenderingTask(task, preferences, groups, preset):
 	for name, RL in scene.render.layers.items():
 		RL.use = sceneInfo.renderlayers[name].use
 	
-	if type(preset) is Preset:
-		print('\033[31mit\'s a preset!\033[0m')
-	else:
-		print('\033[31mit\'s a '+str(type(preset))+'!\033[0m')
+	preset.applyAndRun(scene, task, preferences, groups)
 
 
 

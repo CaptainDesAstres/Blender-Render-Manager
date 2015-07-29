@@ -158,3 +158,10 @@ class Preset:
 	
 	
 	
+	def applyAndRun(self, scene, task, preferences, groups):
+		'''apply settings to a blender scene object and render it, frame by frame'''
+	
+	
+	
+	
+	

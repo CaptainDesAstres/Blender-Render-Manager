@@ -454,4 +454,12 @@ class Metapreset:
 	
 	
 	
+	def applyAndRun(self, scene, task, preferences, groups):
+		'''apply settings to a blender scene object and render it, group by group, frame by frame'''
+		
+		
+	
+	
+	
+	
 	
