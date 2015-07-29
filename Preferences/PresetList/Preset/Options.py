@@ -182,3 +182,26 @@ class Options:
 	
 	
 	
+	
+	def apply(self, scene, preferences):
+		'''apply settings to a blender scene object'''
+		for RL in scene.render.layers.values():
+			RL.use_pass_z = self.z
+			RL.use_pass_object_index = self.objectIndex
+		
+		scene.cycles.film_exposure = self.exposureC
+		
+		for w in bpy.data.worlds.values():
+			w.exposure = self.exposureB
+		
+		scene.render.use_compositing = self.compositing
+		
+		scene.cycles.film_transparent = self.alpha
+		scene.render.alpha_mode = { True : 'TRANSPARENT' , False : 'SKY' }[self.alpha]
+		if self.alpha
+			scene.render.image_settings.color_mode = 'RGBA'
+		
+	
+	
+	
+	
