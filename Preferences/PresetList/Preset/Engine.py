@@ -162,6 +162,32 @@ class Engine:
 	
 	
 	
+	def apply(self, scene, preferences):
+		'''apply settings to a blender scene object'''
+		r = scene.render
+		
+		if self.engine == 'BLENDER_RENDER':
+			r.engine = 'BLENDER_RENDER'
+			r.tile_x = preferences.tiles.BI.X
+			r.tile_y = preferences.tiles.BI.Y
+		else:
+			r.engine = 'CYCLES'
+			if self.device = 'CPU':
+				scene.cycles.device = 'CPU'
+				r.tile_x = preferences.tiles.CPU.X
+				r.tile_y = preferences.tiles.CPU.Y
+			else:
+				bpy.context.user_preferences.system.compute_device_type = 'CUDA'
+				scene.cycles.device = 'GPU'
+				r.tile_x = preferences.tiles.GPU.X
+				r.tile_y = preferences.tiles.GPU.Y
+			
+		
+	
+	
+	
+	
+	
 	
 	
 	
