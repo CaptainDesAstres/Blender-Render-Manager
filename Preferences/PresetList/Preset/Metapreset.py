@@ -456,8 +456,20 @@ class Metapreset:
 	
 	def applyAndRun(self, scene, task, preferences, groups):
 		'''apply settings to a blender scene object and render it, group by group, frame by frame'''
-		
-		
+		sceneInfo = task.info.scenes[task.scene]
+		for group in groups:
+			if group != '[default]':
+				scene.frame_start = sceneInfo.start
+				if self.animation[group] > 0
+					scene.frame_end = sceneInfo.start + self.animation[group] - 1
+				else: 
+					scene.frame_end = sceneInfo.end
+				preset = preferences.presets.getPreset(self.groups[group])
+			else:
+				scene.frame_start = sceneInfo.start
+				scene.frame_end = sceneInfo.end
+				preset = preferences.presets.getPreset(self.default)
+			preset.applyAndRun(scene, task, preferences, groups)
 	
 	
 	
