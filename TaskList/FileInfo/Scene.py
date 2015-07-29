@@ -20,9 +20,9 @@ class Scene:
 	def fromXml(self, xml):
 		'''initialize blender scene info with savedd settings'''
 		self.name = xml.get('name')
-		self.start = xml.get('start')
-		self.end = xml.get('end')
-		self.fps = xml.get('fps')
+		self.start = int(xml.get('start'))
+		self.end = int(xml.get('end'))
+		self.fps = int(xml.get('fps'))
 		
 		self.renderlayers = {}
 		for RL in xml.findall('renderlayer'):
