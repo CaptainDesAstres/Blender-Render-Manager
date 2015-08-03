@@ -320,6 +320,29 @@ Press enter to continue''')
 			groups = []
 		
 		pattern = self.pattern.split('/')
+		begin = []
+		for d in pattern:
+			if d == 'V':
+				break
+			if d == 'M':
+				begin.append(preset)
+			if d == 'N':
+				begin.append(fileName)
+			if d == 'S':
+				begin.append(scene)
+			if d == 'N - S':
+				begin.append(fileName+' - '+scene)
+		begin = '/'.join(begin)
+		
+		'''V
+		L
+		F
+		L - F
+		F - L'''
+		
+		# create all directories
+		# move or erase previous rendering
+		# create a file about the task and settings at the begining of the rendering
 	
 	
 	
