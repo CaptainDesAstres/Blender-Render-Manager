@@ -32,9 +32,9 @@ def RenderingTask(task, preferences, groups, preset):
 	
 	if type(preset) is Preset:
 		metadata = 'uid:'+task.uid+';metapreset:«'+task.preset+'»;'
-		preset.applyAndRun(scene, preferences, metadata, version)
+		preset.applyAndRun(bpy, scene, preferences, metadata, version)
 	else:
-		preset.applyAndRun(scene, task, preferences, groups, version)
+		preset.applyAndRun(bpy, scene, task, preferences, groups, version)
 
 
 

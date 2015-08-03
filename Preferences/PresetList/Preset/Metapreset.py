@@ -476,7 +476,7 @@ class Metapreset:
 	
 	
 	
-	def applyAndRun(self, scene, task, preferences, groups, version):
+	def applyAndRun(self, bpy, scene, task, preferences, groups, version):
 		'''apply settings to a blender scene object and render it, group by group, frame by frame'''
 		sceneInfo = task.info.scenes[task.scene]
 		
@@ -504,7 +504,7 @@ class Metapreset:
 				
 				metadata += 'group:«[default]»;preset:«'+self.default+'»;'
 				
-			preset.applyAndRun(scene, preferences, metadata, version)
+			preset.applyAndRun(bpy, scene, preferences, metadata, version)
 	
 	
 	
