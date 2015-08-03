@@ -27,6 +27,8 @@ def RenderingTask(task, preferences, groups, preset):
 	for name, RL in scene.render.layers.items():
 		RL.use = sceneInfo.renderlayers[name].use
 	
+	metadata = 'uid:'+task.uid+';preset:«'+task.preset+'»;'
+	
 	preset.applyAndRun(scene, task, preferences, groups)
 
 
