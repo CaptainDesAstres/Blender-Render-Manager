@@ -381,9 +381,24 @@ Press enter to continue''')
 			for g in groups:
 				os.mkdir(self.path+begin+g)
 		
-		# create all directories
-		# move or erase previous rendering
 		# create a file about the task and settings at the begining of the rendering
+		taskInfo = '<?xml version="1.0" encoding="UTF-8"?>\n<root status="ready" uid="'+task.uid+'">\n'
+		
+		maxAnim = task.info.scenes[scene].end- task.info.scenes[scene].start + 1
+		for g in groups:
+			taskInfo += '<group name="'+g+'" anim="'
+			anim = preferences.presets.presets[preset].animation[g]
+			if anim == 0 or anim > maxAnim:
+				taskInfo += str(maxAnim)+'" />\n'
+			else:
+				taskInfo += str(anim)+'" />\n'
+		
+		taskInfo += '<setting>\n'
+		taskInfo += task.toXml()
+		taskInfo += preferences.toXml(preferences.presets.presets[preset], False)
+		taskInfo += '</setting>\n'
+		
+		taskInfo += '</root>\n'
 	
 	
 	
