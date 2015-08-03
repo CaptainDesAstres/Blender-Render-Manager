@@ -454,6 +454,16 @@ class Metapreset:
 	
 	
 	
+	def activateGroupRenderlayer(self, scene, task, group):
+		'''activate blender scene renderlayers that correspond to a group'''
+		for RL in scene.render.layers.items():
+			RL.use = task.info.scenes[task.scene].renderlayers[name].use \
+						and group.belongTo(RL)
+	
+	
+	
+	
+	
 	def applyAndRun(self, scene, task, preferences, groups, version):
 		'''apply settings to a blender scene object and render it, group by group, frame by frame'''
 		sceneInfo = task.info.scenes[task.scene]
@@ -469,6 +479,9 @@ class Metapreset:
 				else: 
 					scene.frame_end = sceneInfo.end
 				preset = preferences.presets.getPreset(self.groups[group])
+				
+				self.activateGroupRenderlayer(scene, task, preferences.presets.renderlayers.groups[group])
+				
 				metadata += 'group:«'+group+'»;preset:«'+self.groups[group]+'»;'
 			else:
 				scene.frame_start = sceneInfo.start
