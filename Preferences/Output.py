@@ -4,6 +4,7 @@
 import xml.etree.ElementTree as xmlMod
 import os
 from usefullFunctions import indexPrintList
+from Preferences.PresetList.Preset.Metapreset import *
 
 class Output:
 	'''class to manage rendering output path'''
@@ -289,9 +290,10 @@ Press enter to continue''')
 	
 	
 	
-	def checkAndCreate(self, task):
+	def checkAndCreate(self, task, preferences):
 		'''check if directory exist and create it if they don't. check if there is path colliding and resolve the maters.'''
 		
+		# check main output path
 		if not os.path.exists(self.path):
 			log.write('\033[31mOutput path don\'t exist!\033[0m')
 			return False
@@ -302,6 +304,22 @@ Press enter to continue''')
 			log.write('\033[31mYou don\'t have the right to write in the output path!\033[0m')
 			return False
 		
+		# get necessary naming info
+		fileName = task.path.split('/').pop()
+		ext = fileName.rfind('.blend')
+		if ext !=-1 :
+			fileName = fileName[0:ext]
+		scene = task.scene
+		preset = task.preset
+		if preset = '[default]'
+			preset = preferences.presets.default
+		
+		if type(preferences.presets.presets[preset]) is Metapreset:
+			groups = list(preferences.presets.presets[preset].groups.keys())
+		else:
+			groups = []
+		
+		pattern = self.pattern.split('/')
 	
 	
 	
