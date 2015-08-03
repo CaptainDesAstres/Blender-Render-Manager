@@ -26,7 +26,7 @@ class Output:
 		if not os.path.exists('/home/'+os.getlogin()+'/.BlenderRenderManager/render'):
 			os.mkdir('/home/'+os.getlogin()+'/.BlenderRenderManager/render')
 		self.path = '/home/'+os.getlogin()+'/.BlenderRenderManager/render/'
-		self.pattern = 'N/S/M/(V/)(L/)F'
+		self.pattern = 'N/S/M/V/L/F'
 		self.overwrite = False
 		self.backup = 5
 	
@@ -173,18 +173,18 @@ class Output:
 		log.menuIn('Edit Pattern')
 		# list available pattern
 		patterns = [
-					'M/N/S/(V/)(L/)F',
-					'M/N/S/(V/)(L) - F',
-					'M/N/S/(V/)F - (L)',
-					'M/N - S/(V/)(L/)F',
-					'M/N - S/(V/)(L) - F',
-					'M/N - S/(V/)F - (L)',
-					'N/S/M/(V/)(L/)F',
-					'N/S/M/(V/)(L) - F',
-					'N/S/M/(V/)F - (L)',
-					'N - S/M/(V/)(L/)F',
-					'N - S/M/(V/)(L) - F',
-					'N - S/M/(V/)F - (L)'
+					'M/N/S/V/L/F',
+					'M/N/S/V/L - F',
+					'M/N/S/V/F - L',
+					'M/N - S/V/L/F',
+					'M/N - S/V/L - F',
+					'M/N - S/V/F - L',
+					'N/S/M/V/L/F',
+					'N/S/M/V/L - F',
+					'N/S/M/V/F - L',
+					'N - S/M/V/L/F',
+					'N - S/M/V/L - F',
+					'N - S/M/V/F - L'
 					]
 		
 		
