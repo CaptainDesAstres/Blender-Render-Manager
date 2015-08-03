@@ -289,6 +289,23 @@ Press enter to continue''')
 	
 	
 	
+	def checkAndCreate(self, task):
+		'''check if directory exist and create it if they don't. check if there is path colliding and resolve the maters.'''
+		
+		if not os.path.exists(self.path):
+			log.write('\033[31mOutput path don\'t exist!\033[0m')
+			return False
+		if not os.path.isdir(self.path):
+			log.write('\033[31mOutput path is not a directory!\033[0m')
+			return False
+		if not os.access(choice, os.W_OK):
+			log.write('\033[31mYou don\'t have the right to write in the output path!\033[0m')
+			return False
+		
+	
+	
+	
+	
 	
 	
 	
