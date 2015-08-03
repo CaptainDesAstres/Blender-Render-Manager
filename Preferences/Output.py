@@ -3,6 +3,7 @@
 '''module to manage rendering output path'''
 import xml.etree.ElementTree as xmlMod
 import os
+from shutil import rmtree as rmdir
 from usefullFunctions import indexPrintList
 from Preferences.PresetList.Preset.Metapreset import *
 
@@ -310,11 +311,11 @@ Press enter to continue''')
 		# get necessary naming info
 		fileName = task.path.split('/').pop()
 		ext = fileName.rfind('.blend')
-		if ext !=-1 :
+		if ext != -1 :
 			fileName = fileName[0:ext]
 		scene = task.scene
 		preset = task.preset
-		if preset = '[default]'
+		if preset == '[default]'
 			preset = preferences.presets.default
 		
 		if type(preferences.presets.presets[preset]) is Metapreset:
@@ -335,8 +336,19 @@ Press enter to continue''')
 				begin.append(scene)
 			if d == 'N - S':
 				begin.append(fileName+' - '+scene)
-		begin = '/'.join(begin)
+		begin = '/'.join(begin)+'/'
 		
+		if os.path.exists(self.path+begin):
+			content = os.listdir(self.path+begin)
+			if self.overwrite or self.backup == 0:
+				for f in content:
+					if os.path.isfile(self.path+begin+f):
+						os.remove(self.path+begin+f)
+					else:
+						rmdir(self.path+begin+f)
+			
+		else:
+			os.makedirs(self.path+begin)
 		'''V
 		L
 		F
