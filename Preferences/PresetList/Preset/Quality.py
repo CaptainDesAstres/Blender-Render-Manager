@@ -144,34 +144,34 @@ class Quality:
 			# print current setting and get new one
 			if choice == 2:
 				print('\n\n        Edit Pourcent :\nCurrent Pourcent : '+str(self.pourcent)+'\n')
-				choice = input('New pourcent setting?').strip().lower()
+				new = input('New pourcent setting?').strip().lower()
 			else:
 				print('\n\n        Edit Cycles Samples :\nCurrent Sammples : '+str(self.samples)+'\n')
-				choice = input('New Samples setting?').strip().lower()
+				new = input('New Samples setting?').strip().lower()
 			
 			# exit menu
-			if choice in ['', 'q', 'quit', 'cancel']:
+			if new in ['', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return False
 			
 			#check new setting
 			try:
-				choice = int(choice)
+				new = int(new)
 			except ValueError:
 				log.error('New setting must be an integer.')
 				continue
 			
-			if choice < 0:
+			if new < 0:
 				log.error('New setting must be a positive integer.')
 				continue
 			
 			# apply new setting and exit
 			if choice == 2:
-				self.pourcent = choice
+				self.pourcent = new
 				log.write('Resolution pourcent setting is set to : '\
 							+str(self.pourcent)+'%')
 			else:
-				self.samples = choice
+				self.samples = new
 				log.write('Cycles samples set to : '+str(self.samples)+'%')
 			log.menuOut()
 			return True
