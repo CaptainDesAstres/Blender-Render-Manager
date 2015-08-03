@@ -332,6 +332,19 @@ preset = '''
 	
 	
 	
+	def getUsefullGroup(self, groups, preferences):
+		'''return only usefull group from the list, excluding those who have no renderlayer in this task'''
+		renderlayers = self.info.scenes[self.scene].renderlayers
+		confirmed = []
+		for g in groups:
+			for RL in renderlayers:
+				if preferences.presets.renderlayers.groups[group].belongTo(RL.name):
+					confirmed.append(g)
+					break
+		return confirmed
+	
+	
+	
 	
 	
 	

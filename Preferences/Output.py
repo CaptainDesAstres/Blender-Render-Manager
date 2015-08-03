@@ -344,6 +344,7 @@ Press enter to continue''')
 		
 		if type(preferences.presets.presets[preset]) is Metapreset:
 			groups = list(preferences.presets.presets[preset].groups.keys())
+			groups = task.getUsefullGroup(groups, preferences)
 		else:
 			groups = []
 		
