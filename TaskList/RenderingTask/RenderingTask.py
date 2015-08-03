@@ -28,12 +28,13 @@ def RenderingTask(task, preferences, groups, preset):
 		RL.use = sceneInfo.renderlayers[name].use
 	
 	metadata = 'uid:'+task.uid+';metapreset:«'+task.preset+'»;'
+	version = str(bpy.app.version[0])+'.'+str(bpy.app.version[1])
 	
 	if type(preset) is Preset:
 		metadata = 'uid:'+task.uid+';metapreset:«'+task.preset+'»;'
-		preset.applyAndRun(scene, preferences, metadata)
+		preset.applyAndRun(scene, preferences, metadata, version)
 	else:
-		preset.applyAndRun(scene, task, preferences, groups)
+		preset.applyAndRun(scene, task, preferences, groups, version)
 
 
 

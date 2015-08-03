@@ -158,7 +158,7 @@ class Preset:
 	
 	
 	
-	def applyAndRun(self, scene, preferences, prefixMetadata):
+	def applyAndRun(self, scene, preferences, prefixMetadata, version):
 		'''apply settings to a blender scene object and render it, frame by frame'''
 		self.quality.apply(scene)
 		self.bounce.apply(scene)
@@ -166,7 +166,7 @@ class Preset:
 		self.options.apply(scene)
 		
 		metadata = prefixMetadata+'version:«'+self.engine.version+\
-					'»('+str(bpy.app.version[0])+'.'+str(bpy.app.version[1])+');'+\
+					'»('+version+');'+\
 					'engine:'+self.engine.engine+';'
 		if self.engine.engine == 'CYCLES':
 			metadata += 'device:'+self.engine.device+\
