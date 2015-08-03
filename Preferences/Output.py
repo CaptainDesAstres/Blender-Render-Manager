@@ -399,6 +399,8 @@ Press enter to continue''')
 		taskInfo += '</setting>\n'
 		
 		taskInfo += '</root>\n'
+		with open(self.path+begin+'task.setting','w') as taskFile:
+			taskFile.read(taskInfo)
 	
 	
 	
