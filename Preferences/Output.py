@@ -26,7 +26,7 @@ class Output:
 		if not os.path.exists('/home/'+os.getlogin()+'/.BlenderRenderManager/render'):
 			os.mkdir('/home/'+os.getlogin()+'/.BlenderRenderManager/render')
 		self.path = '/home/'+os.getlogin()+'/.BlenderRenderManager/render/'
-		self.pattern = '%N - %S/%L - %F'
+		self.pattern = 'N/S/M/(V/)(L/)F'
 		self.overwrite = False
 		self.backup = 5
 	
@@ -173,23 +173,18 @@ class Output:
 		log.menuIn('Edit Pattern')
 		# list available pattern
 		patterns = [
-					'%N/%S/%L/%F',
-					'%N/%S/%L - %F',
-					'%N - %S/%L/%F',
-					'%N - %S/%L - %F',
-					'%N - %S - %L/%F',
-					
-					'%N/%S/%F/%L',
-					'%N/%S/%F - %L',
-					'%N - %S/%F/%L',
-					'%N - %S/%F - %L',
-					'%N - %S - %F/%L',
-					
-					'%S/%N/%L/%F',
-					'%S/%N/%L - %F',
-					'%S - %N/%L/%F',
-					'%S - %N/%L - %F',
-					'%S - %N - %L/%F'
+					'M/N/S/(V/)(L/)F',
+					'M/N/S/(V/)(L) - F',
+					'M/N/S/(V/)F - (L)',
+					'M/N - S/(V/)(L/)F',
+					'M/N - S/(V/)(L) - F',
+					'M/N - S/(V/)F - (L)',
+					'N/S/M/(V/)(L/)F',
+					'N/S/M/(V/)(L) - F',
+					'N/S/M/(V/)F - (L)',
+					'N - S/M/(V/)(L/)F',
+					'N - S/M/(V/)(L) - F',
+					'N - S/M/(V/)F - (L)'
 					]
 		
 		
@@ -215,12 +210,17 @@ class Output:
 				log.print()
 				print('''\n        \033[4mPattern Help\033[0m
 
-Choose a pattern for output file naming and directory tree. part separate by '/' will be directory and final part will be the output file name. part separate by '-' will be in the same directory/file name.
+Choose a pattern for output file naming and directory tree. 
+Part delimited by '/' will be directory and final part will be the output file name. 
+part separate by '-' will be in the same directory/file name.
 
-%N will be replace by the file name
-%S will be replace by the scene name
-%L will be replace by the renderlayer group alias
-%F will be replace by the number of the frame
+«N» will be replace by the file name
+«S» will be replace by the scene name
+«L» will be replace by the renderlayer group alias (only if metapreset is used)
+«F» will be replace by the number of the frame
+«M» will be replace by the name of the preset/metapreset used to render it
+
+«V» will be used only if overwrite mode is set to backup and if a previous rendering output is detect in target path. the previous rendering will be moved to a directory called «previous rendering 1» and, if this directory already exist, it will be renamed in «previous rendering 2» and recursively until backup setting limit
 
 Press enter to continue''')
 				input()
