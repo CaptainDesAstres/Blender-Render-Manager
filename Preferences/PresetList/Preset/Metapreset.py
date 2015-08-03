@@ -476,7 +476,7 @@ class Metapreset:
 				preset = preferences.presets.getPreset(self.default)
 				metadata += 'group:«[default]»;preset:«'+self.default+'»;'
 				
-			preset.applyAndRun(scene, task, preferences, groups)
+			preset.applyAndRun(scene, preferences, metadata)
 	
 	
 	

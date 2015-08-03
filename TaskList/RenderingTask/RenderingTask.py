@@ -27,9 +27,13 @@ def RenderingTask(task, preferences, groups, preset):
 	for name, RL in scene.render.layers.items():
 		RL.use = sceneInfo.renderlayers[name].use
 	
-	metadata = 'uid:'+task.uid+';preset:«'+task.preset+'»;'
+	metadata = 'uid:'+task.uid+';metapreset:«'+task.preset+'»;'
 	
-	preset.applyAndRun(scene, task, preferences, groups)
+	if type(preset) is Preset:
+		metadata = 'uid:'+task.uid+';metapreset:«'+task.preset+'»;'
+		preset.applyAndRun(scene, preferences, metadata)
+	else:
+		preset.applyAndRun(scene, task, preferences, groups)
 
 
 
