@@ -294,6 +294,30 @@ Press enter to continue''')
 	
 	
 	
+	def backup(self, path):
+		'''make backup moving operation'''
+		content = os.listdir(path)
+		
+		if os.path.exists(path+'previous rendering '+str(self.backup)):
+			rmdir(path+'previous rendering '+str(self.backup))
+			content.remove('previous rendering '+str(self.backup))
+		
+		index = list(range(1,self.backup))
+		index.reverse()
+		for i in index:
+			if os.path.exists(path+'previous rendering '+str(i)):
+				os.rename(path+'previous rendering '+str(i), path+'previous rendering '+str(i+1))
+				content.remove('previous rendering '+str(i))
+		
+		if len(content)>0:
+			os.mkdir(path+'previous rendering 1')
+			for f in content:
+				os.rename(path+f,path+'previous rendering 1'+f )
+	
+	
+	
+	
+	
 	def checkAndCreate(self, task, preferences):
 		'''check if directory exist and create it if they don't. check if there is path colliding and resolve the maters.'''
 		
@@ -339,13 +363,15 @@ Press enter to continue''')
 		begin = '/'.join(begin)+'/'
 		
 		if os.path.exists(self.path+begin):
-			content = os.listdir(self.path+begin)
 			if self.overwrite or self.backup == 0:
+				content = os.listdir(self.path+begin)
 				for f in content:
 					if os.path.isfile(self.path+begin+f):
 						os.remove(self.path+begin+f)
 					else:
 						rmdir(self.path+begin+f)
+			else:
+				self.backup(self.path+begin)
 			
 		else:
 			os.makedirs(self.path+begin)
