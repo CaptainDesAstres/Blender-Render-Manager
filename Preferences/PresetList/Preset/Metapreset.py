@@ -464,6 +464,18 @@ class Metapreset:
 	
 	
 	
+	def activateDefaultRenderlayer(self, scene, groupList):
+		'''activate blender scene renderlayers that correspond to none group'''
+		for RL in scene.render.layers.items():
+			use = False
+			for group in self.groups.keys():
+				use = use or groupList(group).belongTo(RL)
+			RL.use = not use
+	
+	
+	
+	
+	
 	def applyAndRun(self, scene, task, preferences, groups, version):
 		'''apply settings to a blender scene object and render it, group by group, frame by frame'''
 		sceneInfo = task.info.scenes[task.scene]
@@ -487,6 +499,9 @@ class Metapreset:
 				scene.frame_start = sceneInfo.start
 				scene.frame_end = sceneInfo.end
 				preset = preferences.presets.getPreset(self.default)
+				
+				self.activateDefaultRenderlayer(scene, preferences.presets.renderlayers.groups)
+				
 				metadata += 'group:«[default]»;preset:«'+self.default+'»;'
 				
 			preset.applyAndRun(scene, preferences, metadata, version)
