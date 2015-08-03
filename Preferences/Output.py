@@ -159,6 +159,9 @@ class Output:
 				log.error('You don\'t have the permission to write in this directory!')
 				continue
 			
+			if choice[-1] != '/':
+				choice += '/'
+			
 			# apply path settings and confirm
 			self.path = choice
 			log.write('Output path set to : '+self.path)
