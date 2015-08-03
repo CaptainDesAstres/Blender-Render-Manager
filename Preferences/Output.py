@@ -339,7 +339,7 @@ Press enter to continue''')
 			fileName = fileName[0:ext]
 		scene = task.scene
 		preset = task.preset
-		if preset == '[default]'
+		if preset == '[default]':
 			preset = preferences.presets.default
 		
 		if type(preferences.presets.presets[preset]) is Metapreset:
@@ -349,7 +349,8 @@ Press enter to continue''')
 		
 		pattern = self.pattern.split('/')
 		begin = []
-		for d in pattern:
+		for d in pattern[:]:
+			pattern.remove(d)
 			if d == 'V':
 				break
 			if d == 'M':
@@ -372,14 +373,12 @@ Press enter to continue''')
 						rmdir(self.path+begin+f)
 			else:
 				self.backup(self.path+begin)
-			
 		else:
 			os.makedirs(self.path+begin)
-		'''V
-		L
-		F
-		L - F
-		F - L'''
+		
+		if pattern[0] == 'L':
+			for g in groups:
+				os.mkdir(self.path+begin+g)
 		
 		# create all directories
 		# move or erase previous rendering
