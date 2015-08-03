@@ -11,6 +11,19 @@ def RenderingTask(task, preferences, groups, preset):
 	scene.frame_end = sceneInfo.end
 	scene.render.fps = sceneInfo.fps
 	
+	scene.render.use_stamp_time = True
+	scene.render.use_stamp_date = True
+	scene.render.use_stamp_render_time = True
+	scene.render.use_stamp_frame = True
+	scene.render.use_stamp_scene = True
+	scene.render.use_stamp_camera = True
+	scene.render.use_stamp_lens = True
+	scene.render.use_stamp_filename = True
+	scene.render.use_stamp_marker = True
+	scene.render.use_stamp_sequencer_strip = True
+	scene.render.use_stamp_note = True
+	
+	
 	for name, RL in scene.render.layers.items():
 		RL.use = sceneInfo.renderlayers[name].use
 	
