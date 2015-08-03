@@ -299,6 +299,17 @@ class RLGroup:
 	
 	
 	
+	def belongTo(self, RL):
+		'''a method to check if a Renderlayer belong to the group'''
+		for key in self.keywords:
+			if RL.count(key) > 0:
+				return True
+		return False
+	
+	
+	
+	
+	
 	
 	
 	
