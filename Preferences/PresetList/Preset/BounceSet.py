@@ -187,6 +187,18 @@ class BounceSet:
 	
 	
 	
+	def metadata(self):
+		'''return compressed bounces information for metadata'''
+		meta = str(self.transparency.min)+'>'+str(self.transparency.max)+'/'+\
+				str(self.bounces.min)+'>'+str(self.bounces.max)+'/'+\
+				str(self.diffuse)+'/'+str(self.glossy)+'/'+\
+				str(self.transmission)+'/'+str(self.volume)
+		return meta
+	
+	
+	
+	
+	
 	
 	
 	

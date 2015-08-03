@@ -165,6 +165,22 @@ class Preset:
 		self.engine.apply(scene, preferences)
 		self.options.apply(scene)
 		
+		metadata = prefixMetadata+'version:«'+self.engine.version+\
+					'»('+str(bpy.app.version[0])+'.'+str(bpy.app.version[1])+');'+\
+					'engine:'+self.engine.engine+';'
+		if self.engine.engine == 'CYCLES':
+			metadata += 'device:'+self.engine.device+\
+						';samples:'+str(self.quality.samples)+\
+						';exposure(cycles):'+str(self.options.exposureC)+\
+						';bounces:'+self.bounce.metadata()+';'
+		else:
+			metadata += 'exposure(BI):'+str(self.options.exposureB)+';'
+		
+		if self.quality.simplify is not None:
+			metadata += 'simplify:'+str(self.quality.simplify)+';'
+		
+		scene.render.stamp_note_text = metadata
+		
 		scene.frame_current = scene.frame_start
 		while scene.frame_current <= scene.frame_end:
 			bpy.ops.render.render()
