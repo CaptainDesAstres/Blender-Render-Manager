@@ -165,6 +165,13 @@ class Preset:
 		self.engine.apply(scene, preferences)
 		self.options.apply(scene)
 		
+		scene.frame_current = scene.frame_start
+		while scene.frame_current <= scene.frame_end:
+			bpy.ops.render.render()
+			scene.frame_current += 1
+		
+		
+		
 	
 	
 	
