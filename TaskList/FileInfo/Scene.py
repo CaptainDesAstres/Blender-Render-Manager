@@ -57,6 +57,18 @@ class Scene:
 	
 	
 	
+	def getActiveRenderlayers(self):
+		'''return a list with only the active renderlayer'''
+		active = []
+		for RL in self.renderlayers.values()
+			if RL.use:
+				active.append(RL)
+		return active
+	
+	
+	
+	
+	
 	def printRenderlayer(self):
 		'''A method to list all renderlayer'''
 		renderlayers = list(self.renderlayers.keys())
