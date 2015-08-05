@@ -296,25 +296,29 @@ Press enter to continue''')
 	
 	def backup(self, path):
 		'''make backup moving operation'''
-		content = os.listdir(path)
+		self.upBackup(path, 1)
 		
+		content = os.listdir(path)
 		# if there is already as much backup as the limit, erase the last backup
 		if self.backup > 0 and os.path.exists(path+'previous rendering '+str(self.backup)):
 			rmdir(path+'previous rendering '+str(self.backup))
 			content.remove('previous rendering '+str(self.backup))
 		
 		
-		index = list(range(1,self.backup))
-		index.reverse()
-		for i in index:
-			if os.path.exists(path+'previous rendering '+str(i)):
-				os.rename(path+'previous rendering '+str(i), path+'previous rendering '+str(i+1))
-				content.remove('previous rendering '+str(i))
-		
 		if len(content)>0:
 			os.mkdir(path+'previous rendering 1')
 			for f in content:
 				os.rename(path+f,path+'previous rendering 1'+f )
+	
+	
+	
+	
+	
+	def upBackup(self, path, level):
+		'''check recursivly if level backup exist and up there level'''
+		if os.path.exists(path+'previous rendering '+str(level)):
+			self.upBackup(path, level+1)
+			os.rename(path+'previous rendering '+str(level), path+'previous rendering '+str(level+1))
 	
 	
 	
