@@ -34,7 +34,7 @@ class TaskLog:
 			self.groups = []
 			for g in self.preset.groups.keys():
 				group = preferences.presets.renderlayers.groups[g]
-				if group.isUsefull(task):
+				if group.isUsefull(task.info.scenes[task.scene]):
 					self.groups.append(g)
 	
 	

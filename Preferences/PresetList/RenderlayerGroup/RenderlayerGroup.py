@@ -310,6 +310,16 @@ class RLGroup:
 	
 	
 	
+	def isUsefull(self, scene):
+		'''return True if task contain renderlayer withe one of the keyword'''
+		for renderlayer in scene.renderlayers.values():
+			if renderlayer.use and self.belongTo(renderlayer.name):
+				return True
+		return False
+	
+	
+	
+	
 	
 	
 	
