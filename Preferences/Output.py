@@ -30,7 +30,7 @@ class Output:
 		self.path = '/home/'+os.getlogin()+'/.BlenderRenderManager/render/'
 		self.pattern = 'N/S/M/V/L/F'
 		self.overwrite = False
-		self.backup = 5
+		self.backupLimit = 5
 	
 	
 	
@@ -41,7 +41,7 @@ class Output:
 		self.path = xml.get('path')
 		self.pattern = xml.get('pattern')
 		self.overwrite = {'True':True, 'False':False}[xml.get('overwrite')]
-		self.backup = int(xml.get('backup'))
+		self.backupLimit = int(xml.get('backup'))
 	
 	
 	
@@ -50,7 +50,7 @@ class Output:
 	def toXml(self):
 		'''export output path into xml syntaxed string'''
 		return '<output path="'+self.path+'" pattern="'+self.pattern\
-			+'" overwrite="'+str(self.overwrite)+'" backup="'+str(self.backup)+'" />\n'
+			+'" overwrite="'+str(self.overwrite)+'" backup="'+str(self.backupLimit)+'" />\n'
 	
 	
 	
@@ -111,10 +111,10 @@ class Output:
 		print('      '+{True:'enabled', False:'backup'}[self.overwrite])
 		if not self.overwrite:
 			print('\n\033[4mBackup limit :\033[0m')
-			if self.backup == 0:
+			if self.backupLimit == 0:
 				print('      No limit')
 			else:
-				print('      '+str(self.backup))
+				print('      '+str(self.backupLimit))
 	
 	
 	
@@ -269,7 +269,7 @@ Press enter to continue''')
 		log.print()
 		
 		print('\n\n        Backup limit :\n\n')
-		print('Current Backup Limit : '+str(self.backup))
+		print('Current Backup Limit : '+str(self.backupLimit))
 		print('\n\nThis setting define the maximal number of backup to keep when overwrite mode is set to backup. Type the limit you want or 0 for no limit. If you really want no backup at all, switch to overwrite «enabled» mode.\n\n')
 		limit = input('new limit :').strip().lower()
 		
@@ -283,11 +283,11 @@ Press enter to continue''')
 			log.error('Positive value expected!', False)
 			return False
 		
-		self.backup = limit
-		if self.backup == 0:
+		self.backupLimit = limit
+		if self.backupLimit == 0:
 			log.write('Backup limit disabled')
 		else:
-			log.write('Backup limit set to '+str(self.backup))
+			log.write('Backup limit set to '+str(self.backupLimit))
 		return True
 	
 	
@@ -315,10 +315,10 @@ Press enter to continue''')
 				os.rename(path+c,path+'previous rendering 1/'+c )
 		
 		# apply backup limitation by erasing greater level backup
-		if self.backup > 0:
+		if self.backupLimit > 0:
 			for b in backup:
 				level = int(b[19:])
-				if level > self.backup:
+				if level > self.backupLimit:
 					rmdir(path+b)
 		
 		
