@@ -299,7 +299,7 @@ Press enter to continue''')
 		content = os.listdir(path)
 		
 		# if there is already as much backup as the limit, erase the last backup
-		if os.path.exists(path+'previous rendering '+str(self.backup)):
+		if self.backup > 0 and os.path.exists(path+'previous rendering '+str(self.backup)):
 			rmdir(path+'previous rendering '+str(self.backup))
 			content.remove('previous rendering '+str(self.backup))
 		
