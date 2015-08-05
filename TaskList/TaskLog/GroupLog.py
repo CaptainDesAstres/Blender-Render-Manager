@@ -68,8 +68,19 @@ class TaskLog:
 	
 	def toXml(self):
 		'''export task renderlayer group log into xml syntaxed string'''
+		xml = '<group name="'+self.name\
+				+'" renderlayers="'+'#;#'.join(self.renderlayers)\
+				+'" start="'+str(self.start)\
+				+'" end="'+str(self.end)\
+				+'" status="'+self.status+'" >'
 		
+		xml += self.preset.toXml(self.presetName)
 		
+		for f in self.frames:
+			xml += f.toXml()
+		
+		xml += '</group>'
+		return xml
 	
 	
 	
