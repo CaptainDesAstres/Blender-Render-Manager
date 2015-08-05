@@ -44,7 +44,7 @@ class TaskLog:
 	
 	def toXml(self):
 		'''export task frame log into xml syntaxed string'''
-		
+		return '<frame frame="'+str(self.frame)+'" path="'+self.path+'" date="'+str(int(self.date.timestamp()))+'" computingTime="'+str(self.computingTime)+'" />'
 		
 	
 	
