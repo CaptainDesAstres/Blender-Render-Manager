@@ -27,6 +27,15 @@ class TaskLog:
 		'''initialize Task log object by generating from the task settings'''
 		self.presetName = task.preset
 		self.preset = preferences.presets.getPreset(self.presetName)
+		
+		if type(self.preset) is Preset:
+			self.groups = ['[main]']
+		else:
+			self.groups = []
+			for g in self.preset.groups.keys():
+				group = preferences.presets.renderlayers.groups[g]
+				if group.isUsefull(task):
+					self.groups.append(g)
 	
 	
 	
