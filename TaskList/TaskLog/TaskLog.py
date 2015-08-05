@@ -39,8 +39,10 @@ class TaskLog:
 	
 	def toXml(self):
 		'''export task log into xml syntaxed string'''
-		
-		
+		xml = '<log>'
+		xml += self.preset.toXml(self.presetName)
+		xml += '</log>'
+		return xml
 	
 	
 	
