@@ -51,9 +51,12 @@ class Preferences:
 	
 	
 	
-	def toXml(self, preset = None, root = True):
+	def toXml(self, preset = None, head = True):
 		'''export preferences settings into xml syntaxed string'''
-		xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+		xml = ''
+		
+		if head:
+			xml += '<?xml version="1.0" encoding="UTF-8"?>\n'
 		
 		xml += '<preferences>\n'
 		
