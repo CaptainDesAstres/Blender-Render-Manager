@@ -33,13 +33,12 @@ class TaskLog:
 			mainPreset = preferences.presets.getPreset(task.preset)
 			self.presetName = mainPreset.groups[groupName]
 		
-		self.preset = preferences.presets.getPreset(self.presetName)
+		self.preset = preferences.presets.getPreset(self.presetName).copy()
 		
 		group = preferences.presets.renderlayers.groups[groupName]
 		
 		self.renderlayers = []
-		activeRL = task.info.scenes[task.scene].getActiveRenderlayers()
-		for RL in activeRL:
+		for RL in task.info.scenes[task.scene].getActiveRenderlayers():
 			if group.belongTo(RL.name)
 				self.renderlayers.append(RL.name)
 		
