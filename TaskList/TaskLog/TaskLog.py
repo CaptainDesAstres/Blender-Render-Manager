@@ -22,7 +22,8 @@ class TaskLog:
 	
 	def defaultInit(self, preferences, task):
 		'''initialize Task log object by generating from the task settings'''
-		
+		self.presetName = task.preset
+		self.preset = preferences.presets.getPreset(self.presetName)
 	
 	
 	
