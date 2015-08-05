@@ -3,6 +3,9 @@
 '''module to manage task running log'''
 import xml.etree.ElementTree as xmlMod
 from TaskList.TaskLog.GroupLog import *
+from Preferences.PresetList.Preset.Preset import *
+from Preferences.PresetList.Preset.Metapreset import *
+
 
 
 class TaskLog:
@@ -31,7 +34,14 @@ class TaskLog:
 	
 	def fromXml(self, xml):
 		'''initialize Task log object with saved log'''
-		
+		node = xmlfind('preset')
+		if node is None:
+			node = xmlfind('metapreset')
+			self.presetName = node.get('alias')
+			self.preset = Metapreset(xml = node)
+		else:
+			self.presetName = node.get('alias')
+			self.preset = Preset(xml = node)
 	
 	
 	
