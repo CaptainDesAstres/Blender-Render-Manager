@@ -27,6 +27,14 @@ class TaskLog:
 		'''initialize Task renderlayer group log object by generating from the task settings'''
 		self.name = groupName
 		
+		if groupName = '[main]':
+			self.presetName = task.preset
+		else
+			mainPreset = preferences.presets.getPreset(task.preset)
+			self.presetName = mainPreset.groups[groupName]
+		
+		self.preset = preferences.presets.getPreset(self.presetName)
+		
 		group = preferences.presets.renderlayers.groups[groupName]
 		
 		self.renderlayers = []
