@@ -347,7 +347,7 @@ Press enter to continue''')
 		if not os.path.isdir(self.path):
 			log.write('\033[31mOutput path is not a directory!\033[0m')
 			return False
-		if not os.access(choice, os.W_OK):
+		if not os.access(self.path, os.W_OK):
 			log.write('\033[31mYou don\'t have the right to write in the output path!\033[0m')
 			return False
 		
