@@ -183,7 +183,7 @@ class Preset:
 		
 		scene.frame_current = scene.frame_start
 		while scene.frame_current <= scene.frame_end:
-			bpy.ops.render.render()
+			# bpy.ops.render.render()
 			scene.frame_current += 1
 		
 		

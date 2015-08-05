@@ -239,12 +239,10 @@ class Task:
 	def run(self, index, count, scriptPath, log, preferences):
 		'''A method to execute the task'''
 		log.menuIn('run Task '+str(index)+' from '+str(count))
-		
 		log.print()
 		print('\n\nRun task n°'+str(index)+' of '+str(count)+' :\n\n')
 		
 		metapreset = preferences.presets.getPreset(self.preset)
-		
 		if type(metapreset) is Preset:
 			versions = { metapreset.engine.version : '[default]' }
 		else:
