@@ -29,9 +29,11 @@ class TaskLog:
 		
 		if groupName = '[main]':
 			self.presetName = task.preset
+			animation = 0
 		else
 			mainPreset = preferences.presets.getPreset(task.preset)
 			self.presetName = mainPreset.groups[groupName]
+			animation = mainPreset.animation[groupName]
 		
 		self.preset = preferences.presets.getPreset(self.presetName).copy()
 		
@@ -42,6 +44,14 @@ class TaskLog:
 			if group.belongTo(RL.name)
 				self.renderlayers.append(RL.name)
 		
+		self.start = task.info.scenes[task.scene].start
+		self.end = task.info.scenes[task.scene].end
+		if animation != 0:
+			self.end = min(self.start+animation-1, self.end)
+		
+		self.rendered = 0
+		
+		self.status = 'ready to start'
 	
 	
 	
