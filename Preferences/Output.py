@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage rendering output path'''
 import xml.etree.ElementTree as xmlMod
-import os
+import os, re
 from shutil import rmtree as rmdir
 from usefullFunctions import indexPrintList
 from Preferences.PresetList.Preset.Metapreset import *
@@ -299,6 +299,14 @@ Press enter to continue''')
 		self.upBackup(path, 1)
 		
 		content = os.listdir(path)
+		backup = []
+		backupRegex = re.compile(r'^previous rendering \d+$')
+		for c in content:
+			if backupRegex.match(c) is not None:
+				backup.append(c)
+				
+				
+		
 		# if there is already as much backup as the limit, erase the last backup
 		if self.backup > 0 and os.path.exists(path+'previous rendering '+str(self.backup)):
 			rmdir(path+'previous rendering '+str(self.backup))
