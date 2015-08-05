@@ -49,9 +49,10 @@ class TaskLog:
 		if animation != 0:
 			self.end = min(self.start+animation-1, self.end)
 		
-		self.rendered = 0
+		self.frames = []
 		
 		self.status = 'ready to start'
+		
 	
 	
 	
