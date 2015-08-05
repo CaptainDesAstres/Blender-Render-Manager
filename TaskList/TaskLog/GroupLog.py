@@ -29,10 +29,10 @@ class GroupLog:
 		'''initialize Task renderlayer group log object by generating from the task settings'''
 		self.name = groupName
 		
-		if groupName = '[main]':
+		if groupName == '[main]':
 			self.presetName = task.preset
 			animation = 0
-		else
+		else:
 			mainPreset = preferences.presets.getPreset(task.preset)
 			self.presetName = mainPreset.groups[groupName]
 			animation = mainPreset.animation[groupName]
@@ -43,7 +43,7 @@ class GroupLog:
 		
 		self.renderlayers = []
 		for RL in task.info.scenes[task.scene].getActiveRenderlayers():
-			if group.belongTo(RL.name)
+			if group.belongTo(RL.name):
 				self.renderlayers.append(RL.name)
 		
 		self.start = task.info.scenes[task.scene].start

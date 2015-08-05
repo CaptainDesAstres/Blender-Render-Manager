@@ -256,7 +256,7 @@ class Task:
 		if self.log is None:
 			# task never have been run before
 			self.log = TaskLog(pref = preferences, task = self)
-			preferences.output.checkAndCreate(self, preferences):
+			preferences.output.checkAndCreate(self, preferences)
 		
 		metapreset = preferences.presets.getPreset(self.preset)
 		if type(metapreset) is Preset:

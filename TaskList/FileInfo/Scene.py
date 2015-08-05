@@ -60,7 +60,7 @@ class Scene:
 	def getActiveRenderlayers(self):
 		'''return a list with only the active renderlayer'''
 		active = []
-		for RL in self.renderlayers.values()
+		for RL in self.renderlayers.values():
 			if RL.use:
 				active.append(RL)
 		return active
