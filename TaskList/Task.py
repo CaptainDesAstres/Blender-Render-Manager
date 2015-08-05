@@ -7,6 +7,7 @@ from save import *
 from usefullFunctions import *
 from Preferences.PresetList.Preset.Preset import *
 from TaskList.FileInfo.FileInfo import *
+from TaskList.TaskLog.TaskLog import *
 
 class Task:
 	'''class to manage task settings'''
@@ -254,7 +255,7 @@ class Task:
 		
 		if self.log is None:
 			# task never have been run before
-			self.log = TaskLog(pref = preferences)
+			self.log = TaskLog(pref = preferences, task = self)
 			preferences.output.checkAndCreate(self, preferences):
 		
 		metapreset = preferences.presets.getPreset(self.preset)
