@@ -417,7 +417,7 @@ Press enter to continue''')
 		'''create a file containing the settings of the task in the output path'''
 		taskInfo = '<?xml version="1.0" encoding="UTF-8"?>\n<root status="ready" uid="'+task.uid+'">\n'
 		
-		maxAnim = task.info.scenes[scene].end- task.info.scenes[scene].start + 1
+		maxAnim = task.info.scenes[task.scene].end- task.info.scenes[task.scene].start + 1
 		for g in groups:
 			taskInfo += '<group name="'+g+'" anim="'
 			anim = preferences.presets.presets[task.preset].animation[g]
