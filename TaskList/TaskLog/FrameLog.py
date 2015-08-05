@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task Frame log'''
 import xml.etree.ElementTree as xmlMod
-
+import datetime
 
 class TaskLog:
 	'''class to manage task frame log'''
@@ -37,6 +37,10 @@ class TaskLog:
 	def fromXml(self, xml):
 		'''initialize Task frame log object with saved log'''
 		
+		self.frame = int(xml.get('frame'))
+		self.path = xml.get('path')
+		self.date = datetime.datetime.fromtimestamp(float(xml.get('date')))
+		self.computingTime = float(xml.get('computingTime'))
 	
 	
 	
@@ -44,7 +48,10 @@ class TaskLog:
 	
 	def toXml(self):
 		'''export task frame log into xml syntaxed string'''
-		return '<frame frame="'+str(self.frame)+'" path="'+self.path+'" date="'+str(int(self.date.timestamp()))+'" computingTime="'+str(self.computingTime)+'" />'
+		return '<frame frame="'+str(self.frame)\
+				+'" path="'+self.path\
+				+'" date="'+str(int(self.date.timestamp()))\
+				+'" computingTime="'+str(self.computingTime)+'" />'
 		
 	
 	
