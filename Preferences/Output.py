@@ -314,10 +314,12 @@ Press enter to continue''')
 			for c in content:
 				os.rename(path+c,path+'previous rendering 1/'+c )
 		
-		# if there is already as much backup as the limit, erase the last backup
-		if self.backup > 0 and os.path.exists(path+'previous rendering '+str(self.backup)):
-			rmdir(path+'previous rendering '+str(self.backup))
-			content.remove('previous rendering '+str(self.backup))
+		# apply backup limitation by erasing greater level backup
+		if self.backup > 0:
+			for b in backup:
+				level = int(b[19:])
+				if level > self.backup:
+					rmdir(path+b)
 		
 		
 	
@@ -387,7 +389,7 @@ Press enter to continue''')
 		# check the path with preset file name and scene name exist
 		if os.path.exists(begin):
 			# if the path exist, check for old render and move it in backup directory or erase it
-			if self.overwrite or self.backup == 0:
+			if self.overwrite:
 				content = os.listdir(begin)
 				for f in content:
 					if os.path.isfile(begin+f):
