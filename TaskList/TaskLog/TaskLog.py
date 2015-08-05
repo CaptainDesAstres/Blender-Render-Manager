@@ -52,6 +52,9 @@ class TaskLog:
 			self.presetName = node.get('alias')
 			self.preset = Preset(xml = node)
 		
+		self.groups = []
+		for node in xml.findall('group'):
+			self.groups.append(GroupLog(xml = node))
 	
 	
 	
