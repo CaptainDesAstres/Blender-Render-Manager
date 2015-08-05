@@ -60,7 +60,8 @@ class TaskLog:
 	
 	def print(self):
 		'''A method to print task frame log'''
-		
+		print('╚═ Frame '+str(self.frame)+' : '+self.path+'\n'\
+			 +'    '+self.date.strftime('%d.%m.%Y-%H:%M')+'          '+str(round(self.computingTime, 2)) )
 	
 	
 	
