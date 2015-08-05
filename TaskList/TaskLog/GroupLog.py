@@ -25,7 +25,15 @@ class TaskLog:
 	
 	def defaultInit(self, groupName, preferences, task):
 		'''initialize Task renderlayer group log object by generating from the task settings'''
+		self.name = groupName
 		
+		group = preferences.presets.renderlayers.groups[groupName]
+		
+		self.renderlayers = []
+		activeRL = task.info.scenes[task.scene].getActiveRenderlayers()
+		for RL in activeRL:
+			if group.belongTo(RL.name)
+				self.renderlayers.append(RL.name)
 		
 	
 	
