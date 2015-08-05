@@ -43,14 +43,15 @@ class TaskLog:
 	
 	def fromXml(self, xml):
 		'''initialize Task log object with saved log'''
-		node = xmlfind('preset')
+		node = xml.find('preset')
 		if node is None:
-			node = xmlfind('metapreset')
+			node = xml.find('metapreset')
 			self.presetName = node.get('alias')
 			self.preset = Metapreset(xml = node)
 		else:
 			self.presetName = node.get('alias')
 			self.preset = Preset(xml = node)
+		
 	
 	
 	
@@ -58,8 +59,10 @@ class TaskLog:
 	
 	def toXml(self):
 		'''export task log into xml syntaxed string'''
-		xml = '<log>'
+		xml = '<log>\n'
 		xml += self.preset.toXml(self.presetName)
+		for g in self.groups:
+			xml += g.toXml()
 		xml += '</log>'
 		return xml
 	
