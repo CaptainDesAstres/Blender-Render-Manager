@@ -296,16 +296,23 @@ Press enter to continue''')
 	
 	def backup(self, path):
 		'''make backup moving operation'''
+		# level up the backup
 		self.upBackup(path, 1)
 		
+		# list content of path and split backup element in dedicated list
 		content = os.listdir(path)
 		backup = []
 		backupRegex = re.compile(r'^previous rendering \d+$')
 		for c in content:
 			if backupRegex.match(c) is not None:
 				backup.append(c)
-				
-				
+				content.remove(c)
+		
+		# move all remaining file in new first level backup directory
+		if len(content) > 0:
+			os.mkdir(path+'previous rendering 1')
+			for c in content:
+				os.rename(path+c,path+'previous rendering 1/'+c )
 		
 		# if there is already as much backup as the limit, erase the last backup
 		if self.backup > 0 and os.path.exists(path+'previous rendering '+str(self.backup)):
@@ -313,10 +320,6 @@ Press enter to continue''')
 			content.remove('previous rendering '+str(self.backup))
 		
 		
-		if len(content)>0:
-			os.mkdir(path+'previous rendering 1')
-			for f in content:
-				os.rename(path+f,path+'previous rendering 1'+f )
 	
 	
 	
