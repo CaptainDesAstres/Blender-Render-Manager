@@ -298,9 +298,11 @@ Press enter to continue''')
 		'''make backup moving operation'''
 		content = os.listdir(path)
 		
+		# if there is already as much backup as the limit, erase the last backup
 		if os.path.exists(path+'previous rendering '+str(self.backup)):
 			rmdir(path+'previous rendering '+str(self.backup))
 			content.remove('previous rendering '+str(self.backup))
+		
 		
 		index = list(range(1,self.backup))
 		index.reverse()
@@ -319,7 +321,7 @@ Press enter to continue''')
 	
 	
 	def checkAndCreate(self, task, preferences):
-		'''check if directory exist and create it if they don't. check if there is path colliding and resolve the maters.'''
+		'''check if output directory exist and create it if they don't. check if there is path colliding/previous rendering and resolve the maters.'''
 		
 		# check main output path
 		if not os.path.exists(self.path):
@@ -337,7 +339,9 @@ Press enter to continue''')
 		ext = fileName.rfind('.blend')
 		if ext != -1 :
 			fileName = fileName[0:ext]
+		
 		scene = task.scene
+		
 		preset = task.preset
 		if preset == '[default]':
 			preset = preferences.presets.default
@@ -348,6 +352,7 @@ Press enter to continue''')
 		else:
 			groups = []
 		
+		# generate the path dedicated to the blender file/scene and the preset used by the task
 		pattern = self.pattern.split('/')
 		begin = []
 		for d in pattern[:]:
@@ -362,32 +367,43 @@ Press enter to continue''')
 				begin.append(scene)
 			if d == 'N - S':
 				begin.append(fileName+' - '+scene)
-		begin = '/'.join(begin)+'/'
+		begin = self.path+'/'.join(begin)+'/'
 		
-		if os.path.exists(self.path+begin):
+		# check the path with preset file name and scene name exist
+		if os.path.exists(begin):
+			# if the path exist, check for old render and move it in backup directory or erase it
 			if self.overwrite or self.backup == 0:
-				content = os.listdir(self.path+begin)
+				content = os.listdir(begin)
 				for f in content:
-					if os.path.isfile(self.path+begin+f):
-						os.remove(self.path+begin+f)
+					if os.path.isfile(begin+f):
+						os.remove(begin+f)
 					else:
-						rmdir(self.path+begin+f)
+						rmdir(begin+f)
 			else:
-				self.backup(self.path+begin)
+				self.backup(begin)
 		else:
-			os.makedirs(self.path+begin)
+			# if the path didn't exist, make it
+			os.makedirs(begin)
 		
 		if pattern[0] == 'L':
 			for g in groups:
-				os.mkdir(self.path+begin+g)
+				os.mkdir(begin+g)
 		
-		# create a file about the task and settings at the begining of the rendering
+		# create file to let know the state and settings of the task
+		self.outputTaskInfo(task, groups, preferences, begin)
+	
+	
+	
+	
+	
+	def outputTaskInfo(self, task, groups, preferences, path):
+		'''create a file containing the settings of the task in the output path'''
 		taskInfo = '<?xml version="1.0" encoding="UTF-8"?>\n<root status="ready" uid="'+task.uid+'">\n'
 		
 		maxAnim = task.info.scenes[scene].end- task.info.scenes[scene].start + 1
 		for g in groups:
 			taskInfo += '<group name="'+g+'" anim="'
-			anim = preferences.presets.presets[preset].animation[g]
+			anim = preferences.presets.presets[task.preset].animation[g]
 			if anim == 0 or anim > maxAnim:
 				taskInfo += str(maxAnim)+'" />\n'
 			else:
@@ -395,12 +411,12 @@ Press enter to continue''')
 		
 		taskInfo += '<setting>\n'
 		taskInfo += task.toXml()
-		taskInfo += preferences.toXml(preferences.presets.presets[preset], False)
+		taskInfo += preferences.toXml(preferences.presets.presets[task.preset], False)
 		taskInfo += '</setting>\n'
 		
 		taskInfo += '</root>\n'
-		with open(self.path+begin+'task.setting','w') as taskFile:
-			taskFile.read(taskInfo)
+		with open(path+'task.setting','w') as taskFile:
+			taskFile.write(taskInfo)
 	
 	
 	
