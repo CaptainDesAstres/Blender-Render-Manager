@@ -252,6 +252,11 @@ class Task:
 		log.print()
 		print('\n\nRun task n°'+str(index)+' of '+str(count)+' :\n\n')
 		
+		if self.log is None:
+			# task never have been run before
+			self.log = TaskLog(pref = preferences)
+			preferences.output.checkAndCreate(self, preferences):
+		
 		metapreset = preferences.presets.getPreset(self.preset)
 		if type(metapreset) is Preset:
 			versions = { metapreset.engine.version : '[default]' }
