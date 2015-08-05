@@ -2,6 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task running log'''
 import xml.etree.ElementTree as xmlMod
+from TaskList.TaskLog.GroupLog import *
 
 
 class TaskLog:
@@ -19,7 +20,7 @@ class TaskLog:
 	
 	
 	
-	def defaultInit(self, preferences):
+	def defaultInit(self, preferences, task):
 		'''initialize Task log object by generating from the task settings'''
 		
 	
