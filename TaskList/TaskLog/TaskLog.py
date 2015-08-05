@@ -29,13 +29,13 @@ class TaskLog:
 		self.preset = preferences.presets.getPreset(self.presetName)
 		
 		if type(self.preset) is Preset:
-			self.groups = ['[main]']
+			self.groups = [GroupLog('[main]', preferences, task)]
 		else:
 			self.groups = []
 			for g in self.preset.groups.keys():
 				group = preferences.presets.renderlayers.groups[g]
 				if group.isUsefull(task.info.scenes[task.scene]):
-					self.groups.append(g)
+					self.groups.append(GroupLog(g, preferences, task))
 	
 	
 	
