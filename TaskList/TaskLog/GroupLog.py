@@ -114,7 +114,21 @@ class GroupLog:
 				+'preset : «'+self.presetName+'»     '\
 				+str(len(self.frames))+'/'+str(total)+' frames ('\
 				+str(self.start)+' to '+str(self.end)+')')
-		
+	
+	
+	
+	
+	
+	def confirmFrame(self, frame, path, date, computingTime):
+		'''add frame rendering log confirmation to the group'''
+		self.frames.append(
+							FrameLog(
+									frame = frame,
+									path = path,
+									date = date,
+									computingTime = computingTime
+									) 
+							)
 	
 	
 	

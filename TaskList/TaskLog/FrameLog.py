@@ -9,13 +9,13 @@ class FrameLog:
 	
 	
 	def __init__(self, xml = None, 
-					nb = None,
+					frame = None,
 					path = None,
 					date = None,
 					computingTime = None):
 		'''initialize task frame object'''
 		if xml is None:
-			self.defaultInit(nb, path, date, computingTime)
+			self.defaultInit(frame, path, date, computingTime)
 		else:
 			self.fromXml(xml)
 	
@@ -23,9 +23,9 @@ class FrameLog:
 	
 	
 	
-	def defaultInit(self, nb, path, date, computingTime):
+	def defaultInit(self, frame, path, date, computingTime):
 		'''initialize Task frame log object'''
-		self.frame = nb
+		self.frame = frame
 		self.path = path
 		self.date = date
 		self.computingTime = computingTime
@@ -60,8 +60,8 @@ class FrameLog:
 	
 	def print(self):
 		'''A method to print task frame log'''
-		print('╚═ Frame '+str(self.frame)+' : '+self.path+'\n'\
-			 +'    '+self.date.strftime('%d.%m.%Y-%H:%M')+'          '+str(round(self.computingTime, 2)) )
+		print('  ╚═ Frame '+str(self.frame)+' : '+self.path+'\n'\
+			 +'      '+self.date.strftime('%d.%m.%Y-%H:%M')+'          '+str(round(self.computingTime, 2)) )
 	
 	
 	
