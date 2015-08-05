@@ -9,15 +9,10 @@ class TaskLog:
 	'''class to manage task renderlayer group log'''
 	
 	
-	def __init__(self, xml = None,
-					groupName = None,
-					keywords = None,
-					preset = None,
-					task = None
-					):
+	def __init__(self, xml = None):
 		'''initialize task renderlayer group log object'''
 		if xml is None:
-			self.defaultInit(groupName, keywords, preset, task)
+			self.defaultInit()
 		else:
 			self.fromXml(xml)
 	
@@ -25,8 +20,9 @@ class TaskLog:
 	
 	
 	
-	def defaultInit(self, groupName, keywords, preset, task):
+	def defaultInit(self):
 		'''initialize Task renderlayer group log object by generating from the task settings'''
+		
 		
 	
 	
