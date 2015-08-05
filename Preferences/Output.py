@@ -363,8 +363,8 @@ Press enter to continue''')
 		if preset == '[default]':
 			preset = preferences.presets.default
 		
-		if type(preferences.presets.presets[preset]) is Metapreset:
-			groups = list(preferences.presets.presets[preset].groups.keys())
+		if type(preferences.presets.getPreset(preset)) is Metapreset:
+			groups = list(preferences.presets.getPreset(preset).groups.keys())
 			groups = task.getUsefullGroup(groups, preferences)
 		else:
 			groups = []
@@ -420,7 +420,7 @@ Press enter to continue''')
 		maxAnim = task.info.scenes[task.scene].end- task.info.scenes[task.scene].start + 1
 		for g in groups:
 			taskInfo += '<group name="'+g+'" anim="'
-			anim = preferences.presets.presets[task.preset].animation[g]
+			anim = preferences.presets.getPreset(task.preset).animation[g]
 			if anim == 0 or anim > maxAnim:
 				taskInfo += str(maxAnim)+'" />\n'
 			else:
@@ -428,7 +428,7 @@ Press enter to continue''')
 		
 		taskInfo += '<setting>\n'
 		taskInfo += task.toXml()
-		taskInfo += preferences.toXml(preferences.presets.presets[task.preset], False)
+		taskInfo += preferences.toXml(preferences.presets.getPreset(task.preset), False)
 		taskInfo += '</setting>\n'
 		
 		taskInfo += '</root>\n'
