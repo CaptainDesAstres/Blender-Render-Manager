@@ -107,6 +107,13 @@ class GroupLog:
 	
 	def print(self):
 		'''A method to print task renderlayer group log'''
+		total = self.end - self.start + 1
+		print('╚═ «'+self.name+'» group ('\
+				+str(len(self.renderlayers))+'renderlayers) : '\
+				+self.status+'\n  '\
+				+'preset : «'+self.presetName+'»     '\
+				+str(len(self.frames))+'/'+str(total)+' frames ('\
+				+str(self.start)+' to '+str(self.end)+')')
 		
 	
 	
