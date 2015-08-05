@@ -4,7 +4,7 @@
 import xml.etree.ElementTree as xmlMod
 import datetime
 
-class TaskLog:
+class FrameLog:
 	'''class to manage task frame log'''
 	
 	

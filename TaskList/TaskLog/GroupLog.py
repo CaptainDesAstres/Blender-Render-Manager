@@ -3,9 +3,11 @@
 '''module to manage task renderlayer group log'''
 import xml.etree.ElementTree as xmlMod
 from TaskList.TaskLog.FrameLog import *
+from Preferences.PresetList.Preset.Preset import *
+from Preferences.PresetList.Preset.Metapreset import *
 
 
-class TaskLog:
+class GroupLog:
 	'''class to manage task renderlayer group log'''
 	
 	
@@ -60,6 +62,23 @@ class TaskLog:
 	
 	def fromXml(self, xml):
 		'''initialize Task renderlayer group log object with saved log'''
+		self.name = xml.get('name')
+		self.renderlayers = xml.get('name').split('#;#')
+		self.start = int(xml.get('start'))
+		self.end = int(xml.get('end'))
+		self.status = xml.get('status')
+		
+		presetXML = xml.find('preset')
+		if presetXML is None:
+			presetXML = xml.find('metapreset')
+			self.preset = Metapreset(xml = presetXML)
+		else:
+			self.preset = Preset(xml = presetXML)
+		self.presetName = presetXML.get('alias')
+		
+		self.frames = []
+		for node in xml.findall('frame'):
+			self.frames.append(FrameLog(xml = node))
 		
 	
 	
