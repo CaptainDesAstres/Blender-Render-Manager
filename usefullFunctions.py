@@ -29,3 +29,41 @@ def indexPrintList(l):
 
 
 
+class XML:
+	''' a class containing usefull method for XML'''
+	
+	entities = {
+				'\'':'&apos;',
+				'"':'&quot;',
+				'<':'&lt;',
+				'>':'&gt;'
+				}
+	
+	
+	
+	
+	
+	def Encode(txt):
+		'''a method to replace XML entities by XML representation'''
+		
+		txt.replace('&', '&amp;')
+		
+		for entity, code in XML.entities.items():
+			txt.replace(entity, code)
+	
+	
+	
+	
+	
+	def Decode(txt):
+		'''a method to replace XML representation of entities by the original entities'''
+		
+		for entity, code in XML.entities.items():
+			txt.replace(code, entity)
+		
+		txt.replace('&amp;', '&')
+
+
+
+
+
