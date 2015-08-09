@@ -2,8 +2,8 @@
 # -*-coding:Utf-8 -*
 '''module to manage list of all know version of Blender in the system'''
 import xml.etree.ElementTree as xmlMod
-import re
-import os
+import re, os
+from usefullFunctions import XML
 
 class VersionList:
 	'''class dedicated to Blender version managing'''
@@ -47,7 +47,7 @@ class VersionList:
 		
 		xml = '  <versionsList default ="'+self.default+'" >\n'
 		for k, v in self.list.items():
-			xml += '    <version alias="'+k+'" path="'+v+'" />\n'
+			xml += '    <version alias="'+k+'" path="'+XML.encode(v)+'" />\n'
 		xml += '  </versionsList>\n'
 		
 		return xml

@@ -5,6 +5,7 @@ import xml.etree.ElementTree as xmlMod
 from TaskList.TaskLog.FrameLog import *
 from Preferences.PresetList.Preset.Preset import *
 from Preferences.PresetList.Preset.Metapreset import *
+from usefullFunctions import XML
 
 
 class GroupLog:
@@ -88,7 +89,7 @@ class GroupLog:
 	def toXml(self):
 		'''export task renderlayer group log into xml syntaxed string'''
 		xml = '<group name="'+self.name\
-				+'" renderlayers="'+'#;#'.join(self.renderlayers)\
+				+'" renderlayers="'+'#;#'.join(XML.encode(x) for x in self.renderlayers)\
 				+'" start="'+str(self.start)\
 				+'" end="'+str(self.end)\
 				+'" status="'+self.status+'" >'

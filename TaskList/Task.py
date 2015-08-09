@@ -58,8 +58,8 @@ class Task:
 	
 	def toXml(self):
 		'''export task settings into xml syntaxed string'''
-		xml = '<task path="'+self.path+'" scene="'+self.scene+'" preset="'\
-				+self.preset+'" uid="'+self.uid+'">\n'\
+		xml = '<task path="'+XML.encode(self.path)+'" scene="'+XML.encode(self.scene)\
+				+'" preset="'+self.preset+'" uid="'+self.uid+'">\n'\
 				+self.info.toXml()
 		if self.log is not None:
 			xml += self.log.toXml()
@@ -236,8 +236,7 @@ class Task:
 	
 	
 	def copy(self):
-		xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
-		xml += self.toXml()
+		xml = '<?xml version="1.0" encoding="UTF-8"?>\n'+self.toXml()
 		xml = xmlMod.fromstring(xml)
 		copy = Task(xml = xml)
 		copy.uid = uuid.uuid4().hex

@@ -3,6 +3,7 @@
 '''module to manage blender Renderlayer info'''
 import xml.etree.ElementTree as xmlMod
 import os
+from usefullFunctions import XML
 
 class Renderlayer:
 	'''class to manage blender Renderlayer info'''
@@ -27,7 +28,7 @@ class Renderlayer:
 	
 	def toXml(self):
 		'''export blender Renderlayer info into xml syntaxed string'''
-		return '      <renderlayer name="'+self.name+'" use="'+str(self.use)+'" />\n'
+		return '      <renderlayer name="'+XML.encode(self.name)+'" use="'+str(self.use)+'" />\n'
 	
 	
 	

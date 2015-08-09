@@ -4,7 +4,7 @@
 import xml.etree.ElementTree as xmlMod
 import os, re
 from shutil import rmtree as rmdir
-from usefullFunctions import indexPrintList
+from usefullFunctions import indexPrintList, XML
 from Preferences.PresetList.Preset.Metapreset import *
 
 class Output:
@@ -49,7 +49,7 @@ class Output:
 	
 	def toXml(self):
 		'''export output path into xml syntaxed string'''
-		return '<output path="'+self.path+'" pattern="'+self.pattern\
+		return '<output path="'+XML.encode(self.path)+'" pattern="'+self.pattern\
 			+'" overwrite="'+str(self.overwrite)+'" backup="'+str(self.backupLimit)+'" />\n'
 	
 	

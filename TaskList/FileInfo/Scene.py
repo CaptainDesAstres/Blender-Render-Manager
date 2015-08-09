@@ -3,6 +3,7 @@
 '''module to manage blender scene info'''
 import xml.etree.ElementTree as xmlMod
 from TaskList.FileInfo.Renderlayer import *
+from usefullFunctions import XML
 import os
 
 class Scene:
@@ -34,7 +35,7 @@ class Scene:
 	
 	def toXml(self):
 		'''export blender scene info into xml syntaxed string'''
-		xml = '    <scene name="'+self.name+'" start="'+str(self.start)\
+		xml = '    <scene name="'+XML.encode(self.name)+'" start="'+str(self.start)\
 			+'" end="'+str(self.end)+'" fps="'+str(self.fps)+'" >\n'
 		
 		for RL in self.renderlayers.values():

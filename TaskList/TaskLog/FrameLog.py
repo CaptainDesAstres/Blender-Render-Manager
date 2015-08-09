@@ -3,6 +3,7 @@
 '''module to manage task Frame log'''
 import xml.etree.ElementTree as xmlMod
 import datetime
+from usefullFunctions import XML
 
 class FrameLog:
 	'''class to manage task frame log'''
@@ -49,7 +50,7 @@ class FrameLog:
 	def toXml(self):
 		'''export task frame log into xml syntaxed string'''
 		return '<frame frame="'+str(self.frame)\
-				+'" path="'+self.path\
+				+'" path="'+XML.encode(self.path)\
 				+'" date="'+str(int(self.date.timestamp()))\
 				+'" computingTime="'+str(self.computingTime)+'" />'
 		
