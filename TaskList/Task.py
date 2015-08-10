@@ -75,14 +75,19 @@ class Task:
 		'''method to edit task settings'''
 		log.menuIn('Task n°'+str(index))
 		change = False
-		
-		while True:
-			log.print()
-			
-			print('\n        Edit Task n°'+str(index)+' :')
-			self.print()
-			print('\n')
-			print('''    Menu :
+		started = self.log is not None
+		if started:
+			menu = '''
+    Menu :
+(TASK ALREADY STARTED : SOME OPTIONS IS NOT AVAILABLE!)
+5- Change list row
+6- Erase task
+0- Quit and save
+
+'''
+		else:
+			menu = '''
+    Menu :
 1- Change scene
 2- Change preset
 3- Edit preset
@@ -91,7 +96,14 @@ class Task:
 6- Erase task
 0- Quit and save
 
-''')
+'''
+		
+		while True:
+			log.print()
+			
+			print('\n        Edit Task n°'+str(index)+' :')
+			self.print()
+			print(menu)
 			
 			
 			choice= input('action : ').strip().lower()
