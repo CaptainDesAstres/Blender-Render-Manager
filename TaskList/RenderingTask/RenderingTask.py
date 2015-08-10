@@ -3,7 +3,10 @@ import bpy, sys, os
 sys.path.append(os.path.abspath(sys.argv[4]+'/../../../..'))
 from Preferences.PresetList.Preset.Preset import *
 
-def RenderingTask(task, preferences, groups, preset):
+def RenderingTask(task, preferences, groups):
+	
+	preset = task.log.preset
+	
 	scene = bpy.data.scenes[task.scene]
 	bpy.context.screen.scene = scene
 	sceneInfo = task.info.scenes[task.scene]

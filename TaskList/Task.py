@@ -325,7 +325,7 @@ from TaskList.Task import *
 
 preferences = Preferences( xml = xmlMod.fromstring(''\''''+preferences.toXml(False)+'''''\') )
 task = Task( xml = xmlMod.fromstring(''\'<?xml version="1.0" encoding="UTF-8"?>\n'''+self.toXml()+'''''\'))
-preset = task.log.preset'''
+'''
 		
 		end = '\nRenderingTask(task, preferences, groups, preset)'
 		
