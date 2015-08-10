@@ -110,7 +110,7 @@ class Task:
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
-			elif choice == '1':
+			elif choice == '1' and not started:
 				
 				scene = self.info.sceneChoice(log, allChoice = False)[0]
 				if scene is not None:
@@ -118,7 +118,7 @@ class Task:
 					log.write('Task n°'+str(index)+' : Scene set to «'+self.scene+'»')
 					change = True
 				
-			elif choice == '2':
+			elif choice == '2' and not started:
 				
 				preset = Task.presetChoice(log, preferences)
 				if preset is not None :
@@ -126,11 +126,11 @@ class Task:
 					log.write('Task n°'+str(index)+' : Preset set to «'+self.preset+'»')
 					change = True
 				
-			elif choice == '3':
+			elif choice == '3' and not started:
 				
 				self.editPreset(log, preferences)
 				
-			elif choice == '4':
+			elif choice == '4' and not started:
 				
 				confirm = self.info.scenes[self.scene].renderlayerActivator(log)
 				if confirm:
