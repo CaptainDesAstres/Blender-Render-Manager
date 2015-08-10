@@ -444,7 +444,7 @@ Press enter to continue
 			
 			self.print(0, select)
 			choice = input('''\nMenu :
-1- Apply A Preset
+1- Apply A Preset (don't work with started task)
 2- Copy And Apply A Preset
 3- Regroup And Move
 4- Remove
@@ -610,10 +610,18 @@ Quit : q or quit
 		'''A method to apply a preset to multiple tasks'''
 		preset = Task.presetChoice(log, preferences)
 		
+		modified = []
+		started = False
 		if preset is not None :
 			for i in select:
-				self.tasks[i].preset = preset
-			log.write('Task n°«'+','.join(str(x) for x in select)+'» : Preset set to «'+preset+'»')
+				if self.tasks[i].log is None:
+					modified.append(i)
+					self.tasks[i].preset = preset
+				else:
+					started = True
+			log.write('Task n°«'+','.join(str(x) for x in modified)+'» : Preset set to «'+preset+'»')
+			if started:
+				log.write('Some task preset can\'t be modify because they alreandy have been started.')
 			return True
 		return False
 	
