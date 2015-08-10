@@ -27,14 +27,10 @@ def RenderingTask(task, preferences, groups):
 	scene.render.use_stamp_note = True
 	
 	
-	for name, RL in scene.render.layers.items():
-		RL.use = sceneInfo.renderlayers[name].use
-	
-	metadata = 'uid:'+task.uid+';metapreset:«'+task.preset+'»;'
+	metadata = 'uid:'+task.uid+';Main preset :«'+task.preset+'»;'
 	version = str(bpy.app.version[0])+'.'+str(bpy.app.version[1])
 	
 	if type(preset) is Preset:
-		metadata = 'uid:'+task.uid+';metapreset:«'+task.preset+'»;'
 		preset.applyAndRun(bpy, scene, preferences, metadata, version)
 	else:
 		preset.applyAndRun(bpy, scene, task, preferences, groups, version)
