@@ -5,14 +5,9 @@ from Preferences.PresetList.Preset.Preset import *
 
 def RenderingTask(task, preferences, groups):
 	
-	preset = task.log.preset
 	
 	scene = bpy.data.scenes[task.scene]
 	bpy.context.screen.scene = scene
-	sceneInfo = task.info.scenes[task.scene]
-	scene.frame_start = sceneInfo.start
-	scene.frame_end = sceneInfo.end
-	scene.render.fps = sceneInfo.fps
 	
 	scene.render.use_stamp_time = True
 	scene.render.use_stamp_date = True
@@ -30,7 +25,14 @@ def RenderingTask(task, preferences, groups):
 	metadata = 'uid:'+task.uid+';Main preset :«'+task.preset+'»;'
 	version = str(bpy.app.version[0])+'.'+str(bpy.app.version[1])
 	
+	preset = task.log.preset
+	
 	if type(preset) is Preset:
+		sceneInfo = task.info.scenes[task.scene]
+		scene.frame_start = sceneInfo.start
+		scene.frame_end = sceneInfo.end
+		scene.render.fps = sceneInfo.fps
+		
 		preset.applyAndRun(bpy, scene, preferences, metadata, version)
 	else:
 		preset.applyAndRun(bpy, scene, task, preferences, groups, version)
