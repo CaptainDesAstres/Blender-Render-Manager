@@ -33,6 +33,9 @@ class GroupLog:
 		if groupName == '[main]':
 			self.presetName = task.preset
 			animation = 0
+		elif groupName == '[default]':
+			self.presetName = preferences.presets.getPreset(task.preset).default
+			animation = 0
 		else:
 			mainPreset = preferences.presets.getPreset(task.preset)
 			self.presetName = mainPreset.groups[groupName]
@@ -43,6 +46,15 @@ class GroupLog:
 		self.renderlayers = []
 		if groupName == '[main]':
 			self.renderlayers = task.info.scenes[task.scene].getActiveRenderlayers()
+			self.renderlayers = list(RL.name for RL in self.renderlayers)
+		elif groupName == '[default]':
+			self.renderlayers = task.info.scenes[task.scene].getActiveRenderlayers()
+			groupsName = list(preferences.presets.getPreset(task.preset).groups.keys())
+			for RL in self.renderlayers[:]:
+				for group in groupsName:
+					if preferences.presets.renderlayers.groups[group].belongTo(RL.name):
+						self.renderlayers.remove(RL)
+						break
 			self.renderlayers = list(RL.name for RL in self.renderlayers)
 		else:
 			group = preferences.presets.renderlayers.groups[groupName]
