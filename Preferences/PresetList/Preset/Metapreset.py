@@ -424,16 +424,6 @@ class Metapreset:
 	
 	
 	
-	def activateGroupRenderlayer(self, scene, task, group):
-		'''activate blender scene renderlayers that correspond to a group'''
-		for RL in scene.render.layers.values():
-			RL.use = task.info.scenes[task.scene].renderlayers[RL.name].use \
-						and group.belongTo(RL.name)
-	
-	
-	
-	
-	
 	def activateDefaultRenderlayer(self, scene, groupList):
 		'''activate blender scene renderlayers that correspond to none group'''
 		for RL in scene.render.layers.values():
@@ -460,7 +450,11 @@ class Metapreset:
 					scene.frame_end = sceneInfo.start + self.animation[group] - 1
 				else: 
 					scene.frame_end = sceneInfo.end
-				preset = task.log.getGroup(group).preset
+				logGroup = task.log.getGroup(group)
+				preset = logGroup.preset
+				
+				for RL in scene.render.layers.values():
+					RL.use = (RL.name in logGroup.renderlayers)
 				
 				self.activateGroupRenderlayer(scene, task, preferences.presets.renderlayers.groups[group])
 				
