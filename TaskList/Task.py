@@ -325,16 +325,7 @@ from TaskList.Task import *
 
 preferences = Preferences( xml = xmlMod.fromstring(''\''''+preferences.toXml(False)+'''''\') )
 task = Task( xml = xmlMod.fromstring(''\'<?xml version="1.0" encoding="UTF-8"?>\n'''+self.toXml()+'''''\'))
-preset = '''
-		
-		if type(preset) is Preset:
-			start += "Preset ( xml = xmlMod.fromstring('''"
-		else:
-			start += "Metapreset ( xml = xmlMod.fromstring('''"
-		
-		start += '<?xml version="1.0" encoding="UTF-8"?>\n'\
-				+preset.toXml()+"''') )\n"
-		
+preset = task.log.preset'''
 		
 		end = '\nRenderingTask(task, preferences, groups, preset)'
 		

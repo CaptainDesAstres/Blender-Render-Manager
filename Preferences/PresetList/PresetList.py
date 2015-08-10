@@ -57,7 +57,7 @@ class PresetList:
 			txt = '<presetList>\n'
 		
 		if preset:
-			presets = self.presets.keys()
+			presets = list(self.presets.keys())
 		else:
 			presets = []
 		
