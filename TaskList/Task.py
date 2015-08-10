@@ -269,11 +269,16 @@ class Task:
 			self.log = TaskLog(pref = preferences, task = self)
 			preferences.output.checkAndCreate(self, preferences)
 		
-		metapreset = preferences.presets.getPreset(self.preset)
+		metapreset = self.log.preset
 		if type(metapreset) is Preset:
 			versions = { metapreset.engine.version : '[default]' }
 		else:
-			versions = metapreset.getGroupsByBlenderVersion(preferences)
+			versions = {}
+			for group in self.log.groups:
+				if group.preset.engine.version in versions.keys():
+					versions[group.preset.engine.version].append(group.name)
+				else:
+					versions[group.preset.engine.version] = [group.name]
 		
 		scripts = self.createTaskScript(scriptPath, preferences, versions, metapreset)
 		

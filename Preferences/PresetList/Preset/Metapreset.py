@@ -424,36 +424,6 @@ class Metapreset:
 	
 	
 	
-	def getGroupsByBlenderVersion(self, preferences):
-		'''A method to get the group sort by blender version'''
-		versions = {}
-		
-		if self.default is not None:
-			preset = preferences.presets.getPreset(self.default)
-			version = preset.engine.version
-			
-			if version == '[default]':
-				version = preferences.blenderVersion.default
-			
-			versions[ version ] = [ '[default]' ]
-		
-		for group, preset in self.groups.items():
-			version = preferences.presets.getPreset(preset).engine.version
-			
-			if version == '[default]':
-				version = preferences.blenderVersion.default
-			
-			if version in versions.keys():
-				versions[version].append( group )
-			else:
-				versions[version] = [ group ]
-		
-		return versions
-	
-	
-	
-	
-	
 	def activateGroupRenderlayer(self, scene, task, group):
 		'''activate blender scene renderlayers that correspond to a group'''
 		for RL in scene.render.layers.values():
