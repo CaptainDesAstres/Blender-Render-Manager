@@ -43,7 +43,7 @@ class XML:
 	
 	
 	
-	def Encode(txt):
+	def encode(txt):
 		'''a method to replace XML entities by XML representation'''
 		
 		txt.replace('&', '&amp;')
@@ -55,7 +55,7 @@ class XML:
 	
 	
 	
-	def Decode(txt):
+	def decode(txt):
 		'''a method to replace XML representation of entities by the original entities'''
 		
 		for entity, code in XML.entities.items():
