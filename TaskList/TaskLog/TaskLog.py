@@ -95,3 +95,12 @@ class TaskLog:
 	
 	
 	
+	def getGroup(self, g):
+		'''a method to get a group by his name'''
+		for group in self.groups:
+			if g == group.name:
+				return group
+	
+	
+	
+	

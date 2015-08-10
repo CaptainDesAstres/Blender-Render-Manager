@@ -460,7 +460,7 @@ class Metapreset:
 					scene.frame_end = sceneInfo.start + self.animation[group] - 1
 				else: 
 					scene.frame_end = sceneInfo.end
-				preset = preferences.presets.getPreset(self.groups[group])
+				preset = task.log.getGroup(group).preset
 				
 				self.activateGroupRenderlayer(scene, task, preferences.presets.renderlayers.groups[group])
 				
