@@ -79,7 +79,7 @@ class GroupLog:
 	def fromXml(self, xml):
 		'''initialize Task renderlayer group log object with saved log'''
 		self.name = xml.get('name')
-		self.renderlayers = xml.get('name').split('#;#')
+		self.renderlayers = xml.get('renderlayers').split('#;#')
 		self.start = int(xml.get('start'))
 		self.end = int(xml.get('end'))
 		self.status = xml.get('status')
