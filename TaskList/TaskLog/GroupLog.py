@@ -40,12 +40,15 @@ class GroupLog:
 		
 		self.preset = preferences.presets.getPreset(self.presetName).copy()
 		
-		group = preferences.presets.renderlayers.groups[groupName]
-		
 		self.renderlayers = []
-		for RL in task.info.scenes[task.scene].getActiveRenderlayers():
-			if group.belongTo(RL.name):
-				self.renderlayers.append(RL.name)
+		if groupName == '[main]':
+			self.renderlayers = task.info.scenes[task.scene].getActiveRenderlayers()
+			self.renderlayers = list(RL.name for RL in self.renderlayers)
+		else:
+			group = preferences.presets.renderlayers.groups[groupName]
+			for RL in task.info.scenes[task.scene].getActiveRenderlayers():
+				if group.belongTo(RL.name):
+					self.renderlayers.append(RL.name)
 		
 		self.start = task.info.scenes[task.scene].start
 		self.end = task.info.scenes[task.scene].end

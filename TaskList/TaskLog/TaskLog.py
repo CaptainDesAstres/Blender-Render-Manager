@@ -41,6 +41,7 @@ class TaskLog:
 					self.groups.append(GroupLog(groupName = g,
 												preferences = preferences, 
 												task = task))
+			
 			default = GroupLog(groupName = '[default]',
 												preferences = preferences, 
 												task = task)
