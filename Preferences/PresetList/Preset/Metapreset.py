@@ -456,8 +456,6 @@ class Metapreset:
 				for RL in scene.render.layers.values():
 					RL.use = (RL.name in logGroup.renderlayers)
 				
-				self.activateGroupRenderlayer(scene, task, preferences.presets.renderlayers.groups[group])
-				
 				metadata += 'group:«'+group+'»;preset:«'+self.groups[group]+'»;'
 			else:
 				scene.frame_start = sceneInfo.start
