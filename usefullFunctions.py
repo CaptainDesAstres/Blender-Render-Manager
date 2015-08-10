@@ -50,6 +50,8 @@ class XML:
 		
 		for entity, code in XML.entities.items():
 			txt.replace(entity, code)
+		
+		return txt
 	
 	
 	
@@ -62,6 +64,8 @@ class XML:
 			txt.replace(code, entity)
 		
 		txt.replace('&amp;', '&')
+		
+		return txt
 
 
 
