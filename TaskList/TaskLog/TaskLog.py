@@ -41,7 +41,11 @@ class TaskLog:
 					self.groups.append(GroupLog(groupName = g,
 												preferences = preferences, 
 												task = task))
-			
+			default = GroupLog(groupName = '[default]',
+												preferences = preferences, 
+												task = task)
+			if len(default.renderlayers) > 0:
+				self.groups.append(default)
 			
 	
 	
