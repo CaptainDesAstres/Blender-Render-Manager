@@ -26,6 +26,8 @@ class TaskLog:
 	def defaultInit(self, preferences, task):
 		'''initialize Task log object by generating from the task settings'''
 		self.presetName = task.preset
+		if self.presetName == '[default]':
+			self.presetName = preferences.presets.default
 		self.preset = preferences.presets.getPreset(self.presetName).copy()
 		
 		if type(self.preset) is Preset:
