@@ -112,9 +112,9 @@ class Task:
 				return change
 			elif choice == '1' and not started:
 				
-				scene = self.info.sceneChoice(log, allChoice = False)[0]
+				scene = self.info.sceneChoice(log, allChoice = False)
 				if scene is not None:
-					self.scene = scene
+					self.scene = scene[0]
 					log.write('Task n°'+str(index)+' : Scene set to «'+self.scene+'»')
 					change = True
 				
