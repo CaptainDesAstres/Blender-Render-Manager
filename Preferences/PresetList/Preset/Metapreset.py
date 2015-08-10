@@ -424,25 +424,13 @@ class Metapreset:
 	
 	
 	
-	def activateDefaultRenderlayer(self, scene, groupList):
-		'''activate blender scene renderlayers that correspond to none group'''
-		for RL in scene.render.layers.values():
-			use = False
-			for group in self.groups.keys():
-				use = use or groupList[group].belongTo(RL.name)
-			RL.use = not use
-	
-	
-	
-	
-	
 	def applyAndRun(self, bpy, scene, task, preferences, groups, version):
 		'''apply settings to a blender scene object and render it, group by group, frame by frame'''
 		sceneInfo = task.info.scenes[task.scene]
 		
 		for group in groups:
 			
-			metadata = 'uid:'+task.uid+';metapreset:«'+task.preset+'»;'
+			metadata = 'uid:'+task.uid+';Main preset:«'+task.preset+'»;'
 			
 			if group != '[default]':
 				scene.frame_start = sceneInfo.start
@@ -450,22 +438,20 @@ class Metapreset:
 					scene.frame_end = sceneInfo.start + self.animation[group] - 1
 				else: 
 					scene.frame_end = sceneInfo.end
-				logGroup = task.log.getGroup(group)
-				preset = logGroup.preset
 				
-				for RL in scene.render.layers.values():
-					RL.use = (RL.name in logGroup.renderlayers)
-				
-				metadata += 'group:«'+group+'»;preset:«'+self.groups[group]+'»;'
 			else:
 				scene.frame_start = sceneInfo.start
 				scene.frame_end = sceneInfo.end
-				preset = preferences.presets.getPreset(self.default)
 				
-				self.activateDefaultRenderlayer(scene, preferences.presets.renderlayers.groups)
-				
-				metadata += 'group:«[default]»;preset:«'+self.default+'»;'
-				
+			logGroup = task.log.getGroup(group)
+			preset = logGroup.preset
+			
+			for RL in scene.render.layers.values():
+				RL.use = (RL.name in logGroup.renderlayers)
+			
+			metadata += 'group:«'+group+'»;preset:«'+logGroup.presetName+'»;'
+			
+			
 			preset.applyAndRun(bpy, scene, preferences, metadata, version)
 	
 	
