@@ -49,21 +49,18 @@ class PresetList:
 	
 	
 	
-	def toXml(self, preset = None):
+	def toXml(self, preset = True):
 		'''export preset list into xml syntaxed string'''
 		if self.default is not None:
 			txt = '<presetList default="'+self.default+'" >\n'
 		else:
 			txt = '<presetList>\n'
 		
-		if preset is None:
+		if preset:
 			presets = self.presets.keys()
-		elif type(preset) is Metapreset:
-			presets = list(set(preset.groups.values()))
-			if preset.default is not None and preset.default not in presets:
-				presets.append(preset.default)
 		else:
 			presets = []
+		
 		for p in presets:
 			txt += self.presets[p].toXml(p)
 		

@@ -323,7 +323,7 @@ from Preferences.PresetList.Preset.Metapreset import *
 from TaskList.RenderingTask.RenderingTask import *
 from TaskList.Task import *
 
-preferences = Preferences( xml = xmlMod.fromstring(''\''''+preferences.toXml(preset)+'''''\') )
+preferences = Preferences( xml = xmlMod.fromstring(''\''''+preferences.toXml(False)+'''''\') )
 task = Task( xml = xmlMod.fromstring(''\'<?xml version="1.0" encoding="UTF-8"?>\n'''+self.toXml()+'''''\'))
 preset = '''
 		

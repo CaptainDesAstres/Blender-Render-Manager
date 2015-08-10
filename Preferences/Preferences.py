@@ -51,7 +51,7 @@ class Preferences:
 	
 	
 	
-	def toXml(self, preset = None, head = True):
+	def toXml(self, preset = True, head = True):
 		'''export preferences settings into xml syntaxed string'''
 		xml = ''
 		
@@ -60,7 +60,7 @@ class Preferences:
 		
 		xml += '<preferences>\n'
 		
-		if preset is None:
+		if preset:
 			# export blender version list
 			xml += self.blenderVersion.toXml()
 		
