@@ -295,7 +295,7 @@ class Task:
 							stderr = subprocess.PIPE).communicate()
 				results += result[0].decode()+result[1].decode()+'\n\n\n'
 			except FileNotFoundError:
-				log.write('\033[31mTask n°'+str(index)+' : Blender version call error! Try to verified the path of «'+version+'» blender version!\033[0m')
+				log.write('\033[31mTask n°'+str(index)+' : Blender version call error! Try to verify the path of «'+version+'» blender version!\033[0m')
 				pass
 		
 		self.eraseTaskScript(scripts)
