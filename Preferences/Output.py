@@ -453,8 +453,19 @@ Press enter to continue''')
 				mainpath += sceneName+'/'
 			elif c == 'N - S':
 				mainpath += fileName+' - '+sceneName+'/'
+		
+		return mainpath
 	
 	
+	
+	
+	
+	def getComplementPath(self, group):
+		'''return output path complement'''
+		if self.pattern.count('/L/') > 0:
+			return group+'/'
+		else:
+			return ''
 	
 	
 	
