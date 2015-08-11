@@ -439,6 +439,26 @@ Press enter to continue''')
 	
 	
 	
+	def getMainPath(self, fileName, sceneName, mainPreset):
+		'''return main path of the task (the path that contains all group)'''
+		pattern = self.pattern[0:self.pattern.find('/V')].split('/')
+		mainpath = self.path
+		
+		for c in pattern:
+			if c == 'M':
+				mainpath += mainPreset+'/'
+			elif c == 'N':
+				mainpath += fileName+'/'
+			elif c == 'S':
+				mainpath += sceneName+'/'
+			elif c == 'N - S':
+				mainpath += fileName+' - '+sceneName+'/'
+	
+	
+	
+	
+	
+	
 	
 	
 	
