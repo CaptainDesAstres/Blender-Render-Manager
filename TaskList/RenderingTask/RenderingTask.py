@@ -33,6 +33,8 @@ def RenderingTask(task, preferences, groups):
 		scene.frame_end = sceneInfo.end
 		scene.render.fps = sceneInfo.fps
 		
+		scene.render.filepath = task.log.path+task.log.groups[0].naming
+		
 		preset.applyAndRun(bpy, scene, preferences, metadata, version)
 	else:
 		preset.applyAndRun(bpy, scene, task, preferences, groups, version)
