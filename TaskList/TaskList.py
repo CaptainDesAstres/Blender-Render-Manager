@@ -704,7 +704,10 @@ Quit : q or quit
 		run = True
 		
 		for i,task in enumerate(self.tasks):
-			run = task.run(i+1, self, scriptPath, log, preferences)
+			if task.status in ['lock', 'pendinglock']:
+				run = True
+			else:
+				run = task.run(i+1, self, scriptPath, log, preferences)
 			if not run:
 				break
 		log.menuOut()
