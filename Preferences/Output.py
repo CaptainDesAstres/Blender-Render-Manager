@@ -294,10 +294,10 @@ Press enter to continue''')
 	
 	
 	
-	def backup(self, path):
+	def backup(self, path, taskList):
 		'''make backup moving operation'''
 		# level up the backup
-		self.upBackup(path, 1)
+		self.upBackup(path, 1, taskList)
 		
 		# list content of path and split backup element in dedicated list
 		content = os.listdir(path)
@@ -327,9 +327,10 @@ Press enter to continue''')
 	
 	
 	
-	def upBackup(self, path, level):
+	def upBackup(self, path, level, taskList):
 		'''check recursivly if level backup exist and up there level'''
 		if os.path.exists(path+'previous rendering '+str(level)):
+			
 			self.upBackup(path, level+1)
 			os.rename(path+'previous rendering '+str(level), path+'previous rendering '+str(level+1))
 	
@@ -337,7 +338,7 @@ Press enter to continue''')
 	
 	
 	
-	def checkAndCreate(self, task, preferences):
+	def checkAndCreate(self, task, preferences, taskList):
 		'''check if output directory exist and create it if they don't. check if there is path colliding/previous rendering and resolve the maters.'''
 		
 		# check main output path
@@ -383,7 +384,7 @@ Press enter to continue''')
 					else:
 						rmdir(mainpath+f)
 			else:
-				self.backup(mainPath)
+				self.backup(mainPath, taskList)
 		else:
 			# if the path didn't exist, make it
 			os.makedirs(mainPath)

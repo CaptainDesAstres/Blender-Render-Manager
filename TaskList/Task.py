@@ -258,8 +258,9 @@ class Task:
 	
 	
 	
-	def run(self, index, count, scriptPath, log, preferences):
+	def run(self, index, taskList, scriptPath, log, preferences):
 		'''A method to execute the task'''
+		count = len(taskList.tasks)
 		log.menuIn('run Task '+str(index)+' from '+str(count))
 		log.print()
 		print('\n\nRun task n°'+str(index)+' of '+str(count)+' :\n\n')
@@ -267,7 +268,7 @@ class Task:
 		if self.log is None:
 			# task never have been run before
 			self.log = TaskLog(pref = preferences, task = self)
-			preferences.output.checkAndCreate(self, preferences)
+			preferences.output.checkAndCreate(self, preferences, taskList)
 		
 		metapreset = self.log.preset
 		if type(metapreset) is Preset:
