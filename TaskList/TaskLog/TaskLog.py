@@ -30,6 +30,11 @@ class TaskLog:
 			self.presetName = preferences.presets.default
 		self.preset = preferences.presets.getPreset(self.presetName).copy()
 		
+		fileName = task.path.split('/').pop()
+		fileName = fileName[0:fileName.rfind('.blend')]
+		self.path = preferences.output.getMainPath(fileName, task.scene, self.presetName)
+		
+		
 		if type(self.preset) is Preset:
 			self.groups = [GroupLog(groupName = '[main]', 
 									preferences = preferences, 
