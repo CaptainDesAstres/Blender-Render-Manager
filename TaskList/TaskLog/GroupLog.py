@@ -30,6 +30,7 @@ class GroupLog:
 		'''initialize Task renderlayer group log object by generating from the task settings'''
 		self.name = groupName
 		self.subpath = preferences.output.getComplementPath(groupName)
+		self.naming = preferences.output.getNaming(groupName)
 		
 		if groupName == '[main]':
 			self.presetName = task.preset
@@ -85,6 +86,7 @@ class GroupLog:
 		self.end = int(xml.get('end'))
 		self.status = xml.get('status')
 		self.subpath = xml.get('subpath')
+		self.naming = xml.get('naming')
 		
 		presetXML = xml.find('preset')
 		if presetXML is None:
@@ -110,7 +112,8 @@ class GroupLog:
 				+'" start="'+str(self.start)\
 				+'" end="'+str(self.end)\
 				+'" status="'+self.status\
-				+'" subpath="'+XML.encode(self.subpath)+'" >'
+				+'" subpath="'+XML.encode(self.subpath)\
+				+'" naming="'+XML.encode(self.naming)+'" >'
 		
 		xml += self.preset.toXml(self.presetName)
 		
