@@ -108,6 +108,7 @@ class Task:
 5- Change list row
 6- Lock/Unlock task
 7- Erase task
+8- Copy task
 0- Quit and save
 
 '''
@@ -186,6 +187,15 @@ class Task:
 					log.menuOut()
 					log.write('Task n°'+str(index)+' removed')
 					return True
+				
+			elif choice == '8':
+				
+				new = self.copy()
+				new.status = 'waiting'
+				new.log = None
+				tasks.tasks.append(new)
+				log.write('a copy of the task n°'+str(index)+' have been added at the bottom of the task list')
+				change = True
 				
 			else:
 				log.error('Unknow request!', False)
