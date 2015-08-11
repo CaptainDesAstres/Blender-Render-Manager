@@ -519,7 +519,7 @@ Press enter to continue
 		if len(modified)>0:
 			log.write('Task n°«'+','.join(str(x) for x in modified)+'» have been locked.')
 		if len(unmodified)>0:
-			log.write('Task n°«'+','.join(str(x) for x in unmodified)+'» were unchanged.')
+			log.write('Task n°«'+','.join(str(x) for x in unmodified)+'» were already lock or unlockable.')
 	
 	
 	
@@ -543,7 +543,7 @@ Press enter to continue
 		if len(modified)>0:
 			log.write('Task n°«'+','.join(str(x) for x in modified)+'» have been unlocked.')
 		if len(unmodified)>0:
-			log.write('Task n°«'+','.join(str(x) for x in unmodified)+'» were unchanged.')
+			log.write('Task n°«'+','.join(str(x) for x in unmodified)+'» were already unlock.')
 	
 	
 	
