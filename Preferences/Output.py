@@ -310,6 +310,12 @@ Press enter to continue''')
 		
 		# move all remaining file in new first level backup directory
 		if len(content) > 0:
+			settingPath = path+'task.setting'
+			if os.path.exists(path+'task.setting') and os.path.isfile(path+'task.setting')\
+					and os.access(path+'task.setting', os.R_OK):
+				with open(path+'task.setting','r') as taskFile:
+					uid =  xmlMod.fromstring(taskFile.read()).get('uid')
+				taskList.upBackup(uid)
 			os.mkdir(path+'previous rendering 1')
 			for c in content:
 				os.rename(path+c,path+'previous rendering 1/'+c )
