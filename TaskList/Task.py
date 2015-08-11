@@ -170,7 +170,8 @@ class Task:
 	
 	def print(self):
 		'''A method to print task information'''
-		print('\n\nPath :          '+self.path)
+		print('\n\nStatus :        '+self.status)
+		print('Path :          '+self.path)
 		print('File Name :     '+self.path.split('/').pop())
 		print('Scene :         '+self.scene)
 		print('Preset :        '+self.preset+'\n')
