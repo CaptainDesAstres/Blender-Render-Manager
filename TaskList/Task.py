@@ -93,7 +93,8 @@ class Task:
     Menu :
 (TASK ALREADY STARTED : SOME OPTIONS IS NOT AVAILABLE!)
 5- Change list row
-6- Erase task
+6- Lock/Unlock task
+7- Erase task
 0- Quit and save
 
 '''
@@ -105,7 +106,8 @@ class Task:
 3- Edit preset
 4- Active/desactive Renderlayer
 5- Change list row
-6- Erase task
+6- Lock/Unlock task
+7- Erase task
 0- Quit and save
 
 '''
@@ -157,6 +159,28 @@ class Task:
 					index = select[0]
 				
 			elif choice == '6':
+				
+				if self.status in ['ready', 'pause']:
+					self.status = 'pendinglock'
+					change = True
+					log.write('Task n°'+str(index)+' locked')
+				elif self.status == 'waiting':
+					self.status = 'lock'
+					change = True
+					log.write('Task n°'+str(index)+' locked')
+				elif self.status == 'pendinglock':
+					self.status = 'pause'
+					change = True
+					log.write('Task n°'+str(index)+' unlocked')
+				elif self.status == 'lock':
+					self.status = 'waiting'
+					change = True
+					log.write('Task n°'+str(index)+' unlocked')
+				else:
+					log.error('Task n°'+str(index)+' is not lockable/unlockable')
+				
+				
+			elif choice == '7':
 				
 				if tasks.remove(log, [index]):
 					log.menuOut()
