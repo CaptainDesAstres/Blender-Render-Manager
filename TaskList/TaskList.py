@@ -701,6 +701,17 @@ Quit : q or quit
 	
 	
 	
+	def upBackup(self, uid):
+		'''up backup level in TaskLog'''
+		for task in self.tasks:
+			if task.uid == uid:
+				task.log.backup += 1
+				break
+		self.save()
+	
+	
+	
+	
 	
 	
 	
