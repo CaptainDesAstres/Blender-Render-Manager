@@ -332,7 +332,7 @@ Press enter to continue''')
 		if os.path.exists(path+'previous rendering '+str(level)):
 			self.upBackup(path, level+1)
 			settingPath = path+'previous rendering '+str(level)+'/task.setting'
-			if os.path.exists(settingPath) and os.path.isfile(settingPath) 
+			if os.path.exists(settingPath) and os.path.isfile(settingPath)\
 					and os.access(settingPath, os.R_OK):
 				with open(settingPath,'r') as taskFile:
 					uid =  xmlMod.fromstring(taskFile.read()).get('uid')
