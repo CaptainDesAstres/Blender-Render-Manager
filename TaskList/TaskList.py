@@ -732,6 +732,8 @@ Quit : q or quit
 		
 		for t in copies:
 			t.preset = preset
+			t.status = 'waiting'
+			t.log = None
 		
 		if row == 2:
 			newSelect = list(range(len(self.tasks),len(self.tasks) + len(copies)))
