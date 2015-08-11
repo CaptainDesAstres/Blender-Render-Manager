@@ -327,7 +327,7 @@ preferences = Preferences( xml = xmlMod.fromstring(''\''''+preferences.toXml(Fal
 task = Task( xml = xmlMod.fromstring(''\'<?xml version="1.0" encoding="UTF-8"?>\n'''+self.toXml()+'''''\'))
 '''
 		
-		end = '\nRenderingTask(task, preferences, groups, preset)'
+		end = '\nRenderingTask(task, preferences, groups)'
 		
 		paths = {}
 		for v, g in versions.items():
