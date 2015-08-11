@@ -21,6 +21,9 @@ def RenderingTask(task, preferences, groups):
 	scene.render.use_stamp_sequencer_strip = True
 	scene.render.use_stamp_note = True
 	
+	scene.render.use_file_extension = True
+	scene.render.use_placeholder = True
+	
 	
 	metadata = 'uid:'+task.uid+';Main preset :«'+task.preset+'»;'
 	version = str(bpy.app.version[0])+'.'+str(bpy.app.version[1])
