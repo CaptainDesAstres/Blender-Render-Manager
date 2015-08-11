@@ -370,44 +370,30 @@ Press enter to continue''')
 			groups = []
 		
 		# generate the path dedicated to the blender file/scene and the preset used by the task
-		pattern = self.pattern.split('/')
-		begin = []
-		for d in pattern[:]:
-			pattern.remove(d)
-			if d == 'V':
-				break
-			if d == 'M':
-				begin.append(preset)
-			if d == 'N':
-				begin.append(fileName)
-			if d == 'S':
-				begin.append(scene)
-			if d == 'N - S':
-				begin.append(fileName+' - '+scene)
-		begin = self.path+'/'.join(begin)+'/'
+		mainPath = self.getMainPath(fileName, scene, preset)
 		
 		# check the path with preset file name and scene name exist
-		if os.path.exists(begin):
+		if os.path.exists(mainPath):
 			# if the path exist, check for old render and move it in backup directory or erase it
 			if self.overwrite:
-				content = os.listdir(begin)
+				content = os.listdir(mainPath)
 				for f in content:
-					if os.path.isfile(begin+f):
-						os.remove(begin+f)
+					if os.path.isfile(mainPath+f):
+						os.remove(mainPath+f)
 					else:
-						rmdir(begin+f)
+						rmdir(mainpath+f)
 			else:
-				self.backup(begin)
+				self.backup(mainPath)
 		else:
 			# if the path didn't exist, make it
-			os.makedirs(begin)
+			os.makedirs(mainPath)
 		
-		if pattern[0] == 'L':
+		if self.pattern.count('/L/')>0:
 			for g in groups:
-				os.mkdir(begin+g)
+				os.mkdir(mainPath+g)
 		
 		# create file to let know the state and settings of the task
-		self.outputTaskInfo(task, groups, preferences, begin)
+		self.outputTaskInfo(task, groups, preferences, mainPath)
 	
 	
 	
