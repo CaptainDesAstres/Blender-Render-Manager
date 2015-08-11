@@ -471,5 +471,23 @@ Press enter to continue''')
 	
 	
 	
+	def getNaming(self, group):
+		'''return output file naming'''
+		naming = self.pattern.split('/').pop()
+		if naming == 'F':
+			return '####'
+		elif naming == 'L - F':
+			return group+' - ####'
+		elif naming == 'F - L':
+			return '#### - '+group
+		else:
+			return None
+	
+	
+	
+	
+	
+	
+	
 	
 	
