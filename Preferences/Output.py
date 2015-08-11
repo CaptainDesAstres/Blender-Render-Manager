@@ -343,7 +343,7 @@ Press enter to continue''')
 	def upBackup(self, path, level, taskList):
 		'''check recursivly if level backup exist and up there level'''
 		if os.path.exists(path+'previous rendering '+str(level)):
-			self.upBackup(path, level+1)
+			self.upBackup(path, level+1, taskList)
 			settingPath = path+'previous rendering '+str(level)+'/task.setting'
 			if os.path.exists(settingPath) and os.path.isfile(settingPath)\
 					and os.access(settingPath, os.R_OK):
