@@ -29,6 +29,7 @@ class TaskLog:
 		if self.presetName == '[default]':
 			self.presetName = preferences.presets.default
 		self.preset = preferences.presets.getPreset(self.presetName).copy()
+		self.backup = 0
 		
 		fileName = task.path.split('/').pop()
 		fileName = fileName[0:fileName.rfind('.blend')]
@@ -65,6 +66,7 @@ class TaskLog:
 		'''initialize Task log object with saved log'''
 		self.path = xml.get('path')
 		self.status = xml.get('status')
+		self.backup = int(xml.get('backup'))
 		
 		node = xml.find('preset')
 		if node is None:
@@ -85,7 +87,8 @@ class TaskLog:
 	
 	def toXml(self):
 		'''export task log into xml syntaxed string'''
-		xml = '<log path="'+XML.encode(self.path)+'" status="'+self.status+'" >\n'
+		xml = '<log path="'+XML.encode(self.path)+'" status="'+self.status\
+				+'" backup="'+str(self.backup)+'" >\n'
 		xml += self.preset.toXml(self.presetName)
 		for g in self.groups:
 			xml += g.toXml()
