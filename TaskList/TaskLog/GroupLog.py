@@ -29,8 +29,12 @@ class GroupLog:
 	def defaultInit(self, groupName, preferences, task):
 		'''initialize Task renderlayer group log object by generating from the task settings'''
 		self.name = groupName
-		self.subpath = preferences.output.getComplementPath(groupName)
-		self.naming = preferences.output.getNaming(groupName)
+		if groupName == '[main]':
+			self.subpath = ''
+			self.naming = '####'
+		else:
+			self.subpath = preferences.output.getComplementPath(groupName)
+			self.naming = preferences.output.getNaming(groupName)
 		
 		if groupName == '[main]':
 			self.presetName = task.preset
