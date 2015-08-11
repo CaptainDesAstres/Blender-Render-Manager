@@ -733,5 +733,26 @@ Quit : q or quit
 	
 	
 	
+	def eraseBackup(self, uid):
+		'''mark erased task'''
+		for task in self.archive:
+			if task.uid == uid:
+				task.log.status = 'erased'
+				self.save()
+				return True
+		
+		for task in self.tasks:
+			if task.uid == uid:
+				self.tasks.remove(task)
+				self.archive.append(task)
+				task.log.status = 'erased'
+				self.save()
+				return True
+		
+		return False
+	
+	
+	
+	
 	
 	
