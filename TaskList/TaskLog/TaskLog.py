@@ -116,3 +116,16 @@ class TaskLog:
 	
 	
 	
+	
+	def getMainPath(self):
+		'''return the task main path'''
+		if self.backup == 0:
+			return self.path
+		else:
+			return self.path+'previous rendering '+str(self.backup)+'/'
+	
+	
+	
+	
+	
+	
