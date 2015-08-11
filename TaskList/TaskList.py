@@ -485,10 +485,10 @@ Press enter to continue
 					log.menuOut()
 					return True
 			elif choice == '5':
-				self.lock(select)
+				self.lock(select, log)
 				change = True
 			elif choice == '6':
-				self.unlock(select)
+				self.unlock(select, log)
 				change = True
 			elif choice == '9':
 				log.menuOut()
@@ -501,7 +501,7 @@ Press enter to continue
 	
 	
 	
-	def lock(self, select):
+	def lock(self, select, log):
 		'''a method to batch lock task'''
 		modified = []
 		unmodified = []
@@ -525,7 +525,7 @@ Press enter to continue
 	
 	
 	
-	def unlock(self, select):
+	def unlock(self, select, log):
 		'''a method to batch unlock task'''
 		modified = []
 		unmodified = []
