@@ -33,6 +33,14 @@ class Task:
 		self.info = fileInfo
 		self.uid = uuid.uuid4().hex
 		self.log = None
+		self.status = 'waiting'
+#		self.status possible values:
+#		waiting    > the task have been set and is waiting to be run
+#		ready      > the task have been run once and task.log is set
+#		running    > the task is running
+#		pause      > the task have been started but is now waiting to be continued
+#		ended      > the task have been totaly rendered
+#		erased     > the task have been erased
 	
 	
 	
