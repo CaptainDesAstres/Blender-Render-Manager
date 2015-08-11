@@ -52,6 +52,7 @@ class Task:
 		self.scene = xml.get('scene')
 		self.preset = xml.get('preset')
 		self.uid = xml.get('uid', uuid.uuid4().hex)
+		self.status = xml.get('status')
 		self.info = FileInfo(xml.find('fileInfo'))
 		
 		node = xml.find('log')
@@ -67,7 +68,8 @@ class Task:
 	def toXml(self):
 		'''export task settings into xml syntaxed string'''
 		xml = '<task path="'+XML.encode(self.path)+'" scene="'+XML.encode(self.scene)\
-				+'" preset="'+self.preset+'" uid="'+self.uid+'">\n'\
+				+'" preset="'+self.preset+'" uid="'+self.uid\
+				+'" status="'+self.status+'" >\n'\
 				+self.info.toXml()
 		if self.log is not None:
 			xml += self.log.toXml()
