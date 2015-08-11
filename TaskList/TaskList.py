@@ -36,6 +36,7 @@ class TaskList:
 		'''initialize empty task list object'''
 		
 		self.tasks = []
+		self.archive = []
 	
 	
 	
@@ -44,8 +45,12 @@ class TaskList:
 	def fromXml(self, xml):
 		'''initialize task list object with saved task'''
 		self.tasks = []
-		for node in xml.findall('task'):
+		for node in xml.find('tasks').findall('task'):
 			self.tasks.append(Task(xml = node))
+		
+		self.archive = []
+		for node in xml.find('archive').findall('task'):
+			self.archive.append(Task(xml = node))
 	
 	
 	
@@ -54,12 +59,19 @@ class TaskList:
 	def toXml(self):
 		'''export task list into xml syntaxed string'''
 		xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
-		xml += '<tasks>\n'
+		xml += '<tasklist>\n'
 		
+		xml += '<tasks>\n'
 		for task in self.tasks:
 			xml += task.toXml()
-		
 		xml += '</tasks>\n'
+		
+		xml += '<archive>\n'
+		for task in self.archive:
+			xml += task.toXml()
+		xml += '</archive>\n'
+		
+		xml += '</tasklist>\n'
 		return xml
 	
 	
