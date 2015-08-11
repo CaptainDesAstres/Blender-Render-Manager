@@ -509,12 +509,12 @@ Press enter to continue
 			task = self.tasks[i]
 			if task.status in ['ready', 'pause']:
 				task.status = 'pendinglock'
-				modified += i
+				modified.append(i)
 			elif task.status == 'waiting':
 				task.status = 'lock'
-				modified += i
+				modified.append(i)
 			else:
-				unmodified +=i
+				unmodified.append(i)
 		
 		if len(modified)>0:
 			log.write('Task n°«'+','.join(str(x) for x in modified)+'» have been locked.')
@@ -533,12 +533,12 @@ Press enter to continue
 			task = self.tasks[i]
 			if task.status == 'pendinglock':
 				task.status = 'pause'
-				modified += i
+				modified.append(i)
 			elif task.status == 'lock':
 				task.status = 'wait'
-				modified += i
+				modified.append(i)
 			else:
-				unmodified +=i
+				unmodified.append(i)
 		
 		if len(modified)>0:
 			log.write('Task n°«'+','.join(str(x) for x in modified)+'» have been unlocked.')
