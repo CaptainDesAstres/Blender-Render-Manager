@@ -310,7 +310,6 @@ Press enter to continue''')
 		
 		# move all remaining file in new first level backup directory
 		if len(content) > 0:
-			settingPath = path+'task.setting'
 			if os.path.exists(path+'task.setting') and os.path.isfile(path+'task.setting')\
 					and os.access(path+'task.setting', os.R_OK):
 				with open(path+'task.setting','r') as taskFile:
@@ -325,6 +324,14 @@ Press enter to continue''')
 			for b in backup:
 				level = int(b[19:])
 				if level > self.backupLimit:
+					
+					settingPath = path+b+'/task.setting'
+					if os.path.exists(settingPath) and os.path.isfile(settingPath)\
+							and os.access(settingPath, os.R_OK):
+						with open(settingPath,'r') as taskFile:
+							uid =  xmlMod.fromstring(taskFile.read()).get('uid')
+						taskList.eraseBackup(uid)
+					
 					rmdir(path+b)
 		
 		
