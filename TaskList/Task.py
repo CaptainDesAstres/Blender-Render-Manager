@@ -36,6 +36,8 @@ class Task:
 		self.status = 'waiting'
 #		self.status possible values:
 #		waiting    > the task have been set and is waiting to be run
+#		lock       > the task is protected against running
+#		pendinglock> same thing for a task that already have been started
 #		ready      > the task have been run once and task.log is set
 #		running    > the task is running
 #		pause      > the task have been started but is now waiting to be continued
