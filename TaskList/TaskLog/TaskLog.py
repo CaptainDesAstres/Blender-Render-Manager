@@ -5,7 +5,7 @@ import xml.etree.ElementTree as xmlMod
 from TaskList.TaskLog.GroupLog import *
 from Preferences.PresetList.Preset.Preset import *
 from Preferences.PresetList.Preset.Metapreset import *
-
+from usefullFunctions import XML
 
 
 class TaskLog:
@@ -62,6 +62,7 @@ class TaskLog:
 	
 	def fromXml(self, xml):
 		'''initialize Task log object with saved log'''
+		self.path = xml.get('path')
 		node = xml.find('preset')
 		if node is None:
 			node = xml.find('metapreset')
@@ -81,7 +82,7 @@ class TaskLog:
 	
 	def toXml(self):
 		'''export task log into xml syntaxed string'''
-		xml = '<log>\n'
+		xml = '<log path="'+XML.encode(self.path)+'">\n'
 		xml += self.preset.toXml(self.presetName)
 		for g in self.groups:
 			xml += g.toXml()
