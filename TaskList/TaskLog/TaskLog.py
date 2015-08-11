@@ -54,7 +54,8 @@ class TaskLog:
 												task = task)
 			if len(default.renderlayers) > 0:
 				self.groups.append(default)
-			
+		
+		self.status = 'ready'
 	
 	
 	
@@ -63,6 +64,8 @@ class TaskLog:
 	def fromXml(self, xml):
 		'''initialize Task log object with saved log'''
 		self.path = xml.get('path')
+		self.status = xml.get('status')
+		
 		node = xml.find('preset')
 		if node is None:
 			node = xml.find('metapreset')
@@ -82,7 +85,7 @@ class TaskLog:
 	
 	def toXml(self):
 		'''export task log into xml syntaxed string'''
-		xml = '<log path="'+XML.encode(self.path)+'">\n'
+		xml = '<log path="'+XML.encode(self.path)+'" status="'+self.status+'" >\n'
 		xml += self.preset.toXml(self.presetName)
 		for g in self.groups:
 			xml += g.toXml()
