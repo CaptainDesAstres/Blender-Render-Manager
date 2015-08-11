@@ -460,6 +460,8 @@ Press enter to continue
 2- Copy And Apply A Preset
 3- Regroup And Move
 4- Remove
+5- Lock
+6- Unlock
 9- Change Selection
 0- Quit
 ''')
@@ -482,12 +484,66 @@ Press enter to continue
 					log.menuOut()
 					log.menuOut()
 					return True
+			elif choice == '5':
+				self.lock(select)
+				change = True
+			elif choice == '6':
+				self.unlock(select)
+				change = True
 			elif choice == '9':
 				log.menuOut()
 				select = self.batchSelect(log, select)
 				log.menuIn('Task n°'+','.join(str(x) for x in select))
 			else:
 				log.error('Unvalid request',False)
+	
+	
+	
+	
+	
+	def lock(self, select):
+		'''a method to batch lock task'''
+		modified = []
+		unmodified = []
+		for i in select:
+			task = self.tasks[i]
+			if task.status in ['ready', 'pause']:
+				task.status = 'pendinglock'
+				modified += i
+			elif self.status == 'waiting':
+				self.status = 'lock'
+				modified += i
+			else:
+				unmodified +=i
+		
+		if len(modified)>0:
+			log.write('Task n°«'+','.join(str(x) for x in modified)+'» have been locked.')
+		if len(unmodified)>0:
+			log.write('Task n°«'+','.join(str(x) for x in unmodified)+'» were unchanged.')
+	
+	
+	
+	
+	
+	def unlock(self, select):
+		'''a method to batch unlock task'''
+		modified = []
+		unmodified = []
+		for i in select:
+			task = self.tasks[i]
+			if task.status == 'pendinglock':
+				task.status = 'pause'
+				modified += i
+			elif self.status == 'lock':
+				self.status = 'wait'
+				modified += i
+			else:
+				unmodified +=i
+		
+		if len(modified)>0:
+			log.write('Task n°«'+','.join(str(x) for x in modified)+'» have been unlocked.')
+		if len(unmodified)>0:
+			log.write('Task n°«'+','.join(str(x) for x in unmodified)+'» were unchanged.')
 	
 	
 	
