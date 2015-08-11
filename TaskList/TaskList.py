@@ -510,8 +510,8 @@ Press enter to continue
 			if task.status in ['ready', 'pause']:
 				task.status = 'pendinglock'
 				modified += i
-			elif self.status == 'waiting':
-				self.status = 'lock'
+			elif task.status == 'waiting':
+				task.status = 'lock'
 				modified += i
 			else:
 				unmodified +=i
@@ -534,8 +534,8 @@ Press enter to continue
 			if task.status == 'pendinglock':
 				task.status = 'pause'
 				modified += i
-			elif self.status == 'lock':
-				self.status = 'wait'
+			elif task.status == 'lock':
+				task.status = 'wait'
 				modified += i
 			else:
 				unmodified +=i
