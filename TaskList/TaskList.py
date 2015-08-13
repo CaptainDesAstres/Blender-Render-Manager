@@ -778,11 +778,27 @@ Quit : q or quit
 	
 	def runMenu(self, log):
 		'''treat action of the menu when the rendering is start'''
-		
+		log.runMenu = 'what do you want to do? (type h for help)'
 		while True:
 			self.tasks[self.current].printRunMenu(self.current+1, len(self.tasks), log)
 			choice = input()
-			break
+			if self.status = 'stop':
+				break
+			elif choice in ['h', 'help']:
+				log.runMenu = '''wait for all rendering to be done or
+(option starting by # are not yet implement)
+type:           for:
+h        display this help
+#e        to stop rendering after the current task
+#g        to stop rendering after the current renderlayer group
+#c        to stop rendering after the current frame
+#n        to stop rendering immediatly
+#f        to fforce to stop rendering immediatly
+#p        to get subprocess PID
+what do you want to do? (type h for help)'''
+			else:
+				log.runMenu = 'Ask for an unknow action! Retry!\nWhat do you want to do? (type h for help)'
+		log.runMenu = None
 	
 	
 	

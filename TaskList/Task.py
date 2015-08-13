@@ -310,6 +310,7 @@ class Task:
 		log.print()
 		print('\n\nRun task n°'+str(index)+' of '+str(count)+' :\n\n')
 		self.log.print()
+		log.runPrint()
 	
 	
 	
