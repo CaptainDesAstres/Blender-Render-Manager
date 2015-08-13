@@ -101,7 +101,14 @@ class TaskLog:
 	
 	def print(self):
 		'''A method to print task log'''
-		
+		print('The task have '+str(len(self.groups))+' group(s):')
+		ended, total = 0, 0
+		for group in self.groups:
+			group.runMenuPrint()
+			total += (group.end - group.start + 1)
+			ended += len(group.frames)
+		print('\n\n                  '+str(ended)+'/'+str(total)\
+							+'('+str(total-ended)+' remaining')
 	
 	
 	
