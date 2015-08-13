@@ -15,6 +15,7 @@ class TaskList:
 	def __init__(self, xml= None):
 		'''initialize task list object, empty or with saved task'''
 		self.status = 'stop'
+		self.current = None
 		if xml is None:
 			self.defaultInit()
 		else:
@@ -763,6 +764,7 @@ Quit : q or quit
 		self.status = 'run'
 		
 		for i,task in enumerate(self.tasks):
+			self.current = i
 			if task.status not in ['lock', 'pendinglock']:
 				run = task.run(i+1, self, scriptPath, log, preferences)
 			if not run:
