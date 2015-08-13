@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task list'''
 import xml.etree.ElementTree as xmlMod
-import os, re, math
+import os, re, math, threading
 from usefullFunctions import *
 from save import *
 from TaskList.Task import *
@@ -763,6 +763,9 @@ Quit : q or quit
 		run = True
 		self.status = 'run'
 		
+		runMenu = threading.Thread(target = self.runMenu , args=(log,))
+		runMenu.start()
+		
 		for i,task in enumerate(self.tasks):
 			self.current = i
 			if task.status not in ['lock', 'pendinglock']:
@@ -770,7 +773,8 @@ Quit : q or quit
 			if not run:
 				break
 		self.status = 'stop'
-		print('running action ended, press enter to continue!')
+		print('running action are ended or stoped, press enter to continue to task list menu!')
+		runMenu.join()
 		log.menuOut()
 	
 	
