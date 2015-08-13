@@ -145,6 +145,16 @@ class GroupLog:
 	
 	
 	
+	def runMenuPrint(self):
+		total = self.end - self.start + 1
+		print('╚═ «'+self.name+'» group : '+str(len(self.frames))+'/'+str(total)\
+					+' frames, '+str(total - len(self.frames))\
+					+' remaining,\n     Average time by frame : '+str(self.average()))
+	
+	
+	
+	
+	
 	def confirmFrame(self, frame, path, date, computingTime):
 		'''add frame rendering log confirmation to the group'''
 		self.frames.append(
