@@ -770,6 +770,7 @@ Quit : q or quit
 			if not run:
 				break
 		self.status = 'stop'
+		print('running action ended, press enter to continue!')
 		log.menuOut()
 	
 	
