@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task list'''
 import xml.etree.ElementTree as xmlMod
-import os, re, math, threading
+import os, re, math, threading, socket
 from usefullFunctions import *
 from save import *
 from TaskList.Task import *
@@ -16,6 +16,8 @@ class TaskList:
 		'''initialize task list object, empty or with saved task'''
 		self.status = 'stop'
 		self.current = None
+		self.runningMode = None
+		self.socket = None
 		if xml is None:
 			self.defaultInit()
 		else:
@@ -762,8 +764,12 @@ Quit : q or quit
 		log.menuIn('Run Tasks')
 		run = True
 		self.status = 'run'
+		self.runningMode = 'until the list end'
+		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.socket.bind(('localhost', preferences.port))
 		
 		runMenu = threading.Thread(target = self.runMenu , args=(log,))
+		self.current = 0
 		runMenu.start()
 		
 		for i,task in enumerate(self.tasks):
