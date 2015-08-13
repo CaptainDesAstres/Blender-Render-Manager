@@ -783,7 +783,7 @@ Quit : q or quit
 		while True:
 			self.tasks[self.current].printRunMenu(self.current+1, len(self.tasks), log)
 			choice = input()
-			if self.status = 'stop':
+			if self.status == 'stop':
 				break
 			elif choice in ['h', 'help']:
 				log.runMenu = '''wait for all rendering to be done or
