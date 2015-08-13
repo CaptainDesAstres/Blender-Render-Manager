@@ -21,6 +21,8 @@ there is to log:
 		self.write('création du log\n')
 		
 		self.menu = []
+		
+		self.runMenu = None
 	
 	
 	
@@ -110,6 +112,15 @@ there is to log:
 					prefix = '╚═ '
 				print(('  '*i)+prefix+m+' :')
 			print(bar)
+	
+	
+	
+	
+	
+	def runPrint(self):
+		'''print th running menu'''
+		if self.runMenu is not None:
+			print(self.runMenu)
 
 
 
