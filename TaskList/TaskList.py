@@ -762,9 +762,7 @@ Quit : q or quit
 		run = True
 		
 		for i,task in enumerate(self.tasks):
-			if task.status in ['lock', 'pendinglock']:
-				run = True
-			else:
+			if task.status not in ['lock', 'pendinglock']:
 				run = task.run(i+1, self, scriptPath, log, preferences)
 			if not run:
 				break
