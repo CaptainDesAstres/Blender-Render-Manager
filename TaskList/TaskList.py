@@ -14,6 +14,7 @@ class TaskList:
 	
 	def __init__(self, xml= None):
 		'''initialize task list object, empty or with saved task'''
+		self.status = 'stop'
 		if xml is None:
 			self.defaultInit()
 		else:
@@ -26,7 +27,6 @@ class TaskList:
 	def __del__(self):
 		'''Erase lock file in case of crash'''
 		eraseLockFile()
-		del(self.tasks)
 	
 	
 	
@@ -760,12 +760,14 @@ Quit : q or quit
 		'''A method to run the task of the list'''
 		log.menuIn('Run Tasks')
 		run = True
+		self.status = 'run'
 		
 		for i,task in enumerate(self.tasks):
 			if task.status not in ['lock', 'pendinglock']:
 				run = task.run(i+1, self, scriptPath, log, preferences)
 			if not run:
 				break
+		self.status = 'stop'
 		log.menuOut()
 	
 	
