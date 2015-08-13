@@ -776,6 +776,18 @@ Quit : q or quit
 	
 	
 	
+	def runMenu(self, log):
+		'''treat action of the menu when the rendering is start'''
+		
+		while True:
+			self.tasks[self.current].printRunMenu(self.current+1, len(self.tasks), log)
+			choice = input()
+			break
+	
+	
+	
+	
+	
 	def upBackup(self, uid):
 		'''up backup level in TaskLog'''
 		for task in self.archive:
