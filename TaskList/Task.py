@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task settings'''
 import xml.etree.ElementTree as xmlMod
-import os, uuid, subprocess, shlex
+import os, uuid, subprocess, shlex, time
 from save import *
 from usefullFunctions import *
 from Preferences.PresetList.Preset.Preset import *
@@ -375,7 +375,15 @@ class Task:
 	def socketAcceptClient(self, soc):
 		'''A method to manage client connexion when running'''
 		client = soc.accept()[0]
-		
+		msg = ''
+		while True:
+			msg += client.recv(1024).decode()
+			if msg == '':
+				time.sleep(1)
+			elif msg == self.uid+' VersionEnded EOS':
+				break
+			else:
+				msg = self.treatSocketMessage(msg)
 		client.close()
 	
 	
