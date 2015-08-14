@@ -344,6 +344,11 @@ class Task:
 		results = ''
 		for version in versions.keys():
 			try:
+				l = threading.Thread(target = self.socketAcceptClient,
+									args=(taskList.socket))
+				l.start()
+				taskList.listeners.append(l)
+				
 				result = subprocess.Popen(\
 							shlex.split(\
 								preferences.blenderVersion.getVersionPath(version)\
@@ -362,6 +367,16 @@ class Task:
 		run = ( input(results).strip().lower() == '' )
 		log.menuOut()
 		return run
+	
+	
+	
+	
+	
+	def socketAcceptClient(self, soc):
+		'''A method to manage client connexion when running'''
+		client = soc.accept()[0]
+		
+		client.close()
 	
 	
 	

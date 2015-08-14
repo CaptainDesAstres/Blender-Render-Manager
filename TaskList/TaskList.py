@@ -18,6 +18,7 @@ class TaskList:
 		self.current = None
 		self.runningMode = None
 		self.socket = None
+		self.listeners = None
 		if xml is None:
 			self.defaultInit()
 		else:
@@ -767,6 +768,8 @@ Quit : q or quit
 		self.runningMode = 'until the list end'
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.socket.bind(('localhost', preferences.port))
+		self.socket.listen(5)
+		self.listeners = []
 		
 		runMenu = threading.Thread(target = self.runMenu , args=(log,))
 		self.current = 0
@@ -774,11 +777,17 @@ Quit : q or quit
 		
 		for i,task in enumerate(self.tasks):
 			self.current = i
+			
 			if task.status not in ['lock', 'pendinglock']:
 				run = task.run(i+1, self, scriptPath, log, preferences)
 			if not run:
 				break
 		self.status = 'stop'
+		
+		self.listeners = None
+		
+		self.socket.close()
+		self.socket = None
 		print('running action are ended or stoped, press enter to continue to task list menu!')
 		runMenu.join()
 		log.menuOut()
