@@ -158,7 +158,7 @@ class Preset:
 	
 	
 	
-	def applyAndRun(self, bpy, scene, preferences, prefixMetadata, version):
+	def applyAndRun(self, bpy, scene, preferences, prefixMetadata, version, logGroup):
 		'''apply settings to a blender scene object and render it, frame by frame'''
 		self.quality.apply(scene)
 		self.bounce.apply(scene)
@@ -181,7 +181,7 @@ class Preset:
 		
 		scene.render.stamp_note_text = metadata
 		
-		scene.frame_current = scene.frame_start
+		scene.frame_current = scene.frame_start + len(logGroup.frames) 
 		while scene.frame_current <= scene.frame_end:
 			# bpy.ops.render.render()
 			scene.frame_current += 1

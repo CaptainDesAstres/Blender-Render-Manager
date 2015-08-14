@@ -454,7 +454,7 @@ class Metapreset:
 			scene.render.filepath = task.log.getMainPath()\
 									+logGroup.subpath\
 									+logGroup.naming
-			preset.applyAndRun(bpy, scene, preferences, metadata, version)
+			preset.applyAndRun(bpy, scene, preferences, metadata, version, logGroup)
 	
 	
 	
