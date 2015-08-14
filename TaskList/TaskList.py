@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task list'''
 import xml.etree.ElementTree as xmlMod
-import os, re, math, threading, socket
+import os, re, math, threading, socket, time
 from usefullFunctions import *
 from save import *
 from TaskList.Task import *
@@ -782,8 +782,15 @@ Quit : q or quit
 				run = task.run(i+1, self, scriptPath, log, preferences)
 			if not run:
 				break
+			self checkListeners()
 		self.status = 'stop'
 		
+		while True:
+			self checkListeners()
+			if len(self.listeners) > 0:
+				time.sleep(1)
+			else:
+				break
 		self.listeners = None
 		
 		self.socket.close()
@@ -791,6 +798,16 @@ Quit : q or quit
 		print('running action are ended or stoped, press enter to continue to task list menu!')
 		runMenu.join()
 		log.menuOut()
+	
+	
+	
+	
+	
+	def checkListeners(self):
+		'''remove all ended thread from self.listeners'''
+		for l in self.listeners[:]:
+			if not l.is_alive():
+				self.listeners.remove(l)
 	
 	
 	
