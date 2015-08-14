@@ -180,12 +180,11 @@ class GroupLog:
 	
 	
 	
-	def confirmFrame(self, frame, path, date, computingTime):
+	def confirmFrame(self, frame, date, computingTime):
 		'''add frame rendering log confirmation to the group'''
 		self.frames.append(
 							FrameLog(
 									frame = frame,
-									path = path,
 									date = date,
 									computingTime = computingTime
 									) 

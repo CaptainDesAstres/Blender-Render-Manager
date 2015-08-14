@@ -11,12 +11,11 @@ class FrameLog:
 	
 	def __init__(self, xml = None, 
 					frame = None,
-					path = None,
 					date = None,
 					computingTime = None):
 		'''initialize task frame object'''
 		if xml is None:
-			self.defaultInit(frame, path, date, computingTime)
+			self.defaultInit(frame, date, computingTime)
 		else:
 			self.fromXml(xml)
 	
@@ -24,10 +23,9 @@ class FrameLog:
 	
 	
 	
-	def defaultInit(self, frame, path, date, computingTime):
+	def defaultInit(self, frame, date, computingTime):
 		'''initialize Task frame log object'''
 		self.frame = frame
-		self.path = path
 		self.date = date
 		self.computingTime = computingTime
 	
@@ -37,9 +35,7 @@ class FrameLog:
 	
 	def fromXml(self, xml):
 		'''initialize Task frame log object with saved log'''
-		
 		self.frame = int(xml.get('frame'))
-		self.path = xml.get('path')
 		self.date = datetime.datetime.fromtimestamp(float(xml.get('date')))
 		self.computingTime = float(xml.get('computingTime'))
 	
@@ -50,7 +46,6 @@ class FrameLog:
 	def toXml(self):
 		'''export task frame log into xml syntaxed string'''
 		return '<frame frame="'+str(self.frame)\
-				+'" path="'+XML.encode(self.path)\
 				+'" date="'+str(int(self.date.timestamp()))\
 				+'" computingTime="'+str(self.computingTime)+'" />'
 		
@@ -61,7 +56,7 @@ class FrameLog:
 	
 	def print(self):
 		'''A method to print task frame log'''
-		print('  ╚═ Frame '+str(self.frame)+' : '+self.path+'\n'\
+		print('  ╚═ Frame '+str(self.frame)+' : \n'\
 			 +'      '+self.date.strftime('%d.%m.%Y-%H:%M')+'          '+str(round(self.computingTime, 2)) )
 	
 	
