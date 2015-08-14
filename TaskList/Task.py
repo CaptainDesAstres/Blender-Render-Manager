@@ -328,14 +328,16 @@ class Task:
 		
 		metapreset = self.log.preset
 		if type(metapreset) is Preset:
-			versions = { metapreset.engine.version : '[default]' }
+			if self.log.groups[0].remaining() > 0:
+				versions = { metapreset.engine.version : '[default]' }
 		else:
 			versions = {}
 			for group in self.log.groups:
-				if group.preset.engine.version in versions.keys():
-					versions[group.preset.engine.version].append(group.name)
-				else:
-					versions[group.preset.engine.version] = [group.name]
+				if group.remaining() > 0:
+					if group.preset.engine.version in versions.keys():
+						versions[group.preset.engine.version].append(group.name)
+					else:
+						versions[group.preset.engine.version] = [group.name]
 		
 		scripts = self.createTaskScript(scriptPath, preferences, versions, metapreset)
 		
