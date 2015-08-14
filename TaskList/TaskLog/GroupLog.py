@@ -155,6 +155,23 @@ class GroupLog:
 	
 	
 	
+	def average(self):
+		'''return frame average rendering time'''
+		if len(self.frames)>0:
+			count = 0
+			time = 0
+			for f in self.frames:
+				count += 1
+				time += f.computingTime
+			average = time / count
+			return average
+		else:
+			return 0
+	
+	
+	
+	
+	
 	def confirmFrame(self, frame, path, date, computingTime):
 		'''add frame rendering log confirmation to the group'''
 		self.frames.append(
