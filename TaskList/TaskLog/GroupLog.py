@@ -166,7 +166,15 @@ class GroupLog:
 			average = time / count
 			return average
 		else:
-			return 0
+			return 0.0
+	
+	
+	
+	
+	
+	def remaining(self):
+		'''return the count of frames that don't have been rendered'''
+		return (self.end - self.start + 1 - len(self.frames) )
 	
 	
 	
