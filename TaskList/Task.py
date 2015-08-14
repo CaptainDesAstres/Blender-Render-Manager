@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task settings'''
 import xml.etree.ElementTree as xmlMod
-import os, uuid, subprocess, shlex, time
+import os, uuid, subprocess, shlex, time, datetime
 from save import *
 from usefullFunctions import *
 from Preferences.PresetList.Preset.Preset import *
@@ -385,6 +385,44 @@ class Task:
 			else:
 				msg = self.treatSocketMessage(msg)
 		client.close()
+	
+	
+	
+	
+	
+	def treatSocketMessage(self, msg):
+		'''a method to interpret socket message'''
+		if msg[-4:] != ' EOS':
+			return msg
+		
+		massages = msg.split(' EOS')
+		massages.pop()
+		
+		for m in massages:
+			# normally, the message is to confirm the rendering of a frame, it must follow this sytaxe:
+			#uid action(group,frame,date,computingTime) EOS
+			#fc9b9d6fd2af4e0fb3f09066f9902f90 ConfirmFrame(groupe1,15,10:09:2014:10:30:40,11111111111111) EOS
+			uid = m[0:32]
+			action = m[33:45]
+			info = m[46:-1].split(',')
+			if uid == self.uid and action == 'ConfirmFrame':
+				group = info[0]
+				frame = int(info[1])
+				computingTime = float(info[3])
+				
+				date = info[2].split(':')
+				date = datetime.datetime(
+							year = int(date[2]),
+							month = int(date[1]),
+							day = int(date[0]),
+							hour = int(date[3]),
+							minute = int(date[4]),
+							second = int(date[5])
+										)
+				
+				self.log.getGroup(group).confirmFrame(frame, date, computingTime)
+		
+		return ''
 	
 	
 	
