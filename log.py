@@ -18,7 +18,7 @@ there is to log:
 			self.logFile = open(os.getcwd()+'/log/session '+start+'.log','a')
 		
 		self.logFile.write(self.log)
-		self.write('création du log\n')
+		self.write('log creation\n')
 		
 		self.menu = []
 		

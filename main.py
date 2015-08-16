@@ -54,7 +54,7 @@ if os.path.exists(os.getcwd()+'/lock'):
 		with open('/proc/'+PID+'/environ','r') as lockFile:
 			PWDCount = lockFile.read( ).count('PWD='+PWD)
 		if PWDCount > 0:
-			log += '''The process seem to connespond to a Blender-Render-Manager session! Quit this new Session!
+			log += '''The process seem to correspond to a Blender-Render-Manager session! Quit this new Session!
 
 \033[31mBlender-Render-Manager is already running : check the process with '''+PID+''' PID and stop it!\033[0m
 
