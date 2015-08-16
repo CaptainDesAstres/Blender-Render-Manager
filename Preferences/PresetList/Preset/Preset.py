@@ -191,6 +191,10 @@ class Preset:
 					+','+str(scene.frame_current)+','+endDate.strftime('%d:%m:%Y:%H:%M:%S')\
 					+','+str(computeTime)+') EOS'
 			socket.sendall(msg.encode())
+			
+			if task.run == 'until next frame':
+				break
+			
 			scene.frame_current += 1
 		
 		
