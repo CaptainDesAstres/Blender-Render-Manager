@@ -350,7 +350,7 @@ class Task:
 				l = threading.Thread(target = self.socketAcceptClient,
 									args=(taskList.socket, index, len(taskList.tasks), log))
 				l.start()
-				taskList.listeners.append(l)
+				taskList.listenerThreads.append(l)
 				
 				result = subprocess.Popen(\
 							shlex.split(\

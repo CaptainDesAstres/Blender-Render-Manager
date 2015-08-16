@@ -18,7 +18,7 @@ class TaskList:
 		self.current = None
 		self.runningMode = None
 		self.socket = None
-		self.listeners = None
+		self.listenerThreads = None
 		if xml is None:
 			self.defaultInit()
 		else:
@@ -769,7 +769,7 @@ Quit : q or quit
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.socket.bind(('localhost', preferences.port))
 		self.socket.listen(5)
-		self.listeners = []
+		self.listenerThreads = []
 		
 		runMenu = threading.Thread(target = self.runMenu , args=(log,))
 		self.current = 0
@@ -787,11 +787,11 @@ Quit : q or quit
 		
 		while True:
 			self.checkListeners()
-			if len(self.listeners) > 0:
+			if len(self.listenerThreads) > 0:
 				time.sleep(1)
 			else:
 				break
-		self.listeners = None
+		self.listenerThreads = None
 		
 		self.socket.close()
 		self.socket = None
@@ -804,10 +804,10 @@ Quit : q or quit
 	
 	
 	def checkListeners(self):
-		'''remove all ended thread from self.listeners'''
-		for l in self.listeners[:]:
+		'''remove all ended thread from self.listenerThreads'''
+		for l in self.listenerThreads[:]:
 			if not l.is_alive():
-				self.listeners.remove(l)
+				self.listenerThreads.remove(l)
 	
 	
 	
@@ -834,7 +834,8 @@ c        to stop rendering after the current frame
 #p        to get subprocess PID
 what do you want to do? (type h for help)'''
 			elif choice in ['c', 'current', 'frame']:
-				
+				self.runningMode = 'until next frame'
+				for l in self.listenerThreads[:]:
 			else:
 				log.runMenu = 'Ask for an unknow action! Retry!\nWhat do you want to do? (type h for help)'
 		log.runMenu = None
