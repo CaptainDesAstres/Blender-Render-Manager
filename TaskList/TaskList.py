@@ -782,7 +782,7 @@ Quit : q or quit
 			
 			if task.status not in ['lock', 'pendinglock']:
 				run = task.run(i+1, self, scriptPath, log, preferences)
-			if not run:
+			if not run or self.runningMode != 'until the list end':
 				break
 			self.checkListeners()
 		self.status = 'stop'
@@ -838,7 +838,8 @@ c        to stop rendering after the current frame
 what do you want to do? (type h for help)'''
 			elif choice in ['c', 'current', 'frame']:
 				self.runningMode = 'until next frame'
-				for l in self.listenerThreads[:]:
+				for l in self.listenerSockets[:]:
+					l['socket'].sendall( (l['uid']+' stopAfterFrame() EOS').encode() )
 			else:
 				log.runMenu = 'Ask for an unknow action! Retry!\nWhat do you want to do? (type h for help)'
 		log.runMenu = None

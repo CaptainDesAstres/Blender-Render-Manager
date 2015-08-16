@@ -377,7 +377,12 @@ class Task:
 	def socketAcceptClient(self, taskList, index, log):
 		'''A method to manage client connexion when running'''
 		client = soc.accept()[0]
-		taskList.listenerSockets.append(client)
+		taskList.listenerSockets.append( 
+										{
+									'socket':client,
+									'uid':self.uid
+										} 
+										)
 		msg = ''
 		while True:
 			msg += client.recv(1024).decode()
