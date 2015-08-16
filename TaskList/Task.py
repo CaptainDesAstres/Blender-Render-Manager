@@ -309,7 +309,8 @@ class Task:
 		'''print current runninge state'''
 		log.print()
 		print('\n\nRun task n°'+str(index)+' of '+str(count)+' :\n\n')
-		self.log.print()
+		if self.log is not None:
+			self.log.print()
 		log.runPrint()
 	
 	
