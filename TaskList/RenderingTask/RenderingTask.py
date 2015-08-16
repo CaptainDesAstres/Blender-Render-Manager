@@ -44,6 +44,8 @@ def RenderingTask(task, preferences, groups):
 		preset.applyAndRun(bpy, scene, preferences, metadata, version, task.log.groups[0], connexion, task)
 	else:
 		preset.applyAndRun(bpy, scene, task, preferences, groups, version, connexion)
+	
+	connexion.sendall( (task.uid+' VersionEnded EOS').encode() )
 
 
 

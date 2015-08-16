@@ -423,7 +423,10 @@ class Task:
 				
 				self.log.getGroup(group).confirmFrame(frame, date, computingTime)
 		
-		return ''
+		if messages[-1] == self.uid+' VersionEnded':
+			return messages[-1]+' EOS'
+		else:
+			return ''
 	
 	
 	
