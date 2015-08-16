@@ -782,11 +782,11 @@ Quit : q or quit
 				run = task.run(i+1, self, scriptPath, log, preferences)
 			if not run:
 				break
-			self checkListeners()
+			self.checkListeners()
 		self.status = 'stop'
 		
 		while True:
-			self checkListeners()
+			self.checkListeners()
 			if len(self.listeners) > 0:
 				time.sleep(1)
 			else:

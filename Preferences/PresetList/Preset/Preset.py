@@ -188,7 +188,7 @@ class Preset:
 			endDate = datetime.today()
 			computeTime = time.time() - start
 			msg = task.uid+' ConfirmFrame('+logGroup.name\
-					+','str(scene.frame_current)','+endDate.strftime('%d:%m:%Y:%H:%M:%S')\
+					+','+str(scene.frame_current)+','+endDate.strftime('%d:%m:%Y:%H:%M:%S')\
 					+','+str(computeTime)+') EOS'
 			socket.sendall(msg.encode())
 			scene.frame_current += 1
