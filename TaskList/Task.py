@@ -319,12 +319,13 @@ class Task:
 	def run(self, index, taskList, scriptPath, log, preferences):
 		'''A method to execute the task'''
 		log.menuIn('run Task '+str(index)+' from '+str(count))
-		self.printRunMenu(index, len(taskList.tasks), log)
 		
 		if self.log is None:
 			# task never have been run before
 			self.log = TaskLog(pref = preferences, task = self)
 			preferences.output.checkAndCreate(self, preferences, taskList)
+		
+		self.printRunMenu(index, len(taskList.tasks), log)
 		
 		metapreset = self.log.preset
 		if type(metapreset) is Preset:
