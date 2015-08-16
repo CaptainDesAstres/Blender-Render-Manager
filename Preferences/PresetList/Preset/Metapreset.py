@@ -424,7 +424,7 @@ class Metapreset:
 	
 	
 	
-	def applyAndRun(self, bpy, scene, task, preferences, groups, version):
+	def applyAndRun(self, bpy, scene, task, preferences, groups, version, socket):
 		'''apply settings to a blender scene object and render it, group by group, frame by frame'''
 		sceneInfo = task.info.scenes[task.scene]
 		
@@ -454,7 +454,7 @@ class Metapreset:
 			scene.render.filepath = task.log.getMainPath()\
 									+logGroup.subpath\
 									+logGroup.naming
-			preset.applyAndRun(bpy, scene, preferences, metadata, version, logGroup)
+			preset.applyAndRun(bpy, scene, preferences, metadata, version, logGroup, socket)
 	
 	
 	

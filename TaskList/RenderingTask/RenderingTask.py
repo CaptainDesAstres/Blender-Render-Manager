@@ -1,5 +1,5 @@
 '''A module to manage task rendering in blender'''
-import bpy, sys, os
+import bpy, sys, os, socket
 sys.path.append(os.path.abspath(sys.argv[4]+'/../../../..'))
 from Preferences.PresetList.Preset.Preset import *
 
@@ -30,6 +30,9 @@ def RenderingTask(task, preferences, groups):
 	
 	preset = task.log.preset
 	
+	connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	connexion.connect(('localhost', preferences.port))
+	
 	if type(preset) is Preset:
 		sceneInfo = task.info.scenes[task.scene]
 		scene.frame_start = sceneInfo.start
@@ -38,9 +41,9 @@ def RenderingTask(task, preferences, groups):
 		
 		scene.render.filepath = task.log.getMainPath()+task.log.groups[0].naming
 		
-		preset.applyAndRun(bpy, scene, preferences, metadata, version, task.log.groups[0])
+		preset.applyAndRun(bpy, scene, preferences, metadata, version, task.log.groups[0], connexion)
 	else:
-		preset.applyAndRun(bpy, scene, task, preferences, groups, version)
+		preset.applyAndRun(bpy, scene, task, preferences, groups, version, connexion)
 
 
 

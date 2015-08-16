@@ -158,7 +158,7 @@ class Preset:
 	
 	
 	
-	def applyAndRun(self, bpy, scene, preferences, prefixMetadata, version, logGroup):
+	def applyAndRun(self, bpy, scene, preferences, prefixMetadata, version, logGroup, socket):
 		'''apply settings to a blender scene object and render it, frame by frame'''
 		self.quality.apply(scene)
 		self.bounce.apply(scene)
