@@ -67,7 +67,7 @@ def socketListener(soc, task):
 		try:
 			msg += soc.recv(1024).decode()
 		except:
-			pass
+			pass # (socket timeout error)
 		
 		if task.running == 'NOW':
 			break

@@ -192,7 +192,7 @@ class Preset:
 					+','+str(computeTime)+') EOS'
 			socket.sendall(msg.encode())
 			
-			if task.run == 'until next frame':
+			if task.running == 'until next frame':
 				break
 			
 			scene.frame_current += 1

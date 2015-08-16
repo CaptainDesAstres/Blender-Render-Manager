@@ -455,6 +455,8 @@ class Metapreset:
 									+logGroup.subpath\
 									+logGroup.naming
 			preset.applyAndRun(bpy, scene, preferences, metadata, version, logGroup, socket, task)
+			if task.running in ['until next frame', 'until next group']:
+				break
 	
 	
 	
