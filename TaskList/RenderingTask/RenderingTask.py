@@ -74,7 +74,7 @@ def socketListener(soc, task):
 			messages = msg.split(' EOS')
 			messages.pop()
 			for m in messages:
-				if m = task.uid+' stopAfterFrame()':
+				if m == task.uid+' stopAfterFrame()':
 					task.running = 'until next frame'
 			msg = ''
 	
