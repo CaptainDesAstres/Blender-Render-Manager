@@ -46,6 +46,7 @@ def RenderingTask(task, preferences, groups):
 		preset.applyAndRun(bpy, scene, task, preferences, groups, version, connexion)
 	
 	connexion.sendall( (task.uid+' VersionEnded EOS').encode() )
+	
 	connexion.close()
 
 
@@ -56,6 +57,8 @@ def socketListener(soc, task):
 	
 	while True:
 		msg += soc.recv(1024)
+		if task.run = 'NOW':
+			break
 		if msg == '':
 			time.sleep(0.5)
 		elif msg[-4:] != ' EOS':
@@ -67,8 +70,7 @@ def socketListener(soc, task):
 				if m = task.uid+' stopAfterFrame()':
 					task.run = 'until next frame'
 			msg = ''
-		
-		
+	
 
 
 
