@@ -52,7 +52,9 @@ def RenderingTask(task, preferences, groups):
 		preset.applyAndRun(bpy, scene, task, preferences, groups, version, connexion)
 	task.running = 'NOW'
 	connexion.sendall( (task.uid+' VersionEnded EOS').encode() )
+	
 	listen.join()
+	
 	connexion.close()
 
 
@@ -60,14 +62,16 @@ def RenderingTask(task, preferences, groups):
 def socketListener(soc, task):
 	'''a method to manage signal send by the main process'''
 	msg = ''
-	
+	soc.settimeout(0.5)
 	while True:
-		#msg += soc.recv(1024).decode()
+		try:
+			msg += soc.recv(1024).decode()
+		except:
+			pass
+		
 		if task.running == 'NOW':
 			break
-		if msg == '':
-			time.sleep(0.5)
-		elif msg[-4:] != ' EOS':
+		if msg[-4:] != ' EOS':
 			continue
 		else:
 			messages = msg.split(' EOS')
