@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath(sys.argv[4]+'/../../../..'))
 from Preferences.PresetList.Preset.Preset import *
 
 def RenderingTask(task, preferences, groups):
-	task.run = True
+	task.running = True
 	
 	scene = bpy.data.scenes[task.scene]
 	bpy.context.screen.scene = scene
@@ -50,6 +50,7 @@ def RenderingTask(task, preferences, groups):
 		preset.applyAndRun(bpy, scene, preferences, metadata, version, task.log.groups[0], connexion, task)
 	else:
 		preset.applyAndRun(bpy, scene, task, preferences, groups, version, connexion)
+	task.running = 'NOW'
 	
 	connexion.sendall( (task.uid+' VersionEnded EOS').encode() )
 	listen.join()
@@ -63,7 +64,7 @@ def socketListener(soc, task):
 	
 	while True:
 		msg += soc.recv(1024)
-		if task.run = 'NOW':
+		if task.running = 'NOW':
 			break
 		if msg == '':
 			time.sleep(0.5)
@@ -74,7 +75,7 @@ def socketListener(soc, task):
 			messages.pop()
 			for m in messages:
 				if m = task.uid+' stopAfterFrame()':
-					task.run = 'until next frame'
+					task.running = 'until next frame'
 			msg = ''
 	
 

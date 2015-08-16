@@ -16,7 +16,7 @@ class Task:
 	def __init__(self, path = None, scene = None, preset = None,\
 					fileInfo = None, xml= None):
 		'''initialize task object with default settings or saved settings'''
-		self.run = False
+		self.running = False
 		if xml is None:
 			self.defaultInit(path, scene, preset, fileInfo)
 		else:
