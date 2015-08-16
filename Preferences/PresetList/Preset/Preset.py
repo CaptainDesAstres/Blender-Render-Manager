@@ -185,7 +185,7 @@ class Preset:
 		while scene.frame_current <= scene.frame_end:
 			start = time.time()
 			# bpy.ops.render.render()
-			endDate = datetime.today()
+			endDate = datetime.datetime.today()
 			computeTime = time.time() - start
 			msg = task.uid+' ConfirmFrame('+logGroup.name\
 					+','+str(scene.frame_current)+','+endDate.strftime('%d:%m:%Y:%H:%M:%S')\
