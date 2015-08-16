@@ -366,9 +366,8 @@ class Task:
 		
 		self.eraseTaskScript(scripts)
 		
-		run = ( input(results).strip().lower() == '' )
 		log.menuOut()
-		return run
+		return True
 	
 	
 	
