@@ -348,7 +348,7 @@ class Task:
 		for version in versions.keys():
 			try:
 				l = threading.Thread(target = self.socketAcceptClient,
-									args=(taskList.socket, index, len(taskList.tasks), log))
+									args=(taskList, index, log))
 				l.start()
 				taskList.listenerThreads.append(l)
 				
@@ -374,9 +374,10 @@ class Task:
 	
 	
 	
-	def socketAcceptClient(self, soc, index, len(taskList.tasks), log):
+	def socketAcceptClient(self, taskList, index, log):
 		'''A method to manage client connexion when running'''
 		client = soc.accept()[0]
+		taskList.listenerSockets.append(client)
 		msg = ''
 		while True:
 			msg += client.recv(1024).decode()
@@ -385,14 +386,14 @@ class Task:
 			elif msg == self.uid+' VersionEnded EOS':
 				break
 			else:
-				msg = self.treatSocketMessage(msg, index, len(taskList.tasks), log)
+				msg = self.treatSocketMessage(msg, taskList, index, log)
 		client.close()
 	
 	
 	
 	
 	
-	def treatSocketMessage(self, msg, index, count, log):
+	def treatSocketMessage(self, msg, taskList, index, log):
 		'''a method to interpret socket message'''
 		if msg[-4:] != ' EOS':
 			return msg
@@ -423,7 +424,7 @@ class Task:
 										)
 				
 				self.log.getGroup(group).confirmFrame(frame, date, computingTime)
-				self.printRunMenu(index, count, log)
+				self.printRunMenu(index, len(taskList.tasks), log)
 		
 		if messages[-1] == self.uid+' VersionEnded':
 			return messages[-1]+' EOS'

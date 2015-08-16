@@ -19,6 +19,7 @@ class TaskList:
 		self.runningMode = None
 		self.socket = None
 		self.listenerThreads = None
+		self.listenerSockets = None
 		if xml is None:
 			self.defaultInit()
 		else:
@@ -770,6 +771,7 @@ Quit : q or quit
 		self.socket.bind(('localhost', preferences.port))
 		self.socket.listen(5)
 		self.listenerThreads = []
+		self.listenerSockets = []
 		
 		runMenu = threading.Thread(target = self.runMenu , args=(log,))
 		self.current = 0
@@ -792,6 +794,7 @@ Quit : q or quit
 			else:
 				break
 		self.listenerThreads = None
+		self.listenerSockets = None
 		
 		self.socket.close()
 		self.socket = None
