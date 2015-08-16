@@ -32,6 +32,8 @@ class TaskList:
 	def __del__(self):
 		'''Erase lock file in case of crash'''
 		eraseLockFile()
+		if self.socket is not None:
+			self.socket.close()
 	
 	
 	

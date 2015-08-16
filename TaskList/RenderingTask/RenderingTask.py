@@ -51,7 +51,6 @@ def RenderingTask(task, preferences, groups):
 	else:
 		preset.applyAndRun(bpy, scene, task, preferences, groups, version, connexion)
 	task.running = 'NOW'
-	
 	connexion.sendall( (task.uid+' VersionEnded EOS').encode() )
 	listen.join()
 	connexion.close()
@@ -63,7 +62,7 @@ def socketListener(soc, task):
 	msg = ''
 	
 	while True:
-		msg += soc.recv(1024)
+		#msg += soc.recv(1024).decode()
 		if task.running == 'NOW':
 			break
 		if msg == '':
