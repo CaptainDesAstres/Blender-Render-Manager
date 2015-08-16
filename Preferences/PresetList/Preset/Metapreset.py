@@ -424,13 +424,12 @@ class Metapreset:
 	
 	
 	
-	def applyAndRun(self, bpy, scene, task, preferences, groups, version, socket):
+	def applyAndRun(self, bpy, task, preferences, groups, socket):
 		'''apply settings to a blender scene object and render it, group by group, frame by frame'''
+		scene = bpy.context.screen.scene
 		sceneInfo = task.info.scenes[task.scene]
 		
 		for group in groups:
-			
-			metadata = 'uid:'+task.uid+';Main preset:«'+task.preset+'»;'
 			
 			if group != '[default]':
 				scene.frame_start = sceneInfo.start
@@ -449,12 +448,10 @@ class Metapreset:
 			for RL in scene.render.layers.values():
 				RL.use = (RL.name in logGroup.renderlayers)
 			
-			metadata += 'group:«'+group+'»;preset:«'+logGroup.presetName+'»;'
-			
 			scene.render.filepath = task.log.getMainPath()\
 									+logGroup.subpath\
 									+logGroup.naming
-			preset.applyAndRun(bpy, scene, preferences, metadata, version, logGroup, socket, task)
+			preset.applyAndRun(bpy, preferences, logGroup, socket, task)
 			if task.running in ['until next frame', 'until next group']:
 				break
 	

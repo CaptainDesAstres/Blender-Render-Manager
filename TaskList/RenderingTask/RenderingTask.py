@@ -24,10 +24,6 @@ def RenderingTask(task, preferences, groups):
 	scene.render.use_file_extension = True
 	scene.render.use_placeholder = True
 	
-	
-	metadata = 'uid:'+task.uid+';Main preset :«'+task.preset+'»;'
-	version = str(bpy.app.version[0])+'.'+str(bpy.app.version[1])
-	
 	preset = task.log.preset
 	
 	connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -47,9 +43,9 @@ def RenderingTask(task, preferences, groups):
 		
 		scene.render.filepath = task.log.getMainPath()+task.log.groups[0].naming
 		
-		preset.applyAndRun(bpy, scene, preferences, metadata, version, task.log.groups[0], connexion, task)
+		preset.applyAndRun(bpy, preferences, task.log.groups[0], connexion, task)
 	else:
-		preset.applyAndRun(bpy, scene, task, preferences, groups, version, connexion)
+		preset.applyAndRun(bpy, task, preferences, groups, connexion)
 	task.running = 'NOW'
 	connexion.sendall( (task.uid+' VersionEnded EOS').encode() )
 	

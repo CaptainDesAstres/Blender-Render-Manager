@@ -158,15 +158,19 @@ class Preset:
 	
 	
 	
-	def applyAndRun(self, bpy, scene, preferences, prefixMetadata, version, logGroup, socket, task):
+	def applyAndRun(self, bpy, preferences, logGroup, socket, task):
 		'''apply settings to a blender scene object and render it, frame by frame'''
+		scene = bpy.context.screen.scene
+		
 		self.quality.apply(scene)
 		self.bounce.apply(scene)
 		self.engine.apply(scene, preferences)
 		self.options.apply(scene)
 		
-		metadata = prefixMetadata+'version:«'+self.engine.version+\
-					'»('+version+');'+\
+		metadata = 'uid:'+task.uid+';Main preset:«'+task.preset+'»;'+\
+					'group:«'+logGroup.name+'»;preset:«'+logGroup.presetName+'»;'+\
+					'version:«'+self.engine.version+\
+					'»('+str(bpy.app.version[0])+'.'+str(bpy.app.version[1])+');'+\
 					'engine:'+self.engine.engine+';'
 		if self.engine.engine == 'CYCLES':
 			metadata += 'device:'+self.engine.device+\
