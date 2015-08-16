@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath(sys.argv[4]+'/../../../..'))
 from Preferences.PresetList.Preset.Preset import *
 
 def RenderingTask(task, preferences, groups):
-	
+	task.run = True
 	
 	scene = bpy.data.scenes[task.scene]
 	bpy.context.screen.scene = scene
