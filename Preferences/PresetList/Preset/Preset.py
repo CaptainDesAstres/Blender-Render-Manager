@@ -7,7 +7,7 @@ from Preferences.PresetList.Preset.Quality import *
 from Preferences.PresetList.Preset.BounceSet import *
 from Preferences.PresetList.Preset.Engine import *
 from Preferences.PresetList.Preset.Options import *
-import os
+import os, time, datetime
 
 class Preset:
 	'''class to manage preset'''
@@ -183,7 +183,14 @@ class Preset:
 		
 		scene.frame_current = scene.frame_start + len(logGroup.frames) 
 		while scene.frame_current <= scene.frame_end:
+			start = time.time()
 			# bpy.ops.render.render()
+			endDate = datetime.today()
+			computeTime = time.time() - start
+			msg = task.uid+' ConfirmFrame('+logGroup.name\
+					+','str(scene.frame_current)','+endDate.strftime('%d:%m:%Y:%H:%M:%S')\
+					+','+str(computeTime)+') EOS'
+			socket.sendall(msg.encode())
 			scene.frame_current += 1
 		
 		
