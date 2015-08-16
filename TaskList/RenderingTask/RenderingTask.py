@@ -1,5 +1,5 @@
 '''A module to manage task rendering in blender'''
-import bpy, sys, os, socket
+import bpy, sys, os, socket, time
 sys.path.append(os.path.abspath(sys.argv[4]+'/../../../..'))
 from Preferences.PresetList.Preset.Preset import *
 
@@ -49,6 +49,26 @@ def RenderingTask(task, preferences, groups):
 	connexion.close()
 
 
+
+def socketListener(soc, task):
+	'''a method to manage signal send by the main process'''
+	msg = ''
+	
+	while True:
+		msg += soc.recv(1024)
+		if msg == '':
+			time.sleep(0.5)
+		elif msg[-4:] != ' EOS':
+			continue
+		else:
+			messages = msg.split(' EOS')
+			messages.pop()
+			for m in messages:
+				if m = task.uid+' stopAfterFrame()':
+					task.run = 'until next frame'
+			msg = ''
+		
+		
 
 
 
