@@ -376,7 +376,7 @@ class Task:
 	
 	def socketAcceptClient(self, taskList, index, log):
 		'''A method to manage client connexion when running'''
-		client = soc.accept()[0]
+		client = taskList.socket.accept()[0]
 		taskList.listenerSockets.append( 
 										{
 									'socket':client,

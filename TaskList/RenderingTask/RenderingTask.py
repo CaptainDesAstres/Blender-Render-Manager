@@ -64,7 +64,7 @@ def socketListener(soc, task):
 	
 	while True:
 		msg += soc.recv(1024)
-		if task.running = 'NOW':
+		if task.running == 'NOW':
 			break
 		if msg == '':
 			time.sleep(0.5)
