@@ -188,9 +188,15 @@ class Preset:
 		scene.frame_current = scene.frame_start + len(logGroup.frames) 
 		while scene.frame_current <= scene.frame_end:
 			start = time.time()
-			bpy.ops.render.render()
+			
+			scene.render.filepath = task.log.getMainPath()\
+									+logGroup.subpath\
+									+(logGroup.naming.replace('####', str(scene.frame_current)))
+			bpy.ops.render.render( write_still=True )
+			
 			endDate = datetime.datetime.today()
 			computeTime = time.time() - start
+			
 			msg = task.uid+' ConfirmFrame('+logGroup.name\
 					+','+str(scene.frame_current)+','+endDate.strftime('%d:%m:%Y:%H:%M:%S')\
 					+','+str(computeTime)+') EOS'

@@ -448,9 +448,6 @@ class Metapreset:
 			for RL in scene.render.layers.values():
 				RL.use = (RL.name in logGroup.renderlayers)
 			
-			scene.render.filepath = task.log.getMainPath()\
-									+logGroup.subpath\
-									+logGroup.naming
 			preset.applyAndRun(bpy, preferences, logGroup, socket, task)
 			if task.running in ['until next frame', 'until next group']:
 				break

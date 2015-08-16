@@ -41,8 +41,6 @@ def RenderingTask(task, preferences, groups):
 		scene.frame_end = sceneInfo.end
 		scene.render.fps = sceneInfo.fps
 		
-		scene.render.filepath = task.log.getMainPath()+task.log.groups[0].naming
-		
 		preset.applyAndRun(bpy, preferences, task.log.groups[0], connexion, task)
 	else:
 		preset.applyAndRun(bpy, task, preferences, groups, connexion)
