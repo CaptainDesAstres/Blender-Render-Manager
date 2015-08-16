@@ -818,7 +818,7 @@ Quit : q or quit
 		log.runMenu = 'what do you want to do? (type h for help)'
 		while True:
 			self.tasks[self.current].printRunMenu(self.current+1, len(self.tasks), log)
-			choice = input()
+			choice = input().lower().strip()
 			if self.status == 'stop':
 				break
 			elif choice in ['h', 'help']:
@@ -828,11 +828,13 @@ type:           for:
 h        display this help
 #e        to stop rendering after the current task
 #g        to stop rendering after the current renderlayer group
-#c        to stop rendering after the current frame
+c        to stop rendering after the current frame
 #n        to stop rendering immediatly
-#f        to fforce to stop rendering immediatly
+#f        to force to stop rendering immediatly
 #p        to get subprocess PID
 what do you want to do? (type h for help)'''
+			elif choice in ['c', 'current', 'frame']:
+				
 			else:
 				log.runMenu = 'Ask for an unknow action! Retry!\nWhat do you want to do? (type h for help)'
 		log.runMenu = None
