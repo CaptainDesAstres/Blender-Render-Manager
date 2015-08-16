@@ -347,7 +347,7 @@ class Task:
 		for version in versions.keys():
 			try:
 				l = threading.Thread(target = self.socketAcceptClient,
-									args=(taskList.socket))
+									args=(taskList.socket,))
 				l.start()
 				taskList.listeners.append(l)
 				
