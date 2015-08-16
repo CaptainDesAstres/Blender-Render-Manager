@@ -1,5 +1,5 @@
 '''A module to manage task rendering in blender'''
-import bpy, sys, os, socket, time
+import bpy, sys, os, socket, time, threading
 sys.path.append(os.path.abspath(sys.argv[4]+'/../../../..'))
 from Preferences.PresetList.Preset.Preset import *
 
@@ -33,6 +33,12 @@ def RenderingTask(task, preferences, groups):
 	connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	connexion.connect(('localhost', preferences.port))
 	
+	listen = threading.Thread(
+				target = socketListener,
+				args=(connexion, task) 
+							)
+	listen.start()
+	
 	if type(preset) is Preset:
 		sceneInfo = task.info.scenes[task.scene]
 		scene.frame_start = sceneInfo.start
@@ -46,7 +52,7 @@ def RenderingTask(task, preferences, groups):
 		preset.applyAndRun(bpy, scene, task, preferences, groups, version, connexion)
 	
 	connexion.sendall( (task.uid+' VersionEnded EOS').encode() )
-	
+	listen.join()
 	connexion.close()
 
 
