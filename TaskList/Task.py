@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 '''module to manage task settings'''
 import xml.etree.ElementTree as xmlMod
-import os, uuid, subprocess, shlex, time, datetime
+import os, uuid, subprocess, shlex, time, datetime, threading
 from save import *
 from usefullFunctions import *
 from Preferences.PresetList.Preset.Preset import *
@@ -319,7 +319,7 @@ class Task:
 	
 	def run(self, index, taskList, scriptPath, log, preferences):
 		'''A method to execute the task'''
-		log.menuIn('run Task '+str(index)+' from '+str(count))
+		log.menuIn('run Task '+str(index)+' from '+str(len(taskList.tasks)))
 		
 		if self.log is None:
 			# task never have been run before
