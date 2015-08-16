@@ -76,6 +76,14 @@ createLockFile(str(os.getpid())+'\n'+scriptPath)
 
 
 
+# check if render directorie exist, otherwise create it and create a log file anyway
+if not os.path.exists(os.getcwd()+'/render/'):
+	log += 'No render directorie, create it: fail'
+	os.mkdir(os.getcwd()+'/render')
+	log = log[:len(log)-4]+'done\n'
+
+
+
 # check if log directorie exist, otherwise create it and create a log file anyway
 if not os.path.exists(os.getcwd()+'/log/'):
 	log += 'No log directorie, create it: fail'
