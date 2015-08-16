@@ -41,7 +41,7 @@ def RenderingTask(task, preferences, groups):
 		
 		scene.render.filepath = task.log.getMainPath()+task.log.groups[0].naming
 		
-		preset.applyAndRun(bpy, scene, preferences, metadata, version, task.log.groups[0], connexion)
+		preset.applyAndRun(bpy, scene, preferences, metadata, version, task.log.groups[0], connexion, task)
 	else:
 		preset.applyAndRun(bpy, scene, task, preferences, groups, version, connexion)
 
