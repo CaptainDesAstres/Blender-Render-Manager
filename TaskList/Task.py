@@ -363,7 +363,7 @@ class Task:
 			except FileNotFoundError:
 				log.write('\033[31mTask n°'+str(index)+' : Blender version call error! Try to verify the path of «'+version+'» blender version!\033[0m')
 				pass
-		
+		log.write(results)
 		self.eraseTaskScript(scripts)
 		
 		log.menuOut()
@@ -396,10 +396,10 @@ class Task:
 		if msg[-4:] != ' EOS':
 			return msg
 		
-		massages = msg.split(' EOS')
-		massages.pop()
+		messages = msg.split(' EOS')
+		messages.pop()
 		
-		for m in massages:
+		for m in messages:
 			# normally, the message is to confirm the rendering of a frame, it must follow this sytaxe:
 			#uid action(group,frame,date,computingTime) EOS
 			#fc9b9d6fd2af4e0fb3f09066f9902f90 ConfirmFrame(groupe1,15,10:09:2014:10:30:40,11111111111111) EOS
