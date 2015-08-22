@@ -352,14 +352,17 @@ class Task:
 				l.start()
 				taskList.listenerThreads.append(l)
 				
-				result = subprocess.Popen(\
+				sub = subprocess.Popen(\
 							shlex.split(\
 								preferences.blenderVersion.getVersionPath(version)\
 								+' -b "'+self.path+'" -P "'\
 								+scripts[version]+'"'),\
 							stdout = subprocess.PIPE,\
 							stdin = subprocess.PIPE,\
-							stderr = subprocess.PIPE).communicate()
+							stderr = subprocess.PIPE)
+				taskList.renderingSubprocess.append(sub)
+				
+				result = sub.communicate()
 				results += result[0].decode()+result[1].decode()+'\n\n\n'
 			except FileNotFoundError:
 				log.write('\033[31mTask n°'+str(index)+' : Blender version call error! Try to verify the path of «'+version+'» blender version!\033[0m')

@@ -20,6 +20,7 @@ class TaskList:
 		self.socket = None
 		self.listenerThreads = None
 		self.listenerSockets = None
+		self.renderingSubprocess = None
 		if xml is None:
 			self.defaultInit()
 		else:
@@ -775,6 +776,7 @@ Quit : q or quit
 		self.socket.listen(5)
 		self.listenerThreads = []
 		self.listenerSockets = []
+		self.renderingSubprocess = []
 		
 		runMenu = threading.Thread(target = self.runMenu , args=(log,))
 		self.current = 0
@@ -798,6 +800,7 @@ Quit : q or quit
 				break
 		self.listenerThreads = None
 		self.listenerSockets = None
+		self.renderingSubprocess = None
 		
 		self.socket.close()
 		self.socket = None
@@ -821,7 +824,7 @@ Quit : q or quit
 	
 	def runMenu(self, log):
 		'''treat action of the menu when the rendering is start'''
-		log.runMenu = 'what do you want to do? (type h for help)'
+		log.runMenu = 'What do you want to do? (type h for help)'
 		while True:
 			self.tasks[self.current].printRunMenu(self.current+1, len(self.tasks), log)
 			choice = input().lower().strip()
@@ -838,7 +841,7 @@ c        to stop rendering after the current frame
 #n        to stop rendering immediatly
 #f        to force to stop rendering immediatly
 #p        to get subprocess PID
-what do you want to do? (type h for help)'''
+What do you want to do? (type h for help)'''
 			elif choice in ['c', 'current', 'frame']:
 				self.runningMode = 'until next frame'
 				for l in self.listenerSockets[:]:
@@ -849,6 +852,11 @@ what do you want to do? (type h for help)'''
 					l['socket'].sendall( (l['uid']+' stopAfterGroup() EOS').encode() )
 			elif choice in ['t', 'task']:
 				self.runningMode = 'until next task'
+			elif choice in ['p', 'pid']:
+				log.runMenu = 'Subprocess PID List :\n'
+				for subP in self.renderingSubprocess:
+					log.runMenu += str(subP.pid)+'\n'
+				log.runMenu += 'What do you want to do? (type h for help)'
 			else:
 				log.runMenu = 'Ask for an unknow action! Retry!\nWhat do you want to do? (type h for help)'
 		log.runMenu = None
