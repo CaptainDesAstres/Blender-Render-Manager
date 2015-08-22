@@ -73,6 +73,8 @@ def socketListener(soc, task):
 			for m in messages:
 				if m == task.uid+' stopAfterFrame()':
 					task.running = 'until next frame'
+				if m == task.uid+' stopAfterGroup()':
+					task.running = 'until next group'
 			msg = ''
 	
 
