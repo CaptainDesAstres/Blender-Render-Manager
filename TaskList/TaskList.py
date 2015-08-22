@@ -832,7 +832,7 @@ Quit : q or quit
 type:           for:
 h        display this help
 #e        to stop rendering after the current task
-#g        to stop rendering after the current renderlayer group
+g        to stop rendering after the current renderlayer group
 c        to stop rendering after the current frame
 #n        to stop rendering immediatly
 #f        to force to stop rendering immediatly
@@ -842,6 +842,10 @@ what do you want to do? (type h for help)'''
 				self.runningMode = 'until next frame'
 				for l in self.listenerSockets[:]:
 					l['socket'].sendall( (l['uid']+' stopAfterFrame() EOS').encode() )
+			elif choice in ['g', 'qroup']:
+				self.runningMode = 'until next group'
+				for l in self.listenerSockets[:]:
+					l['socket'].sendall( (l['uid']+' stopAfterGroup() EOS').encode() )
 			else:
 				log.runMenu = 'Ask for an unknow action! Retry!\nWhat do you want to do? (type h for help)'
 		log.runMenu = None
