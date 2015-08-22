@@ -363,7 +363,8 @@ class Task:
 				results += result[0].decode()+result[1].decode()+'\n\n\n'
 			except FileNotFoundError:
 				log.write('\033[31mTask n°'+str(index)+' : Blender version call error! Try to verify the path of «'+version+'» blender version!\033[0m')
-				
+			if taskList.runningMode in ['until next group', 'until next frame']:
+				break
 		self.eraseTaskScript(scripts)
 		
 		log.menuOut()
