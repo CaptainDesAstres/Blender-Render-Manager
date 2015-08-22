@@ -11,12 +11,20 @@ from TaskList.FileInfo.FileInfo import *
 class TaskList:
 	'''class to manage task list'''
 	
+	# constante value for runningMode
+	OFF = 0
+	UNTIL_LIST_END = 1
+	UNTIL_FRAME_END = 2
+	UNTIL_GROUP_END = 3
+	UNTIL_TASK_END = 4
+	STOP_NOW = 5
+	STOP_FORCED = 6
 	
 	def __init__(self, xml= None):
 		'''initialize task list object, empty or with saved task'''
 		self.status = 'stop'
 		self.current = None
-		self.runningMode = None
+		self.runningMode = self.OFF
 		self.socket = None
 		self.listenerThreads = None
 		self.listenerSockets = None
@@ -769,7 +777,7 @@ Quit : q or quit
 		log.menuIn('Run Tasks')
 		run = True
 		self.status = 'run'
-		self.runningMode = 'until the list end'
+		self.runningMode = self.UNTIL_LIST_END
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 		self.socket.bind(('localhost', preferences.port))
@@ -787,7 +795,7 @@ Quit : q or quit
 			
 			if task.status not in ['lock', 'pendinglock']:
 				run = task.run(i+1, self, scriptPath, log, preferences)
-			if not run or self.runningMode != 'until the list end':
+			if not run or self.runningMode != self.UNTIL_LIST_END:
 				break
 			self.checkListeners()
 		self.status = 'stop'
@@ -840,18 +848,18 @@ g        to stop rendering after the current renderlayer group
 c        to stop rendering after the current frame
 #n        to stop rendering immediatly
 #f        to force to stop rendering immediatly
-#p        to get subprocess PID
+p        to get subprocess PID
 What do you want to do? (type h for help)'''
 			elif choice in ['c', 'current', 'frame']:
-				self.runningMode = 'until next frame'
+				self.runningMode = self.UNTIL_FRAME_END
 				for l in self.listenerSockets[:]:
 					l['socket'].sendall( (l['uid']+' stopAfterFrame() EOS').encode() )
 			elif choice in ['g', 'qroup']:
-				self.runningMode = 'until next group'
+				self.runningMode = self.UNTIL_GROUP_END
 				for l in self.listenerSockets[:]:
 					l['socket'].sendall( (l['uid']+' stopAfterGroup() EOS').encode() )
 			elif choice in ['t', 'task']:
-				self.runningMode = 'until next task'
+				self.runningMode = self.UNTIL_TASK_END
 			elif choice in ['p', 'pid']:
 				log.runMenu = 'Subprocess PID List :\n'
 				for subP in self.renderingSubprocess:
