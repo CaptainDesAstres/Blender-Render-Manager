@@ -186,7 +186,9 @@ class Preset:
 		scene.render.stamp_note_text = metadata
 		
 		scene.frame_current = scene.frame_start + len(logGroup.frames) 
-		while scene.frame_current <= scene.frame_end:
+		while scene.frame_current <= scene.frame_end \
+					and task.running != 'until next frame':
+			
 			start = time.time()
 			
 			scene.render.filepath = task.log.getMainPath()\
@@ -201,9 +203,6 @@ class Preset:
 					+','+str(scene.frame_current)+','+endDate.strftime('%d:%m:%Y:%H:%M:%S')\
 					+','+str(computeTime)+') EOS'
 			socket.sendall(msg.encode())
-			
-			if task.running == 'until next frame':
-				break
 			
 			scene.frame_current += 1
 		
