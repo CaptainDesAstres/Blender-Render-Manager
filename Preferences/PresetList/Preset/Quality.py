@@ -124,6 +124,7 @@ class Quality:
 		print('Cycles Samples :        '+str(self.samples))
 		print('Simplify :              '+self.getSimplify())
 		print('Format :                '+self.format)
+		self.OSA.print()
 	
 	
 	
