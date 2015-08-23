@@ -281,9 +281,18 @@ class Quality:
 			scene.render.simplify_subdivision_render
 		
 		scene.render.image_settings.file_format = self.format
-		
 	
 	
+	
+	
+	
+	def getExtension(self):
+		'''return file extension'''
+		if self.format == 'PNG':
+			return '.png'
+		if self.format == 'JPEG':
+			return '.jpg'
+		return '.exr'
 	
 	
 	
