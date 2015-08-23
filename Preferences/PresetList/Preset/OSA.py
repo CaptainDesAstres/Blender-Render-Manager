@@ -6,6 +6,15 @@ import xml.etree.ElementTree as xmlMod
 class OSA:
 	'''class to manage antialiasing settings'''
 	
+	filters = {
+				'BOX'			: 'Box',
+				'TENT'			: 'Tent',
+				'QUADRATIC'		: 'Quadratic',
+				'CUBIC'			: 'Cubic',
+				'CATMULLROM'	: 'Catmull-Rom',
+				'GAUSSIAN'		: 'Gaussian',
+				'MITCHELL'		: 'Mitchell-Netravali'
+			}
 	
 	def __init__(self, xml= None):
 		'''initialize OSA settings with default value or values extracted from an xml object'''
