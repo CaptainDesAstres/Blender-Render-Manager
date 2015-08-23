@@ -23,6 +23,7 @@ class OSA:
 		self.enabled = True
 		self.samples = 8
 		self.fullSample = False
+		self.size = 1.0
 	
 	
 	
@@ -34,6 +35,7 @@ class OSA:
 		self.enabled = boolDict[xml.get('enabled')]
 		self.samples = int(xml.get('samples'))
 		self.fullSample = boolDict[xml.get('fullSample')]
+		self.size = float(xml.get('size'))
 	
 	
 	
@@ -42,7 +44,8 @@ class OSA:
 	def toXml(self):
 		'''export antialiasing settings into xml syntaxed string'''
 		txt = '<OSA enabled="'+str(self.enabled)+'" samples="'\
-				+str(self.samples)+'" fullSample="'+str(self.fullSample)+'"/>\n'
+				+str(self.samples)+'" fullSample="'+str(self.fullSample)\
+				+'" size="'+str(self.size)+'" />\n'
 		return txt
 	
 	
@@ -100,7 +103,8 @@ class OSA:
 					+enable[self.enabled] )
 		
 		if self.enabled:
-			print('OSA samples :           '+str(self.samples))
+			print('OSA Samples :           '+str(self.samples))
+			print('OSA filter Size (px):    '+str(round(self.size, 3)) )
 			print('Full Sample :           '+enable[self.fullSample])
 	
 	
