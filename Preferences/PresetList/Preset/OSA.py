@@ -6,7 +6,7 @@ import xml.etree.ElementTree as xmlMod
 class OSA:
 	'''class to manage antialiasing settings'''
 	
-	filters = {
+	FILTERS = {
 				'BOX'			: 'Box',
 				'TENT'			: 'Tent',
 				'QUADRATIC'		: 'Quadratic',
@@ -33,6 +33,7 @@ class OSA:
 		self.samples = 8
 		self.fullSample = False
 		self.size = 1.0
+		self.filter = 'MITCHELL'
 	
 	
 	
@@ -45,6 +46,7 @@ class OSA:
 		self.samples = int(xml.get('samples'))
 		self.fullSample = boolDict[xml.get('fullSample')]
 		self.size = float(xml.get('size'))
+		self.filter = xml.get('filter')
 	
 	
 	
@@ -54,7 +56,7 @@ class OSA:
 		'''export antialiasing settings into xml syntaxed string'''
 		txt = '<OSA enabled="'+str(self.enabled)+'" samples="'\
 				+str(self.samples)+'" fullSample="'+str(self.fullSample)\
-				+'" size="'+str(self.size)+'" />\n'
+				+'" size="'+str(self.size)+'" filter="'+self.filter+'"/>\n'
 		return txt
 	
 	
@@ -103,7 +105,7 @@ class OSA:
 				log.write('OSA full sample option set to '\
 					+{ True:'enabled', False:'disabled' }[self.fullSample] )
 			elif choice == '4':
-				change = (self.editFilter() or change)
+				change = (self.editFilterSize() or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -120,7 +122,8 @@ class OSA:
 		
 		if self.enabled:
 			print('OSA Samples :           '+str(self.samples))
-			print('OSA filter Size (px):    '+str(round(self.size, 3)) )
+			print('OSA filter :             '+self.FILTERS[self.filter])
+			print('OSA filter Size (px) :   '+str(round(self.size, 3)) )
 			print('Full Sample :           '+enable[self.fullSample])
 	
 	
@@ -161,7 +164,7 @@ class OSA:
 	
 	
 	
-	def editFilter(self):
+	def editFilterSize(self):
 		'''a method to edit filter size'''
 		log.menuIn('Edit Filter Size')
 		
