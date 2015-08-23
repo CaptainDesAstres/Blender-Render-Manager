@@ -867,8 +867,12 @@ What do you want to do? (type h for help)'''
 				log.runMenu += 'What do you want to do? (type h for help)'
 			elif choice in ['n', 'now']:
 				self.runningMode = self.STOP_NOW
+				for subP in self.renderingSubprocess:
+					subP.terminate()
 			elif choice in ['f', 'force', 'forced']:
 				self.runningMode = self.STOP_FORCED
+				for subP in self.renderingSubprocess:
+					subP.kill()
 			else:
 				log.runMenu = 'Ask for an unknow action «'+choice+'»! Retry!\nWhat do you want to do? (type h for help)'
 		log.runMenu = None
