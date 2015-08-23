@@ -285,9 +285,27 @@ class Quality:
 				continue
 			
 			self.format = self.FORMATS[choice]
+			self.checkDepth(log)
 			log.write('Output format is set to : '+self.format)
 			log.menuOut()
 			return True
+	
+	
+	
+	
+	
+	def checkDepth(self, log):
+		'''a method to check if current color depth is coherent with new set format'''
+		depths = self.COLOR_DEPTH[self.format]
+		
+		if len(depths) == 1:
+			self.colorDepth = depths[0]
+		elif self.colorDepth not in depths:
+			if self.colorDepth == 32:
+				self.colorDepth = depths[-1]
+			else:
+				self.colorDepth = 16
+		log.write('Color depth automatically set to '+str(self.colorDepth))
 	
 	
 	
