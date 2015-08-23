@@ -6,6 +6,7 @@ from TaskList.TaskLog.FrameLog import *
 from Preferences.PresetList.Preset.Preset import *
 from Preferences.PresetList.Preset.Metapreset import *
 from usefullFunctions import XML
+import os
 
 
 class GroupLog:
@@ -189,6 +190,20 @@ class GroupLog:
 									computingTime = computingTime
 									) 
 							)
+	
+	
+	
+	
+	
+	def checkFrames(self, mainPath, extension):
+		'''check for each frame that have been claimed as rendered if there is really a file corresponding to it'''
+		for frame in self.frames[:]:
+			path = mainPath+self.subpath+(self.naming.replace('####', str(frame.frame)))+extension
+			if not os.path.exists(path) or not os.path.isfile(path):
+				self.frames.remove(frame)
+			elif os.stat(path).st_size < 3:
+				self.frames.remove(frame)
+				os.remove(path)
 	
 	
 	
