@@ -84,11 +84,15 @@ class OSA:
 			elif choice == '1':
 				change = True
 				self.enabled = not self.enabled
+				log.write('OSA switch to '\
+					+{ True:'enabled', False:'disabled' }[self.enabled] )
 			elif choice == '2':
 				change = (self.editSamples() or change)
 			elif choice == '3':
 				change = True
 				self.fullSample = not self.fullSample
+				log.write('OSA full sample option set to '\
+					+{ True:'enabled', False:'disabled' }[self.fullSample] )
 			elif choice == '4':
 				change = (self.editFilter() or change)
 			else:
@@ -135,9 +139,12 @@ class OSA:
 				continue
 			
 			if choice == 0:
+				log.menuOut()
 				return False
 			if choice in options
 				self.samples = choice
+				log.write('OSA Samples set to :'+str(self.samples))
+				log.menuOut()
 				return True
 			log.error('unexpected «'+str(choice)+'» integer value. expected 0, 5, 8, 11 or 16.')
 	
