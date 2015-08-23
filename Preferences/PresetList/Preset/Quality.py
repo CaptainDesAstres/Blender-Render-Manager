@@ -110,10 +110,10 @@ class Quality:
 3- Edit Cycles Samples
 4- Edit OSA settings (for Blender Render only)
 5- Edit Simplify Setting
-6- Edit Format
-0- Quit
-
-''')
+6- Edit Format''')
+			if len(self.COLOR_DEPTH[self.format]) > 1:
+				print('7- Change Color Depth')
+			print('0- Quit\n\n')
 			
 			choice = input('Action?').strip().lower()
 			
@@ -130,6 +130,8 @@ class Quality:
 				change = (self.editSimplify(log) or change)
 			elif choice == '6':
 				change = (self.editFormat(log) or change)
+			elif choice == '7' and len(self.COLOR_DEPTH[self.format]) > 1:
+				change = (self.editColorDepth(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -286,6 +288,14 @@ class Quality:
 			log.write('Output format is set to : '+self.format)
 			log.menuOut()
 			return True
+	
+	
+	
+	
+	
+	def editColorDepth(self, log):
+		'''a method to change color depth setting'''
+		
 	
 	
 	
