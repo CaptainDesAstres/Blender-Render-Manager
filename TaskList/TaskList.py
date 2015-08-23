@@ -800,12 +800,10 @@ Quit : q or quit
 			self.checkListeners()
 		self.status = 'stop'
 		
-		while True:
+		while len(self.listenerThreads) > 0:
 			self.checkListeners()
-			if len(self.listenerThreads) > 0:
-				time.sleep(1)
-			else:
-				break
+			time.sleep(1)
+		
 		self.listenerThreads = None
 		self.listenerSockets = None
 		self.renderingSubprocess = None
