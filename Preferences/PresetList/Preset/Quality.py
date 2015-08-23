@@ -9,7 +9,25 @@ import os
 
 class Quality:
 	'''class to manage Quality settings'''
-	
+	FORMAT = [ 'BMP', 'IRIS', 'PNG', 'JPEG', 'JPEG2000', 'TARGA', 'TARGA_RAW',\
+				'CINEON', 'DPX', 'OPEN_EXR_MULTILAYER', 'OPEN_EXR', 'HDR', 'TIFF']
+	COLOR_DEPTH = {
+					'BMP'					:		[8],
+					'IRIS'					:		[8],
+					'PNG'					:		[8, 16],
+					'JPEG'					:		[8],
+					'JPEG2000'				:		[8, 12, 16],
+					'TARGA'					:		[8],
+					'TARGA_RAW'				:		[8],
+					'CINEON'				:		[10],
+					'DPX'					:		[8, 10, 12, 16],
+					'OPEN_EXR_MULTILAYER'	:		[32],
+					'OPEN_EXR'				:		[16, 32],
+					'HDR'					:		[32],
+					'TIFF'					:		[8, 16]
+					}
+	RGBA_OPT = ['IRIS', 'PNG', 'JPEG2000', 'TARGA', 'DPX', 'OPEN_EXR_MULTILAYER', 'OPEN_EXR', 'HDR' ]
+	QUALITY_OPT = ['PNG', 'JPEG', 'JPEG2000']
 	
 	def __init__(self, xml= None):
 		'''initialize Quality settings with default value or values extracted from an xml object'''
