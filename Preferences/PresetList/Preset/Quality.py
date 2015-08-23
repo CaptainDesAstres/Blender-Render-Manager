@@ -299,8 +299,9 @@ class Quality:
 		depths = self.COLOR_DEPTH[self.format]
 		while True:
 			log.print()
-			input('\n\ncurrent settings : '+str(self.colorDepth)+' bits\n\navailable depth :['+ (','.join(str(x) for x in depths)) +'].\nwhat\'s the new depth (\'q\' to quit) :').lower().strip()
-			if input in ['0', 'q', 'quit', 'cancel']:
+			choice = input('\n\ncurrent settings : '+str(self.colorDepth)+' bits\n\navailable depth :['+ (','.join(str(x) for x in depths)) +'].\nwhat\'s the new depth (\'q\' to quit) :').lower().strip()
+			
+			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return False
 			
