@@ -368,7 +368,9 @@ class Task:
 			except FileNotFoundError:
 				log.write('\033[31mTask n°'+str(index)+' : Blender version call error! Try to verify the path of «'+version+'» blender version!\033[0m')
 			if taskList.runningMode in [taskList.UNTIL_GROUP_END,\
-									taskList.UNTIL_FRAME_END]:
+										taskList.UNTIL_FRAME_END,\
+										taskList.STOP_NOW,\
+										taskList.STOP_FORCED]:
 				break
 		self.eraseTaskScript(scripts)
 		
