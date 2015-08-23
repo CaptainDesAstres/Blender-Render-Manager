@@ -119,7 +119,11 @@ class OSA:
 				continue
 			
 			if choice == 0:
-				returnFalse
+				return False
+			if choice in options
+				self.samples = choice
+				return True
+			log.error('unexpected «'+str(choice)+'» integer value. expected 0, 5, 8, 11 or 16.')
 			
 	
 	
