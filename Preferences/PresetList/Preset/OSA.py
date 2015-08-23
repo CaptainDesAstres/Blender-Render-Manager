@@ -80,9 +80,10 @@ class OSA:
 
         Menu :
 1- Switch To Enable Or Disabled OSA
-2- Edit OSA Samples
-3- Switch To Enable Or Disabled OSA Full Sample Option
-4- Edit OSA Filter Size
+2- Change OSA Filter Type
+3- Edit OSA Samples
+4- Switch To Enable Or Disabled OSA Full Sample Option
+5- Edit OSA Filter Size
 0- Quit
 
 ''')
@@ -98,13 +99,15 @@ class OSA:
 				log.write('OSA switch to '\
 					+{ True:'enabled', False:'disabled' }[self.enabled] )
 			elif choice == '2':
-				change = (self.editSamples() or change)
+				change = (self.editFilterType() or change)
 			elif choice == '3':
+				change = (self.editSamples() or change)
+			elif choice == '4':
 				change = True
 				self.fullSample = not self.fullSample
 				log.write('OSA full sample option set to '\
 					+{ True:'enabled', False:'disabled' }[self.fullSample] )
-			elif choice == '4':
+			elif choice == '5':
 				change = (self.editFilterSize() or change)
 			else:
 				log.error('Unvalid menu choice', False)
