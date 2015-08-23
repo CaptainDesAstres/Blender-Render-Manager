@@ -71,6 +71,7 @@ class OSA:
 1- Switch To Enable Or Disabled OSA
 2- Edit OSA Samples
 3- Switch To Enable Or Disabled OSA Full Sample Option
+4- Edit OSA Filter Size
 0- Quit
 
 ''')
@@ -88,6 +89,8 @@ class OSA:
 			elif choice == '3':
 				change = True
 				self.fullSample = not self.fullSample
+			elif choice == '4':
+				change = (self.editFilter() or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -137,7 +140,14 @@ class OSA:
 				self.samples = choice
 				return True
 			log.error('unexpected «'+str(choice)+'» integer value. expected 0, 5, 8, 11 or 16.')
-			
+	
+	
+	
+	
+	
+	def editFilter(self):
+		'''a method to edit filter size'''
+		
 	
 	
 	
