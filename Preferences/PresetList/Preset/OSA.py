@@ -54,7 +54,7 @@ class OSA:
 	
 	def toXml(self):
 		'''export antialiasing settings into xml syntaxed string'''
-		txt = '<OSA enabled="'+str(self.enabled)+'" samples="'\
+		txt = '  <OSA enabled="'+str(self.enabled)+'" samples="'\
 				+str(self.samples)+'" fullSample="'+str(self.fullSample)\
 				+'" size="'+str(self.size)+'" filter="'+self.filter+'"/>\n'
 		return txt

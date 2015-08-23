@@ -3,6 +3,7 @@
 '''module to manage Quality settings'''
 import xml.etree.ElementTree as xmlMod
 from usefullFunctions import *
+from Preferences.PresetList.Preset.OSA import *
 from Preferences.PresetList.Preset.ValueType.Size import *
 import os
 
@@ -28,6 +29,7 @@ class Quality:
 		self.samples = 1500
 		self.simplify = None
 		self.format = 'OPEN_EXR_MULTILAYER'
+		self.OSA = OSA()
 	
 	
 	
@@ -44,6 +46,7 @@ class Quality:
 		else:
 			self.simplify = None
 		self.format = xml.find('format').get('value')
+		self.OSA = OSA(xml.find('OSA'))
 		
 	
 	
@@ -60,6 +63,9 @@ class Quality:
 			txt += '  <simplify value="'+str(self.simplify)+'" />\n'
 		
 		txt += '  <format value="'+self.format+'" />\n'
+		
+		txt += self.OSA.toXml()
+		
 		txt += '</quality>\n'
 		return txt
 	
@@ -84,6 +90,7 @@ class Quality:
 3- Edit Cycles Samples
 4- Edit Simplify Setting
 5- Edit Format
+6- Edit OSA settings (for Blender Render only)
 0- Quit
 
 ''')
@@ -101,6 +108,8 @@ class Quality:
 				change = (self.editSimplify(log) or change)
 			elif choice == '5':
 				change = (self.editFormat(log) or change)
+			elif choice == '6':
+				change = (self.OSA.menu(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
