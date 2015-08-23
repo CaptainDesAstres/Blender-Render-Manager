@@ -198,6 +198,42 @@ class OSA:
 	
 	
 	
+	def editFilterType(self):
+		'''a method to edit OSA Filter type'''
+		log.menuIn('Change OSA Filter')
+		keys = list(self.FILTERS.keys())
+		keys.sort()
+		
+		while True:
+			log.print()
+			
+			print('\n\nCurrent filter : '+self.FILTERS[self.filter]+'.\n\n       available settings choice :\n0- Quit whithout change' )
+			
+			for i, k in enumerate(keys):
+				print(str(i+1)+'- '+self.FILTERS[k])
+			choice = input().strip().lower()
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('expect an integer value.')
+				continue
+			
+			if choice == 0:
+				log.menuOut()
+				return False
+			
+			choice -= 1
+			if choice >= 0 and choice < len(keys):
+				self.filter = keys[choice]
+				log.write('OSA filter set to :'+self.FILTERS[self.filter])
+				log.menuOut()
+				return True
+			log.error('Error, «'+str(choice+1)+'» is not a valid choice!')
+	
+	
+	
+	
 	
 	
 	
