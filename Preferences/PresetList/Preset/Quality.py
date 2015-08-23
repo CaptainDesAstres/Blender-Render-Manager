@@ -106,9 +106,9 @@ class Quality:
 1- Edit Resolution Size
 2- Edit Pourcent Setting
 3- Edit Cycles Samples
-4- Edit Simplify Setting
-5- Edit Format
-6- Edit OSA settings (for Blender Render only)
+4- Edit OSA settings (for Blender Render only)
+5- Edit Simplify Setting
+6- Edit Format
 0- Quit
 
 ''')
@@ -123,11 +123,11 @@ class Quality:
 			elif choice in ['2', '3']:
 				change = (self.edit(log, int(choice)) or change)
 			elif choice == '4':
-				change = (self.editSimplify(log) or change)
-			elif choice == '5':
-				change = (self.editFormat(log) or change)
-			elif choice == '6':
 				change = (self.OSA.menu(log) or change)
+			elif choice == '5':
+				change = (self.editSimplify(log) or change)
+			elif choice == '6':
+				change = (self.editFormat(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
