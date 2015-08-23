@@ -67,6 +67,7 @@ class OSA:
         Menu :
 1- Switch To Enable Or Disabled OSA
 2- Edit OSA Samples
+3- Switch To Enable Or Disabled OSA Full Sample Option
 0- Quit
 
 ''')
@@ -81,6 +82,9 @@ class OSA:
 				self.enabled = not self.enabled
 			elif choice == '2':
 				change = (self.editSamples() or change)
+			elif choice == '3':
+				change = True
+				self.fullSample = not self.fullSample
 			else:
 				log.error('Unvalid menu choice', False)
 		
