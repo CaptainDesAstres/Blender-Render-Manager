@@ -135,4 +135,14 @@ class TaskLog:
 	
 	
 	
+	def isCompleted(self):
+		'''check if there is still frame waiting to be rendered'''
+		for group in self.groups:
+			if group.remaining()>0:
+				return False
+		return True
+	
+	
+	
+	
 	
