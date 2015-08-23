@@ -49,7 +49,7 @@ class OSA:
 	def menu(self, log):
 		'''menu to explore and edit antialiasing settings'''
 		change = False
-		log.menuIn('OSA settings')
+		log.menuIn('OSA Settings')
 		
 		while True:
 			
@@ -63,6 +63,7 @@ class OSA:
 
         Menu :
 1- Switch To Enable Or Disabled OSA
+2- Edit OSA Samples
 0- Quit
 
 ''')
@@ -75,6 +76,8 @@ class OSA:
 			elif choice == '1':
 				change = True
 				self.enabled = not self.enabled
+			elif choice == '2':
+				change = (self.editSamples() or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -91,6 +94,26 @@ class OSA:
 		if self.enabled:
 			print('OSA samples :           '+str(self.samples))
 	
+	
+	
+	
+	
+	def editSamples(self):
+		'''menu to edit OSA sampes setting'''
+		log.menuIn('Edit Samples Setting')
+		options = [ 5, 8, 11, 16 ]
+		
+		while True:
+			log.print()
+			
+			print('\n\nCurrent settings : '+str(self.samples)+'samples per pixel.\n\n       available settings choice :\n0- Quit whithout change' )
+			
+			for opt in options:
+				print(str(opt)+'- '+str(opt)+' samples per pixel')
+			choice = input().strip().lower()
+			
+			break
+			
 	
 	
 	
