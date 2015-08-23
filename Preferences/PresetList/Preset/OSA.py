@@ -74,16 +74,27 @@ class OSA:
 			
 			self.print()
 			
-			print('''
+			if self.enabled:
+				print('''
 
 (Antialiasing setting only work with blender internal engine and not with Cycles)
 
         Menu :
-1- Switch To Enable Or Disabled OSA
+1- Disabled OSA
 2- Change OSA Filter Type
 3- Edit OSA Samples
 4- Switch To Enable Or Disabled OSA Full Sample Option
 5- Edit OSA Filter Size
+0- Quit
+
+''')
+			else:
+				print('''
+
+(Antialiasing setting only work with blender internal engine and not with Cycles)
+
+        Menu :
+1- Enable OSA
 0- Quit
 
 ''')
@@ -98,17 +109,20 @@ class OSA:
 				self.enabled = not self.enabled
 				log.write('OSA switch to '\
 					+{ True:'enabled', False:'disabled' }[self.enabled] )
-			elif choice == '2':
-				change = (self.editFilterType(log) or change)
-			elif choice == '3':
-				change = (self.editSamples(log) or change)
-			elif choice == '4':
-				change = True
-				self.fullSample = not self.fullSample
-				log.write('OSA full sample option set to '\
-					+{ True:'enabled', False:'disabled' }[self.fullSample] )
-			elif choice == '5':
-				change = (self.editFilterSize(log) or change)
+			elif self.enabled:
+				if choice == '2':
+					change = (self.editFilterType(log) or change)
+				elif choice == '3':
+					change = (self.editSamples(log) or change)
+				elif choice == '4':
+					change = True
+					self.fullSample = not self.fullSample
+					log.write('OSA full sample option set to '\
+						+{ True:'enabled', False:'disabled' }[self.fullSample] )
+				elif choice == '5':
+					change = (self.editFilterSize(log) or change)
+				else:
+					log.error('Unvalid menu choice', False)
 			else:
 				log.error('Unvalid menu choice', False)
 		
