@@ -125,8 +125,8 @@ class OSA:
 		
 		if self.enabled:
 			print('OSA Samples :           '+str(self.samples))
-			print('OSA filter :             '+self.FILTERS[self.filter])
-			print('OSA filter Size (px) :   '+str(round(self.size, 3)) )
+			print('OSA filter :            '+self.FILTERS[self.filter])
+			print('OSA filter Size (px) :  '+str(round(self.size, 3)) )
 			print('Full Sample :           '+enable[self.fullSample])
 	
 	
