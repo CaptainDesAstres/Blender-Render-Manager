@@ -391,7 +391,7 @@ class Task:
 										} 
 										)
 		msg = ''
-		while True:
+		while taskList.runningMode < taskList.STOP_NOW:
 			msg += client.recv(1024).decode()
 			if msg == '':
 				time.sleep(1)
