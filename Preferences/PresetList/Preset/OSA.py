@@ -21,6 +21,7 @@ class OSA:
 	def defaultInit(self):
 		'''initialize antialiasing settings with default value'''
 		self.enabled = True
+		self.samples = 8
 	
 	
 	
@@ -29,7 +30,7 @@ class OSA:
 	def fromXml(self, xml):
 		'''initialize antialiasing settings with values extracted from an xml object'''
 		self.enabled = { 'True':True, 'False':False }[xml.get('enabled')]
-		
+		self.samples = int(xml.get('samples'))
 	
 	
 	
@@ -37,7 +38,8 @@ class OSA:
 	
 	def toXml(self):
 		'''export antialiasing settings into xml syntaxed string'''
-		txt = '<OSA enabled="'+str(self.enabled)+'" />\n'
+		txt = '<OSA enabled="'+str(self.enabled)+'" samples="'\
+				+str(self.samples)+'"/>\n'
 		return txt
 	
 	
@@ -55,7 +57,11 @@ class OSA:
 			
 			self.print()
 			
-			print('''\n\n        Menu :
+			print('''
+
+(Antialiasing setting only work with blender internal engine and not with Cycles)
+
+        Menu :
 1- Switch To Enable Or Disabled OSA
 0- Quit
 
@@ -79,11 +85,11 @@ class OSA:
 	
 	def print(self):
 		'''a method to print preset'''
-		print('Antialiasing :            '\
+		print('Antialiasing :          '\
 					+{ True:'enabled', False:'disabled' }[self.enabled] )
 		
 		if self.enabled:
-			print()
+			print('OSA samples :           '+str(self.samples))
 	
 	
 	
