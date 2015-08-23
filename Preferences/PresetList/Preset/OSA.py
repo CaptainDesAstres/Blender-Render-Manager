@@ -112,7 +112,14 @@ class OSA:
 				print(str(opt)+'- '+str(opt)+' samples per pixel')
 			choice = input().strip().lower()
 			
-			break
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('expect integer value.')
+				continue
+			
+			if choice == 0:
+				returnFalse
 			
 	
 	
