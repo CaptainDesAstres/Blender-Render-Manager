@@ -46,7 +46,7 @@ class Quality:
 		self.samples = 1500
 		self.simplify = None
 		self.format = 'OPEN_EXR_MULTILAYER'
-		self.colorDepth = 16
+		self.colorDepth = 32
 		self.OSA = OSA()
 	
 	
@@ -144,6 +144,7 @@ class Quality:
 		print('Cycles Samples :        '+str(self.samples))
 		print('Simplify :              '+self.getSimplify())
 		print('Format :                '+self.format)
+		print('Color Depth :           '+str(self.colorDepth))
 		self.OSA.print()
 	
 	
