@@ -22,6 +22,7 @@ class OSA:
 		'''initialize antialiasing settings with default value'''
 		self.enabled = True
 		self.samples = 8
+		self.fullSample = False
 	
 	
 	
@@ -29,8 +30,10 @@ class OSA:
 	
 	def fromXml(self, xml):
 		'''initialize antialiasing settings with values extracted from an xml object'''
-		self.enabled = { 'True':True, 'False':False }[xml.get('enabled')]
+		boolDict = { 'True':True, 'False':False }
+		self.enabled = boolDict[xml.get('enabled')]
 		self.samples = int(xml.get('samples'))
+		self.fullSample = boolDict[xml.get('fullSample')]
 	
 	
 	
@@ -39,7 +42,7 @@ class OSA:
 	def toXml(self):
 		'''export antialiasing settings into xml syntaxed string'''
 		txt = '<OSA enabled="'+str(self.enabled)+'" samples="'\
-				+str(self.samples)+'"/>\n'
+				+str(self.samples)+'" fullSample="'+str(self.fullSample)+'"/>\n'
 		return txt
 	
 	
@@ -88,11 +91,13 @@ class OSA:
 	
 	def print(self):
 		'''a method to print preset'''
+		enable = { True:'enabled', False:'disabled' }
 		print('Antialiasing :          '\
-					+{ True:'enabled', False:'disabled' }[self.enabled] )
+					+enable[self.enabled] )
 		
 		if self.enabled:
 			print('OSA samples :           '+str(self.samples))
+			print('Full Sample :           '+enable[self.fullSample])
 	
 	
 	
