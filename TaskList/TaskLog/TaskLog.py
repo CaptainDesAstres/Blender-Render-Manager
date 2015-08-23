@@ -135,7 +135,7 @@ class TaskLog:
 	
 	
 	
-	def isCompleted(self):
+	def isComplete(self):
 		'''check if there is still frame waiting to be rendered'''
 		for group in self.groups:
 			if group.remaining()>0:
@@ -146,11 +146,13 @@ class TaskLog:
 	
 	
 	
-	def checkFrames(self, extension):
+	def checkFrames(self):
 		'''check for each frame that have been claimed as rendered if there is really a file corresponding to it'''
 		path = self.getMainPath()
 		for group in self.groups:
-			group.checkFrames(path, extension)
+			group.checkFrames(path)
+		
+		return self.isComplete()
 	
 	
 	

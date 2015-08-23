@@ -195,8 +195,9 @@ class GroupLog:
 	
 	
 	
-	def checkFrames(self, mainPath, extension):
+	def checkFrames(self, mainPath):
 		'''check for each frame that have been claimed as rendered if there is really a file corresponding to it'''
+		extension = self.preset.quality.getExtension()
 		for frame in self.frames[:]:
 			path = mainPath+self.subpath+(self.naming.replace('####', str(frame.frame)))+extension
 			if not os.path.exists(path) or not os.path.isfile(path):
