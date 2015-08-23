@@ -810,7 +810,9 @@ Quit : q or quit
 		
 		self.socket.close()
 		self.socket = None
-		print('running action are ended or stoped, press enter to continue to task list menu!')
+		print('running action are ended or stoped, now checking frame')
+		self.checkAndArchive()
+		print('all done, press enter to continue!')
 		runMenu.join()
 		log.menuOut()
 	
@@ -916,6 +918,14 @@ What do you want to do? (type h for help)'''
 				return True
 		
 		return False
+	
+	
+	
+	
+	
+	def checkAndArchive(self):
+		'''check ended task to ensure that all frame have been well rendered and archiv ended task'''
+		
 	
 	
 	
