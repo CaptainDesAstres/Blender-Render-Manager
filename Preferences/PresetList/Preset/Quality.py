@@ -291,6 +291,8 @@ class Quality:
 			scene.render.simplify_subdivision_render
 		
 		scene.render.image_settings.file_format = self.format
+		
+		self.OSA.apply(scene)
 	
 	
 	

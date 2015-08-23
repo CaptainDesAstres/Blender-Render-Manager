@@ -235,5 +235,17 @@ class OSA:
 	
 	
 	
+	def apply(self, scene):
+		'''apply OSA settings to a blender scene'''
+		scene.render.use_antialiasing = self.enabled
+		if self.enabled:
+			scene.render.antialiasing_samples = str(self.samples)
+			scene.render.use_full_sample = self.fullSample
+			scene.render.filter_size = self.size
+			scene.render.pixel_filter_type = self.filter
+	
+	
+	
+	
 	
 	
