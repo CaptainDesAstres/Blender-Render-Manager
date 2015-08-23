@@ -146,3 +146,12 @@ class TaskLog:
 	
 	
 	
+	def checkFrames(self, extension):
+		'''check for each frame that have been claimed as rendered if there is really a file corresponding to it'''
+		path = self.getMainPath()
+		for group in self.groups:
+			group.checkFrames(path, extension)
+	
+	
+	
+	
