@@ -99,16 +99,16 @@ class OSA:
 				log.write('OSA switch to '\
 					+{ True:'enabled', False:'disabled' }[self.enabled] )
 			elif choice == '2':
-				change = (self.editFilterType() or change)
+				change = (self.editFilterType(log) or change)
 			elif choice == '3':
-				change = (self.editSamples() or change)
+				change = (self.editSamples(log) or change)
 			elif choice == '4':
 				change = True
 				self.fullSample = not self.fullSample
 				log.write('OSA full sample option set to '\
 					+{ True:'enabled', False:'disabled' }[self.fullSample] )
 			elif choice == '5':
-				change = (self.editFilterSize() or change)
+				change = (self.editFilterSize(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -133,7 +133,7 @@ class OSA:
 	
 	
 	
-	def editSamples(self):
+	def editSamples(self, log):
 		'''menu to edit OSA sampes setting'''
 		log.menuIn('Edit Samples Setting')
 		options = [ 5, 8, 11, 16 ]
@@ -167,7 +167,7 @@ class OSA:
 	
 	
 	
-	def editFilterSize(self):
+	def editFilterSize(self, log):
 		'''a method to edit filter size'''
 		log.menuIn('Edit Filter Size')
 		
@@ -198,7 +198,7 @@ class OSA:
 	
 	
 	
-	def editFilterType(self):
+	def editFilterType(self, log):
 		'''a method to edit OSA Filter type'''
 		log.menuIn('Change OSA Filter')
 		keys = list(self.FILTERS.keys())
