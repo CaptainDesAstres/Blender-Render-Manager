@@ -178,7 +178,18 @@ class Preset:
 						';exposure(cycles):'+str(self.options.exposureC)+\
 						';bounces:'+self.bounce.metadata()+';'
 		else:
-			metadata += 'exposure(BI):'+str(self.options.exposureB)+';'
+			metadata += 'exposure(BI):'+str(self.options.exposureB)+';'\
+						+'OSA:'+{ True:'enabled', False:'disabled' }[self.quality.OSA.enabled]+';'
+			
+			if self.quality.OSA.enabled:
+				metadata += 'OSA(set)'
+				
+				if self.quality.OSA.fullSample:
+					metadata += 'FULL'
+				
+				metadata += str(self.quality.OSA.samples)\
+							+self.quality.OSA.FILTERS[self.quality.OSA.filter]\
+							+'@'+str(self.quality.OSA.size)+';'
 		
 		if self.quality.simplify is not None:
 			metadata += 'simplify:'+str(self.quality.simplify)+';'
