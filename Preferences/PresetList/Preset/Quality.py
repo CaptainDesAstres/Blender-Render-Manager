@@ -295,7 +295,28 @@ class Quality:
 	
 	def editColorDepth(self, log):
 		'''a method to change color depth setting'''
-		
+		log.menuIn('Change Color Depth')
+		depths = self.COLOR_DEPTH[self.format]
+		while True:
+			log.print()
+			input('\n\ncurrent settings : '+str(self.colorDepth)+' bits\n\navailable depth :['+ (','.join(str(x) for x in depths)) +'].\nwhat\'s the new depth (\'q\' to quit) :').lower().strip()
+			if input in ['0', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('error, integer value expected!')
+				continue
+			
+			if choice in depths:
+				self.colorDepth = choice
+				log.write('Color depth set to '+str(self.colorDepth))
+				log.menuOut()
+				return True
+			else:
+				log.error('error, unvalid value! excpeted value are:'+(','.join(str(x) for x in depths)))
 	
 	
 	
