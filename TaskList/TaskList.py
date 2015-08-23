@@ -846,8 +846,8 @@ h        display this help
 t        to stop rendering after the current task
 g        to stop rendering after the current renderlayer group
 c        to stop rendering after the current frame
-#n        to stop rendering immediatly
-#f        to force to stop rendering immediatly
+n        to stop rendering immediatly (send terminated signal)
+f        to force to stop rendering immediatly (send kill signal)
 p        to get subprocess PID
 What do you want to do? (type h for help)'''
 			elif choice in ['c', 'current', 'frame']:
@@ -865,8 +865,12 @@ What do you want to do? (type h for help)'''
 				for subP in self.renderingSubprocess:
 					log.runMenu += str(subP.pid)+'\n'
 				log.runMenu += 'What do you want to do? (type h for help)'
+			elif choice in ['n', 'now']:
+				self.runningMode = self.STOP_NOW
+			elif choice in ['f', 'force', 'forced']:
+				self.runningMode = self.STOP_FORCED
 			else:
-				log.runMenu = 'Ask for an unknow action! Retry!\nWhat do you want to do? (type h for help)'
+				log.runMenu = 'Ask for an unknow action «'+choice+'»! Retry!\nWhat do you want to do? (type h for help)'
 		log.runMenu = None
 	
 	
