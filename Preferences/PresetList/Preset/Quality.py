@@ -9,7 +9,7 @@ import os
 
 class Quality:
 	'''class to manage Quality settings'''
-	FORMAT = [ 'BMP', 'IRIS', 'PNG', 'JPEG', 'JPEG2000', 'TARGA', 'TARGA_RAW',\
+	FORMATS = [ 'BMP', 'IRIS', 'PNG', 'JPEG', 'JPEG2000', 'TARGA', 'TARGA_RAW',\
 				'CINEON', 'DPX', 'OPEN_EXR_MULTILAYER', 'OPEN_EXR', 'HDR', 'TIFF']
 	COLOR_DEPTH = {
 					'BMP'					:		[8],
@@ -251,12 +251,7 @@ class Quality:
 	
 	def editFormat(self, log):
 		'''A method to edit format settings'''
-		formats = [
-					'PNG', 
-					'JPEG', 
-					'OPEN_EXR', 
-					'OPEN_EXR_MULTILAYER'
-					]
+		
 		log.menuIn('Choose Output Format')
 		
 		while True:
@@ -265,7 +260,7 @@ class Quality:
 			
 			print('\n\n        Edit Output Format :\n\nCurrent format : '+self.format)
 			
-			indexPrintList(formats)
+			indexPrintList(self.FORMATS)
 			
 			choice = input('new format?').strip()
 			
@@ -279,11 +274,11 @@ class Quality:
 				log.error('An integer is expected!')
 				continue
 			
-			if choice < 0 or choice >= len(formats):
+			if choice < 0 or choice >= len(self.FORMATS):
 				log.error('Out of choice range!')
 				continue
 			
-			self.format = formats[choice]
+			self.format = self.FORMATS[choice]
 			log.write('Output format is set to : '+self.format)
 			log.menuOut()
 			return True
