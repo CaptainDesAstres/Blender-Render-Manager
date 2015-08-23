@@ -927,7 +927,7 @@ What do you want to do? (type h for help)'''
 		'''check ended task to ensure that all frame have been well rendered and archive ended tasks'''
 		for task in self.tasks[:]:
 			if task.log is not None and task.log.isComplete()\
-					and task.log.checkFrames(task):
+					and task.log.checkFrames():
 				self.tasks.remove(task)
 				self.archive.append(task)
 	
