@@ -141,7 +141,7 @@ class OSA:
 			if choice == 0:
 				log.menuOut()
 				return False
-			if choice in options
+			if choice in options:
 				self.samples = choice
 				log.write('OSA Samples set to :'+str(self.samples))
 				log.menuOut()
@@ -154,7 +154,30 @@ class OSA:
 	
 	def editFilter(self):
 		'''a method to edit filter size'''
+		log.menuIn('Edit Filter Size')
 		
+		while True:
+			log.print()
+			
+			print('\n\nCurrent settings : '+str(round(self.size,3))+' pixel.\n\nnew OSa filter size settings (a value between 0.5 and 1.5 or \'q\' to quit):' )
+			choice = input().strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			try:
+				choice = float(choice)
+			except ValueError:
+				log.error('expect numeric value.')
+				continue
+			
+			if choice <= 1.5 and choice >= 0.5:
+				self.size = choice
+				log.write('OSA filter size set to :'+str(self.size))
+				log.menuOut()
+				return True
+			log.error('error, value ('+str(choice)+') must be greater than 0.5 and lesser than 1.5')
 	
 	
 	
