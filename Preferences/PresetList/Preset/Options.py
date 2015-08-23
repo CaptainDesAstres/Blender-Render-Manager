@@ -7,6 +7,7 @@ import os
 class Options:
 	'''class to manage Rendering Options'''
 	
+	RGBA_AVAILABLE = ['IRIS', 'PNG', 'JPEG2000', 'TARGA', 'DPX', 'OPEN_EXR_MULTILAYER', 'OPEN_EXR', 'HDR' ]
 	
 	def __init__(self, xml= None):
 		'''initialize Rendering Options with default value or values extracted from an xml object'''
@@ -199,7 +200,7 @@ class Options:
 		
 		scene.cycles.film_transparent = self.alpha
 		scene.render.alpha_mode = { True : 'TRANSPARENT' , False : 'SKY' }[self.alpha]
-		if self.alpha:
+		if self.alpha and scene.render.image_settings.file_format in RGBA_AVAILABLE:
 			scene.render.image_settings.color_mode = 'RGBA'
 		
 	

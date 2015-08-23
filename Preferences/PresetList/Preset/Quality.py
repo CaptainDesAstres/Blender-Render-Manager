@@ -26,7 +26,6 @@ class Quality:
 					'HDR'					:		[32],
 					'TIFF'					:		[8, 16]
 					}
-	RGBA_OPT = ['IRIS', 'PNG', 'JPEG2000', 'TARGA', 'DPX', 'OPEN_EXR_MULTILAYER', 'OPEN_EXR', 'HDR' ]
 	QUALITY_OPT = ['PNG', 'JPEG', 'JPEG2000']
 	
 	def __init__(self, xml= None):
