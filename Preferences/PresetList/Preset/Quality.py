@@ -46,6 +46,7 @@ class Quality:
 		self.samples = 1500
 		self.simplify = None
 		self.format = 'OPEN_EXR_MULTILAYER'
+		self.colorDepth = 16
 		self.OSA = OSA()
 	
 	
@@ -62,9 +63,11 @@ class Quality:
 			self.simplify = int(xml.find('simplify').get('value'))
 		else:
 			self.simplify = None
-		self.format = xml.find('format').get('value')
-		self.OSA = OSA(xml.find('OSA'))
+		node = xml.find('format')
+		self.format = node.get('value')
+		self.colorDepth = int(node.get('depth'))
 		
+		self.OSA = OSA(xml.find('OSA'))
 	
 	
 	
@@ -79,7 +82,7 @@ class Quality:
 		if self.simplify is not None:
 			txt += '  <simplify value="'+str(self.simplify)+'" />\n'
 		
-		txt += '  <format value="'+self.format+'" />\n'
+		txt += '  <format value="'+self.format+'" depth="'+str(self.colorDepth)+'"/>\n'
 		
 		txt += self.OSA.toXml()
 		
