@@ -160,7 +160,7 @@ class Quality:
 			
 			if self.format == 'PNG':
 				print('8- Edit Compression Settings')
-			elif self.format in ['JPEG', 'JPEGG2000']:
+			elif self.format in ['JPEG', 'JPEG2000']:
 				print('8- Edit Quality Settings')
 			
 			if self.format == 'JPEG2000':
@@ -194,9 +194,9 @@ class Quality:
 				change = (self.editFormat(log) or change)
 			elif choice == '7' and len(self.COLOR_DEPTH[self.format]) > 1:
 				change = (self.editColorDepth(log) or change)
-			elif choice == '8' and self.format in ['PNG','JPEG', 'JPEGG2000']:
+			elif choice == '8' and self.format in ['PNG','JPEG', 'JPEG2000']:
 				change = (self.editCompressionQuality(log) or change)
-			elif choice == '9' and self.format in ['OPEN_EXR', 'OPEN_EXR_MULTILAYER', 'DPX', 'JPEGG2000']:
+			elif choice == '9' and self.format in ['OPEN_EXR', 'OPEN_EXR_MULTILAYER', 'DPX', 'JPEG2000']:
 				if self.format == 'DPX':
 					self.DPXlog = not self.DPXlog
 					log.write('DPX Logarithmic color space '\
