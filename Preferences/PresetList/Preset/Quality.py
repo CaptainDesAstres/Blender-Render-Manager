@@ -490,6 +490,7 @@ class Quality:
 	
 	def editJpeg2000(self, log):
 		'''a method to edit JPEG2000 codec specific settings'''
+		enable = {True:'enabled', False: 'disabled'}
 		change = False
 		log.menuIn('Edit JPEG2000 Settings')
 		while True:
@@ -524,6 +525,28 @@ class Quality:
 			if menu in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return change
+			
+			if menu == '1':
+				if self.JPEGcodec == 'J2K':
+					self.JPEGcodec = 'JP2'
+				else:
+					self.JPEGcodec = 'J2K'
+				change = True
+				log.write('JPEG2000 codec set to '+self.JPEGcodec)
+			elif menu == '2':
+				self.JPEGcinema = not self.JPEGcinema
+				change = True
+				log.write ('JPEG2000 cinema option '+enable[self.JPEGcinema])
+			elif menu == '3':
+				self.JPEGcinema48 = not self.JPEGcinema48
+				change = True
+				log.write ('JPEG2000 cinema48 option '+enable[self.JPEGcinema48])
+			elif menu == '4':
+				self.JPEGycc = not self.JPEGycc
+				change = True
+				log.write ('JPEG2000 YCC option '+enable[self.JPEGycc])
+			else:
+				log.error('Unvalid choice, expect an integer value between 0 and 4')
 	
 	
 	
