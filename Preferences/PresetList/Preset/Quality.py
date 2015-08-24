@@ -204,8 +204,10 @@ class Quality:
 					change = True
 				elif self.format == 'JPEG2000':
 					change = (self.editJpeg2000(log) or change)
-				else:
+				elif self.format == 'OPEN_EXR':
 					change = (self.editExr(log) or change)
+				else:
+					change = (self.editExrCodec(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -499,7 +501,7 @@ class Quality:
 			
 			self.print()
 			
-			print('''\n\n        Menu:''')
+			print('\n\n        Menu:')
 			
 			if self.JPEGcodec == 'J2K':
 				print('1- switch to JP2 codec')
