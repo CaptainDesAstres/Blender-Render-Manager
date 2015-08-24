@@ -26,7 +26,6 @@ class Quality:
 					'OPEN_EXR_MULTILAYER'	:		[32],
 					'HDR'					:		[32]
 					}
-	QUALITY_OPT = ['PNG', 'JPEG', 'JPEG2000']
 	
 	def __init__(self, xml= None):
 		'''initialize Quality settings with default value or values extracted from an xml object'''
@@ -47,6 +46,8 @@ class Quality:
 		self.simplify = None
 		self.format = 'OPEN_EXR_MULTILAYER'
 		self.colorDepth = 32
+		self.JPEGquality = 100
+		self.PNGcompression = 0
 		self.OSA = OSA()
 	
 	
@@ -66,6 +67,8 @@ class Quality:
 		node = xml.find('format')
 		self.format = node.get('value')
 		self.colorDepth = int(node.get('depth'))
+		self.JPEGquality = int(node.get('quality'))
+		self.PNGcompression = int(node.get('compression'))
 		
 		self.OSA = OSA(xml.find('OSA'))
 	
@@ -82,7 +85,9 @@ class Quality:
 		if self.simplify is not None:
 			txt += '  <simplify value="'+str(self.simplify)+'" />\n'
 		
-		txt += '  <format value="'+self.format+'" depth="'+str(self.colorDepth)+'"/>\n'
+		txt += '  <format value="'+self.format+'" depth="'+str(self.colorDepth)\
+				+'" quality="'+str(self.JPEGquality)\
+				+'" compression="'+str(self.PNGcompression)+'"/>\n'
 		
 		txt += self.OSA.toXml()
 		
