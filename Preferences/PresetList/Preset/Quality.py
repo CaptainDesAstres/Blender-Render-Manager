@@ -194,6 +194,7 @@ class Quality:
 	
 	def print(self):
 		'''a method to print preset'''
+		enable = { True:'enabled', False:'disabled' }
 		print('Resolution :            '+self.size.toStr()+'@'+str(self.pourcent))
 		print('Cycles Samples :        '+str(self.samples))
 		print('Simplify :              '+self.getSimplify())
@@ -219,6 +220,14 @@ class Quality:
 			if self.JPEGycc:
 				opt += 'YCC'
 			print('JPEG2000 options :      '+opt)
+		elif self.format == 'DPX':
+			print('DPX Log :               '\
+				+enable[self.DPXlog])
+		elif self.format in ['OPEN_EXR', 'OPEN_EXR_MULTILAYER']:
+			print('EXR codec :             '+self.EXRcodec)
+			if self.format == 'OPEN_EXR':
+				print('EXR zbuffer :           '+enable[self.EXRzbuffer])
+				print('EXR previews :          '+enable[self.EXRpreviews])
 		
 		self.OSA.print()
 	
