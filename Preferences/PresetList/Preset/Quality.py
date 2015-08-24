@@ -44,10 +44,21 @@ class Quality:
 		self.size = Size('1920x1080')
 		self.samples = 1500
 		self.simplify = None
+		
 		self.format = 'OPEN_EXR_MULTILAYER'
 		self.colorDepth = 32
 		self.JPEGquality = 100
-		self.PNGcompression = 0
+		self.PNGcompression = 0 
+		
+		self.JPEGcodec = 'J2K'
+		self.JPEGcinema = False
+		self.JPEGcinema48 = False
+		self.JPEGycc = False
+		self.DPXlog = False
+		self.EXRcodec = 'NONE'
+		self.EXRzbuffer = True
+		self.EXRpreviews = False
+		
 		self.OSA = OSA()
 	
 	
@@ -70,6 +81,17 @@ class Quality:
 		self.JPEGquality = int(node.get('quality'))
 		self.PNGcompression = int(node.get('compression'))
 		
+		self.JPEGcodec = node.get('jpegCodec')
+		self.EXRcodec = node.get('exrCodec')
+		
+		
+		self.JPEGcinema = node.get('cinema', '0') == '1'
+		self.JPEGcinema48 = node.get('cinema48', '0') == '1'
+		self.JPEGycc = node.get('ycc', '0') == '1'
+		self.DPXlog = node.get('dpxlog', '0') == '1'
+		self.EXRzbuffer = node.get('zbuffer', '0') == '1'
+		self.EXRpreviews = node.get('previews', '0') == '1'
+		
 		self.OSA = OSA(xml.find('OSA'))
 	
 	
@@ -87,7 +109,23 @@ class Quality:
 		
 		txt += '  <format value="'+self.format+'" depth="'+str(self.colorDepth)\
 				+'" quality="'+str(self.JPEGquality)\
-				+'" compression="'+str(self.PNGcompression)+'"/>\n'
+				+'" compression="'+str(self.PNGcompression)\
+				+'" jpegCodec="'+self.JPEGcodec+'" '+'" exrCodec="'+self.EXRcodec+'" '
+		
+		if self.JPEGcinema:
+			txt += 'cinema="1" '
+		if self.JPEGcinema48:
+			txt += 'cinema48="1" '
+		if self.JPEGycc:
+			txt += 'ycc="1" '
+		if self.DPXlog:
+			txt += 'dpxlog="1" '
+		if self.EXRzbuffer:
+			txt += 'zbuffer="1" '
+		if self.EXRpreviews:
+			txt += 'preview="1" '
+		
+		txt += ' />\n'
 		
 		txt += self.OSA.toXml()
 		
