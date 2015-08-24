@@ -366,7 +366,23 @@ class Quality:
 	
 	def editCompressionQuality(self, log):
 		'''a method to edit output compression (png) or quality (jpg)'''
+		png = (self.format == 'PNG')
+		if png:
+			log.menuIn('Edit Compression')
+			current = self.PNGcompression
+		else:
+			log.menuIn('Edit Quality')
+			current = self.JPEGquality
 		
+		while True:
+			log.print()
+			
+			choice = input('\n\nCurrent setting : '+str(current)\
+					+'%\n\nNew settings (integer between 0 and 100 or "q" to quit) : ')).strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
 	
 	
 	
