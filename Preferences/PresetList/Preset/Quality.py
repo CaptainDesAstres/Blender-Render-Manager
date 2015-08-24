@@ -542,7 +542,7 @@ class Quality:
 	
 	
 	
-	def self.editExr(log):
+	def editExr(self, log):
 		'''a method to edit EXR codec specific settings'''
 		
 	
