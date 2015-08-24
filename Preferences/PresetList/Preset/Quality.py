@@ -383,6 +383,14 @@ class Quality:
 			if choice in ['q', 'quit', 'cancel']:
 				log.menuOut()
 				return False
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('error, integer value expected!')
+				continue
+			
+			
 	
 	
 	
