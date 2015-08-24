@@ -150,7 +150,16 @@ class Quality:
 		print('Resolution :            '+self.size.toStr()+'@'+str(self.pourcent))
 		print('Cycles Samples :        '+str(self.samples))
 		print('Simplify :              '+self.getSimplify())
-		print('Format :                '+self.format)
+		
+		if self.format in ['JPEG', 'JPEG2000']:
+			print('Format :                '+self.format+' (@'\
+						+str(self.JPEGquality)+'%)')
+		elif self.format == 'PNG':
+			print('Format :                '+self.format+' (@'\
+						+str(self.PNGcompression)+'%)')
+		else
+			print('Format :                '+self.format)
+		
 		print('Color Depth :           '+str(self.colorDepth))
 		self.OSA.print()
 	
