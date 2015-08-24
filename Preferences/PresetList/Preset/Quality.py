@@ -584,7 +584,43 @@ class Quality:
 	
 	def editExrCodec(self, log):
 		'''a method to choose EXR codec'''
+		log.menuIn('Choose EXR Codec')
 		
+		codecs = ['quit', 'NONE', 'PXR24', 'ZIP', 'PIZ', 'RLE', 'ZIPS', 'DWAA', 'DWAB']
+		
+		if self.colorDepth == 16:
+			codecs.append('B44')
+			codecs.append('B44A')
+		
+		while True:
+			log.print()
+			
+			self.print()
+			
+			print('\n\nCurrent EXR Codec : '+self.EXRcodec+'\n')
+			
+			indexPrintList(codecs)
+			
+			menu = input('\n\nMenu choice :').strip().lower()
+			
+			if menu in ['0', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			try:
+				menu = int(menu)
+			except ValueError:
+				log.error('integer value expected')
+				continue
+			
+			if menu > 0 and menu < len(codecs):
+				self.EXRcodec = codecs[menu]
+				log.write('EXR codec set to '+self.EXRcodec)
+				log.menuOut()
+				return True
+			else:
+				log.error('unvalid choice, expect a value between 0 and '+str(len(codecs)-1)+'!')
+			
 	
 	
 	
