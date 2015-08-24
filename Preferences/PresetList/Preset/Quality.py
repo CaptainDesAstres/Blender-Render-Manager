@@ -392,6 +392,7 @@ class Quality:
 			
 			self.format = self.FORMATS[choice]
 			self.checkDepth(log)
+			self.checkEXRcodec(log)
 			log.write('Output format is set to : '+self.format)
 			log.menuOut()
 			return True
@@ -412,6 +413,16 @@ class Quality:
 			else:
 				self.colorDepth = 16
 		log.write('Color depth automatically set to '+str(self.colorDepth))
+	
+	
+	
+	
+	
+	def checkEXRcodec(self, log):
+		'''check that EXR 16bit don't use B44 or B44A codec'''
+		if self.format in ['OPEN_EXR', 'OPEN_EXR_MULTILAYER']\
+			and self.colorDepth == 32 and self.EXRcodec in ['B44', 'B44A']:
+			self.EXRcodec = 'NONE'
 	
 	
 	
@@ -438,6 +449,7 @@ class Quality:
 			if choice in depths:
 				self.colorDepth = choice
 				log.write('Color depth set to '+str(self.colorDepth))
+				self.checkEXRcodec(log)
 				log.menuOut()
 				return True
 			else:
