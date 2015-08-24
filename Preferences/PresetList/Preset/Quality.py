@@ -163,6 +163,8 @@ class Quality:
 			elif self.format in ['JPEG', 'JPEGG2000']:
 				print('8- Edit Quality Settings')
 			
+			
+			
 			print('0- Quit\n\n')
 			
 			choice = input('Action?').strip().lower()
@@ -205,7 +207,7 @@ class Quality:
 		elif self.format == 'PNG':
 			print('Format :                '+self.format+' (@'\
 						+str(self.PNGcompression)+'%)')
-		else
+		else:
 			print('Format :                '+self.format)
 		
 		print('Color Depth :           '+str(self.colorDepth))
@@ -437,7 +439,7 @@ class Quality:
 			log.print()
 			
 			choice = input('\n\nCurrent setting : '+str(current)\
-					+'%\n\nNew settings (integer between 0 and 100 or "q" to quit) : ')).strip().lower()
+					+'%\n\nNew settings (integer between 0 and 100 or "q" to quit) : ').strip().lower()
 			
 			if choice in ['q', 'quit', 'cancel']:
 				log.menuOut()
