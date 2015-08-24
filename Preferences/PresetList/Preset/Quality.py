@@ -110,7 +110,7 @@ class Quality:
 		txt += '  <format value="'+self.format+'" depth="'+str(self.colorDepth)\
 				+'" quality="'+str(self.JPEGquality)\
 				+'" compression="'+str(self.PNGcompression)\
-				+'" jpegCodec="'+self.JPEGcodec+'" '+'" exrCodec="'+self.EXRcodec+'" '
+				+'" jpegCodec="'+self.JPEGcodec+'" exrCodec="'+self.EXRcodec+'" '
 		
 		if self.JPEGcinema:
 			txt += 'cinema="1" '
