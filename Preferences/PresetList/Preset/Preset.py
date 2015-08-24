@@ -195,9 +195,9 @@ class Preset:
 			metadata += 'simplify:'+str(self.quality.simplify)+';'
 		
 		if self.quality.format == 'PNG':
-			metadata += 'compression:'+str(self.quality.PNGcompression)+';'
+			metadata += 'compression:'+str(self.quality.PNGcompression)+'%;'
 		elif self.quality.format in ['JPEG', 'JPEG2000']:
-			metadata += 'quality:'+str(self.quality.JPEGquality)+';'
+			metadata += 'quality:'+str(self.quality.JPEGquality)+'%;'
 		
 		scene.render.stamp_note_text = metadata
 		
