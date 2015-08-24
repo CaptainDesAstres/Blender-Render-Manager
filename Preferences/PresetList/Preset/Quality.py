@@ -424,6 +424,8 @@ class Quality:
 		
 		scene.render.image_settings.file_format = self.format
 		scene.render.image_settings.color_depth = str(self.colorDepth)
+		scene.render.image_settings.quality = self.JPEGquality
+		scene.render.image_settings.compression = self.PNGcompression
 		
 		self.OSA.apply(scene)
 	
