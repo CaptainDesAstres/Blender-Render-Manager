@@ -491,6 +491,7 @@ class Quality:
 	def editJpeg2000(self, log):
 		'''a method to edit JPEG2000 codec specific settings'''
 		enable = {True:'enabled', False: 'disabled'}
+		action = {True:'Disable', False: 'Enable'}
 		change = False
 		log.menuIn('Edit JPEG2000 Settings')
 		while True:
@@ -505,20 +506,9 @@ class Quality:
 			else:
 				print('1- switch to J2K codec')
 			
-			if self.JPEGcinema:
-				print('2- Disable cinema Option')
-			else:
-				print('2- Enable cinema Option')
-			
-			if self.JPEGcinema48:
-				print('3- Disable cinema48 Option')
-			else:
-				print('3- Enable cinema48 Option')
-			
-			if self.JPEGycc:
-				print('4- Disable YCC Option')
-			else:
-				print('4- Enable YCC Option')
+			print('2- '+action[self.JPEGcinema]+' cinema Option')
+			print('3- '+action[self.JPEGcinema48]+' cinema48 Option')
+			print('4- '+action[self.JPEGycc]+' YCC Option')
 			
 			menu = input('0- Quit\n\nMenu choice :').strip().lower()
 			
