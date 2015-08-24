@@ -194,6 +194,11 @@ class Preset:
 		if self.quality.simplify is not None:
 			metadata += 'simplify:'+str(self.quality.simplify)+';'
 		
+		if self.quality.format == 'PNG':
+			metadata += 'compression:'+str(self.quality.PNGcompression)+';'
+		elif self.quality.format in ['JPEG', 'JPEG2000']:
+			metadata += 'quality:'+str(self.quality.JPEGquality)+';'
+		
 		scene.render.stamp_note_text = metadata
 		
 		scene.frame_current = scene.frame_start + len(logGroup.frames) 
