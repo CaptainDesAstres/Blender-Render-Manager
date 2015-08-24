@@ -116,8 +116,15 @@ class Quality:
 4- Edit OSA settings (for Blender Render only)
 5- Edit Simplify Setting
 6- Edit Format''')
+			
 			if len(self.COLOR_DEPTH[self.format]) > 1:
 				print('7- Change Color Depth')
+			
+			if self.format == 'PNG':
+				print('8- Edit Compression Settings')
+			elif self.format in ['JPEG', 'JPEGG2000']:
+				print('8- Edit Quality Settings')
+			
 			print('0- Quit\n\n')
 			
 			choice = input('Action?').strip().lower()
@@ -137,6 +144,8 @@ class Quality:
 				change = (self.editFormat(log) or change)
 			elif choice == '7' and len(self.COLOR_DEPTH[self.format]) > 1:
 				change = (self.editColorDepth(log) or change)
+			elif choice == '8' and self.format in ['PNG','JPEG', 'JPEGG2000']:
+				change = (self.editCompressionQuality(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
@@ -350,6 +359,14 @@ class Quality:
 				return True
 			else:
 				log.error('error, unvalid value! excpeted value are:'+(','.join(str(x) for x in depths)))
+	
+	
+	
+	
+	
+	def editCompressionQuality(self, log):
+		'''a method to edit output compression (png) or quality (jpg)'''
+		
 	
 	
 	
