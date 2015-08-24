@@ -390,7 +390,18 @@ class Quality:
 				log.error('error, integer value expected!')
 				continue
 			
-			
+			if choice >= 0 and choice <= 100:
+				if png:
+					self.PNGcompression = choice
+					log.write('PNG compression set to '+str(self.PNGcompression)+'.')
+				else:
+					self.JPEGquality = choice
+					log.write('JPEG quality set to '+str(self.JPEGquality)+'.')
+				
+				log.menuOut()
+				return True
+			else:
+				log.error('error, expect a value between 0 and 100, not «'+str(choice)+'»!')
 	
 	
 	
