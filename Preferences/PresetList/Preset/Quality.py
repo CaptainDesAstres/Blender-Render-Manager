@@ -163,7 +163,17 @@ class Quality:
 			elif self.format in ['JPEG', 'JPEGG2000']:
 				print('8- Edit Quality Settings')
 			
-			
+			if self.format == 'JPEG2000':
+				print('9- Edit JPEG2000 Codec Options')
+			elif self.format == 'DPX':
+				
+				if self.DPXlog:
+					print('9- Disable DPX Logarithmic colorspace')
+				else:
+					print('9- Enable DPX Logarithmic colorspace')
+				
+			elif self.format in ['OPEN_EXR', 'OPEN_EXR_MULTILAYER']:
+				print('9- Edit EXR Codec Options')
 			
 			print('0- Quit\n\n')
 			
