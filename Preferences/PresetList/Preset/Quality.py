@@ -488,6 +488,22 @@ class Quality:
 	
 	
 	
+	def editJpeg2000(self, log):
+		'''a method to edit JPEG2000 codec specific settings'''
+		
+	
+	
+	
+	
+	
+	def self.editExr(log):
+		'''a method to edit EXR codec specific settings'''
+		
+	
+	
+	
+	
+	
 	def apply(self, scene):
 		'''apply settings to a blender scene object'''
 		scene.render.resolution_percentage = self.pourcent
