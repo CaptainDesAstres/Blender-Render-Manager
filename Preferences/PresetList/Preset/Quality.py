@@ -546,7 +546,37 @@ class Quality:
 	
 	def editExr(self, log):
 		'''a method to edit EXR codec specific settings'''
-		
+		enable = {True:'enabled', False: 'disabled'}
+		action = {True:'Disable', False: 'Enable'}
+		change = False
+		log.menuIn('Edit EXR Settings')
+		while True:
+			log.print()
+			
+			self.print()
+			
+			print('\n\n        Menu:\n1- Choose EXR Codec')
+			print('2- '+action[self.EXRzbuffer]+' zbuffer Option')
+			print('3- '+action[self.EXRpreviews]+' previews Option')
+			
+			menu = input('0- Quit\n\nMenu choice :').strip().lower()
+			
+			if menu in ['0', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return change
+			
+			if menu == '1':
+				change = (self.editExrCodec(log) or change)
+			elif menu == '2':
+				self.EXRzbuffer = not self.EXRzbuffer
+				change = True
+				log.write ('EXR Z buffer '+enable[self.EXRzbuffer])
+			elif menu == '3':
+				self.EXRpreviews = not self.EXRpreviews
+				change = True
+				log.write ('EXR previews '+enable[self.EXRpreviews])
+			else:
+				log.error('Unvalid choice, expect an integer value between 0 and 3')
 	
 	
 	
