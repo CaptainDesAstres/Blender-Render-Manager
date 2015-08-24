@@ -196,6 +196,16 @@ class Quality:
 				change = (self.editColorDepth(log) or change)
 			elif choice == '8' and self.format in ['PNG','JPEG', 'JPEGG2000']:
 				change = (self.editCompressionQuality(log) or change)
+			elif choice == '9' and self.format in ['OPEN_EXR', 'OPEN_EXR_MULTILAYER', 'DPX', 'JPEGG2000']:
+				if self.format == 'DPX':
+					self.DPXlog = not self.DPXlog
+					log.write('DPX Logarithmic color space '\
+							+{ True:'enabled', False:'disabled' }[self.DPXlog]+'.')
+					change = True
+				elif self.format == 'JPEG2000':
+					change = (self.editJpeg2000(log) or change)
+				else:
+					change = (self.editExr(log) or change)
 			else:
 				log.error('Unvalid menu choice', False)
 		
