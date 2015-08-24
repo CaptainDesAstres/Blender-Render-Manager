@@ -552,6 +552,13 @@ class Quality:
 	
 	
 	
+	def editExrCodec(self, log):
+		'''a method to choose EXR codec'''
+		
+	
+	
+	
+	
 	def apply(self, scene):
 		'''apply settings to a blender scene object'''
 		scene.render.resolution_percentage = self.pourcent
