@@ -208,6 +208,18 @@ class Quality:
 			print('Format :                '+self.format)
 		
 		print('Color Depth :           '+str(self.colorDepth))
+		
+		if self.format == 'JPEG2000':
+			print('JPEG2000 Codec :        '+self.JPEGcodec)
+			opt = ''
+			if self.JPEGcinema:
+				opt += 'cinema '
+			if self.JPEGcinema48:
+				opt += 'cinema48 '
+			if self.JPEGycc:
+				opt += 'YCC'
+			print('JPEG2000 options :      '+opt)
+		
 		self.OSA.print()
 	
 	
