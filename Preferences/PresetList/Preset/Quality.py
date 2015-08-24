@@ -521,6 +521,9 @@ class Quality:
 			
 			menu = input('0- Quit\n\nMenu choice :').strip().lower()
 			
+			if menu in ['0', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return change
 	
 	
 	
