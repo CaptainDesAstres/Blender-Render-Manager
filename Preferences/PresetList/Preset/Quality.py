@@ -26,6 +26,20 @@ class Quality:
 					'OPEN_EXR_MULTILAYER'	:		[32],
 					'HDR'					:		[32]
 					}
+	EXT = {
+					'BMP'					:		'.bmp',
+					'IRIS'					:		'.rgb',
+					'JPEG'					:		'.jpg',
+					'TARGA'					:		'.tga',
+					'TARGA_RAW'				:		'.tga',
+					'CINEON'				:		'.cin',
+					'PNG'					:		'.png',
+					'TIFF'					:		'.tif',
+					'DPX'					:		'.dpx',
+					'OPEN_EXR'				:		'.exr',
+					'OPEN_EXR_MULTILAYER'	:		'.exr',
+					'HDR'					:		'.hdr'
+					}
 	
 	def __init__(self, xml= None):
 		'''initialize Quality settings with default value or values extracted from an xml object'''
