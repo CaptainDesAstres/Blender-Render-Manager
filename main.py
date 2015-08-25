@@ -124,3 +124,5 @@ else:
 
 
 tasks.menu(scriptPath, log, preferences)
+
+checkLogLimit(preferences.logLimit)
