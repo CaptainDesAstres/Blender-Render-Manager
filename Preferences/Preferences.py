@@ -32,6 +32,8 @@ class Preferences:
 		self.tiles = Tiles()
 		self.presets = PresetList()
 		self.port = 55814
+		self.archiveLimit = 1000
+		self.logLimit = 100
 	
 	
 	
@@ -46,6 +48,8 @@ class Preferences:
 		self.presets = PresetList(xml.find('presetList'))
 		
 		self.port = int(xml.find('port').get('value'))
+		self.archiveLimit = int(xml.get('archive'))
+		self.logLimit = int(xml.get('log'))
 	
 	
 	
@@ -58,7 +62,8 @@ class Preferences:
 		if head:
 			xml += '<?xml version="1.0" encoding="UTF-8"?>\n'
 		
-		xml += '<preferences>\n'
+		xml += '<preferences archive="'+str(self.archiveLimit)\
+				+'" log="'+str(self.logLimit)+'" >\n'
 		
 		if preset:
 			# export blender version list
