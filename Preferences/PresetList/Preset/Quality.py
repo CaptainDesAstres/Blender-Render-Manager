@@ -437,6 +437,7 @@ class Quality:
 		if self.format in ['OPEN_EXR', 'OPEN_EXR_MULTILAYER']\
 			and self.colorDepth == 32 and self.EXRcodec in ['B44', 'B44A']:
 			self.EXRcodec = 'NONE'
+			log.write('EXR codec automatically set to none')
 	
 	
 	
