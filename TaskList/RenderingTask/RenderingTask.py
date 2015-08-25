@@ -35,15 +35,19 @@ def RenderingTask(task, preferences, groups):
 							)
 	listen.start()
 	
-	if type(preset) is Preset:
-		sceneInfo = task.info.scenes[task.scene]
-		scene.frame_start = sceneInfo.start
-		scene.frame_end = sceneInfo.end
-		scene.render.fps = sceneInfo.fps
+	try:
+		if type(preset) is Preset:
+			sceneInfo = task.info.scenes[task.scene]
+			scene.frame_start = sceneInfo.start
+			scene.frame_end = sceneInfo.end
+			scene.render.fps = sceneInfo.fps
 		
-		preset.applyAndRun(bpy, preferences, task.log.groups[0], connexion, task)
-	else:
-		preset.applyAndRun(bpy, task, preferences, groups, connexion)
+			preset.applyAndRun(bpy, preferences, task.log.groups[0], connexion, task)
+		else:
+			preset.applyAndRun(bpy, task, preferences, groups, connexion)
+	except Exception as e:
+		connexion.sendall( (task.uid+' debugMsg('+str(e)+') EOS').encode() )
+	
 	task.running = 'NOW'
 	connexion.sendall( (task.uid+' VersionEnded EOS').encode() )
 	
