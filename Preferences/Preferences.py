@@ -102,7 +102,9 @@ class Preferences:
 2- Output Path
 3- Tiles
 4- Presets
-9- Change Net Port
+7- Change Log Limit
+8- Change Archive Size Limit
+9- Change Socket Port
 0- Save and quit
 
 ''')
@@ -122,6 +124,8 @@ class Preferences:
 				change = self.tiles.menu(log)
 			elif choice == '4':
 				change = self.presets.menu(log, self.blenderVersion, tasks)
+			elif choice in ['8', '7']:
+				change = self.editLimit(log, choice)
 			elif choice == '9':
 				change = self.editPort(log)
 			else:
