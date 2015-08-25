@@ -199,6 +199,26 @@ class Preset:
 		elif self.quality.format in ['JPEG', 'JPEG2000']:
 			metadata += 'quality:'+str(self.quality.JPEGquality)+'%;'
 		
+		if self.quality.format == 'JPEG2000':
+			metadata += 'codec:'+self.JPEGcodec+';'
+			metadata += 'JPEGoptions:'
+			if self.quality.JPEGcinema:
+				metadata += 'cinema '
+			if self.quality.JPEGcinema48:
+				metadata += 'cinema48 '
+			if self.quality.JPEGycc:
+				metadata += 'ycc'
+			metadata += ';'
+		elif self.quality.format == 'DPX':
+			metadata += 'log:'+str(self.DPXlog)+';'
+		elif self.quality.format == 'OPEN_EXR_MULTILAYER':
+			metadata += 'codec:'+self.EXRcodec+';'
+		elif self.quality.format == 'OPEN_EXR':
+			metadata += 'codec:'+self.EXRcodec+';'
+			metadata += 'zbuffer:'+str(self.EXRzbuffer)+';'
+			metadata += 'preview:'+str(self.EXRpreview)+';'
+		
+		
 		scene.render.stamp_note_text = metadata
 		
 		scene.frame_current = scene.frame_start + len(logGroup.frames) 
