@@ -303,7 +303,7 @@ Press enter to continue''')
 		content = os.listdir(path)
 		backup = []
 		backupRegex = re.compile(r'^previous rendering \d+$')
-		for c in content:
+		for c in content[:]:
 			if backupRegex.match(c) is not None:
 				backup.append(c)
 				content.remove(c)
