@@ -656,8 +656,8 @@ class Quality:
 		scene.render.image_settings.color_depth = str(self.colorDepth)
 		scene.render.image_settings.quality = self.JPEGquality
 		scene.render.image_settings.compression = self.PNGcompression
-		scene.render.image_settings.use_cineon_log = self.DPXlog
 		
+		scene.render.image_settings.use_cineon_log = self.DPXlog
 		
 		scene.render.image_settings.jpeg2k_codec = self.JPEGcodec
 		scene.render.image_settings.use_jpeg2k_cinema_preset = self.JPEGcinema
@@ -667,7 +667,6 @@ class Quality:
 		scene.render.image_settings.exr_codec = self.EXRcodec
 		scene.render.image_settings.use_zbuffer = self.EXRzbuffer
 		scene.render.image_settings.use_preview = self.EXRpreview
-		
 		
 		self.OSA.apply(scene)
 	
