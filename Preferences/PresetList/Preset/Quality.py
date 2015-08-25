@@ -657,6 +657,13 @@ class Quality:
 		scene.render.image_settings.quality = self.JPEGquality
 		scene.render.image_settings.compression = self.PNGcompression
 		
+		if self.format == 'JPEG2000':
+			scene.render.image_settings.jpeg2k_codec = self.JPEGcodec
+			scene.render.image_settings.use_jpeg2k_cinema_preset = self.JPEGcinema
+			scene.render.image_settings.use_jpeg2k_cinema_48 = self.JPEGcinema48
+			scene.render.image_settings.use_jpeg2k_ycc = self.JPEGycc
+		
+		
 		self.OSA.apply(scene)
 	
 	
