@@ -690,11 +690,13 @@ class Quality:
 	
 	def getExtension(self):
 		'''return file extension'''
-		if self.format == 'PNG':
-			return '.png'
-		if self.format == 'JPEG':
-			return '.jpg'
-		return '.exr'
+		if self.format == 'JPEG2000':
+			if self.JPEGcodec == 'J2K':
+				return '.j2c'
+			else:
+				return '.jp2'
+		
+		return self.EXT[self.format]
 	
 	
 	
