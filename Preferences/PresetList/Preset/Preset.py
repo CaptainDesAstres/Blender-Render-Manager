@@ -200,7 +200,7 @@ class Preset:
 			metadata += 'quality:'+str(self.quality.JPEGquality)+'%;'
 		
 		if self.quality.format == 'JPEG2000':
-			metadata += 'codec:'+self.JPEGcodec+';'
+			metadata += 'codec:'+self.quality.JPEGcodec+';'
 			metadata += 'JPEGoptions:'
 			if self.quality.JPEGcinema:
 				metadata += 'cinema '
@@ -210,13 +210,13 @@ class Preset:
 				metadata += 'ycc'
 			metadata += ';'
 		elif self.quality.format == 'DPX':
-			metadata += 'log:'+str(self.DPXlog)+';'
+			metadata += 'log:'+str(self.quality.DPXlog)+';'
 		elif self.quality.format == 'OPEN_EXR_MULTILAYER':
-			metadata += 'codec:'+self.EXRcodec+';'
+			metadata += 'codec:'+self.quality.EXRcodec+';'
 		elif self.quality.format == 'OPEN_EXR':
-			metadata += 'codec:'+self.EXRcodec+';'
-			metadata += 'zbuffer:'+str(self.EXRzbuffer)+';'
-			metadata += 'preview:'+str(self.EXRpreview)+';'
+			metadata += 'codec:'+self.quality.EXRcodec+';'
+			metadata += 'zbuffer:'+str(self.quality.EXRzbuffer)+';'
+			metadata += 'preview:'+str(self.quality.EXRpreview)+';'
 		
 		
 		scene.render.stamp_note_text = metadata
