@@ -419,8 +419,11 @@ class Task:
 			#fc9b9d6fd2af4e0fb3f09066f9902f90 ConfirmFrame(groupe1,15,10:09:2014:10:30:40,11111111111111) EOS
 			uid = m[0:32]
 			action = m[33:45]
-			info = m[46:-1].split(',')
-			if uid == self.uid and action == 'ConfirmFrame':
+			info = m[46:-1]
+			if uid == self.uid and action == 'debugMsg':
+				log.write(info)
+			elif uid == self.uid and action == 'ConfirmFrame':
+				info = info.split(',')
 				group = info[0]
 				frame = int(info[1])
 				computingTime = float(info[3])
