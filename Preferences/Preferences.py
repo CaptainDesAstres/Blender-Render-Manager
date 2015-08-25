@@ -94,9 +94,9 @@ class Preferences:
 		change = False
 		
 		while True:
-			#print log and preferences
-			
 			log.print()
+			self.print()
+			
 			print('''\n    \033[4mPreferences Menu :\033[0m
 1- Blender versions
 2- Output Path
@@ -131,6 +131,16 @@ class Preferences:
 				change = False
 				savePreferences(self)
 				log.write('New preferences saved')
+	
+	
+	
+	
+	
+	def print(self):
+		'''a method to display preferences settings'''
+		print('Socket Port : '+str(self.port))
+		print('Session Log Limit : '+str(self.logLimit))
+		print('Archive Limit : '+str(self.archiveLimit))
 	
 	
 	
