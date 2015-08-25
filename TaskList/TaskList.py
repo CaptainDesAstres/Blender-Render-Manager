@@ -811,7 +811,7 @@ Quit : q or quit
 		self.socket.close()
 		self.socket = None
 		print('running action are ended or stoped, now checking frame')
-		self.checkAndArchive()
+		self.checkAndArchive(preferences.archiveLimit)
 		print('all done, press enter to continue!')
 		runMenu.join()
 		log.menuOut()
@@ -923,13 +923,15 @@ What do you want to do? (type h for help)'''
 	
 	
 	
-	def checkAndArchive(self):
+	def checkAndArchive(self, limit):
 		'''check ended task to ensure that all frame have been well rendered and archive ended tasks'''
 		for task in self.tasks[:]:
 			if ( task.log is not None and task.log.isComplete()\
 					and task.log.checkFrames() ) or task.status == 'erased':
 				self.tasks.remove(task)
 				self.archive.append(task)
+		while len(self.archive) > limit:
+			self.archive.pop(0)
 	
 	
 	
