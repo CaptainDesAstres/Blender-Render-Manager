@@ -57,7 +57,7 @@ class Quality:
 		self.DPXlog = False
 		self.EXRcodec = 'NONE'
 		self.EXRzbuffer = True
-		self.EXRpreviews = False
+		self.EXRpreview = False
 		
 		self.OSA = OSA()
 	
@@ -90,7 +90,7 @@ class Quality:
 		self.JPEGycc = node.get('ycc', '0') == '1'
 		self.DPXlog = node.get('dpxlog', '0') == '1'
 		self.EXRzbuffer = node.get('zbuffer', '0') == '1'
-		self.EXRpreviews = node.get('previews', '0') == '1'
+		self.EXRpreview = node.get('previews', '0') == '1'
 		
 		self.OSA = OSA(xml.find('OSA'))
 	
@@ -122,7 +122,7 @@ class Quality:
 			txt += 'dpxlog="1" '
 		if self.EXRzbuffer:
 			txt += 'zbuffer="1" '
-		if self.EXRpreviews:
+		if self.EXRpreview:
 			txt += 'preview="1" '
 		
 		txt += ' />\n'
@@ -251,7 +251,7 @@ class Quality:
 			print('EXR codec :             '+self.EXRcodec)
 			if self.format == 'OPEN_EXR':
 				print('EXR zbuffer :           '+enable[self.EXRzbuffer])
-				print('EXR previews :          '+enable[self.EXRpreviews])
+				print('EXR previews :          '+enable[self.EXRpreview])
 		
 		self.OSA.print()
 	
@@ -569,7 +569,7 @@ class Quality:
 			
 			print('\n\n        Menu:\n1- Choose EXR Codec')
 			print('2- '+action[self.EXRzbuffer]+' zbuffer Option')
-			print('3- '+action[self.EXRpreviews]+' previews Option')
+			print('3- '+action[self.EXRpreview]+' previews Option')
 			
 			menu = input('0- Quit\n\nMenu choice :').strip().lower()
 			
@@ -584,9 +584,9 @@ class Quality:
 				change = True
 				log.write ('EXR Z buffer '+enable[self.EXRzbuffer])
 			elif menu == '3':
-				self.EXRpreviews = not self.EXRpreviews
+				self.EXRpreview = not self.EXRpreview
 				change = True
-				log.write ('EXR previews '+enable[self.EXRpreviews])
+				log.write ('EXR previews '+enable[self.EXRpreview])
 			else:
 				log.error('Unvalid choice, expect an integer value between 0 and 3')
 	
@@ -656,12 +656,17 @@ class Quality:
 		scene.render.image_settings.color_depth = str(self.colorDepth)
 		scene.render.image_settings.quality = self.JPEGquality
 		scene.render.image_settings.compression = self.PNGcompression
+		scene.render.image_settings.use_cineon_log = self.DPXlog
 		
-		if self.format == 'JPEG2000':
-			scene.render.image_settings.jpeg2k_codec = self.JPEGcodec
-			scene.render.image_settings.use_jpeg2k_cinema_preset = self.JPEGcinema
-			scene.render.image_settings.use_jpeg2k_cinema_48 = self.JPEGcinema48
-			scene.render.image_settings.use_jpeg2k_ycc = self.JPEGycc
+		
+		scene.render.image_settings.jpeg2k_codec = self.JPEGcodec
+		scene.render.image_settings.use_jpeg2k_cinema_preset = self.JPEGcinema
+		scene.render.image_settings.use_jpeg2k_cinema_48 = self.JPEGcinema48
+		scene.render.image_settings.use_jpeg2k_ycc = self.JPEGycc
+		
+		scene.render.image_settings.exr_codec = self.EXRcodec
+		scene.render.image_settings.use_zbuffer = self.EXRzbuffer
+		scene.render.image_settings.use_preview = self.EXRpreview
 		
 		
 		self.OSA.apply(scene)
