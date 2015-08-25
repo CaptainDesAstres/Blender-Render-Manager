@@ -125,7 +125,7 @@ class Preferences:
 			elif choice == '4':
 				change = self.presets.menu(log, self.blenderVersion, tasks)
 			elif choice in ['8', '7']:
-				change = self.editLimit(log, choice)
+				change = self.editLimit(log, choice == '7' )
 			elif choice == '9':
 				change = self.editPort(log)
 			else:
@@ -199,6 +199,45 @@ enter to continue
 			
 			
 	
+	
+	
+	
+	
+	def editLimit(self, log, logLim):
+		'''edit log or archive limite'''
+		if logLim:
+			log.menuIn('Edit Log Limit')
+			current = self.logLimit
+		else:
+			log.menuIn('Edit Archive Max Size')
+			current = self.archiveLimit
+		
+		while True:
+			log.print()
+			
+			choice = input('\n\nCurrent limit : '+str(current)+'\n\nNew limit (0 for unlimited, q to quit) : ').strip().lower()
+			
+			if choice in ['q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			
+			try:
+				choice = int(choice)
+			except ValueError:
+				log.error('Integer value expected!',False)
+				continue
+			
+			if choice >= 0:
+				if logLim:
+					self.logLimit = choice
+					log.write('Log limit set to '+str(self.logLimit))
+				else:
+					self.archiveLimit = choice
+					log.write('Max archive size set to '+str(self.archiveLimit))
+				log.menuOut()
+				return True
+			else:
+				log.error('Expect a positive value!')
 	
 	
 	
