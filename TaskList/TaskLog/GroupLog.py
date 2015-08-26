@@ -132,6 +132,24 @@ class GroupLog:
 	
 	
 	
+	def menu(self, log):
+		'''see detail of the group rendering'''
+		log.menuIn('«'+self.name+'» group details')
+		
+		while True:
+			log.print()
+			print('\n\n        «'+self.name+'» group details :\n')
+			self.print()
+			choice = input('q to quit').strip().lower()
+			
+			if choice in ['0', 'cancel', 'q', 'quit']:
+				log.menuOut()
+				return
+	
+	
+	
+	
+	
 	def print(self):
 		'''A method to print task renderlayer group log'''
 		total = self.end - self.start + 1

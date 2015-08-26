@@ -120,7 +120,7 @@ class TaskLog:
 				continue
 			
 			if choice >= 0 and choice < len(self.groups):
-				self.groups[choice].menu()
+				self.groups[choice].menu(log)
 			else:
 				log.error('There is no group with this index!', False)
 			
