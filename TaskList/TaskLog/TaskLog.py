@@ -123,7 +123,7 @@ class TaskLog:
 		ended, total = 0, 0
 		for i, group in enumerate(self.groups):
 			if index:
-				group.runMenuPrint(i)
+				group.runMenuPrint(i+1)
 			else:
 				group.runMenuPrint()
 			
