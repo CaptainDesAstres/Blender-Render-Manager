@@ -146,11 +146,15 @@ class GroupLog:
 	
 	
 	
-	def runMenuPrint(self):
+	def runMenuPrint(self, index = None):
 		total = self.end - self.start + 1
-		print('╚═ «'+self.name+'» group : '+str(len(self.frames))+'/'+str(total)\
+		if index is not None:
+			index = str(index)+'-  '
+		else:
+			index = '╚═ '
+		print(index+'«'+self.name+'» group : '+str(len(self.frames))+'/'+str(total)\
 					+' frames, '+str(total - len(self.frames))\
-					+' remaining,\n     Average time by frame : '+str(self.average()))
+					+' remaining frames,\n     Average time by frame : '+str(self.average()))
 	
 	
 	

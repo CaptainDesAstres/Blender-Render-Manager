@@ -105,7 +105,8 @@ class TaskLog:
 		while True:
 			log.print()
 			print('\n\n        Rendering Log of task n°'+str(index)+' :\n')
-			self.print()
+			self.print(True)
+			
 			choice = input('\n\nq to quit :').strip().lower()
 			
 			if choice in ['0', 'q', 'quit', 'cancel']:
@@ -116,12 +117,16 @@ class TaskLog:
 	
 	
 	
-	def print(self):
+	def print(self, index = False):
 		'''A method to print task log'''
 		print('The task have '+str(len(self.groups))+' group(s):')
 		ended, total = 0, 0
-		for group in self.groups:
-			group.runMenuPrint()
+		for i, group in enumerate(self.groups):
+			if index:
+				group.runMenuPrint(i)
+			else:
+				group.runMenuPrint()
+			
 			total += (group.end - group.start + 1)
 			ended += len(group.frames)
 		print('\n\n                  '+str(ended)+'/'+str(total)\
