@@ -12,7 +12,7 @@ import os
 class GroupLog:
 	'''class to manage task renderlayer group log'''
 	
-	
+	pageSize = 15
 	def __init__(self, xml = None,
 						groupName = None,
 						preferences = None, 
@@ -136,6 +136,9 @@ class GroupLog:
 		'''see detail of the group rendering'''
 		log.menuIn('«'+self.name+'» group details')
 		page = 0
+		pageMax = round(len(self.frames)/self.pageSize)
+		if len(self.frames) - pageMax * self.pageSize <=0:
+			pageMax -= 1
 		while True:
 			log.print()
 			print('\n\n        «'+self.name+'» group details :\n')
@@ -148,13 +151,29 @@ class GroupLog:
 			elif choice in ['h', 'help']:
 				log.menuIn('Help')
 				input('''
-+ and -        scroll to see more frame
-u and d        same
-up and down    same
-t and b        scroll to Top or Bottom of frame list
-q              quit group log
++ and -          scroll to see more frame
+u and d          same
+up and down      same
+t and b          scroll to Top or Bottom of frame list
+a frame number   scroll to see the frame of this number
+q                quit group log
 press enter to continu''')
 				log.menuOut()
+			elif choice in ['', '+', 'down', 'd']:
+				page += 1 
+				if page > pageMax:
+					if choice != '':
+						page = pageMax
+					else:
+						page = 0
+			elif choice in ['-', 'up', 'u']:
+				print()
+			elif choice in ['t', 'top']:
+				print()
+			elif choice in ['b', 'bottom']:
+				print()
+			else:
+				print()
 	
 	
 	
@@ -162,7 +181,6 @@ press enter to continu''')
 	
 	def print(self, page, path):
 		'''A method to print task renderlayer group log'''
-		pageSize = 15
 		total = self.end - self.start + 1
 		remain = total - len(self.frames)
 		
@@ -181,10 +199,10 @@ press enter to continu''')
 		print('Start to End : '+str(self.start)+' to '+str(self.end))
 		
 		if len(self.frames) > 0:
-			print('Extract ('+str(page*pageSize+1)+' to '+str((page+1)*pageSize)+' of '\
-					+str(total)+') : ')
+			print('Extract ('+str(page*self.pageSize+1)+' to '\
+				+str((page+1)*self.pageSize)+' of '+str(total)+') : ')
 			print('Frame n°     rendering Date                 rendering time in seconds')
-			for fr in self.frames[page*pageSize:(page+1)*pageSize]:
+			for fr in self.frames[page*self.pageSize:(page+1)*self.pageSize]:
 				fr.print()
 		else:
 			print('\n        No rendered frame')
