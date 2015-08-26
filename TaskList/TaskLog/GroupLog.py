@@ -140,11 +140,21 @@ class GroupLog:
 			log.print()
 			print('\n\n        «'+self.name+'» group details :\n')
 			self.print(page, path)
-			choice = input('\n\nq to quit').strip().lower()
+			choice = input('\n\nh for help').strip().lower()
 			
 			if choice in ['0', 'cancel', 'q', 'quit']:
 				log.menuOut()
 				return
+			elif choice in ['h', 'help']:
+				log.menuIn('Help')
+				input('''
++ and -        scroll to see more frame
+u and d        same
+up and down    same
+t and b        scroll to Top or Bottom of frame list
+q              quit group log
+press enter to continu''')
+				log.menuOut()
 	
 	
 	
