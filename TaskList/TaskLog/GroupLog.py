@@ -136,8 +136,9 @@ class GroupLog:
 		'''see detail of the group rendering'''
 		log.menuIn('«'+self.name+'» group details')
 		page = 0
-		pageMax = round(len(self.frames)/self.pageSize)
-		if len(self.frames) - pageMax * self.pageSize <=0:
+		count = len(self.frames)
+		pageMax = round(count/self.pageSize)
+		if count - pageMax * self.pageSize <=0:
 			pageMax -= 1
 		while True:
 			log.print()
@@ -145,7 +146,7 @@ class GroupLog:
 			self.print(page, path)
 			choice = input('\n\nh for help').strip().lower()
 			
-			if choice in ['0', 'cancel', 'q', 'quit']:
+			if choice in ['cancel', 'q', 'quit']:
 				log.menuOut()
 				return
 			elif choice in ['h', 'help']:
@@ -167,13 +168,27 @@ press enter to continu''')
 					else:
 						page = 0
 			elif choice in ['-', 'up', 'u']:
-				print()
+				page -= 1 
+				if page < 0:
+					page = 0
 			elif choice in ['t', 'top']:
-				print()
+				page = 0
 			elif choice in ['b', 'bottom']:
-				print()
+				page = pageMax
 			else:
-				print()
+				try:
+					choice = int(choice)
+				except:
+					log.error('Unvalid action «'+choice+'» !', False)
+					continue
+				
+				choice -= self.start
+				if choice < 0 :
+					choice = 0
+				elif choice > count:
+					choice = count
+				page = int(choice / self.pageSize)
+				
 	
 	
 	
