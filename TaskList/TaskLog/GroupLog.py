@@ -132,15 +132,15 @@ class GroupLog:
 	
 	
 	
-	def menu(self, log):
+	def menu(self, log, path):
 		'''see detail of the group rendering'''
 		log.menuIn('«'+self.name+'» group details')
 		
 		while True:
 			log.print()
 			print('\n\n        «'+self.name+'» group details :\n')
-			self.print()
-			choice = input('q to quit').strip().lower()
+			self.print(path)
+			choice = input('\n\nq to quit').strip().lower()
 			
 			if choice in ['0', 'cancel', 'q', 'quit']:
 				log.menuOut()
@@ -150,15 +150,26 @@ class GroupLog:
 	
 	
 	
-	def print(self):
+	def print(self, path):
 		'''A method to print task renderlayer group log'''
 		total = self.end - self.start + 1
-		print('╚═ «'+self.name+'» group ('\
-				+str(len(self.renderlayers))+'renderlayers) : '\
-				+self.status+'\n  '\
-				+'preset : «'+self.presetName+'»     '\
-				+str(len(self.frames))+'/'+str(total)+' frames ('\
-				+str(self.start)+' to '+str(self.end)+')')
+		remain = total - len(self.frames)
+		
+		print('Status          : '+self.status)
+		print('Rendering path  : '+path+self.subpath)
+		print('Preset Name     : '+self.presetName)
+		print('This preset may differ from the current preferences because it\'s the preset as it were when first rendering task starting. Type p to see preset.\n')
+		
+		print('Renderlayer in the group : '+str(len(self.renderlayers)))
+		for rl in self.renderlayers:
+			print('    ╚═'+rl)
+		
+		print('\nRendered / total (remaining) : '+str(len(self.frames))+' / '\
+				+str(total)+'              ( remain '+str(remain)+' frames )')
+		print('Start to End : '+str(self.start)+' to '+str(self.end))
+		for fr in self.frames:
+			fr.print()
+		
 	
 	
 	

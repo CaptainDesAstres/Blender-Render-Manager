@@ -56,9 +56,9 @@ class FrameLog:
 	
 	def print(self):
 		'''A method to print task frame log'''
-		print('  ╚═ Frame n°'+str(self.frame)+' : \n'\
-			 +'      Rendered the   : '+self.date.strftime('%d/%m/%Y à %H:%M')\
-			 +'      Rendering time : '+str(round(self.computingTime, 2)) )
+		print('    ╚═ Frame n°'+str(self.frame)+' : \n'\
+			 +'        Rendered the       : '+self.date.strftime('%d/%m/%Y à %H:%M')\
+			 +'\n        Rendering time (s) : '+str(round(self.computingTime, 2)) )
 	
 	
 	
