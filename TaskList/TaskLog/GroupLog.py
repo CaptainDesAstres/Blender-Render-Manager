@@ -167,7 +167,7 @@ class GroupLog:
 		
 		print('\nRendered / total (remaining) : '+str(len(self.frames))+' / '\
 				+str(total)+'     ( remain '+str(remain)+' frames )')
-		print('Average rendering time : '+str(self.average)+' sec')
+		print('Average rendering time : '+str(self.average())+' sec')
 		print('Start to End : '+str(self.start)+' to '+str(self.end))
 		
 		if len(self.frames) > 0:
@@ -176,6 +176,8 @@ class GroupLog:
 			print('Frame n°     rendering Date                 rendering time in seconds')
 			for fr in self.frames[page*pageSize:(page+1)*pageSize]:
 				fr.print()
+		else:
+			print('\n        No rendered frame')
 		
 	
 	
