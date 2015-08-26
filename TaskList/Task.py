@@ -97,6 +97,7 @@ class Task:
 6- Lock/Unlock task
 7- Erase task
 8- Copy task
+9- See Rendering Log
 0- Quit and save
 
 '''
@@ -199,6 +200,8 @@ class Task:
 				log.write('a copy of the task n°'+str(index)+' have been added at the bottom of the task list')
 				change = True
 				
+			elif choice == '9' and started:
+				self.log.menu()
 			else:
 				log.error('Unknow request!', False)
 	
