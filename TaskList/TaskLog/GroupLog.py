@@ -135,11 +135,11 @@ class GroupLog:
 	def menu(self, log, path):
 		'''see detail of the group rendering'''
 		log.menuIn('«'+self.name+'» group details')
-		
+		page = 0
 		while True:
 			log.print()
 			print('\n\n        «'+self.name+'» group details :\n')
-			self.print(path)
+			self.print(page, path)
 			choice = input('\n\nq to quit').strip().lower()
 			
 			if choice in ['0', 'cancel', 'q', 'quit']:
@@ -150,7 +150,7 @@ class GroupLog:
 	
 	
 	
-	def print(self, path):
+	def print(self, page, path):
 		'''A method to print task renderlayer group log'''
 		total = self.end - self.start + 1
 		remain = total - len(self.frames)
@@ -167,7 +167,8 @@ class GroupLog:
 		print('\nRendered / total (remaining) : '+str(len(self.frames))+' / '\
 				+str(total)+'              ( remain '+str(remain)+' frames )')
 		print('Start to End : '+str(self.start)+' to '+str(self.end))
-		for fr in self.frames:
+		print('Extract : ')
+		for fr in self.frames[page*10:(page+1)*10]:
 			fr.print()
 		
 	
