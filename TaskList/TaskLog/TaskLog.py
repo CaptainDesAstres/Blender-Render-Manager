@@ -99,6 +99,23 @@ class TaskLog:
 	
 	
 	
+	def menu(self, log, index):
+		'''a method to display and browse into task rendering log'''
+		log.menuIn('Rendering Log')
+		while True:
+			log.print()
+			print('\n\n        Rendering Log of task n°'+str(index)+' :\n')
+			self.print()
+			choice = input('\n\nq to quit :').strip().lower()
+			
+			if choice in ['0', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return
+	
+	
+	
+	
+	
 	def print(self):
 		'''A method to print task log'''
 		print('The task have '+str(len(self.groups))+' group(s):')
@@ -108,7 +125,7 @@ class TaskLog:
 			total += (group.end - group.start + 1)
 			ended += len(group.frames)
 		print('\n\n                  '+str(ended)+'/'+str(total)\
-							+'('+str(total-ended)+' remaining')
+							+'('+str(total-ended)+' remaining)')
 	
 	
 	

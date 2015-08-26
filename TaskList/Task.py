@@ -201,7 +201,7 @@ class Task:
 				change = True
 				
 			elif choice == '9' and started:
-				self.log.menu()
+				self.log.menu(log, index)
 			else:
 				log.error('Unknow request!', False)
 	
