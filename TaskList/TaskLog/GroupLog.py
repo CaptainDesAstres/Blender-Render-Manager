@@ -167,7 +167,9 @@ class GroupLog:
 		print('\nRendered / total (remaining) : '+str(len(self.frames))+' / '\
 				+str(total)+'              ( remain '+str(remain)+' frames )')
 		print('Start to End : '+str(self.start)+' to '+str(self.end))
-		print('Extract : ')
+		
+		print('Extract ('+str(page*10)+' to '+str((page+1)*10)+' of '+str(total)+') : ')
+		print('Frame n°     rendering Date                 rendering time in seconds')
 		for fr in self.frames[page*10:(page+1)*10]:
 			fr.print()
 		

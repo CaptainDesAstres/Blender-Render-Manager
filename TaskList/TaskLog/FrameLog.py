@@ -3,7 +3,8 @@
 '''module to manage task Frame log'''
 import xml.etree.ElementTree as xmlMod
 import datetime
-from usefullFunctions import XML
+from usefullFunctions import *
+
 
 class FrameLog:
 	'''class to manage task frame log'''
@@ -56,9 +57,9 @@ class FrameLog:
 	
 	def print(self):
 		'''A method to print task frame log'''
-		print('    ╚═ Frame n°'+str(self.frame)+' : \n'\
-			 +'        Rendered the       : '+self.date.strftime('%d/%m/%Y à %H:%M')\
-			 +'\n        Rendering time (s) : '+str(round(self.computingTime, 2)) )
+		print(' ╚═ '+columnLimit((str(self.frame)), 9, sep = '')\
+			 +self.date.strftime('%d/%m/%Y at %H:%M')\
+			 +'            '+str(round(self.computingTime, 2)) )
 	
 	
 	
