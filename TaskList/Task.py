@@ -96,6 +96,7 @@ class Task:
 5- Change list row
 6- Lock/Unlock task
 7- Erase task
+8- Copy task
 0- Quit and save
 
 '''
