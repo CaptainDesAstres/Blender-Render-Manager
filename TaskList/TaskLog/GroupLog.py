@@ -200,7 +200,7 @@ press enter to continu''')
 		
 		if len(self.frames) > 0:
 			print('Extract ('+str(page*self.pageSize+1)+' to '\
-				+str((page+1)*self.pageSize)+' of '+str(total)+') : ')
+				+str((page+1)*self.pageSize)+' of '+str(len(self.frames))+') : ')
 			print('Frame n°     rendering Date                 rendering time in seconds')
 			for fr in self.frames[page*self.pageSize:(page+1)*self.pageSize]:
 				fr.print()
