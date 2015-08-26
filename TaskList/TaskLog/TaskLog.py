@@ -107,11 +107,23 @@ class TaskLog:
 			print('\n\n        Rendering Log of task n°'+str(index)+' :\n')
 			self.print(True)
 			
-			choice = input('\n\nq to quit :').strip().lower()
+			choice = input('\n\ntype the index of a group to see more or q to quit :').strip().lower()
 			
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
 				return
+			
+			try:
+				choice = int(choice)-1
+			except:
+				log.error('Integer value expected!', False)
+				continue
+			
+			if choice >= 0 and choice < len(self.groups):
+				self.groups[choice].menu()
+			else:
+				log.error('There is no group with this index!', False)
+			
 	
 	
 	
