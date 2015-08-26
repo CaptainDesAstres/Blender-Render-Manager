@@ -152,6 +152,7 @@ class GroupLog:
 	
 	def print(self, page, path):
 		'''A method to print task renderlayer group log'''
+		pageSize = 15
 		total = self.end - self.start + 1
 		remain = total - len(self.frames)
 		
@@ -168,9 +169,10 @@ class GroupLog:
 				+str(total)+'              ( remain '+str(remain)+' frames )')
 		print('Start to End : '+str(self.start)+' to '+str(self.end))
 		
-		print('Extract ('+str(page*10)+' to '+str((page+1)*10)+' of '+str(total)+') : ')
+		print('Extract ('+str(page*pageSize+1)+' to '+str((page+1)*pageSize)+' of '\
+				+str(total)+') : ')
 		print('Frame n°     rendering Date                 rendering time in seconds')
-		for fr in self.frames[page*10:(page+1)*10]:
+		for fr in self.frames[page*pageSize:(page+1)*pageSize]:
 			fr.print()
 		
 	
