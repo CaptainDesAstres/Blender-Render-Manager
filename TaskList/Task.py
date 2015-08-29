@@ -209,6 +209,41 @@ class Task:
 	
 	
 	
+	def menuArchive(self, log, index, tasks):
+		'''method to edit task settings'''
+		log.menuIn('Archived Task n°'+str(index))
+		
+		while True:
+			log.print()
+			
+			print('\n        Task n°'+str(index)+' Log :')
+			self.print()
+			choice = input('''
+    Menu :
+1- See Rendering Log
+2- Copy Task In Rendering List
+3- Erase Archived Task
+0- Quit and save
+
+
+action : ''').strip().lower()
+			
+			if choice in ['0', 'q', 'quit', 'cancel']:
+				log.menuOut()
+				return False
+			elif choice == '1':
+				
+			elif choice == '2':
+				
+			elif choice == '3':
+				
+			else:
+				log.error('Unknow request!', False)
+	
+	
+	
+	
+	
 	def print(self):
 		'''A method to print task information'''
 		print('\n\nStatus :        '+self.status)
