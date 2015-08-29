@@ -176,14 +176,15 @@ Not Yet Implement :
 	
 	def print(self, page, selection = None, whole = False):
 		'''A method to print the list of the task'''
+		Psize = 25
 		print('''
 \033[4mID |  File Name              |  Scene                  |  Preset                 |\033[0m''')
 		if page > 0:
 			print('▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|')
 		
 		if selection is None or whole:
-			selected = self.tasks[page*25:(page+1)*25]
-			index = list(range(page*25, (page+1)*25))
+			selected = self.tasks[page*Psize:(page+1)*Psize]
+			index = list(range(page*Psize, (page+1)*Psize))
 		else:
 			selection.sort()
 			index = selection
@@ -198,8 +199,8 @@ Not Yet Implement :
 			print(row)
 		
 		
-		if selection is not None and (page+1)*25 <= len(selected)\
-			or selection is None and (page+1)*25 <= len(self.tasks):
+		if selection is not None and (page+1)*Psize <= len(selected)\
+			or selection is None and (page+1)*Psize <= len(self.tasks):
 			print('▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|')
 	
 	
