@@ -127,6 +127,8 @@ class TaskList:
 			elif choice in ['b', 'batch']:
 				if(self.batchEdit(log, preferences)):
 					self.save()
+			elif choice in ['l', 'log']:
+				if(self.menuArchive(log))
 			elif choice in ['h', 'help']:
 				log.menuIn('Help')
 				log.print()
@@ -140,6 +142,7 @@ Add task : a or add or +
 Edit/inspect a task : type the index of the task
 Batch editing : b or batch
 Run tasks : r or run
+See archived ended task : l or log
 
 Preferences access : p or pref or preferences
 Help : h or help
