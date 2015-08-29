@@ -174,15 +174,18 @@ Not Yet Implement :
 	
 	
 	
-	def print(self, page, selection = None, whole = False):
-		'''A method to print the list of the task'''
+	def print(self, page, selection = None, whole = False, archive = False):
+		'''A method to print the list of the pending task or archive task or selected task'''
 		Psize = 25
 		print('''
 \033[4mID |  File Name              |  Scene                  |  Preset                 |\033[0m''')
 		if page > 0:
 			print('▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲|')
 		
-		if selection is None or whole:
+		if archive:
+			selected = self.archive[page*Psize:(page+1)*Psize]
+			index = list(range(page*Psize, (page+1)*Psize))
+		elif selection is None or whole:
 			selected = self.tasks[page*Psize:(page+1)*Psize]
 			index = list(range(page*Psize, (page+1)*Psize))
 		else:
@@ -191,6 +194,8 @@ Not Yet Implement :
 			selected = []
 			for i in selection:
 				selected.append(self.tasks[i])
+		
+		
 		for i,task in enumerate(selected):
 			row = columnLimit( index[i], 3, 0)
 			row += task.getRow()
@@ -200,7 +205,11 @@ Not Yet Implement :
 		
 		
 		if selection is not None and (page+1)*Psize <= len(selected)\
-			or selection is None and (page+1)*Psize <= len(self.tasks):
+			or selection is None and (\
+					( not archive and (page+1)*Psize <= len(self.tasks) )\
+										or\
+					( archive and (page+1)*Psize <= len(self.archive) )\
+										):
 			print('▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼|')
 	
 	
