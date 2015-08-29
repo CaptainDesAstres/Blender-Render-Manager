@@ -212,7 +212,7 @@ class Task:
 	def menuArchive(self, log, index, tasks):
 		'''method to edit task settings'''
 		log.menuIn('Archived Task n°'+str(index))
-		
+		change = False
 		while True:
 			log.print()
 			
@@ -230,13 +230,25 @@ action : ''').strip().lower()
 			
 			if choice in ['0', 'q', 'quit', 'cancel']:
 				log.menuOut()
-				return False
+				return change
 			elif choice == '1':
-				
+				self.log.menu(log, index)
 			elif choice == '2':
 				
-			elif choice == '3':
+				new = self.copy()
+				new.status = 'waiting'
+				new.log = None
+				tasks.tasks.append(new)
+				log.write('A copy of the archived task n°'+str(index)+' have been added at the bottom of the pending task list.')
+				change = True
 				
+			elif choice == '3':
+				conf = input('\n\nThe task gone be definitly erased. Confirm action (y) :').strip().lower()
+				if conf in ['y', 'yes']:
+					tasks.archive.pop(index)
+					log.write('The archived task n°'+str(index)+' have been erased.')
+					log.menuOut()
+					return True
 			else:
 				log.error('Unknow request!', False)
 	
