@@ -128,7 +128,7 @@ class TaskList:
 				if(self.batchEdit(log, preferences)):
 					self.save()
 			elif choice in ['l', 'log']:
-				if(self.menuArchive(log))
+				self.menuArchive(log)
 			elif choice in ['h', 'help']:
 				log.menuIn('Help')
 				log.print()
@@ -148,13 +148,6 @@ Preferences access : p or pref or preferences
 Help : h or help
 Quit : q or quit
 
-Not Yet Implement :
-##
-##
-##See previous sessions logs : l or log
-##
-##
-
 ''')
 				
 				input('Press enter to continue')
@@ -171,6 +164,65 @@ Not Yet Implement :
 					continue
 				
 				if(self.tasks[choice].menu(log, choice, self, preferences)):
+					self.save()
+	
+	
+	
+	
+	
+	def menuArchive(self, log):
+		'''Archive managing menu'''
+		log.menuIn('Archived Task List')
+		page = 0
+		
+		while True:
+			log.print()
+			
+			self.print(page, archive = True)
+			
+			choice= input('action (h for help):').strip().lower()
+			if choice in ['q', 'quit']:
+				log.menuOut()
+				return
+			
+			if choice in ['d', '>', '']:
+				if page < math.floor((len(self.archive)-1)/25):
+					page += 1
+				elif choice == '':
+					page = 0
+			elif choice in ['u', '<']:
+				if page > 0:
+					page -= 1
+			elif choice in ['h', 'help']:
+				log.menuIn('Help')
+				log.print()
+				
+				print('''\n\n        \033[4mHELP :\033[0m
+
+Scroll up the list : u or <
+Scroll down the list : d or > or just type enter
+
+Edit/inspect a task : type the index of the task
+
+Help : h or help
+Quit : q or quit
+
+''')
+				
+				input('Press enter to continue')
+				log.menuOut()
+			else:
+				try:
+					choice = int(choice)
+				except:
+					log.error('Unknow request!', False)
+					continue
+				
+				if choice < 0 or choice >= len(self.archive):
+					log.error('There is no archived task n°'+str(choice)+'!', False)
+					continue
+				
+				if(self.archive[choice].menuArchive(log, choice, self)):
 					self.save()
 	
 	
