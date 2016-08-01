@@ -24,7 +24,7 @@ def eraseLockFile():
 	os.remove(os.getcwd()+'/lock')
 
 def checkLogLimit(limit):
-	'''a function tou limit the session log number'''
+	'''a function to limit the session log number'''
 	content = os.listdir(os.getcwd()+'/log/')
 	
 	if len(content) > limit:
